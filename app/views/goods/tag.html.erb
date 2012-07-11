@@ -3,3 +3,6 @@
 <% content_for :keywords do -%><%=@tagname%>,<%=@tagname%>价格,<%=@tagname%>价格信息,<%=@tagname%>信息,<% end -%>
 <% @where_name = @tagname; @where = tag_good_path(@tagname) %>
 <%= render @taggables %>
+<div class="r">
+  <%= will_paginate @taggables %>
+</div>

@@ -290,6 +290,7 @@ zh-CN:
       new: '添加'
     goods:
       new: '添加'
+      search: '搜索'
     articles:
       new: '添加'
     sessions:

@@ -32,8 +32,10 @@ class Good < ActiveRecord::Base
 
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   scope :recent,order('id desc').includes(:reviews).limit(10)
+  scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin')
 
   validates :name, :presence => true,:uniqueness => true
+  validates :unit, :presence => true
   
   acts_as_commentable
   acts_as_taggable
@@ -54,8 +56,8 @@ class Good < ActiveRecord::Base
 
   def cheapest
     @cheapest = self.prices.min{|price| price.price}
-    checapest_price = @cheapest.try(:human_price)
-    checapest_price ||= "none"
+    cheapest_price = @cheapest.try(:human_price)
+    cheapest_price ||= "none"
   end
 
   def to_s

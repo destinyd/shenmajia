@@ -1,24 +1,13 @@
 Zhekou::Application.routes.draw do
-  resources :products do
-    collection do
-      get :searchJSON
-    end
-  end
+  resources :products
   resources :costs
-  resources :norms do
-    collection do
-      get :searchJSON
-    end
-  end
+  resources :norms
   resources :units
 
   resources :brands do
     resources :products
     resources :norms
     resources :units
-    collection do
-      get :searchJSON
-    end
   end
 
   resources :companies
@@ -116,7 +105,7 @@ Zhekou::Application.routes.draw do
     end
     collection do
       get :tags
-      get :searchJSON
+      get :search
     end
     member do
       get :tag

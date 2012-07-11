@@ -8,22 +8,30 @@
 <b>名称:</b>
 <%= good.name %>
 </p>
-<% unless good.desc.blank? %>
-<p>
-<b>描述:</b>
-<%= raw good.desc unless good.user_id %>
-<%= good.desc if good.user_id %>
-</p>
-<% end %>
+<%= content_tag 'p' do %>
+  <b>描述:</b>
+  <%= raw good.desc unless good.user_id %>
+  <%= good.desc if good.user_id %>
+<% end unless good.desc.blank? %>
 
-<% if good.tag_list %>
-<p>
-<b>标签:</b>
-<% good.tags.each do |tag| %>
-  <%= link_to tag,tag_good_path(tag.name) -%>
-<% end -%>
-</p>
-<% end %>
+<%= content_tag 'p' do %>
+  <b>规格:</b>
+  <%= good.norm  %>
+<% end unless good.norm.blank? %>
+
+<%= content_tag 'p' do %>
+  <b>单位:</b>
+  <%= good.unit  %>
+<% end if good.unit %>
+
+
+
+<%= content_tag 'p' do %>
+  <b>标签:</b>
+  <% good.tags.each do |tag| %>
+    <%= link_to tag,tag_good_path(tag.name) -%>
+  <% end -%>
+<% end if good.tags.any? %>
 <% upload = good.try(:uploads).try(:first) %>
 <% if upload.image_file_name.scan(/http/).blank? %>
   <img src="<%= upload.image.url %>" alt="<%= good.name %>" />

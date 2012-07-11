@@ -342,9 +342,13 @@ article {
   margin:10px;
   li{
     float:left;
-    width:150px;
+    width:15%;
     overflow:hidden;
-}
+  }
+  .name{
+    width:50%;
+    margin-right:10px;
+  }
 }
 footer{
   padding: 20px 0;
@@ -619,9 +623,10 @@ article{
         }
         height:auto;
         .img{
-          /*min-height:150px;*/
+          text-align:center;
           img{
-            max-width:200px;
+            height:120px;
+            /*max-width:200px;*/
           }
           margin-bottom:15px;
         }

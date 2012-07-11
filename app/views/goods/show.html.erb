@@ -13,7 +13,7 @@
  <div class="section" style="width:95%;float:none">
     <h3>价格分析</h3>
     <ul>
-      <li>商品的平均价格为：<%= @good.prices.sum(&:price) / @good.prices.count  %>元</li>
+      <li>商品的平均价格为：<%= @good.prices.count > 0 ? "#{@good.prices.sum(&:price) / @good.prices.count}元" : "暂无资料"  %></li>
       <% adv = @good.prices.where(:created_at=>Time.now.beginning_of_month..Time.now) %>
       <% if adv.count > 0 %>
         <% adv = adv.sum(&:price) / adv.count %>
@@ -25,7 +25,7 @@
   </div> 
   <%# @good alias or tag %>
     <% end unless cookies[:lat].blank? %>
-    <%= render 'section',:plus => {:things => @good.find_related_tags,:title=> "相关商品",:not_count => true} %>
+    <%= render 'section',:plus => {:things => @good.find_related_tags,:title=> "相关商品",:not_count => true} unless @good.find_related_tags %>
   <%= render 'comments/comments',:commentable => @good %>
 <% end -%>
 <% content_for :sidebar do -%>

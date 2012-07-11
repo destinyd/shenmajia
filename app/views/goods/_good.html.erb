@@ -1,11 +1,14 @@
 <%= content_tag :ul,:class => 'table' do %>
-  <%= content_tag 'li' do -%>
-    <%= link_to good,good %>
+  <%= content_tag 'li',:class => 'name' do -%>
+    <%= link_to good,good,:title => good.name %>
   <% end %>
   <%= content_tag 'li' do -%>
-    <%= good.cheapest %>
+    <%= good.norm %>
   <% end %>
   <%= content_tag 'li' do -%>
-    <%= good.created_at %>
+    <%= good.unit %>
+  <% end %>
+  <%= content_tag 'li' do -%>
+    <%= good.origin %>
   <% end %>
 <% end %>

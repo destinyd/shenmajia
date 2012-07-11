@@ -15,14 +15,14 @@
 <script>
   $(function(){
     var gf = $('#good_flows');// .img img').load(function(){$(this).css('height',$(this).height())
-      gf.imagesLoaded(function(){
+      <%#gf.imagesLoaded(function(){%>
         gf.masonry({
           // options
           itemSelector : '.pin',
           columnWidth : 240,
           isAnimated: true
         });
-      });
+      <%#});%>
     gf.infinitescroll({
       navSelector  : '#page-nav',    // selector for the paged navigation 
       nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
@@ -37,11 +37,11 @@
         // hide new items while they are loading
         var $newElems = $( newElements ).css({ opacity: 0 });
         // ensure that images load before adding to masonry layout
-        $newElems.imagesLoaded(function(){
+        <%#$newElems.imagesLoaded(function(){%>
           // show elems now they're ready
           $newElems.animate({ opacity: 1 });
           gf.masonry( 'appended', $newElems, true ); 
-        });
+        <%#});%>
       }
     );
     });
