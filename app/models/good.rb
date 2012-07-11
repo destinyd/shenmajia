@@ -5,7 +5,6 @@ class Good < ActiveRecord::Base
   belongs_to :user
   belongs_to :brand
   belongs_to :product
-  belongs_to :norm
   has_many :shop_goods,:dependent => :destroy
   has_many :shops,:through => :shop_goods
   has_many :brand_goods,:dependent => :destroy
