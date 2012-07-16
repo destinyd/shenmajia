@@ -1,13 +1,17 @@
 Zhekou::Application.routes.draw do
+  resources :places do
+    get 'search' ,:on => :collection
+  end
+
   resources :products
   resources :costs
-  resources :norms
-  resources :units
+  resources :norms,:only => :index
+  resources :units,:only => :index
 
   resources :brands do
     resources :products
-    resources :norms
-    resources :units
+    #resources :norms
+    #resources :units
   end
 
   resources :companies

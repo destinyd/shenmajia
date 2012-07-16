@@ -275,6 +275,7 @@ zh-CN:
     price_goods: "商品绑定"
     shops: 商店
     brands: 品牌
+    places: 地点
   action:
     prices:
       new: '记账'

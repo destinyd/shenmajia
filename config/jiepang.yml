@@ -1,0 +1,10 @@
+development:
+      key:    "100000"
+      secret: "95b4e6481173ad3645dc6f8e5c3e7908"
+      url:    "http://localhost:3000"
+      callback: "http://localhost:3000/your_callback_url"
+production:
+      key:    "100488"
+      secret: "95b4e6481173ad3645dc6f8e5c3e7908"
+      url:    "http://shenmajia.com"
+      callback: "http://shenmajia.com/your_callback_url"

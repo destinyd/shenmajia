@@ -42,8 +42,9 @@ class ApplicationController < ActionController::Base
 
   private
   def get_cache_id
-    @cache_id = Time.now.strftime "%Y%m_%d%H"
+    @cache_id = Time.now.strftime "%Y%m_%d"
   end
+
   def ip_infos
     @ip_infos = {
       :city => cookies[:city],

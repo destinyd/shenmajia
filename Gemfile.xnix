@@ -69,3 +69,6 @@ group :test do
   gem 'spork'#, '0.9.0'
 end
 gem 'quiet_assets', :group => :development
+#gem 'omniauth-oauth2'
+#gem 'omniauth-jiepang',:git => 'git://github.com/transist/omniauth-jiepang.git'
+gem 'guid'

@@ -1,0 +1,23 @@
+<table>
+  <tr>
+    <th>名称</th>
+    <th>地址</th>
+    <th>联系电话</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @places.each do |place| %>
+  <tr>
+    <td><%= link_to place,place %></td>
+    <td><%= place.addr %></td>
+    <td><%= place.tel %></td>
+  </tr>
+<% end %>
+</table>
+<div class="c"></div>
+<div class="r">
+  <%= link_to '上一页',search_places_path(params.merge({:page => @page - 1})) if @page > 1 %>
+  <%= link_to '下一页',search_places_path(params.merge({:page => @page + 1})) if @has_more %>
+</div>

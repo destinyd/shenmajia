@@ -1,0 +1,75 @@
+<% content_for :title do -%><%= "#{@place.addr}:#{@place}" %>地点信息_<%= @place %>菜单_<%= @place %>消费 - <% end -%>
+<% content_for :desc do -%><%= "#{@place}，地址：#{@place.addr}" %>_<%= @place %>地点信息、菜单、消费情况 尽在神马价。 <% end -%>
+<% content_for :keywords do -%><%= @place %>地点信息,<%= @place %>菜单,<%= @place %>消费,<% end -%>
+<% @where_name = @place.name %>
+<% @where = @place %>
+<% content_for :head do -%>
+  <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=places" type="text/javascript"></script>
+  <script>
+      lat = <%= @place.lat %>;
+      lon = <%= @place.lon %>;
+      google.maps.event.addDomListener(window, 'load', show_map_init);
+  </script>
+<% end -%>
+<p>
+  <b>地点名称:</b>
+  <%= @place.name %>
+</p>
+
+<p>
+  <b>地址:</b>
+  <%= @place.addr %>
+</p>
+
+<% unless @place.tel.blank? %>
+  <p>
+    <b>Tel:</b>
+    <%= @place.tel %>
+  </p>
+<% end %>
+<br />
+<% cache "places_#{@place.id}_jiepang_#{@cache_id}" do %>
+<%#以下信息来至街旁网:<br />%>
+<% unless @j['mayor'].blank? %>
+  地主: <img src="<%= @j['mayor']['avatar'] %>" alt="<%= @j['mayor']['nick'] %>" /><br />
+<% end %>
+<% unless @j['categories'].blank? %>
+  分类: 
+  <% @j['categories'].each do |category| %>
+    <img src="http://jiepang.com<%= category['icon'] %>" alt="<%= category['name'] %>" title="<%= category['name'] %>" />
+  <% end %><br />
+<% end %>
+  签到次数: <%= @j['checkin_num'] %><br />
+  签到总人数: <%= @j['checkin_users_num'] %><br />
+  所在城市: <%= @j['city'] %><br />
+<% end %>
+
+
+<% content_for :plus do -%>
+  <% cache "places_#{@place.id}_plus_#{@cache_id}" do %>
+  <div class="section">
+    <h3>图片</h3>
+    <div id="gallery">
+      <% @photos["items"].each do |photo| %>
+        <div class="thumb">
+          <%= link_to "#{photo['photo']['url']}?size=500&style=1&quality=high"  do %>
+            <img src="<%= photo['photo']['url'] %>" alt="<%= photo['body'] %>" title="<%= photo['body'] %>" />
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <% end -%>
+<% end unless @photos["items"].blank? -%>
+
+<% content_for :sidebar do -%>
+  <div class="section">
+    <h3>地图显示</h3>
+    <div id="google_map" style="height:400px;">
+    </div>
+  </div>
+  <% cache "sidebar_place_#{@cache_id}" do %>
+    <%#= render 'section',:plus => {:things => @place.near_places.where(:good_id=>@place.good_id).recent,:title=> "本商品周边最新价格",:section_path => places_path} %>
+    <%= render 'section',:plus => {:things => @place.near_places,:title=> "周边地点"} %>
+  <% end %>
+<% end -%>
