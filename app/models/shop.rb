@@ -5,6 +5,7 @@ class Shop < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :brand
+  belongs_to :place
   has_many :shop_goods,:dependent => :destroy
   has_many :goods,:through => :shop_goods
   has_many :prices

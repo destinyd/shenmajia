@@ -4,8 +4,16 @@ class Place < ActiveRecord::Base
   validates :guid, :presence => true,:uniqueness => true 
   validates :name, :presence => true,:uniqueness => {:scope => [:lat,:lon]}
   #validates :name, :presence => true,:uniqueness => true
-  validates :lat, :presence => true
-  validates :lon, :presence => true
+  validates :lat, :presence => true, :numericality => {:greater_than_or_equal_to => -90, :less_than_or_equal_to => 90}
+  validates :lon, :presence => true, :numericality => {:greater_than_or_equal_to => -180, :less_than_or_equal_to => 180}
+
+  require 'locate_validator'
+  validates_with LocateValidator
+
+  has_many :shops
+  has_many :place_goods,:dependent => :destroy
+  has_many :goods,:through => :place_goods
+  has_many :costs, :as => :locatable, :dependent => :destroy
 
   include UuidHelper
   #set_primary_key :guid

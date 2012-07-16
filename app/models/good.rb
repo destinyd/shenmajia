@@ -5,13 +5,12 @@ class Good < ActiveRecord::Base
   belongs_to :user
   belongs_to :brand
   belongs_to :product
-  has_many :shop_goods,:dependent => :destroy
-  has_many :shops,:through => :shop_goods
   has_many :brand_goods,:dependent => :destroy
   has_many :brands,:through => :brand_goods
 
   #has_many :price_goods
   has_many :prices#,:through => :price_goods
+  has_many :costs
   has_many :outlinks, :as => :outlinkable
   has_many :records, :as => :recordable
   has_many :uploads, :as => :uploadable
@@ -26,6 +25,9 @@ class Good < ActiveRecord::Base
 
   has_many :shop_goods,:dependent => :destroy
   has_many :shops,:through => :shop_goods
+
+  has_many :place_goods,:dependent => :destroy
+  has_many :goods,:through => :place_goods
 
   accepts_nested_attributes_for :outlinks
   accepts_nested_attributes_for :uploads

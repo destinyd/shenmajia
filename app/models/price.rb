@@ -17,12 +17,12 @@ class Price < ActiveRecord::Base
   has_many :prices,:through => :price_costs
   has_many :costs
 
+  acts_as_commentable
+  geocoded_by :address
+
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   scope :review_low, Filter.new(self).extend(ReviewFilter)
   scope :truth,review_low(Review.truth_point)
-
-  acts_as_commentable
-  geocoded_by :address
 
   scope :running,where("finish_at > ? OR finish_at is null",Time.now)
   scope :cheapest,running.order("price")
