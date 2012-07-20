@@ -199,6 +199,9 @@ zh-CN:
       price:
         price: 单价
         total: 总价
+      cost:
+        money: 总额
+        good: 商品
 
   attributes:
     created_at: '创建于'
@@ -209,6 +212,7 @@ zh-CN:
     email: '邮箱'
     address:  '商家地址'
     price: 单价
+    unit_price: 单价
     image: 图片
     password: 密码
     remember_me: 记住我
@@ -276,6 +280,7 @@ zh-CN:
     shops: 商店
     brands: 品牌
     places: 地点
+    costs: 消费
   action:
     prices:
       new: '记账'
@@ -303,6 +308,10 @@ zh-CN:
       costs: 消费记录
       integral: 积分记录
       gold: 神币记录
+    costs:
+      new: '记录'
+    places:
+      search: '搜索'
 
   will_paginate:
     previous_label: "&#8592; 上一页"

@@ -1,17 +1,22 @@
 <div class='head_left'>
   <ul>
     <li><a href='/' alt='神马价'><div>神马价</div></a></li>
-    <li><%= link_to cheapest_prices_path do %><div>最便宜</div><% end %></li>
     <li><%= link_to groupbuy_prices_path do %><div>团购</div><% end %></li>
-    <li><%= link_to costs_prices_path do %><div>实际消费</div><% end %></li>
     <li><%= link_to '/cities' do %><div>区域价格</div><% end %></li>
+    <li><%= link_to costs_path do %><div>消费列表</div><% end %></li>
+    <li><%= link_to new_cost_path do %><div>记录消费</div><% end %></li>
     <li>您的位置:
     <%= link_to city_info_of_ip[:city],city_path(city_info_of_ip[:city]) unless city_info_of_ip[:city].blank? %>
     <%= "无法确认" if city_info_of_ip[:city].blank? %>
     <small><%= link_to '(重新定位)',new_locate_path(:format => :js),:method => :get,:remote => true %></small>
     </li>
     <li style="margin-left:5px;">
-    <%= text_field_tag :locate_id %><button onclick="if($('#locate_id').val()!='')window.location.href='/locates/'+$('#locate_id').val();return false;">搜索附近</button>
+    <%= form_tag search_places_path,:method => :get do |f| -%>
+      <%= text_field_tag :q %>
+      <%= submit_tag '搜索附近',:name => nil %>
+    <% end -%>
+    <%#= text_field_tag :locate_id %>
+    <%#<button onclick="if($('#locate_id').val()!='')window.location.href='/locates/'+$('#locate_id').val();return false;">搜索附近</button>%>
     </li>
   </ul>
 </div>

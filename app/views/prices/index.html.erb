@@ -8,7 +8,7 @@
 <% content_for :desc do -%><%= tmp1 %><% end if tmp -%>
 <% content_for :keywords do -%><%=tmp%>,<%=tmp%>价格,<%=tmp%>价格信息,<% end if tmp -%>
 <%= render 'prices_types' %>
-<% cache "p/i/#{params}/#{@cache_id}" do %>
+<% cache "p_i_#{params}_#{@cache_id}" do %>
   <%= render @prices %>
 <% end %>
 <div class="c"></div>

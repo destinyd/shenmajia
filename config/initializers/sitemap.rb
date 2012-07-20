@@ -8,30 +8,38 @@ DynamicSitemaps::Sitemap.draw do
     #:change_freq => 'daily', :priority => 0.8
   ##new_page!
 
+  url costs_url, 
+:last_mod => Cost.last.created_at,
+ :change_freq => 'daily', :priority => 0.6
+  url places_url, 
+:last_mod => Place.last.created_at,
+ :change_freq => 'daily', :priority => 0.5
+  #url costs_prices_url, 
+  #url costs_prices_url, 
   url prices_url, 
 :last_mod => Price.last.created_at,
- :change_freq => 'daily', :priority => 0.6
-  url costs_prices_url, 
-:last_mod => Price.last.created_at,
- :change_freq => 'daily', :priority => 0.6
+ :change_freq => 'daily', :priority => 0.4
+  #url costs_prices_url, 
+#:last_mod => Price.last.created_at,
+ #:change_freq => 'daily', :priority => 0.6
   url cheapest_prices_url, 
 :last_mod => Price.last.created_at,
- :change_freq => 'daily', :priority => 0.6
+ :change_freq => 'daily', :priority => 0.4
   url groupbuy_prices_url, 
 :last_mod => Price.last.created_at,
- :change_freq => 'daily', :priority => 0.6
+ :change_freq => 'daily', :priority => 0.4
 
   url tags_goods_url, 
 :last_mod => Good.last.created_at,
- :change_freq => 'daily', :priority => 0.6
+ :change_freq => 'daily', :priority => 0.2
 
   url goods_url, 
 :last_mod => Good.last.created_at,
- :change_freq => 'daily', :priority => 0.6
+ :change_freq => 'daily', :priority => 0.4
 
   url cities_url, 
 :last_mod => City.order(:updated_at).last.updated_at,
- :change_freq => 'monthly', :priority => 0.6
+ :change_freq => 'monthly', :priority => 0.1
 
   #new_page!
   

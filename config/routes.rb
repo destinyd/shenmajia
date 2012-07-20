@@ -1,4 +1,6 @@
 Zhekou::Application.routes.draw do
+  #resources :carts
+
   resources :places do
     get 'search' ,:on => :collection
   end

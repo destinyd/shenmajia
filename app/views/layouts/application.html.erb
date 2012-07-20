@@ -11,11 +11,11 @@
         <%  if could_bread?  -%>
           &raquo; <%= link_to t("controller.#{controller_name}"),eval("#{controller_name}_path")%>
         <% end -%>
-        <% unless ( could_bread? and ['index'].include? action_name) or @where -%>
+        <% unless ( could_bread? and ['index','show'].include? action_name) -%>
           &raquo; <%= link_to t("action.#{controller_name}.#{action_name}") %>
         <% end -%>
       <%# end %>
-      <% if could_bread? and @where -%>
+      <% if @where -%>
         &raquo; <%= link_to @where_name,@where  %>
       <% end -%>
     </h3>

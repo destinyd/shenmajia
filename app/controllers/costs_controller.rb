@@ -1,8 +1,15 @@
 class CostsController < InheritedResources::Base
   before_filter :authenticate_user!,:only => [:new,:create]
   actions :all, :except => [:edit,:update,:destroy]
-  belongs_to :city,:finder => :find_by_name!, :optional => true
+  #belongs_to :city,:finder => :find_by_name!, :optional => true
+  #belongs_to :place, :optional => true
   respond_to :html
+
+  #def new
+    #super do |format|
+      #format.js{ render "new_#{params[:step] || 1}"}
+    #end
+  #end
 
   def create
     @cost = resource = current_user.costs.new params[:cost]

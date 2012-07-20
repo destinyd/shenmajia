@@ -10,7 +10,6 @@ class Good < ActiveRecord::Base
 
   #has_many :price_goods
   has_many :prices#,:through => :price_goods
-  has_many :costs
   has_many :outlinks, :as => :outlinkable
   has_many :records, :as => :recordable
   has_many :uploads, :as => :uploadable
@@ -27,7 +26,11 @@ class Good < ActiveRecord::Base
   has_many :shops,:through => :shop_goods
 
   has_many :place_goods,:dependent => :destroy
-  has_many :goods,:through => :place_goods
+  has_many :places,:through => :place_goods
+
+  #has_many :good_costs,:dependent => :destroy
+  #has_many :costs , :through => :good_costs
+  has_many :costs
 
   accepts_nested_attributes_for :outlinks
   accepts_nested_attributes_for :uploads
@@ -45,7 +48,7 @@ class Good < ActiveRecord::Base
 #  default_scope order('id desc')#.includes(:prices) #
 
   def self.search(search)
-    if search
+    unless search.blank?
       where('name LIKE ?', "#{search}%")
     else
       scoped

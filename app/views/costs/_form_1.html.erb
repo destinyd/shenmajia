@@ -1,0 +1,15 @@
+<%
+    require 'jiepang'
+    unless params[:q].blank?
+      @page = params[:page] ? params[:page].to_i : 1
+      args = {:q => params[:q],:page => params[:page],:lat => cookies["lat"],:lon => cookies["lon"]}
+      @jiepang = Jiepang.new
+      result = @jiepang.search args
+      @places = result["places"]
+      @has_more = result["has_more"]
+%>
+  <%= render 'places' %>
+  <div class="c"></div>
+<% end %>
+<%= render 'places_search' %>
+<div class="c"></div>

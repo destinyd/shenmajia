@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th>名称</th>
+    <th>地址</th>
+    <th>联系电话</th>
+  </tr>
+
+<% @places.each do |place| %>
+  <tr>
+    <td><%= link_to place,new_cost_path(:place_id => place.id,:step => 2) %></td>
+    <td><%= place.addr %></td>
+    <td><%= place.tel %></td>
+  </tr>
+<% end %>
+</table>
+<div class="c"></div>
+<div class="r">
+  <%= button_to '上一页',new_cost_path(params.merge({:page => @page - 1})) if @page > 1 %>
+  <%= link_to '下一页',new_cost_path(params.merge({:page => @page + 1})) if @has_more %>
+</div>

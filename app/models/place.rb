@@ -1,6 +1,6 @@
 class Place < ActiveRecord::Base
-  attr_accessible :addr, :guid, :lat, :lon, :name, :tel, :mayor_description, :has_event, :has_surprise, :has_mayor_coupon,:categories,:link
-  attr_accessor :mayor_description, :has_event, :has_surprise, :has_mayor_coupon,:categories
+  attr_accessible :addr, :guid, :lat, :lon, :name, :tel, :mayor_description, :has_event, :has_surprise, :has_mayor_coupon,:categories,:link,:dist
+  attr_accessor :mayor_description, :has_event, :has_surprise, :has_mayor_coupon,:categories,:dist
   validates :guid, :presence => true,:uniqueness => true 
   validates :name, :presence => true,:uniqueness => {:scope => [:lat,:lon]}
   #validates :name, :presence => true,:uniqueness => true
@@ -14,6 +14,7 @@ class Place < ActiveRecord::Base
   has_many :place_goods,:dependent => :destroy
   has_many :goods,:through => :place_goods
   has_many :costs, :as => :locatable, :dependent => :destroy
+  has_many :prices, :as => :locatable, :dependent => :destroy
 
   include UuidHelper
   #set_primary_key :guid

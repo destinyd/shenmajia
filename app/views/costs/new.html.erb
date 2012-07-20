@@ -1,5 +1,3 @@
-<h1>New cost</h1>
+<h1><%= "#{t('action.costs.new')}#{t('controller.costs')}-第#{params[:step] || 1}步" %></h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', costs_path %>
+<%= render "form_#{params[:step] || 1}" %>

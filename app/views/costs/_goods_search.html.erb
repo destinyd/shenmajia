@@ -1,0 +1,8 @@
+<%= form_tag new_cost_path(params),:method => :get do |f| -%>
+  <%= text_field_tag :q,params[:q], :placeholder => '您购买的商品：如 矿泉水' %>
+  <%= hidden_field_tag :step,2 %>
+  <%= hidden_field_tag :place_id,params[:place_id] %>
+  <%= submit_tag '搜索商品',:name => nil %>
+<% end -%>
+
+
