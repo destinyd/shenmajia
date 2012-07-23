@@ -4,13 +4,14 @@
     <ul>
       <% plus[:things].each do |thing| -%>
         <% thing =  eval("thing.#{plus[:plusable]}") if plus[:plusable] -%>
-        <% diy_path =  eval("#{plus[:link_path]}(thing.#{plus[:link_name]})") if plus[:link_name] -%>
+        <% diy_path =  eval("#{plus[:link_path]}(thing.#{plus[:try_path]})") if plus[:try_path] -%>
         <li>
         <% if diy_path.blank? -%>
-          <%= link_to thing,thing,:target => '_blank',:title => thing -%>
+          <%= link_to thing.try(plus[:thing_name]),thing,:target => '_blank',:title => thing if plus[:thing_name] -%>
+          <%= link_to thing,thing,:target => '_blank',:title => thing unless plus[:thing_name] -%>
         <% else -%>
-          <%= link_to thing.try(plus[:link_name]),diy_path,:target => '_blank',:title => thing.try(plus[:link_name]) if plus[:link_name] -%>
-          <%= link_to thing,diy_path,:target => '_blank',:title => thing unless plus[:link_name] -%>
+          <%= link_to thing.try(plus[:try_path]),diy_path,:target => '_blank',:title => thing.try(plus[:try_path]) if plus[:try_path] -%>
+          <%= link_to thing,diy_path,:target => '_blank',:title => thing unless plus[:try_path] -%>
         <% end -%>
         <%= eval("thing.#{plus[:plus_text]}") if plus[:plus_text] -%>
         </li>

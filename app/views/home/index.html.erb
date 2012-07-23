@@ -24,7 +24,7 @@
   <div class="mt">
     <%= render 'section',:plus => {:things => Price.costs.limit(10),:title=> "最新消费记录",:section_path => costs_prices_path} %>
     <%= render 'section',:plus => {:things => Good.recent.limit(10),:title=> "最新产品",:section_path => goods_path} %>
-    <%= render 'section',:plus => {:things => Good.tag_counts.order('count desc').limit(10),:title=> "商品Tags",:section_path => tags_goods_path,:link_name => 'name',:link_path => 'tag_good_path'} %>
+    <%= render 'section',:plus => {:things => Good.tag_counts.order('count desc').limit(10),:title=> "商品Tags",:section_path => tags_goods_path,:try_path => 'name',:link_path => 'tag_good_path'} %>
   </div>
   <div class="mt">
   <%= render 'liner',:plus => {:things => Price.nearly_finish.with_uploads.limit(6),:title=> "即将结束",:section_path => nearly_finish_prices_path} %>

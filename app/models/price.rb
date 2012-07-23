@@ -137,6 +137,22 @@ class Price < ActiveRecord::Base
   end
 
   def to_s
+    #if name
+      #case type_id
+      #when '团购价'
+        #name
+      #when '全国配送团购价'
+        #name
+      #else
+        #"(#{human_price})#{name}"
+      #end 
+    #else
+      #""
+    #end
+    "#{human_price}(#{type_id})"
+  end
+
+  def human_name
     if name
       case type_id
       when '团购价'
@@ -148,7 +164,7 @@ class Price < ActiveRecord::Base
       end 
     else
       ""
-    end
+    end 
   end
 
   def could_post_good? user

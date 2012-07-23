@@ -1,3 +1,4 @@
+# coding: utf-8
 class Cost < ActiveRecord::Base
   attr_accessor :name,:address,:unit,:unit_price#,:shop
   attr_accessible :name,:good_id,:price_id,:money,:shop_id,:costs_attributes,:locatable_type,:locatable_id,:locatable,:desc,:unit,:amount,:unit_price#:price_attributes#,:price
@@ -22,6 +23,11 @@ class Cost < ActiveRecord::Base
   #has_many :price_costs,:dependent => :destroy
   #has_many :prices,:through => :price_costs
 
+
+  scope :recent,order("id desc")
+
+  acts_as_commentable
+
   def name
     good.try(:name)
   end
@@ -32,6 +38,24 @@ class Cost < ActiveRecord::Base
 
   def last_price
     good.prices.last
+  end
+
+  def costs_in_same_good
+    return @costs_in_same_good if @costs_in_same_good
+    @costs_in_same_good = Cost.where(:good_id => self.good_id).where("id != ?",self.id).recent
+  end
+
+  def costs_in_same_locatable
+    return @costs_in_same_locatable if @costs_in_same_locatable
+    @costs_in_same_locatable = self.locatable.costs.where("id != ?",self.id).recent
+  end
+
+  def other_good_costs
+    "#{locatable}购买#{amount}#{good.unit}，共消费#{money}元"
+  end
+
+  def other_locatable_costs
+    "购买#{good}*#{amount}#{good.unit}，共消费#{money}元"
   end
 
   before_create :create_good,:create_price

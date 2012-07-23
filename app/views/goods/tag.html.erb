@@ -2,7 +2,15 @@
 <% content_for :desc do -%>Tag:<%= @tagname %> 商品价格信息，<%= @tagname %>价格，尽在神马价。<% end -%>
 <% content_for :keywords do -%><%=@tagname%>,<%=@tagname%>价格,<%=@tagname%>价格信息,<%=@tagname%>信息,<% end -%>
 <% @where_name = @tagname; @where = tag_good_path(@tagname) %>
-<%= render @taggables %>
-<div class="r">
-  <%= will_paginate @taggables %>
+<div id="goods">
+  <ul class="table pretty">  
+    <li class="name">名称</li>  
+    <li>规格</li>  
+    <li>单位</li>  
+    <li>参考产地</li>  
+  </ul>
+  <%= render @taggables %>
+  <div class="r">
+    <%= will_paginate @taggables %>
+  </div>
 </div>

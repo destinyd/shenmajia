@@ -4,7 +4,7 @@
     <ul>
       <% near_prices.each do |price| %>
         <li>
-        <%=link_to(price,price)%><%= price.address %>
+        <%=link_to price.human_name,price %><%= price.address %>
         </li>
       <% end %>
     </ul>

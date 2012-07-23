@@ -6,7 +6,9 @@ Zhekou::Application.routes.draw do
   end
 
   resources :products
-  resources :costs
+  resources :costs do
+    resources :comments
+  end
   resources :norms,:only => :index
   resources :units,:only => :index
 

@@ -28,10 +28,12 @@
     <%= @price.type_id %>
     </p>
 
+    <% if @price.address %>
     <p>
     <b><%= label :price,:address%>:</b>
     <%= @price.address %>
     </p>
+    <% end %>
 
     <p>
     <b><%= label :price,:amount%>:</b>
@@ -56,13 +58,13 @@
     <br />
     <br />
 
-    <%= link_to '我也这价在这买了一件！',buy_one_price_path(@price) %>
+    <%= link_to '我也这价在这买了一件！',new_cost_path(:place_id => @price.locatable_id,:step => 3,:cost => {:good_id => @price.good_id}) %>
   <%= render 'reviews/links',:reviewable => @price %>
   <div class="c"></div>
 </div>
 
 <% content_for :plus do -%>
-  <% cache "prices/show/near_prices/#{@price.address[0,15]}/#{@cache_id}" do %>
+  <% cache "prices_show_near_prices_#{@price.address[0,15] if @price.address}_#{@cache_id}" do %>
     <%= render 'near_prices',:near_prices => @price.near_prices.groupbuy.includes(:good).limit(10) %>
     <% end unless @price.no_locate? %>
     <%= render 'comments/comments',:commentable => @price %>
