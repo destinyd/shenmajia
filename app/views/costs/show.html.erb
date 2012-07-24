@@ -1,6 +1,5 @@
-<% content_for :title do -%><%= @cost.created_at %>于<%= @cost.locatable %>购买<%= @cost.good %>的消费记录 <% end -%>
-<% content_for :desc do -%><%= @cost.created_at %>于<%= @cost.locatable %>购买<%= @cost.good %>的消费记录 <% end -%>
-<% content_for :keywords do -%><%= @cost.good %>,消费记录,<% end -%>
+<% set_meta_tags :keywords => "#{@cost.good},消费,消费记录", 
+:description => "#{@cost.user}#{@cost.desc}" %>
 <% @where_name = @cost.good %>
 <% @where = @cost %>
 <% content_for :head do -%>
@@ -11,8 +10,8 @@
     google.maps.event.addDomListener(window, 'load', show_map_init);
   </script>
 <% end -%>
-
 <div id="cost">
+  <h1><%= title "#{@cost.user.username}于#{@cost.created_at}在#{@cost.locatable}的消费记录" %></h1>
   <% cache "costs_#{@cost.id}_#{@cache_id}" do %>
     <p>
     <b><%= label :cost,:good %>:</b>
@@ -29,6 +28,11 @@
     <p>
     <b><%= label :cost,:money %>:</b>
     <%= @cost.money %>
+    </p>
+
+    <p>
+    <b><%= label :cost,:locatable %>:</b>
+    <%= link_to @cost.locatable, @cost.locatable %>
     </p>
 
     <p>

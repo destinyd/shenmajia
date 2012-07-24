@@ -19,7 +19,9 @@
         &raquo; <%= link_to @where_name,@where  %>
       <% end -%>
     </h3>
-    <%= yield %>
+    <div id="<%= controller_name %>_<%= action_name %>" class="yield">
+      <%= yield %>
+    </div>
     <div class="clearer"></div>
   </div>
   <div class="c"></div>

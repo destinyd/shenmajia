@@ -32,7 +32,7 @@ gem 'acts-as-taggable-on'#, '~>2.1.0'
 gem 'dynamic_sitemaps'
 
 group :development do
-  gem "nifty-generators"
+  #gem "nifty-generators"
   gem "rspec-rails", "~> 2.0"
   gem 'guard-rspec'#, '0.5.5'
   gem 'debugger'
@@ -74,3 +74,5 @@ gem 'quiet_assets', :group => :development
 #gem 'omniauth-oauth2'
 #gem 'omniauth-jiepang',:git => 'git://github.com/transist/omniauth-jiepang.git'
 gem 'guid'
+
+gem 'meta-tags', :require => 'meta_tags'

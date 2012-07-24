@@ -1,4 +1,12 @@
 module ApplicationHelper
+  def default_meta_tags
+    {
+      :site => "#{t("controller.#{controller_name}")} | #{t('title')}",
+      :description => t('desc'),
+      :keywords => t('keywords'), 
+      :reverse => true,
+    }
+  end
   def sortable(column, title = nil)  
     title ||= column.titleize  
     css_class = (column == sort_column) ? "current #{sort_direction}" : nil  

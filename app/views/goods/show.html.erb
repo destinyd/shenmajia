@@ -1,10 +1,10 @@
-<% content_for :title do -%><%= @good %>商品信息_<%= @good %>价格 - <% end -%>
-<% content_for :desc do -%><%= @good %>商品信息、价格 尽在神马价。 <% end -%>
-<% content_for :keywords do -%><%= @good %>商品信息,<%= @good %>价格,<%= @good.tag_list.join('价格,') %>价格,<% end -%>
+<% set_meta_tags :keywords => "商品,#{@good.tag_list.push(@good.name).uniq.join(',')}", 
+  :description => "#{@good}商品信息,#{@good}价格分析,#{@good}价格信息" %>
 <% @where_name = @good.name %>
 <% @where = @good %>
 <div class="product_l">
   <div class="good">
+    <h1><%= title "#{@good}商品信息" %></h1>
     <%= render 'goods/good_show',:good => @good %>
   </div>
 </div>

@@ -1,6 +1,5 @@
-<% content_for :title do -%><%= "#{@place.addr}:#{@place}" %>地点信息_<%= @place %>菜单_<%= @place %>消费 - <% end -%>
-<% content_for :desc do -%><%= "#{@place}，地址：#{@place.addr}" %>_<%= @place %>地点信息、菜单、消费情况 尽在神马价。 <% end -%>
-<% content_for :keywords do -%><%= @place %>地点信息,<%= @place %>菜单,<%= @place %>消费,<% end -%>
+<% set_meta_tags :keywords => "#{@place},消费,地点", 
+  :description => "#{@place}，地址：#{@place.addr}，#{@place}地点信息、菜单、消费情况" %>
 <% @where_name = @place.name %>
 <% @where = @place %>
 <% content_for :head do -%>
@@ -11,6 +10,7 @@
       google.maps.event.addDomListener(window, 'load', show_map_init);
   </script>
 <% end -%>
+<h1><%= title "#{@place}地点信息、消费情况" %></h1>
 <p>
   <b>地点名称:</b>
   <%= @place.name %>
@@ -46,7 +46,10 @@
 
 
 <% content_for :plus do -%>
-  <% cache "places_#{@place.id}_plus_#{@cache_id}" do %>
+  <% cache "places_#{@place.id}_costs_#{@cache_id}" do %>
+    <%= render 'section',:plus => {:things => @place.costs.recent.limit(10),:title=> "#{@place}的消费记录",:thing_name => :other_locatable_costs} %>
+  <% end %>
+  <% cache "places_#{@place.id}_photos_#{@cache_id}" do %>
   <div class="section">
     <h3>图片</h3>
     <div id="gallery">
@@ -59,8 +62,8 @@
       <% end %>
     </div>
   </div>
-  <% end -%>
-<% end unless @photos["items"].blank? -%>
+  <% end  unless @photos["items"].blank? -%>
+<% end -%>
 
 <% content_for :sidebar do -%>
   <div class="section">
