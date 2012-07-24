@@ -13,7 +13,9 @@ class CostsController < InheritedResources::Base
 
   def create
     @cost = resource = current_user.costs.new params[:cost]
-    create!
+    create! do |format|
+      format.html
+    end
   end
 
   protected
