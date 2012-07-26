@@ -341,17 +341,6 @@ article {
     overflow:hidden;
   }
 }
-#goods{
-  .table{
-    li{
-      width:15%;
-    }
-    .name{
-      width:50%;
-      margin-right:10px;
-    }
-  }
-}
 #form_goods_search{
   .table{
     li{
@@ -393,7 +382,7 @@ footer{
 }
 /*列表*/
 .product_l{
-  .price,.cost{
+  .price,.cost,.good,.place{
     padding:5px;
     height:135px;
     border-bottom:dashed 1px black;

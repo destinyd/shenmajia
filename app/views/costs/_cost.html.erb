@@ -1,22 +1,26 @@
 <% upload = cost.good.try(:uploads).try(:first) %>
-<div class="cost c" data-time="<%= cost.created_at.to_i %>">  
+<div class="cost c" data-time="<%= cost.created_at.to_i %>" id="cost_<%= cost.id %>">  
   <div class="l">
     <%= link_to cost do %>
       <% if upload  %>
         <% if upload.image_file_name.scan(/http/).blank? %>
-          <img src='<%=upload.image.url %>' alt='<%= cost.good.name %>' />
+          <img src='<%=upload.image.url %>' alt='<%= cost.good.name %>' title='<%= cost.good.name %>' />
         <% else %>
-          <img src='<%=upload.image_file_name %>' alt='<%= cost.good.name %>'/>
+          <img src='<%=upload.image_file_name %>' alt='<%= cost.good.name %>' title='<%= cost.good.name %>' />
         <% end %>
       <% else %>
-        <img src='/images/nopic.gif' alt='nopic' />
+        <img src='/images/nopic.gif'  alt='<%= cost.good.name %>' title='<%= cost.good.name %>' />
       <% end -%>
     <% end %>
   </div>
-  <div class="detail"><%=link_to  cost.good.name.try(:block,150),cost,:target => '_blank' %>
-    <br />
-    价格：<%= cost.money %>
-    <% if cost.locatable.try(:addr) %><br />地址：<%= cost.locatable.try(:addr) %><% end %>
+  <div class="detail">
+    <%=link_to  cost.good.name.try(:block,150),cost,:target => '_blank', :title=> cost.name %><br />
+    单价：<%= link_to cost.price, cost.price %><br />
+    数量：<%= cost.amount %><br />
+    消费：<%= cost.money %><br />
+    <% if cost.locatable %>
+      地点：<%= link_to cost.locatable, cost.locatable %>
+    <% end %>
   </div>
 </div>
 

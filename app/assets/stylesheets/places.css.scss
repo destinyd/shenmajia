@@ -1,3 +1,12 @@
+#places_index,#places_search{
+  td,th{
+    font-size:16px;
+    text-align: left;
+  }
+  .name{width: 25%}
+  .addr{width: 50%}
+  .phone{width: 20%}
+}
 #gallery{
   /*padding:10px;*/
   .thumb{

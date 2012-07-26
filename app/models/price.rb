@@ -31,7 +31,7 @@ class Price < ActiveRecord::Base
   scope :groupbuy,recent.where(:type_id=>[21,22])
   scope :not_finish,where("finish_at > ?",Time.now)
   # scope :costs,recent.where(:type_id=>[0,1])  
-  scope :with_uploads,includes(:uploads)
+  scope :with_good,includes(:good)
   scope :you_like,running.order('rand()')
 
 

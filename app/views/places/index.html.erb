@@ -1,16 +1,19 @@
+<% 
+  tmp = "地点列表，第#{params[:page] || 1}页" 
+  tmp = "搜索'#{params[:q].html_safe}'" + tmp if action_name == 'search'
+ set_meta_tags :keywords => "地点", :description => tmp 
+%>
+<h1><%= title tmp %></h1>
 <table>
   <tr>
-    <th>名称</th>
-    <th>地址</th>
-    <th>联系电话</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th class="name">地点名称</th>
+    <th class="addr">地点地址</th>
+    <th class="phone">地点联系电话</th>
   </tr>
 
 <% @places.each do |place| %>
   <tr>
-    <td><%= link_to place,place %></td>
+    <td class="name"><%= link_to place,place %></td>
     <td><%= place.addr %></td>
     <td><%= place.tel %></td>
   </tr>

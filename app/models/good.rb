@@ -37,7 +37,7 @@ class Good < ActiveRecord::Base
 
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   scope :recent,order('id desc').includes(:reviews).limit(10)
-  scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin')
+  scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at')
 
   validates :name, :presence => true,:uniqueness => true
   validates :unit, :presence => true
@@ -45,7 +45,7 @@ class Good < ActiveRecord::Base
   acts_as_commentable
   acts_as_taggable
 
-#  default_scope order('id desc')#.includes(:prices) #
+  default_scope includes(:uploads) #
 
   def self.search(search)
     unless search.blank?

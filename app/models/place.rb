@@ -15,6 +15,8 @@ class Place < ActiveRecord::Base
   has_many :goods,:through => :place_goods
   has_many :costs, :as => :locatable, :dependent => :destroy
   has_many :prices, :as => :locatable, :dependent => :destroy
+  
+  scope :recent,order("id desc")
 
   include UuidHelper
   #set_primary_key :guid

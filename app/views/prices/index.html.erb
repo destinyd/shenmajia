@@ -1,12 +1,12 @@
 <% tmp = t("action.#{controller_name}.#{action_name}") %>
 <% if @able %>
-  <% tmp1 = "#{@able}的#{tmp}的价格信息" %>
+  <% tmp1 = "#{@able}的#{tmp}价格信息" %>
 <% else %>
-  <% tmp1 = "#{tmp}的价格信息" %>
+  <% tmp1 = "#{tmp}价格信息" %>
 <% end -%>
-<% content_for :title do -%><%= tmp1 %> - <% end if tmp -%>
-<% content_for :desc do -%><%= tmp1 %><% end if tmp -%>
-<% content_for :keywords do -%><%=tmp%>,<%=tmp%>价格,<%=tmp%>价格信息,<% end if tmp -%>
+<% set_meta_tags :keywords => "价格,地址,#{tmp}价格", 
+:description => "#{tmp1}，第#{params[:page] || 1}页" %>
+<h1><%= title "#{tmp1}，第#{params[:page] || 1}页" %></h1>
 <%= render 'prices_types' %>
 <% cache "p_i_#{params}_#{@cache_id}" do %>
   <%= render @prices %>

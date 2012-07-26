@@ -1,12 +1,8 @@
-<div id="goods">
-  <ul class="table pretty">  
-    <li class="name">名称</li>  
-    <li>规格</li>  
-    <li>单位</li>  
-    <li>参考产地</li>  
-  </ul>
-  <%= render @goods %>
-  <div class="r">
-    <%= will_paginate @goods %>
-  </div>
+<% set_meta_tags :keywords => "商品,单位", 
+  :description => "商品列表，第#{params[:page] || 1}页"
+%>
+<h1><%= title "商品列表，第#{params[:page] || 1}页" %></h1>
+<%= render @goods %>
+<div class="r">
+  <%= will_paginate @goods %>
 </div>

@@ -1,14 +1,30 @@
-<%= content_tag :ul,:class => 'table' do %>
-  <%= content_tag 'li',:class => 'name' do -%>
-    <%= link_to good,good,:title => good.name %>
+<% upload = good.uploads.first %>
+<div class="good c" data-time="<%= good.created_at.to_i %>" id="good_<%= good.id %>">  
+  <div class="l">
+    <%= link_to good do %>
+      <% if upload  %>
+        <% if upload.image_file_name.scan(/http/).blank? %>
+          <img src='<%=upload.image.url %>' alt='<%= good.name %>' title='<%= good.name %>' />
+        <% else %>
+          <img src='<%=upload.image_file_name %>' alt='<%= good.name %>' title='<%= good.name %>' />
+        <% end %>
+      <% else %>
+        <img src='/images/nopic.gif'  alt='<%= good.name %>' title='<%= good.name %>' />
+      <% end -%>
+    <% end %>
+  </div>
+  <div class="detail">
+  <%= content_tag 'p' do -%>
+    <%=link_to  good.name.try(:block,150),good,:target => '_blank', :title=> good.name %>
   <% end %>
-  <%= content_tag 'li' do -%>
-    <%= good.norm %>
-  <% end %>
-  <%= content_tag 'li' do -%>
-    <%= good.unit %>
-  <% end %>
-  <%= content_tag 'li' do -%>
-    <%= good.origin %>
-  <% end %>
-<% end %>
+  <%= content_tag 'p' do -%>
+    规格：<%= good.norm %>
+  <% end unless good.norm.blank?%>
+  <%= content_tag 'p' do -%>
+    单位：<%= good.unit %>
+  <% end unless good.unit.blank? %>
+  <%= content_tag 'p' do -%>
+    参考产地：<%= good.origin %>
+  <% end unless good.origin.blank?%>
+  </div>
+</div>

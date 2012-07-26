@@ -282,6 +282,7 @@ zh-CN:
     brands: 品牌
     places: 地点
     costs: 消费
+    cities: 城市
   action:
     prices:
       new: '记账'

@@ -57,12 +57,12 @@ class Jiepang
   def get_json action,args
     args.merge! :source => key,:count => @@count.to_s
     str_p = ''
-    puts args
+    #puts args
     args.each do |k,v|
       str_p += "&#{k}=#{URI.escape(v)}" unless v.blank?
     end
     url = "#{@@url}#{action}?#{str_p}"
-    puts url
+    #puts url
     begin
       str_json = open(url).read
       json = JSON.parse(str_json)
