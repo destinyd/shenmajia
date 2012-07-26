@@ -62,7 +62,7 @@
 </div>
 
 <% content_for :plus do -%>
-  <% cache "prices/show/near_prices/#{@price.address[0,15]}/#{@cache_id}" do %>
+  <% cache "prices_show_near_prices_#{"%.02f" % @price.latitude}_#{"%.02f" % @price.longitude}_#{@cache_id}" do %>
     <%= render 'near_prices',:near_prices => @price.near_prices.groupbuy.includes(:good).limit(10) %>
     <% end unless @price.no_locate? %>
     <%= render 'comments/comments',:commentable => @price %>
