@@ -13,7 +13,7 @@
  <div class="section" style="width:95%;float:none">
     <h3>价格分析</h3>
     <ul>
-      <li>商品的平均价格为：<%= @good.prices.sum(&:price) / @good.prices.count  %>元</li>
+      <li>商品的平均价格为：<%= @good.prices.count > 0 ? "#{@good.prices.sum(&:price) / @good.prices.count}元" : "暂无资料"  %></li>
       <% adv = @good.prices.where(:created_at=>Time.now.beginning_of_month..Time.now) %>
       <% if adv.count > 0 %>
         <% adv = adv.sum(&:price) / adv.count %>
