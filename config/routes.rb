@@ -1,6 +1,8 @@
 Zhekou::Application.routes.draw do
   #resources :carts
 
+  get '/users/status' => "users/Status#index", :as => :user_status
+
   resources :places do
     get 'search' ,:on => :collection
   end
