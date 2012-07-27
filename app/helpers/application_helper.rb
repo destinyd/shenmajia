@@ -37,4 +37,9 @@ module ApplicationHelper
   def base_target_blank
     content_for :head ,raw('<base target="_blank">')
   end
+
+  def section p ,&block
+    content = capture(&block) 
+    render 's',p.merge(:content => content)
+  end
 end

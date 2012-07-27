@@ -1,5 +1,9 @@
 <div class="liner <%=plus[:plusclass] if plus[:plusclass]  %>">
-  <h3><%=plus[:title] %><% if plus[:section_path]  %><span style='float:right;font-size:12px'><%= link_to "更多",plus[:section_path] %> </span><% end %></h3>
+  <nav>
+  <h2 id="<%= plus[:title] %>"><%=plus[:title] %></h2>
+  <% if plus[:section_path]  %><span style='float:right;font-size:12px'><%= link_to "更多",plus[:section_path] %> </span><% end %>
+  </nav>
+  <div>
   <ul>
     <% plus[:things].each do |thing| %>
       <li>
@@ -19,4 +23,5 @@
       </li>
     <% end %>
   </ul>
+  </div>
 </div>

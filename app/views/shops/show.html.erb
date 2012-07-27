@@ -20,11 +20,5 @@
 </p>
 
 <% content_for :sidebar do -%>
-  <% unless @shop.no_locate? %>
-    <div class="section">
-      <h3>地图显示</h3>
-      <div id="google_map" style="height:400px;">
-      </div>
-    </div>
-  <% end %>
+  <%= render 'map' unless @shop.no_locate? %>
 <% end -%>

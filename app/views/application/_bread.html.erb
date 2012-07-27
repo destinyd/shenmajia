@@ -1,0 +1,23 @@
+<header>
+  <nav>
+    <ul>
+      <li><a href='/'>神马价</a></li>
+      <% if @able %>
+        <li>&raquo;</li>
+        <li><%= link_to(@able,@able) %></li>
+      <% end -%>
+      <%  if could_bread? %>
+        <li>&raquo;</li>
+        <li><%= link_to(t("controller.#{controller_name}"),eval("#{controller_name}_path")) %></li>
+      <% end -%>
+      <% unless (could_bread? and ['index','show'].include? action_name) %>
+        <li>&raquo;</li>
+        <li><%= link_to(t("action.#{controller_name}.#{action_name}")) %></li>
+      <% end  -%>
+      <% if @where_name -%>
+        <li>&raquo;</li>
+        <li><h1><%= link_to @where_name,@where || request.url %></h1></li>
+      <% end -%>
+    </ul>
+  </nav>
+</header>

@@ -1,14 +1,13 @@
 <%= render 'before_layout' %>
+<div id="wrap">
+  <div class="product_l">
     <article>
-    <div class="product_l">
-      <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-      <% end %>
       <%= yield %>
-    </div>
-    <aside>
-    <%= yield(:sidebar) %>
-    </aside>
     </article>
+  </div>
+  <aside>
+  <%= yield(:sidebar) %>
+  </aside>
+</div>
 <%= render 'after_layout' %>
 

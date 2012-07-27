@@ -1,21 +1,30 @@
 <% unless !plus[:not_count] and plus[:things].empty? %>
-  <div class="section<%=" #{plus[:plusclass]}" if plus[:plusclass]  -%>">
-    <h3><%=plus[:title] -%><% if plus[:section_path]  -%><span style='float:right;font-size:12px'><%= link_to "更多",plus[:section_path],:title => '更多' -%> </span><% end -%></h3>
-    <ul>
-      <% plus[:things].each do |thing| -%>
-        <% thing =  eval("thing.#{plus[:plusable]}") if plus[:plusable] -%>
-        <% diy_path =  eval("#{plus[:link_path]}(thing.#{plus[:try_path]})") if plus[:try_path] -%>
-        <li>
-        <% if diy_path.blank? -%>
-          <%= link_to thing.try(plus[:thing_name]),thing,:target => '_blank',:title => thing if plus[:thing_name] -%>
-          <%= link_to thing,thing,:target => '_blank',:title => thing unless plus[:thing_name] -%>
-        <% else -%>
-          <%= link_to thing.try(plus[:try_path]),diy_path,:target => '_blank',:title => thing.try(plus[:try_path]) if plus[:try_path] -%>
-          <%= link_to thing,diy_path,:target => '_blank',:title => thing unless plus[:try_path] -%>
+  <section class="<%="#{plus[:plusclass]}" if plus[:plusclass]  -%>">
+    <header>
+      <nav>
+        <ul>
+          <li class="title"><h2 id="<%= plus[:title] %>"><%= link_to plus[:title],'#' + plus[:title] -%></h2></li>
+        <% if plus[:section_path]  -%><li class="more"><%= link_to "更多",plus[:section_path],:title => '更多' -%> </li><% end -%>
+        </ul>
+      </nav>
+    </header>
+    <div class="article">
+      <ul>
+        <% plus[:things].each do |thing| -%>
+          <% thing =  eval("thing.#{plus[:plusable]}") if plus[:plusable] -%>
+          <% diy_path =  eval("#{plus[:link_path]}(thing.#{plus[:try_path]})") if plus[:try_path] -%>
+          <li>
+          <% if diy_path.blank? -%>
+            <%= link_to thing.try(plus[:thing_name]),thing,:target => '_blank',:title => thing if plus[:thing_name] -%>
+            <%= link_to thing,thing,:target => '_blank',:title => thing unless plus[:thing_name] -%>
+          <% else -%>
+            <%= link_to thing.try(plus[:try_path]),diy_path,:target => '_blank',:title => thing.try(plus[:try_path]) if plus[:try_path] -%>
+            <%= link_to thing,diy_path,:target => '_blank',:title => thing unless plus[:try_path] -%>
+          <% end -%>
+          <%= eval("thing.#{plus[:plus_text]}") if plus[:plus_text] -%>
+          </li>
         <% end -%>
-        <%= eval("thing.#{plus[:plus_text]}") if plus[:plus_text] -%>
-        </li>
-      <% end -%>
-    </ul>
-  </div>
+      </ul>
+    </div>
+  </section>
 <% end %>

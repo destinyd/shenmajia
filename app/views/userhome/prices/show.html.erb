@@ -64,8 +64,11 @@
 <% content_for :plus do -%>
   <% cache "prices/show/near_prices/#{@price.address[0,15]}/#{@cache_id}" do %>
     <% if @price.near_prices %>
-      <div class="section" style="width:95%;float:none">
-        <h3>附近价格</h3>
+      <section>
+        <header>
+        <nav><h2 id="附近价格"><a href=#附近价格>附近价格</a></h2></nav>
+        <header>
+        <div class="article">
         <ul>
           <% @price.near_prices.each do |price| %>
             <li><%#= price.type_id != "团购价" ? %>
@@ -73,26 +76,21 @@
             </li>
           <% end %>
         </ul>
-      </div>
+        </div>
+      </section>
     <% end %>
     <% end if @price.address and @price.latitude %>
   <%= render 'comments/comments' %>
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <% unless @price.no_locate? %>
-    <div class="section">
-      <h3>地图显示</h3>
-      <div id="google_map" style="height:400px;">
-      </div>
-    </div>
-  <% end %>
+  <%= render 'map' unless @price.no_locate? %>
   <div id="goods">
     <% @price.goods.each do |good| %>
       <%= render 'prices/price_good',:good => good %>
     <% end %>
   </div>
-  <div class="section" id='section_form_price_good'>
+  <section id='section_form_price_good'>
     <%= render 'prices/price_good_form',:price => @price %>
-  </div>
+  </section>
 <% end -%>

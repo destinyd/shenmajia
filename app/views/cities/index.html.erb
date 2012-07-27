@@ -1,19 +1,18 @@
-<% content_for :title do -%>选择你所在城市，查看区域价格信息。 - <% end -%>
-<% content_for :desc do -%>选择你所在城市 更好的查找您所需要的身边的价格信息。<% end -%>
-<% content_for :keywords do -%>选择你所在城市,城市选择,区域价格信息,地方价格信息,<% end -%>
-<div class="section cities">
-  <h3>选择你所在城市</h3>
-</div>
+<% set_meta_tags :keywords => "省,价格", 
+  :description => "选择你所在城市 更好的查找您所需要的身边的价格信息。"
+%>
+<section class="cities">
+  <nav><h1 id="选择你所在城市，查看区域价格信息。"><a href=#选择你所在城市，查看区域价格信息。><%= title '选择你所在城市，查看区域价格信息。'  %></a></h1></nav>
+</section>
 <div id="cities">
   <% cache "cities" do %>
     <% Province.scoped.includes(:cities).each do |province| %>
       <% if !province.cities.blank? %>
-        <div class="section" style="height:120px;">
-          <h3><%= province.name %></h3>
+        <%= section :title => province.name,:style =>'height:120px;' do %>
           <% province.cities.each do |city| %>
             <%= link_to city.name,city %>
           <% end %>
-        </div>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

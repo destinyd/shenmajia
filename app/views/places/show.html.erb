@@ -1,5 +1,7 @@
 <% set_meta_tags :keywords => "#{@place},地点,消费", 
-  :description => "#{@place}，地址：#{@place.addr}，#{@place}地点信息、菜单、消费情况" %>
+  :description => "#{@place}，地址：#{@place.addr}，#{@place}地点信息、菜单、消费情况",
+  :title => "#{@place}地点信息、消费情况"
+%>
 <% @where_name = @place.name %>
 <% @where = @place %>
 <% content_for :head do -%>
@@ -10,7 +12,6 @@
       google.maps.event.addDomListener(window, 'load', show_map_init);
   </script>
 <% end -%>
-<h1><%= title "#{@place}地点信息、消费情况" %></h1>
 <p>
   <b>地点名称:</b>
   <%= @place.name %>
@@ -50,8 +51,7 @@
     <%= render 'section',:plus => {:things => @place.costs.recent.limit(10),:title=> "#{@place}的消费记录",:thing_name => :other_locatable_costs} %>
   <% end %>
   <% cache "places_#{@place.id}_photos_#{@cache_id}" do %>
-  <div class="section">
-    <h3>图片</h3>
+    <%= section :title => '图片' do %>
     <div id="gallery">
       <% @photos["items"].each do |photo| %>
         <div class="thumb">
@@ -61,16 +61,12 @@
         </div>
       <% end %>
     </div>
-  </div>
+  <% end%>
   <% end  unless @photos["items"].blank? -%>
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <div class="section">
-    <h3>地图显示</h3>
-    <div id="google_map" style="height:400px;">
-    </div>
-  </div>
+  <%= render 'map' %>
   <% cache "sidebar_place_#{@cache_id}" do %>
     <%#= render 'section',:plus => {:things => @place.near_places.where(:good_id=>@place.good_id).recent,:title=> "本商品周边最新价格",:section_path => places_path} %>
     <%= render 'section',:plus => {:things => @place.near_places,:title=> "周边地点"} %>

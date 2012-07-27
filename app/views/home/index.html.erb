@@ -9,7 +9,7 @@
     </div>
     <div class="articles">
       <% @articles = Article.recent %>
-      <div class="section" style="width:25%;"><h3>文章</h3><%= render 'articles/articles_li' %></div>
+      <div class="section" style="width:25%;"><nav><h2 id="文章"><a href=#文章>文章</a></h2></nav><%= render 'articles/articles_li' %></div>
     </div>
   </div>
 
@@ -31,7 +31,7 @@
   </div>
   <div class="mt">
     <%= render 'section',:plus => {:things => Focus.most,:title=> "最多关注",:plusable=>'focusable'} %>
-    <div class="section"><h3>经验排行榜</h3>
+    <div class="section"><nav><h2 id="经验排行榜"><a href=#经验排行榜>经验排行榜</a></h2></nav>
       <ul>
         <% Integral.recent.each do |exp| %>
           <li><%=  exp.user %>  (<%=exp.points.to_i%>) </li>
@@ -40,7 +40,7 @@
     </div>
     <!--
     <div class="l section">
-      <h3>最新图片</h3>
+      <nav><h2 id="最新图片"><a href=#最新图片>最新图片</a></h2></nav>
       <%#= render 'uploads/li' %>
     </div>
     -->

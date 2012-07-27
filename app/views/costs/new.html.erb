@@ -1,3 +1,7 @@
-<h1><%= "#{t('action.costs.new')}#{t('controller.costs')}-第#{params[:step] || 1}步" %></h1>
+<% @where_name = "#{t('action.costs.new')}#{t('controller.costs')}-第#{params[:step] || 1}步" %>
+<% set_meta_tags :keywords => "#{@cost.good},消费,消费记录", 
+  :description => @where_name,
+  :title => @where_name
+%>
 
 <%= render "form_#{params[:step] || 1}" %>

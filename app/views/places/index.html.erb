@@ -1,9 +1,9 @@
 <% 
   tmp = "地点列表，第#{params[:page] || 1}页" 
   tmp = "搜索'#{params[:q].html_safe}'" + tmp if action_name == 'search'
- set_meta_tags :keywords => "地点", :description => tmp 
+  set_meta_tags :keywords => "地点", :description => tmp, :title => tmp
+ @where_name = tmp
 %>
-<h1><%= title tmp %></h1>
 <table>
   <tr>
     <th class="name">地点名称</th>
