@@ -4,6 +4,7 @@ Zhekou::Application.routes.draw do
   get '/users/status' => "users/Status#index", :as => :user_status
 
   resources :places do
+    resources :costs, :only => :index
     get 'search' ,:on => :collection
   end
 
@@ -97,6 +98,8 @@ Zhekou::Application.routes.draw do
   resources :focus
 
   resources :goods do
+    resources :costs, :only => :index
+
     resources :comments
     resources :uploads
     resources :reviews
@@ -146,6 +149,7 @@ Zhekou::Application.routes.draw do
 
   root :to => "home#index"
   match "/:reviewable_type/:reviewable_id/reviews" => "reviews#:action",:as => 'reviewable'
+  #match "/:locatable_type/:locatable_id/costs" => "costs#:action",:as => 'reviewable'
 
   #  match "/users/sign_out(.:format)",:controller => 'users/sessions',:action => :destroy,:as => 'destroy_user_session'
 

@@ -3,6 +3,8 @@ class CostsController < InheritedResources::Base
   actions :all, :except => [:edit,:update,:destroy]
   #belongs_to :city,:finder => :find_by_name!, :optional => true
   #belongs_to :place, :optional => true
+  belongs_to :good, :optional => true
+  belongs_to :place, :optional => true
   respond_to :html
 
   #def new

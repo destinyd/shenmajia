@@ -48,7 +48,7 @@
 
 <% content_for :plus do -%>
   <% cache "places_#{@place.id}_costs_#{@cache_id}" do %>
-    <%= render 'section',:plus => {:things => @place.costs.recent.limit(10),:title=> "#{@place}的消费记录",:thing_name => :other_locatable_costs} %>
+    <%= render 'section',:plus => {:things => @place.costs.recent.limit(10),:title=> "#{@place}的消费记录",:thing_name => :other_locatable_costs,:section_path => place_costs_path(@place)} %>
   <% end %>
   <% cache "places_#{@place.id}_photos_#{@cache_id}" do %>
     <%= section :title => '图片' do %>

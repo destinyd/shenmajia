@@ -51,7 +51,7 @@ class Cost < ActiveRecord::Base
   end
 
   def other_good_costs
-    "#{locatable}购买#{amount}#{good.unit}，共消费#{money}元"
+    "在#{locatable}购买#{amount}#{good.unit}，共消费#{money}元"
   end
 
   def other_locatable_costs
