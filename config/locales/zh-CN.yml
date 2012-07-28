@@ -283,6 +283,7 @@ zh-CN:
     places: 地点
     costs: 消费
     cities: 城市
+    homes: 用户主页
   action:
     prices:
       new: '记账'
