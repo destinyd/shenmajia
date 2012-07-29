@@ -1,0 +1,13 @@
+<% if (@price = Price.find(params[:id])).no_locate? %>
+  <% cache "prices_show_cheapest_id_#{@price.id}_#{@cache_id}" do %>
+    $(document).ready(function(){
+      $('#near_cheapest_article').html('暂无数据');
+    });
+  <% end %>
+<% else %>
+  <% cache "prices_show_near_cheapest_#{"%.02f" % @price.latitude}_#{"%.02f" % @price.longitude}_#{@cache_id}" do %>
+    $(document).ready(function(){
+      $('#near_cheapest').html('<%= j(render 'near_prices',:prices => @price.near_prices.where(:good_id => @price.good_id).cheapest.includes(:good).limit(10),:prices_title => '本商品周边最低价格') %>')
+    });
+  <% end %>
+<% end %>

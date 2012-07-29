@@ -72,6 +72,17 @@ class PricesController < ApplicationController
     redirect_to @price
   end
 
+  def near_groupbuy
+
+  end
+
+  def near_cheapest
+
+  end
+
+  def cheapest
+  end
+
   private
   def find_able_and_prices
     @prices = Price

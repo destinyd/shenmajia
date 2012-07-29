@@ -1,9 +1,9 @@
-<%= section :title => '附近特价商品信息' do %>
+<%= section :title => prices_title do %>
   <ul class="nowrap">
-    <% near_prices.each do |price| %>
+    <% prices.each do |price| %>
       <li>
       <%=link_to price.human_name,price, :title => price.human_name %><%= price.address %>
       </li>
     <% end %>
   </ul>
-<% end unless near_prices.blank? %>
+<% end unless prices.blank? %>

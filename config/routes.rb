@@ -77,6 +77,9 @@ Zhekou::Application.routes.draw do
     end
     member do
       get :buy_one
+      get :near_groupbuy
+      get :near_cheapest
+      get :cheapest
     end
   end
   resources :reviews

@@ -64,17 +64,44 @@
 </div>
 
 <% content_for :plus do -%>
-  <% cache "prices_show_near_prices_#{"%.02f" % @price.latitude}_#{"%.02f" % @price.longitude}_#{@cache_id}" do %>
-    <%= render 'near_prices',:near_prices => @price.near_prices.groupbuy.includes(:good).limit(10) %>
-    <% end unless @price.no_locate? %>
+  <div id="near_groupbuy">
+    <section>
+    <header>
+    <nav><h2 id="附近特价商品信息"><a href="#附近特价商品信息">附近特价商品信息</a></h2></nav>
+    </header>
+    <div class="article" id="near_groupbuy_article">
+      读取中...
+    </div>
+    </section>
+  </div>
     <%= render 'comments/comments',:commentable => @price %>
 <% end -%>
 
 <% content_for :sidebar do -%>
   <%= render 'map' unless @price.no_locate? %>
-<% cache "sidebar_prices_#{@cache_id}" do %>
-  <%#= render 'section',:plus => {:things => @price.near_prices.where(:good_id=>@price.good_id).recent,:title=> "本商品周边最新价格",:section_path => prices_path} %>
-  <%= render 'section',:plus => {:things => @price.near_prices.where(:good_id=>@price.good_id).cheapest.includes(:good).limit(10),:title=> "本商品周边最低价格"} unless @price.no_locate? %>
-  <%= render 'section',:plus => {:things => @price.good.prices.cheapest.includes(:good).limit(10),:title=> "本商品全国最低价格",:section_path => cheapest_good_prices_path(@price.good)} if @price.good %>
-<% end %>
+  <div id="near_cheapest">
+    <section>
+    <header>
+    <nav><h2 id="本商品附近最低价"><a href="#本商品附近最低价">本商品附近最低价</a></h2></nav>
+    </header>
+    <div class="article" id="near_cheapest_article">
+      读取中...
+    </div>
+    </section>
+  </div>
+
+  <div id="cheapest">
+    <section>
+    <header>
+    <nav><h2 id="本商品全国最低价"><a href="#本商品全国最低价">本商品全国最低价</a></h2></nav>
+    </header>
+    <div class="article" id="cheapest_article">
+      读取中...
+    </div>
+    </section>
+  </div>
 <% end -%>
+
+<script src="<%= near_groupbuy_price_path(@price,:format => :js) %>" type="text/javascript"></script>
+<script src="<%= near_cheapest_price_path(@price,:format => :js) %>" type="text/javascript"></script>
+<script src="<%= cheapest_price_path(@price,:format => :js) %>" type="text/javascript"></script>
