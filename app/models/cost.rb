@@ -3,6 +3,8 @@ class Cost < ActiveRecord::Base
   attr_accessor :name,:address,:unit,:unit_price#,:shop
   attr_accessible :name,:good_id,:price_id,:money,:shop_id,:costs_attributes,:locatable_type,:locatable_id,:locatable,:desc,:unit,:amount,:unit_price#:price_attributes#,:price
   validates :money, :presence => true
+  validates :lat, :presence => true
+  validates :lon, :presence => true
   belongs_to :user
   belongs_to :good
   belongs_to :cost

@@ -1,4 +1,4 @@
-<% @where_name = "#{@cost.user.username}于#{@cost.created_at}在#{@cost.locatable}的消费记录" %>
+<% @where_name = "#{@cost.user.username if @cost.user}于#{@cost.created_at}在#{@cost.locatable}的消费记录" %>
 <% @where = @cost %>
 <% set_meta_tags :keywords => "#{@cost.good},消费,消费记录", 
   :description => "#{@cost.user}#{@cost.desc}",
