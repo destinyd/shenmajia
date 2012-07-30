@@ -8,9 +8,7 @@ class PlacesController < InheritedResources::Base
 
   def show
     @place = Place.find(params[:id])
-    @jiepang = Jiepang.new
-    @j = @jiepang.locations_show @place.guid
-    @photos = @jiepang.locations_photos @place.guid
+    @place.update_jiepang
     super
   end
 

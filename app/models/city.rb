@@ -2,6 +2,7 @@ class City < ActiveRecord::Base
   belongs_to  :province
   has_many    :areas
   has_many    :ips
+  has_many    :places
   geocoded_by :name, :latitude  => :lat, :longitude => :lon
   #after_validation :geocode
   def shops

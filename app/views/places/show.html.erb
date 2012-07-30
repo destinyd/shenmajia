@@ -31,18 +31,18 @@
 <br />
 <% cache "places_#{@place.id}_jiepang_#{@cache_id}" do %>
 <%#以下信息来至街旁网:<br />%>
-<% unless @j['mayor'].blank? %>
-  地主: <img src="<%= @j['mayor']['avatar'] %>" alt="<%= @j['mayor']['nick'] %>" /><br />
+<% unless @place.mayor.blank? %>
+  地主: <img src="<%= @place.mayor['avatar'] %>" alt="<%= @place.mayor['nick'] %>" /><br />
 <% end %>
-<% unless @j['categories'].blank? %>
+<% unless @place.categories.blank? %>
   分类: 
-  <% @j['categories'].each do |category| %>
+  <% @place.categories.each do |category| %>
     <img src="http://jiepang.com<%= category['icon'] %>" alt="<%= category['name'] %>" title="<%= category['name'] %>" />
   <% end %><br />
 <% end %>
-  签到次数: <%= @j['checkin_num'] %><br />
-  签到总人数: <%= @j['checkin_users_num'] %><br />
-  所在城市: <%= @j['city'] %><br />
+  签到次数: <%= @place.checkin_num %><br />
+  签到总人数: <%= @place.checkin_users_num %><br />
+  所在城市: <%= @place.city %><br />
 <% end %>
 
 
@@ -53,7 +53,7 @@
   <% cache "places_#{@place.id}_photos_#{@cache_id}" do %>
     <%= section :title => '图片' do %>
     <div id="gallery">
-      <% @photos["items"].each do |photo| %>
+      <% @place.photos.each do |photo| %>
         <div class="thumb">
           <%= link_to "#{photo['photo']['url']}?size=500&style=1&quality=high"  do %>
             <img src="<%= photo['photo']['url'] %>" alt="<%= photo['body'] %>" title="<%= photo['body'] %>" />
@@ -62,7 +62,7 @@
       <% end %>
     </div>
   <% end%>
-  <% end  unless @photos["items"].blank? -%>
+  <% end  unless @place.photos.blank? -%>
 <% end -%>
 
 <% content_for :sidebar do -%>
