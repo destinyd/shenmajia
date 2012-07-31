@@ -234,6 +234,8 @@ zh-CN:
     password_confirmation: 密码验证
     is_cheap_price: '特价?'
     original_price: '原价'
+    unit: '单位'
+    norm: '规格'
 
 
   labels:
@@ -313,6 +315,7 @@ zh-CN:
       gold: 神币记录
     costs:
       new: '记录'
+      create: '记录'
     places:
       search: '搜索'
 

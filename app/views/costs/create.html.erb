@@ -1,5 +1,6 @@
 <h1>提交成功</h1>
-<%= link_to '查看您的消费单',@cost %><br /><br />
+<p><%= link_to '查看您的消费单',@cost %></p>
+<p><%= link_to '在此店还购买了其他',new_cost_path(:step => 2,:place_id => params[:place_id]) %></p>
 <h2>分享你的消费单。</h2>
 <!-- Baidu Button BEGIN -->
 <div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare" data="{'text':'<%= j @cost.desc %>','url':'<%= cost_url(@cost) %>'}">

@@ -22,6 +22,6 @@ class CostsController < InheritedResources::Base
 
   protected
   def collection
-    @costs = collection ||= end_of_association_chain.paginate(:page => params[:page])
+    @costs = collection ||= end_of_association_chain.with_price.with_good.with_locatable.paginate(:page => params[:page])
   end
 end

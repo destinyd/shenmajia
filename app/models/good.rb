@@ -36,10 +36,10 @@ class Good < ActiveRecord::Base
   accepts_nested_attributes_for :uploads
 
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
-  scope :recent,order('id desc').includes(:reviews).limit(10)
+  scope :recent,order('id desc')#.includes(:reviews).limit(10)
   scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at')
 
-  validates :name, :presence => true,:uniqueness => true
+  validates :name, :presence => true,:uniqueness => {:scope => [:unit,:norm]}
   validates :unit, :presence => true
   
   acts_as_commentable
@@ -49,7 +49,7 @@ class Good < ActiveRecord::Base
 
   def self.search(search)
     unless search.blank?
-      where('name LIKE ?', "#{search}%")
+      where('name LIKE ?', "%#{search}%")
     else
       scoped
     end
@@ -76,10 +76,15 @@ class Good < ActiveRecord::Base
     self.user.get_point(1,self,1) if self.user_id
   end
 
+  include UnitInitHelper
+  before_create :uniq_barcode_or_nil
+  after_create :exp
+
+  def uniq_barcode_or_nil
+    raise 'uniq_barcode_or_nil' if barcode and !Good.where(:barcode =>barcode).blank?
+  end
+
   def exp
     self.user.get_point(1,self) if self.user_id
   end
-
-  
-  after_create :exp
 end

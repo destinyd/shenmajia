@@ -1,10 +1,8 @@
 # coding: utf-8
 class Cost < ActiveRecord::Base
-  attr_accessor :name,:address,:unit,:unit_price#,:shop
-  attr_accessible :name,:good_id,:price_id,:money,:shop_id,:costs_attributes,:locatable_type,:locatable_id,:locatable,:desc,:unit,:amount,:unit_price#:price_attributes#,:price
+  attr_accessor :name, :address, :unit, :unit_price, :norm#, :shop
+  attr_accessible :name, :good_id, :price_id, :money, :shop_id, :costs_attributes, :locatable_type, :locatable_id, :locatable, :desc, :unit, :amount, :unit_price, :norm#:price_attributes#, :price
   validates :money, :presence => true
-  validates :lat, :presence => true
-  validates :lon, :presence => true
   belongs_to :user
   belongs_to :good
   belongs_to :cost
@@ -27,19 +25,18 @@ class Cost < ActiveRecord::Base
 
 
   scope :recent,order("id desc")
+  scope :with_price,includes(:price)
+  scope :with_good,includes(:good)
+  scope :with_locatable,includes(:locatable)
 
   acts_as_commentable
-
-  def name
-    good.try(:name)
-  end
 
   def form_price
     unit_price ||= last_price
   end
 
   def last_price
-    good.prices.last
+    good_id.blank? ? nil : good.prices.last
   end
 
   def costs_in_same_good
@@ -60,11 +57,15 @@ class Cost < ActiveRecord::Base
     "购买#{good}*#{amount}#{good.unit}，共消费#{money}元"
   end
 
+  include UnitInitHelper
   before_create :create_good,:create_price
 
   protected
   def create_good
-    self.good = Good.create :name => name, :unit => unit if good_id.blank? and ! unit.blank?
+    if good.blank?
+      self.good = Good.where(:name => name, :unit => unit, :norm => norm).first
+      self.good = self.user.goods.create :name => name, :unit => unit, :norm => norm unless self.good
+    end
   end
 
   def create_price

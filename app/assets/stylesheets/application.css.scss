@@ -520,20 +520,22 @@ footer{
     }
   }
 }
-button,input[type="submit"]{
+button,input[type="submit"],.button{
   background-color:$main-color;
   color:$first-color;
   border:$first-color solid 1px;
   height:20px;
   padding: 1px 6px;
+  text-decoration: none;
   line-height:20px\9;
 }
-button:hover,input[type="submit"]:hover{
+button:hover,input[type="submit"]:hover,.button:hover{
   background-color:$first-color;
   color:$main-color;
   border:$main-color solid 1px;
   height:20px;
   padding: 1px 6px;
+  text-decoration: none;
   line-height:20px\9;
 }
 .userhome_left{

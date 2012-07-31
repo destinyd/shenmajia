@@ -5,7 +5,7 @@
   :description => "消费记录列表，第#{params[:page] || 1}页",
   :title => @where_name
 %>
-<%= render @costs %>
+<%= render @costs.recent %>
 <div class="c"></div>
 <div class="r">
   <%= will_paginate @prices %> 
