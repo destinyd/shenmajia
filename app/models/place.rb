@@ -1,13 +1,14 @@
 class Place < ActiveRecord::Base
-  attr_accessible :addr, :guid, :lat, :lon, :name, :tel, :mayor_description, :has_event, :has_surprise, :has_mayor_coupon,:categories,:link,:dist
-  attr_accessor :mayor_description, :has_event, :has_surprise, :has_mayor_coupon,:categories,:dist
+  attr_accessible :address, :guid, :lat, :lon, :name, :tel, :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :categories, :link, :dist, :city_id, :addr
+  attr_accessor :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :dist
 
   store :jiepang , accessors: [ 'mayor_id', 'checkin_users_num', 'checkin_num', 'mayor', 'categories', :photos ]
 
-  validates :guid, :presence => true
-  validates :guid, :uniqueness => true, :on => :create
+  #validates :guid, :presence => true
+  #validates :guid, :uniqueness => true, :on => :create
   validates :name, :presence => true
   validates :name, :uniqueness => {:scope => [:lat,:lon]}, :on => :create
+  validates :address, :presence => true
   #validates :name, :presence => true,:uniqueness => true
   validates :lat, :presence => true, :numericality => {:greater_than_or_equal_to => -90, :less_than_or_equal_to => 90}
   validates :lon, :presence => true, :numericality => {:greater_than_or_equal_to => -180, :less_than_or_equal_to => 180}
@@ -24,7 +25,10 @@ class Place < ActiveRecord::Base
   
   scope :recent,order("id desc")
 
-  include UuidHelper
+  #include UuidHelper
+  before_create do
+    self.guid ||= Guid.new.hexdigest.upcase
+  end
   #set_primary_key :guid
   #before_create :init_guid
   #protected
@@ -53,11 +57,23 @@ class Place < ActiveRecord::Base
     end
   end
 
+  def addr
+    address
+  end
+
+  def addr=(str)
+    self.address = str
+  end
+
   def to_s
     self.name
   end
 
-  geocoded_by :addr, :latitude  => :lat, :longitude => :lon
+  def no_locate?
+    self.lat.nil? or self.lon.nil?
+  end
+
+  geocoded_by :address, :latitude  => :lat, :longitude => :lon
   def near_places long = 20
     @nears ||= nearbys(long)
     @nears = @nears.limit(10) unless @nears == []

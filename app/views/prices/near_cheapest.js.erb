@@ -5,7 +5,7 @@
     });
   <% end %>
 <% else %>
-  <% cache "prices_show_near_cheapest_#{"%.02f" % @price.latitude}_#{"%.02f" % @price.longitude}_#{@cache_id}" do %>
+  <% cache "prices_show_near_cheapest_#{"%.02f" % @price.lat}_#{"%.02f" % @price.lon}_#{@cache_id}" do %>
     $(document).ready(function(){
       $('#near_cheapest').html('<%= j(render 'near_prices',:prices => @price.near_prices.where(:good_id => @price.good_id).cheapest.includes(:good).limit(10),:prices_title => '本商品周边最低价格') %>')
     });

@@ -195,6 +195,8 @@ zh-CN:
       price_good: "商品绑定"
       shop: 商店
       brand: 品牌
+      place: 地点
+      cost: 消费
     attributes:
       price:
         price: 单价
@@ -203,6 +205,8 @@ zh-CN:
         money: 总额
         good: 商品
         locatable: 消费地点
+      place:
+        name: 地点名称
 
   attributes:
     created_at: '创建于'
@@ -232,10 +236,12 @@ zh-CN:
     type_id: 类型
     username: 用户名
     password_confirmation: 密码验证
-    is_cheap_price: '特价?'
-    original_price: '原价'
-    unit: '单位'
-    norm: '规格'
+    is_cheap_price: 特价?
+    original_price: 原价
+    unit: 单位
+    norm: 规格
+    addr: 地点地址
+    tel: 地点电话
 
 
   labels:
@@ -288,36 +294,38 @@ zh-CN:
     homes: 用户主页
   action:
     prices:
-      new: '记账'
-      cheapest: '最便宜'
-      groupbuy: '团购'
-      costs: '实际消费'
-      index: '最新'
-      just_started: '刚刚开始'
-      nearly_finish: '即将结束'
+      new: 记账
+      cheapest: 最便宜
+      groupbuy: 团购
+      costs: 实际消费
+      index: 最新
+      just_started: 刚刚开始
+      nearly_finish: 即将结束
     brands:
-      new: '添加'
+      new: 添加
     shops:
-      new: '添加'
+      new: 添加
     goods:
-      new: '添加'
-      search: '搜索'
+      new: 添加
+      search: 搜索
     articles:
-      new: '添加'
+      new: 添加
     sessions:
-      new: '登录'
+      new: 登录
     registrations:
-      new: '注册'
+      new: 注册
     userhomes:
       homes: 用户主页
       costs: 消费记录
       integral: 积分记录
       gold: 神币记录
     costs:
-      new: '记录'
-      create: '记录'
+      new: 记录消费
+      create: 记录消费
     places:
-      search: '搜索'
+      new: 记录地点
+      create: 记录地点
+      search: 搜索
 
   will_paginate:
     previous_label: "&#8592; 上一页"

@@ -2,5 +2,6 @@
   <%= text_field_tag :q,params[:q], :placeholder => '您消费的地点：如 联华' %>
   <%= hidden_field_tag :step,1 %>
   <%= submit_tag '搜索地点',:name => nil %>
+  <%= link_to '搜索不到，先登记消费地点',new_place_path(:place =>{:name => params[:q]}),:class => 'button' %>
 <% end -%>
 

@@ -45,11 +45,6 @@ class PricesController < ApplicationController
     end
   end
 
-  def cheapest
-    @prices = @prices.includes(:good).paginate( :page => params[:page])
-    render :action => "index"
-  end
-
   def groupbuy
     @prices = @prices.includes(:good).paginate( :page => params[:page])
     render :action => "index"
@@ -65,8 +60,8 @@ class PricesController < ApplicationController
     @price = current_user.prices.new :type_id => 0,
       :price => price.price,
       :address => price.address,
-      :latitude => price.latitude,
-      :longitude => price.longitude
+      :lat => price.lat,
+      :lon => price.lon
     @price.good_id = price.good_id
     @price.save
     redirect_to @price
@@ -81,6 +76,11 @@ class PricesController < ApplicationController
   end
 
   def cheapest
+    @prices = @prices.includes(:good).paginate( :page => params[:page])
+    respond_to do |format|
+      format.html{render :action => "index"}
+      format.js
+    end
   end
 
   private

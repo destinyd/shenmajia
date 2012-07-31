@@ -5,12 +5,12 @@
     <% if @cost.good_id.blank? %>
       <%= f.input :name, :placeholder => "商品名称,如：矿泉水", :required => true  %>
       <%= f.input :unit, :placeholder => "商品单位,如：瓶", :required => true, :input_html => {:id => :good_unit} %>
-      <%= f.input :norm, :placeholder => "规格,如：500ml"  %>
+      <%= f.input :norm, :placeholder => "规格,型号"  %>
     <% else %>
       <%= f.input :name, :required => true, :disabled => true, :input_html => {:value => @cost.good.blank? ? @cost.name : @cost.good.name }  %>
       <%= hidden_field_tag :good_unit, @cost.good.try(:unit) %>
   <% end %>
-    <%=f.input :unit_price, :placeholder => "单价",:input_html => {:value => @cost.form_price},:input_html => {:onblur =>'cost_form_on_blur()'} %>
+    <%=f.input :unit_price, :placeholder => "单价", :input_html => {:onblur =>'cost_form_on_blur()', :value => @cost.form_price} %>
     <%=f.input :amount, :placeholder => "数量",:input_html => {:onblur =>'cost_form_on_blur()'} %>
     <%=f.input :money, :placeholder => "0.0",:input_html => {:onblur =>'cost_form_on_blur()'} %>
     <%=f.input :desc, :placeholder => "在超市购买牛奶*1,花费2元" %>

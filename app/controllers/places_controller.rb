@@ -6,6 +6,11 @@ class PlacesController < InheritedResources::Base
   #belongs_to :place, :optional => true
   respond_to :html
 
+  def new
+    Place.new params[:place]
+    super
+  end
+
   def show
     @place = Place.find(params[:id])
     @place.update_jiepang

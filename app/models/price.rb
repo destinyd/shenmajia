@@ -2,7 +2,7 @@
 class Price < ActiveRecord::Base
   STATUS_LOW = 5
   attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:city,:name,:title,:img
-  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:longitude, :latitude,:original_price,:is_cheap_price,:is_360,:city,:title,:img,:good_id,:locatable
+  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:city,:title,:img,:good_id,:locatable
   #validates :type_id, :presence => true
   validates :price, :presence => true
   belongs_to :user
@@ -19,7 +19,7 @@ class Price < ActiveRecord::Base
   belongs_to :locatable, :polymorphic => true
 
   acts_as_commentable
-  geocoded_by :address
+  geocoded_by :address, :latitude  => :lat, :longitude => :lon
 
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   scope :review_low, Filter.new(self).extend(ReviewFilter)
@@ -55,7 +55,7 @@ class Price < ActiveRecord::Base
   }
 
   def no_locate?
-    self.longitude.blank? or self.latitude.blank?
+    self.lon.blank? or self.lat.blank?
   end
 
   def type_id
@@ -113,8 +113,8 @@ class Price < ActiveRecord::Base
       :type_id => type_id,
       :price => price,
       :address => address,
-      :latitude => latitude,
-      :longitude => longitude,
+      :lat => lat,
+      :lon => lon,
       :amount => amount
     outlinks.each do |outlink|
       o = Outlink.new :url => outlink.url
@@ -199,8 +199,8 @@ class Price < ActiveRecord::Base
   def locate_by_city
     if self.user_id.nil? and self.no_locate? and ! self.city.blank?
       if @locate = Locate.where(:name => self.city).first_or_create
-        self.latitude = @locate.lat
-        self.longitude = @locate.lon
+        self.lat = @locate.lat
+        self.lon = @locate.lon
       end
     end
   end

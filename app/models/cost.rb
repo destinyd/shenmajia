@@ -32,7 +32,8 @@ class Cost < ActiveRecord::Base
   acts_as_commentable
 
   def form_price
-    unit_price ||= last_price
+    unit_price ||= price.try(:price) 
+    unit_price ||= last_price.try(:price)
   end
 
   def last_price
@@ -71,7 +72,7 @@ class Cost < ActiveRecord::Base
   def create_price
     unless unit_price.blank?
       self.price = Price.where(:price => unit_price,:good_id => self.good_id).last
-      self.price = user.prices.create(:price => unit_price,:latitude => locatable.lat, :longitude => locatable.lon,:good_id => good_id,:locatable => locatable,:type_id => 0) unless self.price
+      self.price = user.prices.create(:price => unit_price,:lat => locatable.lat, :lon => locatable.lon,:good_id => good_id,:locatable => locatable,:type_id => 0) unless self.price
     end
   end
 end
