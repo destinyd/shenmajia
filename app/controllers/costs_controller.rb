@@ -11,13 +11,6 @@ class CostsController < InheritedResources::Base
   caches_page :index,:show
   cache_sweeper :cost_sweeper
 
-
-  #def new
-    #super do |format|
-      #format.js{ render "new_#{params[:step] || 1}"}
-    #end
-  #end
-
   def create
     @cost = resource = current_user.costs.new params[:cost]
     create! do |format|

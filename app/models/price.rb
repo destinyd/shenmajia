@@ -7,7 +7,8 @@ class Price < ActiveRecord::Base
   validates :price, :presence => true
   belongs_to :user
   belongs_to :good
-  belongs_to :shop
+  belongs_to :city
+  #belongs_to :shop
 
   has_many :outlinks, :as => :outlinkable, :dependent => :destroy
   has_many :integrals, :as => :integralable, :dependent => :destroy

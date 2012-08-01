@@ -1,13 +1,13 @@
 <% if (@price = Price.find(params[:id])).no_locate? %>
   <% cache "prices_show_cheapest_id_#{@price.id}_#{@cache_id}" do %>
     $(document).ready(function(){
-      $('#cheapest_article').html('暂无数据');
+      $('#cheap_article').html('暂无数据');
     });
   <% end %>
 <% else %>
   <% cache "prices_show_cheapest_#{"%.02f" % @price.lat}_#{"%.02f" % @price.lon}_#{@cache_id}" do %>
     $(document).ready(function(){
-      $('#cheapest').html('<%= j(render 'near_prices',:prices => @price.good.prices.cheapest.where("id != ?",@price.id).includes(:good).limit(10),:prices_title => '本商品全国最低价格') %>')
+      $('#cheap').html('<%= j(render 'near_prices',:prices => @price.good.prices.cheapest.where("id != ?",@price.id).includes(:good).limit(10),:prices_title => '本商品全国最低价格') %>')
     });
   <% end %>
 <% end %>
