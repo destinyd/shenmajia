@@ -86,6 +86,8 @@ Zhekou::Application.routes.draw do
     resources :shops
   end
 
+  get '/cities/:id/page/:page' => 'cities#show'
+
 
   #match '/prices/local' => redirect('/prices/costs')
   resources :user_infos

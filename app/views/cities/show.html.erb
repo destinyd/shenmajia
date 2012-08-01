@@ -1,16 +1,13 @@
 <% tmp1 = "最新、最全的#{"《#{@name}》附近的" if @name}价格信息" %>
 <% set_meta_tags :keywords => "商品,价,#{@name.html_safe}", :description => tmp1, :title => tmp1 %>
-<% cache "city_#{params[:id]}_#{params[:page]}_#{@cache_id}" do %>
 <div id="good_flows">
-  <% prices =  Price.running.near(@value,20).with_good.paginate( :page => params[:page]).limit(50) %>
-  <% prices.group_by(&:good).each do |good,prices_group| %>
+  <% @prices.group_by(&:good).each do |good,prices_group| %>
     <%= render 'good_flow',:good => good,:prices => prices_group %>
 <% end %>
 </div>
 <nav id="page-nav" style="display:none;">
-  <%= will_paginate prices %> 
+  <%= will_paginate @prices %> 
 </nav>
-<% end %>
 <script>
   $(function(){
     var gf = $('#good_flows');// .img img').load(function(){$(this).css('height',$(this).height())
