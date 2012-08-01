@@ -24,8 +24,6 @@ class LocatesController < ApplicationController
 
   def create
     @geo = City.where(:name => params[:id]).first
-    #@geo = Locate.where(:name => params[:id]).first unless @geo
-    #@geo = Locate.create(:name => params[:id]) unless @geo
     get_city_name @geo
     redirect_to :back
   rescue ActionController::RedirectBackError

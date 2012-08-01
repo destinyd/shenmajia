@@ -48,11 +48,12 @@ class Place < ActiveRecord::Base
       self.checkin_users_num = @j['checkin_users_num']
       self.categories = @j['categories']
       self.photos = @photos['items']
-      self.city = @city if updated_at == created_at and city_id.nil? and !@j['city'].blank? and  @city = City.find_by_name(@j['city'])
+      self.city = @j['city'] if self.city_id.blank? and !@j['city'].blank? 
       unless @j['mayor'].blank?
         self.mayor = @j['mayor']
         self.mayor_id = @j['mayor_id']
       end
+      debugger
       self.save
     end
   end
