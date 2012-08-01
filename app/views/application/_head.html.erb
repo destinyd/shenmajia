@@ -12,7 +12,7 @@
     </li>
     <li style="margin-left:5px;">
     <%= form_tag search_places_path,:method => :get do |f| -%>
-      <%= text_field_tag :q %>
+      <%= text_field_tag :q,params[:q] %>
       <%= submit_tag '搜索附近',:name => nil %>
     <% end -%>
     <%#= text_field_tag :locate_id %>
