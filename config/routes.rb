@@ -3,10 +3,12 @@ Zhekou::Application.routes.draw do
 
   get '/users/status' => "users/Status#index", :as => :user_status
 
-  resources :places do
+  resources :places, :except => [:edit,:update,:destroy] do
     resources :costs, :only => :index
     get 'search' ,:on => :collection
+    #match '/search/:q/page/:page' => 'places#search', :on => :collection,:as => :search
   end
+  get '/places/page/:page' => 'places#index'
 
   resources :products
   resources :costs do

@@ -5,6 +5,11 @@ class PlacesController < InheritedResources::Base
   #belongs_to :city,:finder => :find_by_name!, :optional => true
   #belongs_to :place, :optional => true
   respond_to :html
+  caches_page :index,:show
+  #caches_action :search, :expires_in => 1.day
+  #caches_action :show,
+    #:expires_in => 1.month
+  cache_sweeper :place_sweeper
 
   def new
     Place.new params[:place]
