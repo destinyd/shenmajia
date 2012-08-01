@@ -10,7 +10,7 @@ Zhekou::Application.routes.draw do
   end
 
   resources :products
-  resources :costs do
+  resources :costs, :except => [:edit,:update] do
     resources :comments
   end
 
