@@ -15,4 +15,5 @@ tags
 vendor/cache/*
 public/images/flashes/*
 public/assets/*
+*.html
 *.bak
