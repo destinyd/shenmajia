@@ -41,15 +41,8 @@ class CostSweeper < ActionController::Caching::Sweeper
   
   def expire_cache_for(cost)
     expire_page(:controller => 'costs', :action => 'index')
-    expire_page '/costs/index.html'
-    
-    # manually remove pages(1.html, 2.html, etc)
-    if File.exist?("#{Rails.root}/public/costs/page") # check to make sure directory exists
-      Dir.foreach("#{Rails.root}/public/costs/page") do |entry|
-        unless entry == "." || entry == ".." || entry == ".gitignore" # ignore dot files
-          File.delete("#{Rails.root}/public/costs/page/#{entry}")
-        end
-      end
-    end
+
+    FileUtils.rm_r "#{Rails.root}/public/costs/page" if File.exist?("#{Rails.root}/public/costs/page")
+
   end
 end

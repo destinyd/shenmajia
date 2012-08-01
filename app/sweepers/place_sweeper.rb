@@ -23,15 +23,7 @@ class PlaceSweeper < ActionController::Caching::Sweeper
   
   def expire_cache_for(place)
     expire_page(:controller => 'places', :action => 'index')
-    expire_page '/places/index.html'
     
-    # manually remove pages(1.html, 2.html, etc)
-    if File.exist?("#{Rails.root}/public/places/page") # check to make sure directory exists
-      Dir.foreach("#{Rails.root}/public/places/page") do |entry|
-        unless entry == "." || entry == ".." || entry == ".gitignore" # ignore dot files
-          File.delete("#{Rails.root}/public/places/page/#{entry}")
-        end
-      end
-    end
+    FileUtils.rm_r "#{Rails.root}/public/places/page" if File.exist?("#{Rails.root}/public/places/page")
   end
 end
