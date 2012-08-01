@@ -8,11 +8,15 @@ Zhekou::Application.routes.draw do
     get 'search' ,:on => :collection
     #match '/search/:q/page/:page' => 'places#search', :on => :collection,:as => :search
   end
-  get '/places/page/:page' => 'places#index'
 
   resources :products
   resources :costs do
     resources :comments
+  end
+
+  %w{place cost good price}.each do |p|
+    get "/#{p}s/page/:page" => "#{p}s#index"
+    get "/#{p}s/:#{p}_id/costs/page/:page" => "costs#index" if %w{place good}.include?(p)
   end
   resources :norms,:only => :index
   resources :units,:only => :index
@@ -60,7 +64,7 @@ Zhekou::Application.routes.draw do
   end
 
 
-  match '/prices/local' => redirect('/prices/costs')
+  #match '/prices/local' => redirect('/prices/costs')
   resources :user_infos
 
   resources :my_tasks
@@ -154,7 +158,7 @@ Zhekou::Application.routes.draw do
 
   root :to => "home#index"
   match "/:reviewable_type/:reviewable_id/reviews" => "reviews#:action",:as => 'reviewable'
-  #match "/:locatable_type/:locatable_id/costs" => "costs#:action",:as => 'reviewable'
+  #match "/:locatable_type/:locatable_id" => ":locatable_type#show",:id => :locatable_id,:as => 'locatable'
 
   #  match "/users/sign_out(.:format)",:controller => 'users/sessions',:action => :destroy,:as => 'destroy_user_session'
 
