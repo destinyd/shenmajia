@@ -1,5 +1,5 @@
 class Place < ActiveRecord::Base
-  attr_accessible :address, :guid, :lat, :lon, :name, :tel, :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :categories, :link, :dist, :city_id, :addr
+  attr_accessible :address, :guid, :lat, :lon, :name, :tel, :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :categories, :link, :dist, :city_id, :addr, :city
   attr_accessor :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :dist
 
   store :jiepang , accessors: [ 'mayor_id', 'checkin_users_num', 'checkin_num', 'mayor', 'categories', :photos ]
@@ -63,6 +63,15 @@ class Place < ActiveRecord::Base
 
   def addr=(str)
     self.address = str
+  end
+
+  def city=(obj)
+    case obj.class.name
+    when 'City'
+      write_attribute :city_id,obj.id
+    when 'String'
+      write_attribute :city_id, City.find_by_name(obj).try(:id)
+    end      
   end
 
   def to_s
