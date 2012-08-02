@@ -38,8 +38,18 @@
 <div class="c"></div>
 
 <% content_for :plus do -%>
-  <%= render 'section',:plus => {:things => @cost.costs_in_same_good.limit(10),:title=> "#{@cost.good}的其他消费记录",:thing_name => :other_good_costs,:section_path => good_costs_path(@cost.good)} %>
-  <%= render 'section',:plus => {:things => @cost.costs_in_same_locatable.limit(10),:title=> "#{@cost.locatable}的其他消费记录",:thing_name => :other_locatable_costs,:section_path => place_costs_path(@cost.locatable)} unless @cost.locatable.nil? %>
+  <div id="good_<%= @cost.good.try(:id) %>_other_costs">
+    <%= section :title => "#{@cost.good}的其他消费记录" do %>
+      读取中...
+    <% end %>
+  </div>
+  <%#= render 'section',:plus => {:things => @cost.costs_in_same_good.limit(10),:title=> "#{@cost.good}的其他消费记录",:thing_name => :other_good_costs,:section_path => good_costs_path(@cost.good)} %>
+  <div id="place_<%= @cost.locatable.try(:id) %>_other_costs">
+    <%= section :title => "#{@cost.locatable}的其他消费记录" do %>
+      读取中...
+    <% end  unless @cost.locatable.blank? %>
+  </div>
+  <%#= render 'section',:plus => {:things => @cost.costs_in_same_locatable.limit(10),:title=> "#{@cost.locatable}的其他消费记录",:thing_name => :other_locatable_costs,:section_path => place_costs_path(@cost.locatable)} unless @cost.locatable.nil? %>
   <%= render 'comments/comments',:commentable => @cost %>
 <% end -%>
 
@@ -47,3 +57,6 @@
 <% content_for :sidebar do -%>
   <%= render 'map', :resource => @cost.locatable %>
 <% end -%>
+
+<script src="<%= good_costs_path(@cost.good,:id => @cost.id,:format => :js) %>" type="text/javascript"></script>
+<script src="<%= place_costs_path(@cost.locatable,:id => @cost.id,:format => :js) %>" type="text/javascript"></script>
