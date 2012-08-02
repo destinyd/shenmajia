@@ -17,7 +17,6 @@ class PriceSweeper < ActionController::Caching::Sweeper
     end
 
     #cities
-    debugger
     expire_page(:controller => 'cities', :action => 'show', :id => price.city.name) if price.city
     rm "#{Rails.root}/public/cities/#{price.city.name}.html" if price.city
     rm_r "#{Rails.root}/public/cities/#{price.city.name}" if price.city

@@ -1,8 +1,8 @@
 # coding: utf-8
 class Price < ActiveRecord::Base
   STATUS_LOW = 5
-  attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:city,:name,:title,:img
-  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:city,:title,:img,:good_id,:locatable
+  attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title,:img
+  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:img,:good_id,:locatable,:city_id
   #validates :type_id, :presence => true
   validates :price, :presence => true
   belongs_to :user

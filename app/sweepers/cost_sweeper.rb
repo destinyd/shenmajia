@@ -54,10 +54,10 @@ class CostSweeper < ActionController::Caching::Sweeper
     end
 
     #cities
-    if cost.id % 10 == 0
-      #rm "#{Rails.root}/public/cities/#{cost.city.name}.html" if cost.city
-      #rm_r "#{Rails.root}/public/cities/#{cost.city.name}" if cost.city
+    rm "#{Rails.root}/public/cities/#{cost.locatable.city.name}.html" if cost.locatable.city
+    rm_r "#{Rails.root}/public/cities/#{cost.locatable.city.name}" if cost.locatable.city
 
+    if cost.id % 10 == 0
     #prices
       expire_page(:controller => 'prices', :action => 'index')
       rm_r "#{Rails.root}/public/prices/page"
@@ -65,7 +65,7 @@ class CostSweeper < ActionController::Caching::Sweeper
       rm_r "#{Rails.root}/public/prices/groupbuy"
 
 
-      FileUtils.rm_r "#{Rails.root}/public/costs/page" if File.exist?("#{Rails.root}/public/costs/page") 
+      rm_r "#{Rails.root}/public/costs/page"
     end
 
   end

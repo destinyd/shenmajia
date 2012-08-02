@@ -72,7 +72,7 @@ class Cost < ActiveRecord::Base
   def create_price
     unless unit_price.blank?
       self.price = Price.where(:price => unit_price,:good_id => self.good_id).last
-      self.price = user.prices.create(:price => unit_price,:lat => locatable.lat, :lon => locatable.lon,:good_id => good_id,:locatable => locatable,:type_id => 0, :city_id => city_id) unless self.price
+      self.price = user.prices.create(:price => unit_price,:lat => locatable.lat, :lon => locatable.lon,:good_id => good_id,:locatable => locatable,:type_id => 0, :city_id => locatable.city_id) unless self.price
     end
   end
 end
