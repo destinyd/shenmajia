@@ -78,7 +78,7 @@ Zhekou::Application.routes.draw do
   resources :shops
   match 'sitemap.xml' => 'sitemaps#sitemap'
 
-  resources :locates,:only => [:index,:show,:create,:new] do
+  resources :locates,:only => [:create,:new] do
   end
 
   resources :cities,:only => [:index,:show] do

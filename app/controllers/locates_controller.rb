@@ -1,23 +1,23 @@
 class LocatesController < ApplicationController
   layout 'home'
-  def index
-  end
+  #def index
+  #end
 
   # 类似搜索
-  def show  
-    @name = params[:id]
-    if @name.strip!
-      redirect_to locate_path(@name)
-    elsif City.where(:name => @name).first
-      redirect_to city_path(@name)
-    else
-      @locate = Locate.where(:name => @name).first
-      @locate = Locate.create(:name => @name)
+  #def show  
+    #@name = params[:id]
+    #if @name.strip!
+      #redirect_to locate_path(@name)
+    #elsif City.where(:name => @name).first
+      #redirect_to city_path(@name)
+    #else
+      #@locate = Locate.where(:name => @name).first
+      #@locate = Locate.create(:name => @name)
 
-      @value = @locate.lat,@locate.lon
-      render 'cities/show'
-    end
-  end
+      #@value = @locate.lat,@locate.lon
+      #render 'cities/show'
+    #end
+  #end
 
   def new
   end
