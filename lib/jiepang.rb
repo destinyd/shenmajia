@@ -23,8 +23,13 @@ class Jiepang
   def search args
     json = get_json_of_search args
     if json and json["items"].length > 0
-      import json
       guids = json["items"].map{|j| j["guid"]}
+
+      #import json
+      exist_places_guid = Place.where(:guid => guids).select(:guid).map(&:guid)
+      json['items'].delete_if{|i|  exist_places_guid.include?(i['guid'])}
+      Place.create json["items"] unless json['items'].blank?
+
       json["places"] = Place.where(:guid =>guids)
       #puts guids
       #puts json
@@ -33,9 +38,6 @@ class Jiepang
     {}
   end
 
-  def import json
-    Place.create json["items"] 
-  end
 
   def get_json_of_search args= {}
     p_args = args
