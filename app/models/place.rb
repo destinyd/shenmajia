@@ -1,5 +1,5 @@
 class Place < ActiveRecord::Base
-  attr_accessible :address, :guid, :lat, :lon, :name, :tel, :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :categories, :link, :dist, :city_id, :addr
+  attr_accessible :address, :guid, :lat, :lon, :name, :tel, :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :categories, :link, :dist, :city_id, :addr, :city
   attr_accessor :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :dist
 
   store :jiepang , accessors: [ 'mayor_id', 'checkin_users_num', 'checkin_num', 'mayor', 'categories', :photos ]
@@ -48,11 +48,12 @@ class Place < ActiveRecord::Base
       self.checkin_users_num = @j['checkin_users_num']
       self.categories = @j['categories']
       self.photos = @photos['items']
-      self.city = @city if updated_at == created_at and city_id.nil? and !@j['city'].blank? and  @city = City.find_by_name(@j['city'])
+      self.city = @j['city'] if self.city_id.blank? and !@j['city'].blank? 
       unless @j['mayor'].blank?
         self.mayor = @j['mayor']
         self.mayor_id = @j['mayor_id']
       end
+      debugger
       self.save
     end
   end
@@ -63,6 +64,15 @@ class Place < ActiveRecord::Base
 
   def addr=(str)
     self.address = str
+  end
+
+  def city=(obj)
+    case obj.class.name
+    when 'City'
+      write_attribute :city_id,obj.id
+    when 'String'
+      write_attribute :city_id, City.find_by_name(obj).try(:id)
+    end      
   end
 
   def to_s
