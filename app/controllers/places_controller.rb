@@ -35,6 +35,7 @@ class PlacesController < InheritedResources::Base
     @jiepang = Jiepang.new
     result = @jiepang.search args
     @places = result["places"]
+    @places.each{|place| place.update_jiepang}
     @has_more = result["has_more"]
 
     respond_to do |format|
