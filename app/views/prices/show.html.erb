@@ -54,14 +54,9 @@
 
 <% content_for :plus do -%>
   <div id="near_groupbuy">
-    <section>
-    <header>
-    <nav><h2 id="附近特价商品信息"><a href="#附近特价商品信息">附近特价商品信息</a></h2></nav>
-    </header>
-    <div class="article" id="near_groupbuy_article">
+    <%= section :title => '附近特价商品信息' do %>
       读取中...
-    </div>
-    </section>
+    <% end %>
   </div>
   <%= render 'comments/comments',:commentable => @price %>
 <% end -%>
@@ -69,25 +64,15 @@
 <% content_for :sidebar do -%>
   <%= render 'map', :resource => @price unless @price.no_locate? %>
   <div id="near_cheapest">
-    <section>
-    <header>
-    <nav><h2 id="本商品附近最低价"><a href="#本商品附近最低价">本商品附近最低价</a></h2></nav>
-    </header>
-    <div class="article" id="near_cheapest_article">
+    <%= section :title => '本商品附近最低价' do %>
       读取中...
-    </div>
-    </section>
+    <% end %>
   </div>
 
   <div id="cheap">
-    <section>
-    <header>
-    <nav><h2 id="本商品全国最低价"><a href="#本商品全国最低价">本商品全国最低价</a></h2></nav>
-    </header>
-    <div class="article" id="cheap_article">
+    <%= section :title => '本商品全国最低价' do %>
       读取中...
-    </div>
-    </section>
+    <% end %>
   </div>
 <% end -%>
 
