@@ -1,71 +1,29 @@
-class PricesController < ApplicationController
-  before_filter :authenticate_user!,:only =>[:new,:create,:update,:edit,:buy_one]
-  before_filter :find_able_and_prices, :except => [:update,:create,:new,:edit,:destroy]
-  respond_to :html,:js
-  #caches_action :index, :show
-  #cache_sweeper :price_sweeper,:only => [:index,:show]
-  def index
-    @prices = @prices.includes(:good).paginate( :page => params[:page])
-  end
+class PricesController < InheritedResources::Base
+  before_filter :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy]
+  respond_to :html
+  respond_to :js, :only => [:cheap,:near_cheapest, :near_groupbuy]
+  belongs_to :city, :finder => :find_by_name, :optional => true
+  belongs_to :good, :optional => true
 
-  def show
-    @price = @prices.find(params[:id])
-  end
-
-  def new
-    if @able
-      @price = @able.prices.build
-    else
-      @price =  Price.new
-    end
-  end
-
-  # GET /prices/1/edit
-  #  def edit
-  #    @price = @able.blank? ? Price. : @able.prices.find(params[:id])
-  #  end
-
-  def create
-    @price = current_user.prices.build(params[:price]) 
-    if @price.save
-      redirect_to(@price, :notice => t('notice.create_success'))
-    else
-      render :action => "new"
-    end
-  end
-
-  def update
-    @price =  Price.find(params[:id])
-    params[:price][:good_user_id] = current_user.id
-
-    if @price.update_attributes(params[:price])
-      format.html { redirect_to([@good,@price], :notice => 'Price was successfully updated.') }
-    else
-      format.html { render :action => "edit" }
-    end
-  end
+  caches_page :index, :show, :groupbuy, :cheapest#, :near_cheapest, :near_groupbuy, :cheap
+  cache_sweeper :price_sweeper
 
   def groupbuy
-    @prices = @prices.includes(:good).paginate( :page => params[:page])
+    @prices = collection
     render :action => "index"
   end
 
-  def costs
-    @prices = @prices.includes(:good).paginate( :page => params[:page])
-    render :action => "index"
-  end
-
-  def buy_one
-    price = Price.find(params[:id])
-    @price = current_user.prices.new :type_id => 0,
-      :price => price.price,
-      :address => price.address,
-      :lat => price.lat,
-      :lon => price.lon
-    @price.good_id = price.good_id
-    @price.save
-    redirect_to @price
-  end
+  #def buy_one
+    #price = Price.find(params[:id])
+    #@price = current_user.prices.new :type_id => 0,
+      #:price => price.price,
+      #:address => price.address,
+      #:lat => price.lat,
+      #:lon => price.lon
+    #@price.good_id = price.good_id
+    #@price.save
+    #redirect_to @price
+  #end
 
   def near_groupbuy
 
@@ -76,37 +34,44 @@ class PricesController < ApplicationController
   end
 
   def cheapest
-    @prices = @prices.includes(:good).paginate( :page => params[:page])
-    respond_to do |format|
-      format.html{render :action => "index"}
-      format.js
-    end
+    @prices = collection
+    render :action => "index"
   end
 
-  private
-  def find_able_and_prices
-    @prices = Price
-    params.each do |name, value|
-      if name =~ /(.+)_id$/
-        if $1 == 'city'
-          @able = $1.classify.constantize.where(:name =>value).first
-          loc = @able.lat,@able.lon
-        elsif $1 == 'locate'
-          @able = $1.classify.constantize.where(:name =>value).first
-          @able = Locate.create(:name => value) unless @able
-          loc = @able.lat,@able.lon
-        else
-          @able = $1.classify.constantize.find(value) 
-          @prices = @able.prices
-        end 
-      @prices = @prices.send action_name if ['cheapest','groupbuy','costs'].include? action_name
-      @prices = @prices.recent if action_name == 'index'
-      @prices = @prices.near(loc,20) if $1 == 'city' or $1 == 'locate'
-      return @prices#with_uploads
-      end  
-    end  
-    @prices = Price.send action_name if ['cheapest','groupbuy','costs'].include? action_name
-    @prices = Price.recent if action_name == 'index'
-    @prices = @prices#.with_uploads
+  def cheap
   end
+
+
+  protected
+  def collection
+    @prices ||= end_of_association_chain
+    @prices = @prices.send action_name if %w{cheapest groupbuy}.include? action_name
+    @prices = @prices.recent.paginate(:page => params[:page])
+  end
+  #private
+  #def find_able_and_prices
+    #@prices = Price
+    #params.each do |name, value|
+      #if name =~ /(.+)_id$/
+        #if $1 == 'city'
+          #@able = $1.classify.constantize.where(:name =>value).first
+          #loc = @able.lat,@able.lon
+        #elsif $1 == 'locate'
+          #@able = $1.classify.constantize.where(:name =>value).first
+          #@able = Locate.create(:name => value) unless @able
+          #loc = @able.lat,@able.lon
+        #else
+          #@able = $1.classify.constantize.find(value) 
+          #@prices = @able.prices
+        #end 
+      #@prices = @prices.send action_name if ['cheapest','groupbuy','costs'].include? action_name
+      #@prices = @prices.recent if action_name == 'index'
+      #@prices = @prices.near(loc,20) if $1 == 'city' or $1 == 'locate'
+      #return @prices#with_uploads
+      #end  
+    #end  
+    #@prices = Price.send action_name if ['cheapest','groupbuy','costs'].include? action_name
+    #@prices = Price.recent if action_name == 'index'
+    #@prices = @prices#.with_uploads
+  #end
 end

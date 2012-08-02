@@ -4,55 +4,53 @@
 :description => "#{@price.good}在#{@price.locatable || @price.address}的#{@price.type_id}信息、所在位置信息",
   :title => @where_name %>
 
-<% cache "prices_show_#{@price.id}_#{@cache_id}" do %>
+<p>
+<b><%= label :price,:name %>:</b>
+<%= link_to @price.name,@price.good %>
+</p>
+<p>
+<b><%= label :price,:price%>:</b>
+<%= @price.price %>
+</p>
+
+<p>
+<b><%= label :price,:type%>:</b>
+<%= @price.type_id %>
+</p>
+
+<% if @price.address %>
   <p>
-  <b><%= label :price,:name %>:</b>
-  <%= link_to @price.name,@price.good %>
+  <b><%= label :price,:address%>:</b>
+  <%= @price.address %>
   </p>
-  <p>
-  <b><%= label :price,:price%>:</b>
-  <%= @price.price %>
-  </p>
-
-  <p>
-  <b><%= label :price,:type%>:</b>
-  <%= @price.type_id %>
-  </p>
-
-  <% if @price.address %>
-    <p>
-    <b><%= label :price,:address%>:</b>
-    <%= @price.address %>
-    </p>
-  <% end %>
-
-  <p>
-  <b><%= label :price,:amount%>:</b>
-  <%= @price.human_amount %>
-  </p>
-
-  <p>
-  <b><%= label :price,:finish_at%>:</b>
-  <%= @price.human_finish_at %>
-  </p>
-  <%  unless @price.outlinks.blank? %>
-    <p>
-    <b>链接：</b>
-    <%= link_to @price.outlinks.first.url,@price.outlinks.first.url ,:rel=>"nofollow",:target => '_blank'%>
-  <% end -%>
-
-  <% unless @price.type_id != "团购价" or @price.uploads.first.nil? %>
-    <img src="<%=@price.uploads.first.image_file_name%>" alt="<%= @price.name %>" />
-  <% end %>
-
-  <br />
-  <br />
-
-  <%= link_to '我也这价在这买了一件！',new_cost_path(:place_id => @price.locatable_id,:step => 3,:cost => {:good_id => @price.good_id,:price_id => @price.id}) %>
-  <%= render 'reviews/links',:reviewable => @price %>
-  <div class="c"></div>
-
 <% end %>
+
+<p>
+<b><%= label :price,:amount%>:</b>
+<%= @price.human_amount %>
+</p>
+
+<p>
+<b><%= label :price,:finish_at%>:</b>
+<%= @price.human_finish_at %>
+</p>
+<%  unless @price.outlinks.blank? %>
+  <p>
+  <b>链接：</b>
+  <%= link_to @price.outlinks.first.url,@price.outlinks.first.url ,:rel=>"nofollow",:target => '_blank'%>
+<% end -%>
+
+<% unless @price.type_id != "团购价" or @price.uploads.first.nil? %>
+  <img src="<%=@price.uploads.first.image_file_name%>" alt="<%= @price.name %>" />
+<% end %>
+
+<br />
+<br />
+
+<%= link_to '我也这价在这买了一件！',new_cost_path(:place_id => @price.locatable_id,:step => 3,:cost => {:good_id => @price.good_id,:price_id => @price.id}) %>
+<%= render 'reviews/links',:reviewable => @price %>
+<div class="c"></div>
+
 
 <% content_for :plus do -%>
   <div id="near_groupbuy">
@@ -81,12 +79,12 @@
     </section>
   </div>
 
-  <div id="cheapest">
+  <div id="cheap">
     <section>
     <header>
     <nav><h2 id="本商品全国最低价"><a href="#本商品全国最低价">本商品全国最低价</a></h2></nav>
     </header>
-    <div class="article" id="cheapest_article">
+    <div class="article" id="cheap_article">
       读取中...
     </div>
     </section>
@@ -95,4 +93,4 @@
 
 <script src="<%= near_groupbuy_price_path(@price,:format => :js) %>" type="text/javascript"></script>
 <script src="<%= near_cheapest_price_path(@price,:format => :js) %>" type="text/javascript"></script>
-<script src="<%= cheapest_price_path(@price,:format => :js) %>" type="text/javascript"></script>
+<script src="<%= cheap_price_path(@price,:format => :js) %>" type="text/javascript"></script>

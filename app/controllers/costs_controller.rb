@@ -7,11 +7,9 @@ class CostsController < InheritedResources::Base
   belongs_to :place, :optional => true
   respond_to :html
 
-  #def new
-    #super do |format|
-      #format.js{ render "new_#{params[:step] || 1}"}
-    #end
-  #end
+  respond_to :html
+  caches_page :index,:show
+  cache_sweeper :cost_sweeper
 
   def create
     @cost = resource = current_user.costs.new params[:cost]

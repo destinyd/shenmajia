@@ -3,15 +3,57 @@ Zhekou::Application.routes.draw do
 
   get '/users/status' => "users/Status#index", :as => :user_status
 
-  resources :places do
+  resources :places, :except => [:edit,:update,:destroy] do
     resources :costs, :only => :index
     get 'search' ,:on => :collection
+    #match '/search/:q/page/:page' => 'places#search', :on => :collection,:as => :search
   end
 
   resources :products
-  resources :costs do
+  resources :costs, :except => [:edit,:update] do
     resources :comments
   end
+
+  @prices = lambda{
+    resources :prices,:only => [:index,:show,:new,:create] do
+      collection do
+        get :cheapest
+        get :groupbuy
+        get :costs
+      end
+      member do
+        #get :buy_one
+        get :near_groupbuy
+        get :near_cheapest
+        get :cheap
+      end
+
+      resources :comments
+      resources :reviews
+      resources :uploads
+    end
+  }
+  @prices.call
+
+  %w{place cost good price}.each do |p|
+    get "/#{p}s/page/:page" => "#{p}s#index"
+    get "/#{p}s/:#{p}_id/costs/page/:page" => "costs#index" if %w{place good}.include?(p)
+  end
+
+  %w{groupbuy cheapest}.each do |p|
+    get "/prices/#{p}/page/:page" => "prices##{p}"
+  end
+
+  %w{groupbuy cheapest}.each do |p|
+    get "/cities/:city_id/prices/#{p}/page/:page" => "prices##{p}"
+  end
+
+  get "/goods/:good_id/prices/page/:page" => "prices#index"
+
+  #%w{prices goods costs places}.each do |p|
+    #match "/#{p}", :to=> redirect{|params,req| "/#{p}/page/#{req.params[:page] || 1}"}
+  #end
+
   resources :norms,:only => :index
   resources :units,:only => :index
 
@@ -25,7 +67,7 @@ Zhekou::Application.routes.draw do
 
   namespace :userhome do
     resources :homes
-    resources :prices
+    #resources :prices
     resources :shops
     resources :costs
     root :to => "homes#index"
@@ -37,28 +79,17 @@ Zhekou::Application.routes.draw do
   match 'sitemap.xml' => 'sitemaps#sitemap'
 
   resources :locates,:only => [:index,:show,:create,:new] do
-    resources :prices do
-      collection do
-        get :cheapest
-        get :groupbuy
-        get :costs
-      end
-    end
   end
 
   resources :cities,:only => [:index,:show] do
-    resources :prices do
-      collection do
-        get :cheapest
-        get :groupbuy
-        get :costs
-      end
-    end
+    @prices.call
     resources :shops
   end
 
+  get '/cities/:id/page/:page' => 'cities#show'
 
-  match '/prices/local' => redirect('/prices/costs')
+
+  #match '/prices/local' => redirect('/prices/costs')
   resources :user_infos
 
   resources :my_tasks
@@ -69,19 +100,6 @@ Zhekou::Application.routes.draw do
 
   resources :price_goods
 
-  resources :prices,:only => [:index,:show,:new,:create] do
-    collection do
-      get :cheapest
-      get :groupbuy
-      get :costs
-    end
-    member do
-      get :buy_one
-      get :near_groupbuy
-      get :near_cheapest
-      get :cheapest
-    end
-  end
   resources :reviews
   resources :attrs,:only => [:new] do
     resources :reviews
@@ -106,13 +124,14 @@ Zhekou::Application.routes.draw do
     resources :comments
     resources :uploads
     resources :reviews
-    resources :prices,:only => [:index,:show,:new,:create] do
-      collection do
-        get :cheapest
-        get :groupbuy
-        get :local
-      end
-    end
+    @prices.call
+    #resources :prices,:only => [:index,:show,:new,:create] do
+      #collection do
+        #get :cheapest
+        #get :groupbuy
+        #get :local
+      #end
+    #end
 
     resources :focus
     resources :outlinks
@@ -143,16 +162,11 @@ Zhekou::Application.routes.draw do
 
   resources :msgs
 
-  resources :prices do
-    resources :comments
-    resources :reviews
-    resources :uploads
-  end
 
 
   root :to => "home#index"
   match "/:reviewable_type/:reviewable_id/reviews" => "reviews#:action",:as => 'reviewable'
-  #match "/:locatable_type/:locatable_id/costs" => "costs#:action",:as => 'reviewable'
+  #match "/:locatable_type/:locatable_id" => ":locatable_type#show",:id => :locatable_id,:as => 'locatable'
 
   #  match "/users/sign_out(.:format)",:controller => 'users/sessions',:action => :destroy,:as => 'destroy_user_session'
 

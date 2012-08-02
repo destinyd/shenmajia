@@ -1,7 +1,5 @@
-<% pre_path =''; pre_path ='prices/' if action_name == 'index' %>
-<% hashs = {:index => '../prices',:groupbuy =>'groupbuy',:cheapest =>'cheapest'} %>
 <nav class="none">
-<% hashs.each do |key,val| %>
-  <%= link_to t("action.prices.#{key}"),"#{pre_path}#{val}"  %>
-<% end %>
+<%= link_to t("action.prices.index"),@city ? city_prices_path(@city) : prices_path  %>
+<%= link_to t("action.prices.groupbuy"),@city ? groupbuy_city_prices_path(@city) : groupbuy_prices_path  %>
+<%= link_to t("action.prices.cheapest"),@city ? cheapest_city_prices_path(@city) : cheapest_prices_path  %>
 </nav>

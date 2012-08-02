@@ -1,6 +1,7 @@
-<h1>Editing place</h1>
-
+<% where_name = t('action.places.edit') %>
+<% set_meta_tags :keywords => "#{where_name},地点", 
+  :description => where_name,
+  :title => where_name
+%>
 <%= render 'form' %>
-
-<%= link_to 'Show', @place %> |
-<%= link_to 'Back', places_path %>
+<%= render 'map_form', :resouce => @place %>

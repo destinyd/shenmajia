@@ -7,25 +7,21 @@
 <% @where = @good %>
 <%= render 'goods/good_show',:good => @good %>
 <% content_for :plus do -%>
-  <% cache "g_{@good.id}_near_#{@cache_id}" do %>
-    <%= section :title => '价格分析' do %>
-    <ul>
-      <li>商品的平均价格为：<%= @good.prices.count > 0 ? "#{@good.prices.sum(&:price) / @good.prices.count}元" : "暂无资料"  %></li>
-      <% adv = @good.prices.where(:created_at=>Time.now.beginning_of_month..Time.now) %>
-      <% if adv.count > 0 %>
-        <% adv = adv.sum(&:price) / adv.count %>
-        <li>商品当月平均价格为：<%= adv  %>元</li>
-      <% end %>
-      <% min = @good.prices.where(:created_at => Time.now.beginning_of_month..Time.now).order("price").first %>
-      <% if min %><li>月内最低价为：<%= link_to min.price,min   %>元 <strong><%= link_to "价格链接",min   %></strong></li><% end %>
-    </ul>
-  <% end %>
-    <% end unless cookies[:lat].blank? %>
+  <%= section :title => '价格分析' do %>
+  <ul>
+    <li>商品的平均价格为：<%= @good.prices.count > 0 ? "#{@good.prices.sum(&:price) / @good.prices.count}元" : "暂无资料"  %></li>
+    <% adv = @good.prices.where(:created_at=>Time.now.beginning_of_month..Time.now) %>
+    <% if adv.count > 0 %>
+      <% adv = adv.sum(&:price) / adv.count %>
+      <li>商品当月平均价格为：<%= adv  %>元</li>
+    <% end %>
+    <% min = @good.prices.where(:created_at => Time.now.beginning_of_month..Time.now).order("price").first %>
+    <% if min %><li>月内最低价为：<%= link_to min.price,min   %>元 <strong><%= link_to "价格链接",min   %></strong></li><% end %>
+  </ul>
+  <% end unless cookies[:lat].blank? %>
 
-  <% cache "g_{@good.id}_costs_#{@cache_id}" do %>
-    <%= render 'section',:plus => {:things => @good.costs.limit(10),:title=> "#{@good}的消费记录",:thing_name => :other_good_costs,:section_path => good_costs_path(@good)} %>
-  <% end -%>
-    <%= render 'section',:plus => {:things => @good.find_related_tags,:title=> "相关商品",:not_count => true} unless @good.find_related_tags %>
+  <%= render 'section',:plus => {:things => @good.costs.limit(10),:title=> "#{@good}的消费记录",:thing_name => :other_good_costs,:section_path => good_costs_path(@good)} %>
+  <%= render 'section',:plus => {:things => @good.find_related_tags,:title=> "相关商品",:not_count => true} unless @good.find_related_tags %>
   <%= render 'comments/comments',:commentable => @good %>
 <% end -%>
 <% content_for :sidebar do -%>

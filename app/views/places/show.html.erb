@@ -33,7 +33,7 @@
 
 
 <% content_for :plus do -%>
-  <% cache "places_#{@place.id}_jiepang_#{@cache_id}" do %>
+  <%= content_tag 'div' do -%>
 <section class="">
     <header>
       <nav>
@@ -59,11 +59,9 @@
   </section>
   <% end unless @place.checkin_num.blank? %>
 
-  <% cache "places_#{@place.id}_costs_#{@cache_id}" do %>
-    <%= render 'section',:plus => {:things => @place.costs.recent.limit(10),:title=> "#{@place}的消费记录",:thing_name => :other_locatable_costs,:section_path => place_costs_path(@place)} %>
-  <% end %>
-  <% cache "places_#{@place.id}_photos_#{@cache_id}" do %>
-    <%= section :title => '图片' do %>
+  <%= render 'section',:plus => {:things => @place.costs.recent.limit(10),:title=> "#{@place}的消费记录",:thing_name => :other_locatable_costs,:section_path => place_costs_path(@place)} %>
+
+  <%= section :title => '图片' do %>
     <div id="gallery">
       <% @place.photos.each do |photo| %>
         <div class="thumb">
@@ -73,14 +71,11 @@
         </div>
       <% end %>
     </div>
-  <% end%>
   <% end  unless @place.photos.blank? -%>
 <% end -%>
 
 <% content_for :sidebar do -%>
   <%= render 'map', :resource => @place %>
-  <% cache "sidebar_place_#{@place.id}_#{@cache_id}" do %>
-    <%#= render 'section',:plus => {:things => @place.near_places.where(:good_id=>@place.good_id).recent,:title=> "本商品周边最新价格",:section_path => places_path} %>
-    <%= render 'section',:plus => {:things => @place.near_places,:title=> "周边地点"} %>
-  <% end %>
+  <%#= render 'section',:plus => {:things => @place.near_places.where(:good_id=>@place.good_id).recent,:title=> "本商品周边最新价格",:section_path => places_path} %>
+  <%= render 'section',:plus => {:things => @place.near_places,:title=> "周边地点"} %>
 <% end -%>

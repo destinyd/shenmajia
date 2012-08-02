@@ -4,52 +4,43 @@
   :description => "#{@cost.user}#{@cost.desc}",
   :title => @where_name
 %>
-<div id="cost">
-  <% cache "costs_#{@cost.id}_#{@cache_id}" do %>
-    <p>
-    <b><%= label :cost,:good %>:</b>
-    <%= link_to @cost.good,@cost.good %>
-    </p>
-    <p>
-    <b><%= label :cost,:price %>:</b>
-    <%= link_to @cost.price, @cost.price %>
-    </p>
-    <p>
-    <b><%= label :cost,:amount %>:</b>
-    <%= @cost.amount %>
-    </p>
-    <p>
-    <b><%= label :cost,:money %>:</b>
-    <%= @cost.money %>
-    </p>
+<p>
+<b><%= label :cost,:good %>:</b>
+<%= link_to @cost.good,@cost.good %>
+</p>
+<p>
+<b><%= label :cost,:price %>:</b>
+<%= link_to @cost.price, @cost.price %>
+</p>
+<p>
+<b><%= label :cost,:amount %>:</b>
+<%= @cost.amount %>
+</p>
+<p>
+<b><%= label :cost,:money %>:</b>
+<%= @cost.money %>
+</p>
 
-    <p>
-    <b><%= label :cost,:locatable %>:</b>
-    <%= link_to @cost.locatable, @cost.locatable %>
-    </p>
+<p>
+<b><%= label :cost,:locatable %>:</b>
+<%= link_to @cost.locatable, @cost.locatable %>
+</p>
 
-    <p>
-    <b><%= label :cost,:created_at%>:</b>
-    <%= @cost.created_at %>
-    </p>
+<p>
+<b><%= label :cost,:created_at%>:</b>
+<%= @cost.created_at %>
+</p>
 
-    <p>
-    <b><%= label :cost,:desc %>:</b>
-    <%= @cost.desc %>
-    </p>
-  <% end %>
-  <div class="c"></div>
-</div>
+<p>
+<b><%= label :cost,:desc %>:</b>
+<%= @cost.desc %>
+</p>
+<div class="c"></div>
 
 <% content_for :plus do -%>
-  <% cache "costs_show_same_good_costs_#{@cost.locatable_type}_#{@cost.locatable_id}_#{@cache_id}" do %>
-    <%= render 'section',:plus => {:things => @cost.costs_in_same_good.limit(10),:title=> "#{@cost.good}的其他消费记录",:thing_name => :other_good_costs,:section_path => good_costs_path(@cost.good)} %>
-    <% end unless @cost.costs_in_same_good.blank? %>
-  <% cache "costs_show_same_locatable_costs_#{@cost.locatable_type}_#{@cost.locatable_id}_#{@cache_id}" do %>
-    <%= render 'section',:plus => {:things => @cost.costs_in_same_locatable.limit(10),:title=> "#{@cost.locatable}的其他消费记录",:thing_name => :other_locatable_costs,:section_path => place_costs_path(@cost.locatable)} %>
-    <% end unless @cost.locatable.nil? %>
-
-    <%= render 'comments/comments',:commentable => @cost %>
+  <%= render 'section',:plus => {:things => @cost.costs_in_same_good.limit(10),:title=> "#{@cost.good}的其他消费记录",:thing_name => :other_good_costs,:section_path => good_costs_path(@cost.good)} %>
+  <%= render 'section',:plus => {:things => @cost.costs_in_same_locatable.limit(10),:title=> "#{@cost.locatable}的其他消费记录",:thing_name => :other_locatable_costs,:section_path => place_costs_path(@cost.locatable)} unless @cost.locatable.nil? %>
+  <%= render 'comments/comments',:commentable => @cost %>
 <% end -%>
 
 
