@@ -1,6 +1,10 @@
 <%  uploads.each do |upload| %>
   <%= link_to [uploadable,upload] do%>
-<%= image_tag(upload.image.url) %>
-<%  end %>
+    <% if upload.image_file_name.scan(/http/).blank? %>
+      <img src="<%= upload.image.url %>" alt="<%= uploadable.try(:name) %>" />
+    <% else %>
+      <img src="<%= upload.image_file_name %>" alt="<%= uploadable.try(:name) %>" />
+    <% end %>
+  <%  end %>
 <% end %><br />
-<%= link_to '你也上传一张？',"#{params[:id]}/uploads/new" %>
+<%= link_to '你也上传一张？',"#{params[:id]}/uploads/new",:class => 'button' %>

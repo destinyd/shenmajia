@@ -1,23 +1,11 @@
 <div  class="m">
-  <%= image_tag @upload.image.url %>
-<br />
-<!--
-<p>
-  <b>Uploadable:</b>
-  <%= @upload.uploadable_id %>
-</p>
+  <% if @upload.image_file_name.scan(/http/).blank? %>
+    <img src="<%= @upload.image.url %>" alt="<%= @upload.uploadable.try(:name) %>" />
+  <% else %>
+    <img src="<%= @upload.image_file_name %>" alt="<%= @upload.uploadable.try(:name) %>" />
+  <% end %>
+  <p>
+  <%= link_to @upload.uploadable,@upload.uploadable %>
+  </p>
 
-<p>
-  <b>Uploadable type:</b>
-  <%= @upload.uploadable_type %>
-</p>
-
-<p>
-  <b>Deleted at:</b>
-  <%= @upload.deleted_at %>
-</p>-->
-
-
-<%= link_to '修改', edit_upload_path(@upload) ,:class =>  "user_show"%> 
-<%= link_to '退后', @upload.uploadable %>
 </div>
