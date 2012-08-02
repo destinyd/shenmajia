@@ -2,6 +2,8 @@ class CitiesController < ApplicationController
   layout 'home'
 
   caches_page :index, :show
+  #caches_action :show,
+    #:expires_in => 2.hours
 
   def index
   end
