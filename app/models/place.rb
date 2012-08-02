@@ -53,7 +53,6 @@ class Place < ActiveRecord::Base
         self.mayor = @j['mayor']
         self.mayor_id = @j['mayor_id']
       end
-      debugger
       self.save
     end
   end
