@@ -37,6 +37,7 @@ class Good < ActiveRecord::Base
 
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   scope :recent,order('id desc')#.includes(:reviews).limit(10)
+  scope :running,where(:deleted_at => '0000-00-00 00:00:00')
   scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at')
 
   validates :name, :presence => true,:uniqueness => {:scope => [:unit,:norm]}
@@ -49,9 +50,9 @@ class Good < ActiveRecord::Base
 
   def self.search(search)
     unless search.blank?
-      where('name LIKE ?', "%#{search}%")
+      running.where('name LIKE ?', "%#{search}%")
     else
-      scoped
+      running 
     end
   end
 
