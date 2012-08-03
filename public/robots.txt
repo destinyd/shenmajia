@@ -11,4 +11,6 @@ Disallow: /users/
 Disallow: /users
 Disallow: /*/new$
 Disallow: /*/edit$
+Disallow: /*/buy_one$
+Disallow: /locates*
 Sitemap:http://shenmajia/sitemap.xml
