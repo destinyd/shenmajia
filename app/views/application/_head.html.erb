@@ -4,12 +4,12 @@
     <li><%= link_to '/cities',:title => '区域价格' do %><div>区域价格</div><% end %></li>
     <li><%= link_to costs_path,:title => '消费记录' do %><div>消费记录</div><% end %></li>
     <li><%= link_to new_cost_path, :title => '记消费' do %><div>记消费</div><% end %></li>
-    <li>您的位置:
+    <li class='where'>您的位置:
     <%= link_to city_info_of_ip[:city],city_path(city_info_of_ip[:city]) unless city_info_of_ip[:city].blank? %>
     <%= "无法确认" if city_info_of_ip[:city].blank? %>
     <small><%= link_to '(重新定位)',new_locate_path(:format => :js),:method => :get,:remote => true %></small>
     </li>
-    <li style="margin-left:5px;">
+    <li class='search'>
     <%= form_tag search_places_path,:method => :get do |f| -%>
       <%= text_field_tag :q,params[:q] %>
       <%= submit_tag '搜索附近',:name => nil %>

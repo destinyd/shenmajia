@@ -199,6 +199,9 @@ section,article.section{
       h2,h3{
         line-height: 16px;
       }
+      h1{
+        line-height: 12px\0;
+      }      
     }
 }
 .liner{
@@ -292,9 +295,11 @@ header.header{
     color: $first-color;
   }
   .head_left{
+    _float: left;
     ul
     {
       li{
+        _width:80px;
         height:30px;
         float:left;
         &.current{
@@ -318,6 +323,11 @@ header.header{
             background-color:$second-color;
           }
         }
+      }
+      .where{_width:200px;}
+      .search{
+        _width:250px;
+        margin-left:10px;
       }
     }
   }
