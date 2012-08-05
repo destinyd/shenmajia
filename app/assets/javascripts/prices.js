@@ -7,7 +7,7 @@ $(document).ready(function() {
       minLength: 2,
       select: function(e,ui){
         $('#price_good_good_id').val(ui['item']['id']);
-      },
+      }
     });
 });
 

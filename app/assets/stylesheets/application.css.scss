@@ -3,7 +3,7 @@
 //= require jquery.lightbox-0.5
 //= require_tree .
 $main-color: #66CCFF;
-$first-color: #FFFFFF;
+$first-color: #F7F5F5;
 $second-color: #F8B651;
 $font-color: #444;
 @mixin rounded-corners($radius){
@@ -155,11 +155,6 @@ section,article.section{
     float:left;
     position:relative;
     @include rounded-corners(5px);
-    nav.none{
-      padding: 0;
-      background-color: inherit;
-      a{color:$main-color;}
-    }
     nav{
       height:25px;
       white-space: nowrap;
@@ -203,6 +198,12 @@ section,article.section{
         line-height: 12px\0;
       }      
     }
+    nav.none{
+      padding: 0;
+      background-color: inherit;
+      _background-color: $first-color;
+      a{color:$main-color;}
+    }    
 }
 .liner{
     border:solid 1px $main-color;
@@ -699,10 +700,6 @@ button:hover,input[type="submit"]:hover,.button:hover{
 .notice-bottom {
         height: 22px;
         background: url(./purr-example/purrBottom.png) no-repeat left top;
-}
-
-body{
-  background-color:#F7F5F5;
 }
 
 /* Infinite Scroll loader */
