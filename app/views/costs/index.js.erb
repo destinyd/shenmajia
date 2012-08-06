@@ -1,8 +1,5 @@
 $(document).ready(function(){
-  <% if @good %>
-    $('#good_<%= @good.id %>_other_costs').html('<%= j render 'section',:plus => {:things => @costs.where('id != ?', params[:id]),:title=> "#{@good}的其他消费记录",:thing_name => :other_good_costs,:section_path => good_costs_path(@good)} %>');
-  <% end %>
   <% if @place %>
-    $('#place_<%= @place.id %>_other_costs').html('<%= j render 'section',:plus => {:things => @costs.where('id != ?', params[:id]),:title=> "#{@place}的其他消费记录",:thing_name => :other_locatable_costs,:section_path => place_costs_path(@place)} %>');
+    $('#place_<%= @place.id %>_other_costs').html('<%= j render 'section',:plus => {:things => @costs.where('costs.id != ?', params[:id]),:title=> "#{@place}的其他消费记录",:section_path => place_costs_path(@place)} %>');
   <% end %>
 });

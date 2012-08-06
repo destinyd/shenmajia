@@ -16,8 +16,11 @@ class Price < ActiveRecord::Base
   has_many :uploads, :as => :uploadable, :dependent => :destroy
   #has_many :price_costs,:dependent => :destroy
   #has_many :costs,:through => :price_costs
-  has_many :costs
+  #has_many :costs
   belongs_to :locatable, :polymorphic => true
+
+  has_many :bill_prices
+  has_many :bills,:through => :bill_prices
 
   acts_as_commentable
   geocoded_by :address, :latitude  => :lat, :longitude => :lon

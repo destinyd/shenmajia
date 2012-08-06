@@ -3,8 +3,9 @@ class CostsController < InheritedResources::Base
   actions :all, :except => [:edit,:update,:destroy]
   #belongs_to :city,:finder => :find_by_name!, :optional => true
   #belongs_to :place, :optional => true
-  belongs_to :good, :optional => true
+  #belongs_to :good, :optional => true
   belongs_to :place, :optional => true
+  belongs_to :bill, :optional => true
   respond_to :html
 
   respond_to :js, :only => :index
@@ -21,6 +22,6 @@ class CostsController < InheritedResources::Base
 
   protected
   def collection
-    @costs = collection ||= end_of_association_chain.recent.with_price.with_good.with_locatable.paginate(:page => params[:page])
+    @costs = collection ||= end_of_association_chain.recent.with_bill.paginate(:page => params[:page])
   end
 end

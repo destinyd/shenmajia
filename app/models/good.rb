@@ -30,7 +30,7 @@ class Good < ActiveRecord::Base
 
   #has_many :good_costs,:dependent => :destroy
   #has_many :costs , :through => :good_costs
-  has_many :costs
+  #has_many :costs
 
   accepts_nested_attributes_for :outlinks
   accepts_nested_attributes_for :uploads

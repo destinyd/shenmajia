@@ -4,12 +4,18 @@ Zhekou::Application.routes.draw do
   get '/users/status' => "users/Status#index", :as => :user_status
 
   resources :places, :except => [:edit,:update,:destroy] do
+    resources :bills, :only => :index
     resources :costs, :only => :index
     get 'search' ,:on => :collection
     #match '/search/:q/page/:page' => 'places#search', :on => :collection,:as => :search
   end
 
   resources :products
+
+  resources :bills, :except => [:edit,:update] do
+    resources :comments
+  end
+
   resources :costs, :except => [:edit,:update] do
     resources :comments
   end
@@ -35,9 +41,10 @@ Zhekou::Application.routes.draw do
   }
   @prices.call
 
-  %w{place cost good price}.each do |p|
+  %w{place cost good price bill}.each do |p|
     get "/#{p}s/page/:page" => "#{p}s#index"
-    get "/#{p}s/:#{p}_id/costs/page/:page" => "costs#index" if %w{place good}.include?(p)
+    get "/#{p}s/:#{p}_id/costs/page/:page" => "costs#index" if %w{bill}.include?(p)
+    get "/#{p}s/:#{p}_id/bills/page/:page" => "bills#index" if %w{place price}.include?(p)
   end
 
   %w{groupbuy cheapest}.each do |p|
@@ -119,7 +126,7 @@ Zhekou::Application.routes.draw do
   resources :focus
 
   resources :goods do
-    resources :costs, :only => :index
+    #resources :costs, :only => :index
 
     resources :comments
     resources :uploads

@@ -20,7 +20,6 @@
   </ul>
   <% end unless cookies[:lat].blank? %>
 
-  <%= render 'section',:plus => {:things => @good.costs.limit(10),:title=> "#{@good}的消费记录",:thing_name => :other_good_costs,:section_path => good_costs_path(@good)} %>
   <%= render 'section',:plus => {:things => @good.find_related_tags,:title=> "相关商品",:not_count => true} unless @good.find_related_tags %>
   <%= render 'comments/comments',:commentable => @good %>
 <% end -%>

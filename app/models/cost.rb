@@ -4,14 +4,13 @@ class Cost < ActiveRecord::Base
   attr_accessible :name, :good_id, :price_id, :money, :shop_id, :costs_attributes, :locatable_type, :locatable_id, :locatable, :desc, :unit, :amount, :unit_price, :norm#:price_attributes#, :price
   validates :money, :presence => true
   belongs_to :user
-  belongs_to :good
-  belongs_to :cost
-  belongs_to :price
-  #belongs_to :locate
-  #belongs_to :shop
-  belongs_to :locatable, :polymorphic => true
+  #belongs_to :good
+  #belongs_to :cost
+  #belongs_to :price
 
-  has_many :costs
+  belongs_to :bill
+
+  #has_many :costs
   #accepts_nested_attributes_for :costs
   #accepts_nested_attributes_for :price
 
@@ -24,11 +23,12 @@ class Cost < ActiveRecord::Base
   #has_many :prices,:through => :price_costs
 
 
-  scope :recent,order("id desc")
-  scope :with_price,includes(:price)
-  scope :with_good,includes(:good)
-  scope :with_locatable,includes(:locatable)
+  scope :recent,order("costs.id desc")
+  #scope :with_price,includes(:price)
+  #scope :with_good,includes(:good)
 
+  #scope :with_locatable,includes(:locatable)
+  scope :with_bill,includes(:bill)
   acts_as_commentable
 
   def form_price
@@ -50,12 +50,20 @@ class Cost < ActiveRecord::Base
     @costs_in_same_locatable = self.locatable.costs.where("id != ?",self.id).recent
   end
 
-  def other_good_costs
-    "在#{locatable}购买#{amount}#{good.unit}，共消费#{money}元"
+  #def other_good_costs
+    #"在#{locatable}购买#{amount}#{good.unit}，共消费#{money}元"
+  #end
+
+  #def other_locatable_costs
+    #"购买#{good}*#{amount}#{good.unit}，共消费#{money}元"
+  #end
+
+  def locatable
+    bill.locatable
   end
 
-  def other_locatable_costs
-    "购买#{good}*#{amount}#{good.unit}，共消费#{money}元"
+  def to_s
+    "#{user}于#{locatable}消费#{money}##{id}"
   end
 
   include UnitInitHelper

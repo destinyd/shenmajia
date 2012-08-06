@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :shops
   #has_many :user_costs
   has_many :costs#,:through => :user_costs
+  has_many :bills
   has_many :companies
   has_many :brands
   has_many :products

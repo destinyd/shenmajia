@@ -1,21 +1,19 @@
 <% @where_name = "#{@cost.user.username if @cost.user}于#{@cost.created_at}在#{@cost.locatable}的消费记录" %>
 <% @where = @cost %>
-<% set_meta_tags :keywords => "#{@cost.good},消费,消费记录", 
+<% set_meta_tags :keywords => "消费,消费记录", 
   :description => "#{@cost.user}#{@cost.desc}",
   :title => @where_name
 %>
 <p>
-<b><%= label :cost,:good %>:</b>
-<%= link_to @cost.good,@cost.good %>
+<b>消费记录:</b>
+<%= link_to @cost,@cost %>
 </p>
+
 <p>
-<b><%= label :cost,:price %>:</b>
-<%= link_to @cost.price, @cost.price %>
+<b>所属账单:</b>
+<%= link_to @cost.bill,@cost.bill %>
 </p>
-<p>
-<b><%= label :cost,:amount %>:</b>
-<%= @cost.amount %>
-</p>
+
 <p>
 <b><%= label :cost,:money %>:</b>
 <%= @cost.money %>
@@ -23,7 +21,7 @@
 
 <p>
 <b><%= label :cost,:locatable %>:</b>
-<%= link_to @cost.locatable, @cost.locatable %>
+<%= link_to @cost.bill.locatable, @cost.bill.locatable %>
 </p>
 
 <p>
@@ -38,18 +36,11 @@
 <div class="c"></div>
 
 <% content_for :plus do -%>
-  <div id="good_<%= @cost.good.try(:id) %>_other_costs">
-    <%= section :title => "#{@cost.good}的其他消费记录" do %>
-      读取中...
-    <% end %>
-  </div>
-  <%#= render 'section',:plus => {:things => @cost.costs_in_same_good.limit(10),:title=> "#{@cost.good}的其他消费记录",:thing_name => :other_good_costs,:section_path => good_costs_path(@cost.good)} %>
   <div id="place_<%= @cost.locatable.try(:id) %>_other_costs">
     <%= section :title => "#{@cost.locatable}的其他消费记录" do %>
       读取中...
     <% end  unless @cost.locatable.blank? %>
   </div>
-  <%#= render 'section',:plus => {:things => @cost.costs_in_same_locatable.limit(10),:title=> "#{@cost.locatable}的其他消费记录",:thing_name => :other_locatable_costs,:section_path => place_costs_path(@cost.locatable)} unless @cost.locatable.nil? %>
   <%= render 'comments/comments',:commentable => @cost %>
 <% end -%>
 
@@ -58,5 +49,4 @@
   <%= render 'map', :resource => @cost.locatable %>
 <% end -%>
 
-<script src="<%= good_costs_path(@cost.good,:id => @cost.id,:format => :js) %>" type="text/javascript"></script>
 <script src="<%= place_costs_path(@cost.locatable,:id => @cost.id,:format => :js) %>" type="text/javascript"></script>

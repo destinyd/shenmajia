@@ -20,7 +20,9 @@ class Place < ActiveRecord::Base
   has_many :shops
   has_many :place_goods,:dependent => :destroy
   has_many :goods,:through => :place_goods
-  has_many :costs, :as => :locatable, :dependent => :destroy
+  #has_many :costs, :as => :locatable, :dependent => :destroy
+  has_many :bills, :as => :locatable, :dependent => :destroy
+  has_many :costs, :through => :bills, :dependent => :destroy
   has_many :prices, :as => :locatable, :dependent => :destroy
   
   scope :recent,order("id desc")
