@@ -1,5 +1,37 @@
+<% @total = 0 %>
 <p id="notice"><%= notice %></p>
-
-
-<%= link_to 'Edit', edit_bill_path(@bill) %> |
-<%= link_to 'Back', bills_path %>
+<table class="bill">
+  <thead>
+    <th class="name">商品</th>
+    <th>单价</th>
+    <th>数量</th>
+    <th>总额</th>
+  </thead>
+  <tbody>
+    <% @bill.bill_prices.each do |bp| %>
+      <tr>
+        <% price = bp.price; total = bp.amount * price.price; @total += total %>
+        <td class="name"><%= price.good %></td>
+        <td><%= price.price %></td>
+        <td><%= bp.amount %></td>
+        <td><%= total %></td>
+      </tr>
+    <% end %>
+    <tr class="total">
+      <% if @total != @bill.total %>
+        <td class="name">&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>原价总额</td>
+        <td><%= @total %></td>
+      <% end %>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr class="total">
+      <td class="name">&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>最终总额</td>
+      <td><%= @bill.total %></td>
+    </tr>
+  </tfoot>
+</table>

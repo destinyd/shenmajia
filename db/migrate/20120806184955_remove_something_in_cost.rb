@@ -14,7 +14,7 @@ class RemoveSomethingInCost < ActiveRecord::Migration
     add_column :costs, :cost_id, :integer
     add_column :costs, :locate_id, :integer
     add_column :costs, :locatable_id, :integer
-    add_column :costs, :locatable_type, :limit => 20
+    add_column :costs, :locatable_type, :string, :limit => 20
 
     add_index :costs, :good_id
     add_index :costs, :price_id
