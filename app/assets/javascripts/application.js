@@ -208,3 +208,9 @@ function form_map_init(){
       marker.setPosition(new google.maps.LatLng(lat, lon));
 
     }
+
+function change_bill_val(id,name,val){
+  $.post(
+    '/carts/'+id, name + '=' +val + '&_method=PUT'
+    );
+}

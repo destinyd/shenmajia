@@ -45,13 +45,13 @@ class CostSweeper < ActionController::Caching::Sweeper
     expire_page(:controller => 'costs', :action => 'index')  if cost.id % 10 == 0
 
     expire_cache_for_other(cost.locatable) unless cost.locatable.blank?
-    expire_cache_for_other(cost.good) unless cost.good.blank?
+    # expire_cache_for_other(cost.good) unless cost.good.blank?
 
     #good
-    if cost.good
-      rm "#{Rails.root}/public/goods/#{cost.good.id}.html"
-      rm_r "#{Rails.root}/public/goods/#{cost.good.id}"
-    end
+    # if cost.good
+    #   rm "#{Rails.root}/public/goods/#{cost.good.id}.html"
+    #   rm_r "#{Rails.root}/public/goods/#{cost.good.id}"
+    # end
 
     #cities
     rm "#{Rails.root}/public/cities/#{cost.locatable.city.name}.html" if cost.locatable.city

@@ -19,10 +19,12 @@
 <%= @cost.money %>
 </p>
 
+<% if @cost.locatable %>
 <p>
 <b><%= label :cost,:locatable %>:</b>
-<%= link_to @cost.bill.locatable, @cost.bill.locatable %>
+<%= link_to @cost.locatable, @cost.locatable %>
 </p>
+<% end %>
 
 <p>
 <b><%= label :cost,:created_at%>:</b>
@@ -36,11 +38,9 @@
 <div class="c"></div>
 
 <% content_for :plus do -%>
-  <div id="place_<%= @cost.locatable.try(:id) %>_other_costs">
-    <%= section :title => "#{@cost.locatable}的其他消费记录" do %>
-      读取中...
-    <% end  unless @cost.locatable.blank? %>
-  </div>
+    <%= section :title => "账单详情" do %>
+      <%= render 'bills/show', :bill => @cost.bill %>
+    <% end if @cost.bill %>
   <%= render 'comments/comments',:commentable => @cost %>
 <% end -%>
 
@@ -48,5 +48,3 @@
 <% content_for :sidebar do -%>
   <%= render 'map', :resource => @cost.locatable %>
 <% end -%>
-
-<script src="<%= place_costs_path(@cost.locatable,:id => @cost.id,:format => :js) %>" type="text/javascript"></script>

@@ -36,7 +36,7 @@ class Place < ActiveRecord::Base
   #protected
   #def init_guid
     #self.guid = Guid.new.hexdigest.upcase
-  #end
+  #end  
   #def to_params
     #self.guid
   #end
@@ -49,13 +49,19 @@ class Place < ActiveRecord::Base
       self.checkin_num = @j['checkin_num']
       self.checkin_users_num = @j['checkin_users_num']
       self.categories = @j['categories']
+      @photos['items'].each do |photo|
+        photo['user'].delete 'birthday'
+      end
       self.photos = @photos['items']
       self.city = @j['city'] if self.city_id.blank? and !@j['city'].blank? 
       unless @j['mayor'].blank?
         self.mayor = @j['mayor']
         self.mayor_id = @j['mayor_id']
       end
-      self.save
+      begin
+        self.save
+      rescue Exception => e
+      end
     end
   end
 

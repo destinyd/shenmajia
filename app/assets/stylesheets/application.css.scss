@@ -718,3 +718,22 @@ button:hover,input[type="submit"]:hover,.button:hover{
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
+
+/* bill show and form */
+table.bill{
+  width: 95%;
+  text-align: center;
+  .name{
+    width:60%;
+    margin-right:10px;
+  }
+  tr.total td{
+    font-size:18px;
+  }
+}
+
+/* bill show and form */
+
+#bill_select input[type=text] {
+  width:80px;
+}

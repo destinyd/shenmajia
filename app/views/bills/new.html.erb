@@ -1,5 +1,7 @@
-<h1>New bill</h1>
+<% @where_name = "#{t('action.bills.new')}-第#{params[:step] || 1}步" %>
+<% set_meta_tags :keywords => "消费,消费记录", 
+  :description => @where_name,
+  :title => @where_name
+%>
 
-<%= render 'form' %>
-
-<%= link_to 'Back', bills_path %>
+<%= render "form_#{params[:step] || 1}" %>

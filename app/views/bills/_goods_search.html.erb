@@ -1,7 +1,7 @@
-<%= form_tag new_cost_path(params),:method => :get do |f| -%>
+<%= form_tag new_bill_path(params),:method => :get, :remote => true do |f| -%>
   <%= text_field_tag :q,params[:q], :placeholder => '您购买的商品：如 矿泉水' %>
   <%= hidden_field_tag :step,2 %>
   <%= hidden_field_tag :place_id,params[:place_id] %>
   <%= submit_tag '搜索商品',:name => nil %>
-  <%= link_to '搜索不到，跳过',new_cost_path(:step => 3,:place_id => params[:place_id]),:class => 'button' %>
+  <%= link_to '搜索不到，先创建商品',new_good_path(:good => {:name => params[:q]}),:class => 'button',:target => '_blank' %>
 <% end -%>

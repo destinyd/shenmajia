@@ -5,22 +5,25 @@
     <li>规格</li>  
     <li>单位</li>  
     <li>参考产地</li>  
-    <li>选择</li>  
+    <li>操作</li>  
   </ul>
   <% @goods.each do |good|  %>
     <%= content_tag :ul,:class => 'table' do %>
       <%= content_tag 'li',:class => 'name' do -%>
-        <%= link_to good,new_cost_path(:cost => {:good_id => good.id},:place_id => params[:place_id],:step => 3),:method => :get,:title => "选择#{good.name}" %>
+        <%= good.name %>
       <% end %>
       <%= content_tag 'li' do -%>
-        <%= good.norm %>
+        <%= good.norm %>&nbsp;
       <% end %>
       <%= content_tag 'li' do -%>
         <%= good.unit %>
       <% end %>
       <%= content_tag 'li' do -%>
-        <%= good.origin %>
+        <%= good.origin %>&nbsp;
       <% end %>
+      <%= content_tag 'li' do -%>
+        <%= button_to '选择',carts_path(:good_id => good.id),:method => :post, :remote => true %>
+      <% end %>      
     <% end %>
   <% end  %>
   <div class="c"></div>

@@ -1,4 +1,4 @@
-<% @place = Place.find params[:place_id] %>
+<% @place = Place.find session[:cart][:place_id] %>
 <% @cost = Cost.new((params["cost"] || {}).merge(:locatable => @place)) %>
 <div id="cost_cart">
   <%= simple_form_for @cost do |f| -%>

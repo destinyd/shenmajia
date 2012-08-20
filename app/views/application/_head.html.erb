@@ -3,7 +3,7 @@
     <li><a href='/' title='神马价'><div>神马价</div></a></li>
     <li><%= link_to '/cities',:title => '区域价格' do %><div>区域价格</div><% end %></li>
     <li><%= link_to costs_path,:title => '消费记录' do %><div>消费记录</div><% end %></li>
-    <li><%= link_to new_cost_path, :title => '记消费' do %><div>记消费</div><% end %></li>
+    <li><%= link_to new_bill_path, :title => '记账' do %><div>记账</div><% end %></li>
     <li class='where'>您的位置:
     <%= link_to city_info_of_ip[:city],city_path(city_info_of_ip[:city]) unless city_info_of_ip[:city].blank? %>
     <%= "无法确认" if city_info_of_ip[:city].blank? %>

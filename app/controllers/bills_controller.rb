@@ -4,9 +4,28 @@ class BillsController < InheritedResources::Base
   belongs_to :place, :optional => true
   respond_to :html
 
-  respond_to :js, :only => :index
+  respond_to :js, :only => [:index, :new]
+
+  def create
+    @bill = current_user.bills.new params[:bill]
+    @bill.locatable = Place.find(session[:cart][:place_id])
+    session[:cart][:items].each do |key,item|
+      bp = @bill.bill_prices.new
+      bp.amount = item[:amount]
+      bp.price = Price.where(
+        :locatable_type => 'Place',
+        :locatable_id => session[:cart][:place_id],
+        :good_id => key,
+        :price => item[:price],
+        :lat => @bill.locatable.lat,
+        :lon => @bill.locatable.lon,
+        :city_id => @bill.locatable.city_id
+        ).first_or_create({:type_id => 0,:user_id => @bill.user_id}, :on => :bill)
+    end
+    session[:cart] = {} if create!
+  end
 
   def collection
-    @costs = collection ||= end_of_association_chain.recent.paginate(:page => params[:page])
+    @bills = collection ||= end_of_association_chain.recent.paginate(:page => params[:page])
   end
 end

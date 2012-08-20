@@ -56,8 +56,8 @@ class Jiepang
     #end
   end
 
-  def get_json action,args
-    args.merge! :source => key,:count => @@count.to_s
+  def get_json action,args,count = nil
+    args.merge! :source => key,:count => (count.to_s || @@count.to_s)
     str_p = ''
     #puts args
     args.each do |k,v|

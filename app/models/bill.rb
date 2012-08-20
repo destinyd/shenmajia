@@ -1,13 +1,22 @@
 # coding: utf-8
 class Bill < ActiveRecord::Base
-  attr_accessible :locatable_id, :locatable_type, :ordered_at, :total
-  has_many :bill_prices
+  attr_accessor :cost, :desc
+  attr_accessible :locatable_id, :locatable_type, :ordered_at, :total, :bill_prices_attributes, :cost, :desc
+  has_many :bill_prices, :dependent => :destroy
   has_many :prices,:through => :bill_prices
   has_many :costs
   has_many :uploads, :as => :uploadable
   belongs_to :locatable, :polymorphic => true
+  belongs_to :user
+
+  accepts_nested_attributes_for :bill_prices, :allow_destroy => true
 
   scope :recent,order("bills.id desc")
+
+  after_initialize do
+    total = 0 unless total.blank?
+    fully_paid = false if fully_paid.nil?
+  end
   
   def to_s
     "#{locatable}产生的账单##{id}"
@@ -15,5 +24,24 @@ class Bill < ActiveRecord::Base
 
   before_create do
     ordered_at = DateTime.now if ordered_at.blank?
+    unless cost.blank?
+      self.fully_paid = true if cost.to_f == total
+      if self.desc.blank?
+        self.desc = "#{user}于#{DateTime.now}在#{self.locatable}购买"
+        arr_desc = []
+        bill_prices.each do |bp|
+          arr_desc.push "#{bp.price.good}*#{bp.amount}"
+        end
+        arr_desc.push fully_paid ? "共支付了#{cost}元。" : "支付了其中的#{cost}元。"
+        self.desc += arr_desc.join("，")
+      end
+      costs.new(
+        {
+          :money => cost,
+          :user_id => user_id,
+          :desc => self.desc
+        }, :on => :bill
+        )
+    end
   end
 end

@@ -1,7 +1,8 @@
 # coding: utf-8
 class Cost < ActiveRecord::Base
   attr_accessor :name, :address, :unit, :unit_price, :norm#, :shop
-  attr_accessible :name, :good_id, :price_id, :money, :shop_id, :costs_attributes, :locatable_type, :locatable_id, :locatable, :desc, :unit, :amount, :unit_price, :norm#:price_attributes#, :price
+  attr_accessible :name, :good_id, :price_id, :money, :shop_id, :costs_attributes, :locatable_type, :locatable_id, :locatable, :desc, :unit, :amount, :unit_price, :norm, :bill_id#:price_attributes#, :price
+  attr_accessible :user_id, :on => :bill
   validates :money, :presence => true
   belongs_to :user
   #belongs_to :good
@@ -59,28 +60,32 @@ class Cost < ActiveRecord::Base
   #end
 
   def locatable
-    bill.locatable
+    bill.locatable if bill
   end
 
   def to_s
-    "#{user}于#{locatable}消费#{money}##{id}"
-  end
-
-  include UnitInitHelper
-  before_create :create_good,:create_price
-
-  protected
-  def create_good
-    if good.blank?
-      self.good = Good.where(:name => name, :unit => unit, :norm => norm).first
-      self.good = self.user.goods.create :name => name, :unit => unit, :norm => norm unless self.good
+    if self.locatable
+      "#{user}于#{locatable}消费#{money}元##{id}"      
+    else
+      "#{user}消费#{money}元##{id}"
     end
   end
 
-  def create_price
-    unless unit_price.blank?
-      self.price = Price.where(:price => unit_price,:good_id => self.good_id).last
-      self.price = user.prices.create(:price => unit_price,:lat => locatable.lat, :lon => locatable.lon,:good_id => good_id,:locatable => locatable,:type_id => 0, :city_id => locatable.city_id) unless self.price
-    end
-  end
+  # include UnitInitHelper
+  # before_create :create_good,:create_price
+
+  # protected
+  # def create_good
+  #   if good.blank?
+  #     self.good = Good.where(:name => name, :unit => unit, :norm => norm).first
+  #     self.good = self.user.goods.create :name => name, :unit => unit, :norm => norm unless self.good
+  #   end
+  # end
+
+  # def create_price
+  #   unless unit_price.blank?
+  #     self.price = Price.where(:price => unit_price,:good_id => self.good_id).last
+  #     self.price = user.prices.create(:price => unit_price,:lat => locatable.lat, :lon => locatable.lon,:good_id => good_id,:locatable => locatable,:type_id => 0, :city_id => locatable.city_id) unless self.price
+  #   end
+  # end
 end

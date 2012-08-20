@@ -28,7 +28,7 @@
   </p>
 <% end %>
   <p>
-    <%= link_to '在这里消费了',new_cost_path(:place_id => @place.id,:step => 2),:class => 'button' %>
+    <%= link_to '在这里消费了',new_bill_path(:place_id => @place.id,:step => 2),:class => 'button' %>
   </p>
 
 
@@ -46,7 +46,7 @@
       <% unless @place.mayor.blank? %>
         地主: <img src="<%= @place.mayor['avatar'] %>" alt="<%= @place.mayor['nick'] %>" /><br />
       <% end %>
-      <% unless @place.categories.blank? %>
+      <% unless @place.categories.blank? or @place.categories.class != Array %>
         分类: 
         <% @place.categories.each do |category| %>
           <img src="http://jiepang.com<%= category['icon'] %>" alt="<%= category['name'] %>" title="<%= category['name'] %>" />
@@ -59,7 +59,8 @@
   </section>
   <% end unless @place.checkin_num.blank? %>
 
-  <%= render 'section',:plus => {:things => @place.costs.recent.limit(10),:title=> "#{@place}的消费记录",:thing_name => :other_locatable_costs,:section_path => place_costs_path(@place)} %>
+  <%= render 'section',:plus => {:things => @place.bills.recent.limit(10),:title=> "#{@place}的消费记录",
+  :section_path => place_costs_path(@place)} %>
 
   <%= section :title => '图片' do %>
     <div id="gallery">

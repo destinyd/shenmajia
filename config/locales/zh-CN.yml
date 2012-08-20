@@ -197,6 +197,7 @@ zh-CN:
       brand: 品牌
       place: 地点
       cost: 消费
+      bill: 账单
     attributes:
       price:
         price: 单价
@@ -292,6 +293,7 @@ zh-CN:
     costs: 消费
     cities: 城市
     homes: 用户主页
+    bills: 账单
   action:
     prices:
       new: 记账
@@ -326,6 +328,8 @@ zh-CN:
       new: 记录地点
       create: 记录地点
       search: 搜索
+    bills:
+      new: 记账
 
   will_paginate:
     previous_label: "&#8592; 上一页"

@@ -8,7 +8,7 @@ class CostsController < InheritedResources::Base
   belongs_to :bill, :optional => true
   respond_to :html
 
-  respond_to :js, :only => :index
+  respond_to :js, :only => [:index, :new]
 
   caches_page :index,:show
   cache_sweeper :cost_sweeper

@@ -37,7 +37,7 @@ class Good < ActiveRecord::Base
 
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   scope :recent,order('id desc')#.includes(:reviews).limit(10)
-  scope :running,where(:deleted_at => '0000-00-00 00:00:00')
+  scope :running,where(:deleted_at => DateTime.new(0))
   scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at')
 
   validates :name, :presence => true,:uniqueness => {:scope => [:unit,:norm]}
@@ -47,6 +47,11 @@ class Good < ActiveRecord::Base
   acts_as_taggable
 
   default_scope includes(:uploads) #
+
+  after_initialize do
+    self.unit = '份' if self.unit.blank?
+    self.deleted_at = DateTime.new 0
+  end
 
   def self.search(search)
     unless search.blank?
@@ -77,7 +82,6 @@ class Good < ActiveRecord::Base
     self.user.get_point(1,self,1) if self.user_id
   end
 
-  include UnitInitHelper
   before_create :uniq_barcode_or_nil
   after_create :exp
 

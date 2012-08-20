@@ -15,9 +15,11 @@
   </div>
   <div class="detail">
     <%=link_to  cost,cost,:target => '_blank', :title=> cost.name %><br />
-    所属账单：<%= link_to cost.bill, cost.bill %><br />
+    <% content_tag :div do %>
+      所属账单：<%= link_to cost.bill, cost.bill %>
+    <% end if cost.bill %>
     消费：<%= cost.money %><br />
-    <% if cost.bill.locatable %>
+    <% if cost.bill and cost.bill.locatable %>
       地点：<%= link_to cost.bill.locatable, cost.bill.locatable %>
     <% end %>
   </div>
