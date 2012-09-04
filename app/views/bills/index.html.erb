@@ -1,19 +1,11 @@
-<h1>Listing bills</h1>
-
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @bills.each do |bill| %>
-  <tr>
-    <td><%= link_to 'Show', bill %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Bill', new_bill_path %>
+<% @where_name = "账单列表，第#{params[:page] || 1}页" %>
+<% @where_name = '在' + @place.name + '的' + @where_name if @place %>
+<% set_meta_tags :keywords => "账单,消费,地点", 
+  :description => "账单列表，第#{params[:page] || 1}页",
+  :title => @where_name
+%>
+<%= render @bills %>
+<div class="c"></div>
+<div class="r">
+  <%= will_paginate @bills %> 
+</div>

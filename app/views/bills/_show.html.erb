@@ -11,7 +11,7 @@
     <% bill.bill_prices.each do |bp| %>
       <tr>
         <% price = bp.price; total = bp.amount * price.price; @total += total %>
-        <td class="name"><%= price.good %></td>
+        <td class="name"><%= link_to price.good,price.good %></td>
         <td><%= price.price %></td>
         <td><%= bp.amount %></td>
         <td><%= "%.02f" % total %></td>
