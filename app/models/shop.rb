@@ -1,5 +1,5 @@
 class Shop < ActiveRecord::Base
-  attr_accessible :desc, :name,:lat,:lon,:brand_id,:address,:tag_list
+  attr_accessible :desc, :name,:brand_id,:tag_list
   validates :name, :presence => true
   # validates :address, :presence => true
 
@@ -24,6 +24,10 @@ class Shop < ActiveRecord::Base
   #   self.lat.nil? or self.lon.nil?
   # end
 
+  def valid
+    self.update_attribute :is_valid, true unless self.is_valid
+  end
+  
   def to_s
     name
   end

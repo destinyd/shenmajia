@@ -76,3 +76,4 @@ gem 'quiet_assets', :group => :development
 gem 'guid'
 
 gem 'meta-tags', :require => 'meta_tags'
+gem 'rails_kindeditor', '~> 0.3.0'

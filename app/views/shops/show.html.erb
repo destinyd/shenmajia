@@ -3,7 +3,7 @@
 <% session[:shop] ||= {} %>
 <% session[:shop][:id] = @shop.id %>
 <p>
-<%= @shop.desc %>
+<%= @shop.is_valid ? raw(@shop.desc) : @shop.desc  %>
 </p>
 
 <% content_for :plus do -%>
