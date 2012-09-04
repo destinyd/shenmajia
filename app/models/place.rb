@@ -17,7 +17,7 @@ class Place < ActiveRecord::Base
   validates_with LocateValidator
 
   belongs_to :city
-  has_many :shops
+  has_many :shops, :as => :locatable, :dependent => :destroy
   has_many :place_goods,:dependent => :destroy
   has_many :goods,:through => :place_goods
   #has_many :costs, :as => :locatable, :dependent => :destroy
@@ -89,6 +89,8 @@ class Place < ActiveRecord::Base
   def no_locate?
     self.lat.nil? or self.lon.nil?
   end
+
+  include PosHelper
 
   geocoded_by :address, :latitude  => :lat, :longitude => :lon
   def near_places long = 20

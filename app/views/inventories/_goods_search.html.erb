@@ -1,0 +1,5 @@
+<%= form_tag search_inventories_path, :remote => true do |f| -%>
+  <%= text_field_tag :q,params[:q], :placeholder => '您购买的商品：如 矿泉水' %>
+  <%= submit_tag '搜索商品',:name => nil %>
+  <%= link_to '搜索不到，先创建商品',new_good_path(:good => {:name => params[:q]}),:class => 'button',:target => '_blank' %>
+<% end -%>

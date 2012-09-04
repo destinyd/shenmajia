@@ -1,43 +1,8 @@
-<% @place = Place.find session[:cart][:place_id] %>
-<% @cost = Cost.new((params["cost"] || {}).merge(:locatable => @place)) %>
+<% @cost = Cost.new((params["cost"] || {})) %>
 <div id="cost_cart">
   <%= simple_form_for @cost do |f| -%>
-    <% if @cost.good_id.blank? %>
-      <%= f.input :name, :placeholder => "商品名称,如：矿泉水", :required => true  %>
-      <%= f.input :unit, :placeholder => "商品单位,如：瓶", :required => true, :input_html => {:id => :good_unit} %>
-      <%= f.input :norm, :placeholder => "规格,型号"  %>
-    <% else %>
-      <%= f.input :name, :required => true, :disabled => true, :input_html => {:value => @cost.good.blank? ? @cost.name : @cost.good.name }  %>
-      <%= hidden_field_tag :good_unit, @cost.good.try(:unit) %>
-  <% end %>
-    <%=f.input :unit_price, :placeholder => "单价", :input_html => {:onblur =>'cost_form_on_blur()', :value => @cost.form_price} %>
-    <%=f.input :amount, :placeholder => "数量",:input_html => {:onblur =>'cost_form_on_blur()'} %>
-    <%=f.input :money, :placeholder => "0.0",:input_html => {:onblur =>'cost_form_on_blur()'} %>
-    <%=f.input :desc, :placeholder => "在超市购买牛奶*1,花费2元" %>
-    <%= f.input :locatable_type, :as => :hidden %>
-    <%= f.input :locatable_id, :as => :hidden %>
-    <%= f.input :good_id, :as => :hidden %>
-    <%= hidden_field_tag :step, 3 %>
-    <%= hidden_field_tag :place_id, params[:place_id] %>
-    <%= hidden_field_tag :locatable_name, @cost.locatable %>
+    <%= f.input :money %>
+    <%= f.input :desc %>
     <%= f.submit '提交',:name => nil %>
   <% end %>
 </div>
-<div class="c"></div>
-<script>
-  $('#cost_unit_price')
-
-$(document).ready(function() {
-    $('#price_good_good_name').bind('change', function(e,ui){
-        $('#price_good_good_id').val('');
-    });
-    $('#price_good_good_name').autocomplete({
-      source: '/goods.json',
-      minLength: 2,
-      select: function(e,ui){
-        $('#price_good_good_id').val(ui['item']['id']);
-      },
-    });
-});
-
-</script>

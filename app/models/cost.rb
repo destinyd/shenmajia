@@ -65,9 +65,9 @@ class Cost < ActiveRecord::Base
 
   def to_s
     if self.locatable
-      "#{user}于#{locatable}消费#{money}元##{id}"      
+      "#{user}于#{locatable}消费#{money}元"      
     else
-      "#{user}消费#{money}元##{id}"
+      "#{user}消费#{money}元"
     end
   end
 

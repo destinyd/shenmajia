@@ -214,3 +214,9 @@ function change_bill_val(id,name,val){
     '/carts/'+id, name + '=' +val + '&_method=PUT'
     );
 }
+
+function change_shop_bill_val(shop_id,id,name,val){
+  $.post(
+    '/shops/' + shop_id + '/shop_carts/'+id, name + '=' +val + '&_method=PUT'
+    );
+}

@@ -15,6 +15,7 @@ class Price < ActiveRecord::Base
   has_many :integrals, :as => :integralable, :dependent => :destroy
   has_many :reviews, :as => :reviewable, :dependent => :destroy
   has_many :uploads, :as => :uploadable, :dependent => :destroy
+  has_many :inventories
   #has_many :price_costs,:dependent => :destroy
   #has_many :costs,:through => :price_costs
   #has_many :costs
@@ -38,6 +39,8 @@ class Price < ActiveRecord::Base
   # scope :costs,recent.where(:type_id=>[0,1])  
   scope :with_good,includes(:good)
   scope :you_like,running.order('rand()')
+  scope :shop_type, where(:type_id => 101..103)
+  scope :shop_price, lambda {|shop| recent.shop_type.where(:locatable_type => 'Shop', :locatable_id => shop.id)}
 
 
   accepts_nested_attributes_for :good
@@ -54,9 +57,9 @@ class Price < ActiveRecord::Base
   22=>'全国配送团购价',
   31=>'批发价',
   51=>'成本价',
-  #101=>'商家发布价',
-  #102=>'商家优惠价',
-  #103=>'商家限量价'
+  101=>'商店发布价',
+  102=>'商店特价',
+  103=>'商店秒杀价'
   }
 
   def no_locate?
@@ -91,6 +94,10 @@ class Price < ActiveRecord::Base
     TYPE
   end
 
+  def self.shop_types
+    [TYPE[101],TYPE[102],TYPE[103]]
+  end
+
   def self.selects
     TYPE.select{|k,v|k<31}.invert
   end
@@ -105,32 +112,33 @@ class Price < ActiveRecord::Base
     user.get_point(1,self) if user_id
   end
 
-  def deal_cheap_price
-    create_alias_price 6,price if !is_cheap_price.blank? and is_cheap_price != "0"
-  end
+  # def deal_cheap_price
+  #   create_alias_price 6,price if !is_cheap_price.blank? and is_cheap_price != "0"
+  # end
 
-  def deal_original_price
-    create_alias_price 7,original_price unless original_price.blank?
-  end
+  # def deal_original_price
+  #   create_alias_price 7,original_price unless original_price.blank?
+  # end
 
-  def create_alias_price type_id,price
-    p = Price.new :title => title,
-      :type_id => type_id,
-      :price => price,
-      :address => address,
-      :lat => lat,
-      :lon => lon,
-      :amount => amount
-    outlinks.each do |outlink|
-      o = Outlink.new :url => outlink.url
-      o.user_id = outlink.user_id
-      p.outlinks << o
-    end
-    p.user_id = user_id
-    p.save
-  end
+  # def create_alias_price type_id,price
+  #   p = Price.new :title => title,
+  #     :type_id => type_id,
+  #     :price => price,
+  #     :address => address,
+  #     :lat => lat,
+  #     :lon => lon,
+  #     :amount => amount
+  #   outlinks.each do |outlink|
+  #     o = Outlink.new :url => outlink.url
+  #     o.user_id = outlink.user_id
+  #     p.outlinks << o
+  #   end
+  #   p.user_id = user_id
+  #   p.save
+  # end
 
   def near_prices long = 20
+    return city.prices.where("id != ?",self.id) if city_id
     return if no_locate?
     @nears ||= nearbys(long)
     @nears ||= @nears.running.limit(10) unless @nears == []
@@ -194,21 +202,37 @@ class Price < ActiveRecord::Base
     good.desc
   end
 
-  before_validation :init_type_id
-  after_validation :locate_by_city
-  before_create :geocode, :if => [:no_locate?,:address_changed?]#,:on =>:create
+  include PosHelper
+
+  # before_validation :init_type_id
+  before_create :locate_city, :locate_pos #:locate_by_city
+  # before_create :geocode, :if => [:no_locate?,:address_changed?]#,:on =>:create
   #before_update :geocode, :if => :address_changed?
   before_create :outlink_user
-  after_create :exp,:deal_cheap_price,:deal_original_price,:deal_good,:deal_img
+  after_create :exp,:deal_good,:deal_img
+  # after_create :deal_cheap_price,:deal_original_price
   protected
-  def locate_by_city
-    if self.user_id.nil? and self.no_locate? and ! self.city.blank?
-      if @locate = Locate.where(:name => self.city).first_or_create
-        self.lat = @locate.lat
-        self.lon = @locate.lon
-      end
-    end
+  # def locate_by_city
+  #   if self.user_id.nil? and self.no_locate? and ! self.city.blank?
+  #     if @locate = Locate.where(:name => self.city).first_or_create
+  #       self.lat = @locate.lat
+  #       self.lon = @locate.lon
+  #     end
+  #   end
+  # end
+
+  def locate_city
+    self.city_id = locatable.city_id if self.city_id.blank? and locatable
   end
+
+  def locate_pos
+    if locatable.class.name == 'Place'
+      self.pos = locatable.lat,locatable.lon
+    elsif locatable.class.name == 'Shop'
+      self.pos = locatable.locatable.pos if locatable.locatable
+    end if no_locate? and locatable
+    self.pos = city.pos if no_locate? and city
+  end  
   
   def deal_good
     return if good_id
@@ -224,7 +248,7 @@ class Price < ActiveRecord::Base
     #save if changed?
   end
 
-  def init_type_id
-    self.type_id = 0 unless read_attribute(:type_id).blank?
+  after_initialize do
+    self.type_id = 0 if read_attribute(:type_id).blank?
   end
 end

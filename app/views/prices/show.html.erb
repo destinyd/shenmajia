@@ -47,7 +47,7 @@
 <br />
 <br />
 
-<%= link_to '我也这价在这买了一件！',new_cost_path(:place_id => @price.locatable_id,:step => 3,:cost => {:good_id => @price.good_id,:price_id => @price.id}) %>
+<%#= button_to '我也这价在这买了一件！',{:controller => :bills, :action => :new ,:place_id => @price.locatable_id,:step => 2,:cost => {:good_id => @price.good_id,:price_id => @price.id}}, :method => :get %>
 <%= render 'reviews/links',:reviewable => @price %>
 <div class="c"></div>
 

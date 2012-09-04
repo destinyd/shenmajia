@@ -132,6 +132,7 @@ ul.nowrap{
 .current_tab{
     background-color:#f00;
 }
+.tc{text-align: center;}
 .mt{
   clear:both;
   margin-top:10px;
@@ -735,5 +736,27 @@ table.bill{
 /* bill show and form */
 
 #bill_select input[type=text] {
-  width:80px;
+  max-width:80px;
+  min-width:50px;
+}
+
+#inventories{
+  li{
+    width: 200px;
+    float: left;
+    padding: 5px 10px;
+#    border: 1px solid $main-color;
+    margin: 0 10px 10px 0;
+    div.pic{
+      text-align: center;    
+      a img{
+        max-width:180px;
+      }
+    }
+    div.detail{
+      padding: 0 15px;
+      margin: 5px 0;
+    }
+  }
+  clear: both;
 }

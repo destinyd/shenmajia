@@ -1,6 +1,10 @@
 Zhekou::Application.routes.draw do
+  
+  resources :contacts do
+    post :set_default, :on => :member
+  end
 
-  resources :carts
+  resources :carts, :only => [:index,:update,:create,:destroy]
   
   get '/users/status' => "users/Status#index", :as => :user_status
 
@@ -83,7 +87,16 @@ Zhekou::Application.routes.draw do
     match 'integrals' => 'homes#integrals'
   end
 
-  resources :shops
+  resources :shops do
+    resources :inventories
+    resources :bills, :except => [:edit,:update]
+    resources :shop_carts, :only => [:index,:update,:create,:destroy]
+  end
+
+  resources :inventories, :except => [:index, :show] do
+    match :search, :on => :collection
+  end
+
   match 'sitemap.xml' => 'sitemaps#sitemap'
 
   resources :locates,:only => [:create,:new] do
@@ -92,6 +105,7 @@ Zhekou::Application.routes.draw do
   resources :cities,:only => [:index,:show] do
     @prices.call
     resources :shops
+    get :search, :on => :collection    
   end
 
   get '/cities/:id/page/:page' => 'cities#show'

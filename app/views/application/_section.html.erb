@@ -1,5 +1,5 @@
 <% unless !plus[:not_count] and plus[:things].empty? %>
-  <section class="<%="#{plus[:plusclass]}" if plus[:plusclass]  -%>">
+  <section class="<%="#{plus[:plusclass]}" if plus[:plusclass]  -%>" <%= "id='#{plus[:plusid]}'" if plus[:plusid] %>>
     <header>
       <nav>
         <ul>

@@ -163,6 +163,8 @@ Article.create(
 ]
 )
 
+User.first.shops.where(:name => '神马价官方店', :city_id => 311).first_or_create
+
 
 #geocode
 #Price.where("latitude is null and address <> '全国'").group(:address).each do |b|

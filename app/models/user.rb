@@ -30,11 +30,17 @@ class User < ActiveRecord::Base
   has_many :products
   has_many :norms
   has_many :units
+  has_many :contacts
 
   validates :username, :presence => true,:uniqueness => true
 
 
   scope :recent ,limit(10).order('id desc')#.select('email,created_at')
+
+  def default_contact
+    contacts.default.first
+  end
+
   def to_s
     self.username || self.email
   end

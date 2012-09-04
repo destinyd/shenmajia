@@ -1,9 +1,6 @@
 <%= simple_form_for @shop do |f| -%>
   <%= f.input :name %>
   <%= f.input :desc %>
-  <%= f.input :address,:input_html => {:id => 'form_address'} %>
-  <%= f.input :lat , :as => :hidden,:input_html => {:id => 'form_lat'} %>
-  <%= f.input :lon , :as => :hidden,:input_html => {:id => 'form_lon'} %>
   <%= f.input :tag_list%>
   <% # , :hint => "半角逗号(,)分割。填写商店类别，让客户更容易找到你。" %>
   <%= f.submit %>

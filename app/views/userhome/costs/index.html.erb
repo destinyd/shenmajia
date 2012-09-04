@@ -7,15 +7,15 @@
   <% end %>
   <% costs.each do |cost| %>
     <%= content_tag :div,:class => 'price_cost' do %>
-      <% cost_one = cost.price.price * (cost.price.amount || 1) ;@count = @count+cost_one;month_count = month_count + cost_one %>
+      <% @count = @count + cost.money; month_count = month_count + cost.money %>
       <%= content_tag :div,:class => 'time' do %>
         <%=cost.created_at.strftime('%d日%H:%M') %>
       <% end %>
       <%= content_tag :div,:class => 'title' do %>
-        <%=link_to cost.price.name,cost %>
+        <%=link_to cost,cost %>
       <% end %>
       <%= content_tag :div,:class => 'price' do %>
-        <span style="color:red"><%= cost.price.price %>*<%= cost.price.amount || 1 %></span>元
+        <span style="color:red"><%= cost.money %></span>元
       <% end %>
       <div class='clearer'></div>
     <% end %>

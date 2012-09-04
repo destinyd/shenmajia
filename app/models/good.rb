@@ -28,6 +28,8 @@ class Good < ActiveRecord::Base
   has_many :place_goods,:dependent => :destroy
   has_many :places,:through => :place_goods
 
+  has_many :inventories
+
   #has_many :good_costs,:dependent => :destroy
   #has_many :costs , :through => :good_costs
   #has_many :costs
@@ -91,5 +93,12 @@ class Good < ActiveRecord::Base
 
   def exp
     self.user.get_point(1,self) if self.user_id
+  end
+
+  def shop_price shop
+    if @shop_price.nil?
+      @shop_price = prices.shop_price(shop).first.try(:price) || false
+    end
+    @shop_price
   end
 end

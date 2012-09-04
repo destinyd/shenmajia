@@ -59,10 +59,10 @@ class CostSweeper < ActionController::Caching::Sweeper
 
     if cost.id % 10 == 0
     #prices
-      expire_page(:controller => 'prices', :action => 'index')
-      rm_r "#{Rails.root}/public/prices/page"
-      rm_r "#{Rails.root}/public/prices/cheapest"
-      rm_r "#{Rails.root}/public/prices/groupbuy"
+      # expire_page(:controller => 'prices', :action => 'index')
+      # rm_r "#{Rails.root}/public/prices/page"
+      # rm_r "#{Rails.root}/public/prices/cheapest"
+      # rm_r "#{Rails.root}/public/prices/groupbuy"
 
 
       rm_r "#{Rails.root}/public/costs/page"

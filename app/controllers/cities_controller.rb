@@ -21,4 +21,11 @@ class CitiesController < ApplicationController
     #@recent_goods = Good.recent.group(:name).limit(10)
   end
 
+  def search
+    @cities = City.search params[:term]
+    respond_to do |format|
+      format.json{ render :json => @cities.map(&:name).to_json}
+    end
+  end
+
 end

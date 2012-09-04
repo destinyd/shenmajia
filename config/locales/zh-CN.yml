@@ -198,6 +198,7 @@ zh-CN:
       place: 地点
       cost: 消费
       bill: 账单
+      contact: 联系方式
     attributes:
       price:
         price: 单价
@@ -208,6 +209,10 @@ zh-CN:
         locatable: 消费地点
       place:
         name: 地点名称
+      shop:
+        address:  商家地址
+      contact:
+        name:  联系人名称
 
   attributes:
     created_at: '创建于'
@@ -216,7 +221,7 @@ zh-CN:
     finish_at: 截止于
     name: '名称'
     email: '邮箱'
-    address:  '商家地址'
+    address:  地址
     price: 单价
     unit_price: 单价
     image: 图片
@@ -243,6 +248,14 @@ zh-CN:
     norm: 规格
     addr: 地点地址
     tel: 地点电话
+    current: 现价
+    original: 原价
+    city_id: 城市
+    telephone: 手机号码
+    phone: 电话号码
+    is_default: 设为默认
+
+
 
 
   labels:
@@ -294,6 +307,7 @@ zh-CN:
     cities: 城市
     homes: 用户主页
     bills: 账单
+    contacts: 联系方式
   action:
     prices:
       new: 记账
@@ -330,6 +344,10 @@ zh-CN:
       search: 搜索
     bills:
       new: 记账
+    new: 添加
+    index: 列表
+    edit: 修改
+    search: 搜索
 
   will_paginate:
     previous_label: "&#8592; 上一页"

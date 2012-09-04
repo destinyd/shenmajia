@@ -23,7 +23,7 @@ module ApplicationHelper
   end
 
   def could_bread?
-    !['home','sessions','registrations'].include? controller_name
+    !['home','sessions','registrations','inventories'].include? controller_name
   end
 
   def link_to_add_fields(name, f, association)
@@ -41,5 +41,18 @@ module ApplicationHelper
   def section p ,&block
     content = capture(&block) 
     render 's',p.merge(:content => content)
+  end
+
+  def img_upload upload,name
+   if upload
+     if upload.image_file_name.scan(/http/).blank?
+       content = "<img src='#{upload.image.url}' alt='#{name}' title='#{name}' />"
+     else
+       content = "<img src='#{upload.image_file_name}' alt='#{name}' title='#{name}' />"
+     end
+   else
+     content = "<img src='/images/nopic.gif'  alt='#{name}' title='#{name}' />"
+   end
+   raw content
   end
 end
