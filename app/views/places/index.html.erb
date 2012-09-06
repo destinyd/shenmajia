@@ -20,4 +20,6 @@
 <% end %>
 </table>
 <div class="c"></div>
-<%= render "#{action_name}_pages" %>
+<div class="r">
+  <%= will_paginate @places %>
+</div>

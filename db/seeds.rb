@@ -166,6 +166,9 @@ Article.create(
 s = User.first.shops.where(:name => '神马价官方店', :city_id => 311).first_or_create
 s.valid
 
+City.update_all({:name => '澳门'},{:name => '澳门特别行政区'})
+City.update_all({:name => '香港'},{:name => '香港特别行政区'})
+
 #geocode
 #Price.where("latitude is null and address <> '全国'").group(:address).each do |b|
   #b.geocode

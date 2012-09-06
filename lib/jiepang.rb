@@ -57,7 +57,7 @@ class Jiepang
   end
 
   def get_json action,args,count = nil
-    args.merge! :source => key,:count => (count.to_s || @@count.to_s)
+    args.merge! :source => key,:count => (count || @@count).to_s
     str_p = ''
     #puts args
     args.each do |k,v|
@@ -75,6 +75,24 @@ class Jiepang
     end
 
   end
+
+  def self.search args
+    @jiepang = Jiepang.new
+    result = @jiepang.search args
+    @places = result["places"]
+    @places.each{|place| place.delay.update_jiepang}
+    delay.get_next_search(args) if result["has_more"]
+    @places
+  end
+
+  def self.get_next_search args
+    p_args = args.merge(:page => (((args[:page] || 1).to_i) +1).to_s)
+    @jiepang = Jiepang.new
+    result = @jiepang.search p_args
+    @places = result["places"]
+    @places.each{|place| place.delay.update_jiepang}
+  end
+
 
   protected
   def config

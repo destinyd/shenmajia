@@ -29,14 +29,10 @@ class PlacesController < InheritedResources::Base
       return
     end
     @where = request.url
-    require 'jiepang'
     @page = params[:page] ? params[:page].to_i : 1
-    args = {:q => params[:q],:page => params[:page],:lat => cookies["lat"],:lon => cookies["lon"]}
-    @jiepang = Jiepang.new
-    result = @jiepang.search args
-    @places = result["places"]
-    @places.each{|place| place.update_jiepang}
-    @has_more = result["has_more"]
+    args = {:q => params[:q],:page => @page.to_s,:lat => cookies["lat"],:lon => cookies["lon"]}
+    args.merge! :city => cookies['city'] if !cookies['city'].blank? and cookies['city'].scan(/自治/).blank?
+    @places = Place.search(args).paginate :page => params[:page]
 
     respond_to do |format|
       format.html { render :index } # index.html.erb
@@ -47,6 +43,6 @@ class PlacesController < InheritedResources::Base
 
   protected
   def collection
-    @places = collection ||= end_of_association_chain.recent.paginate(:page => params[:page])
+    @places = collection ||= end_of_association_chain.paginate(:page => params[:page])
   end
 end

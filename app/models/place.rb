@@ -90,6 +90,19 @@ class Place < ActiveRecord::Base
     self.lat.nil? or self.lon.nil?
   end
 
+  def self.already_got args
+    PlaceSearch.already_got args
+  end
+
+  def self.search(args)
+    unless already_got(args)
+      require 'jiepang'
+    end
+    PlaceSearch.where(args).create
+    where('name LIKE ?', "%#{args[:q]}%").where(:city_id => [City.find_by_name(args[:city]).try(:id),nil])
+  end
+
+
   include PosHelper
 
   geocoded_by :address, :latitude  => :lat, :longitude => :lon

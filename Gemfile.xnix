@@ -3,7 +3,7 @@ require 'rbconfig'
 HOST_OS = RbConfig::CONFIG['host_os']
 source 'http://ruby.taobao.org/'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.8'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -77,3 +77,5 @@ gem 'guid'
 
 gem 'meta-tags', :require => 'meta_tags'
 gem 'rails_kindeditor', '~> 0.3.0'
+gem 'delayed_job_active_record'
+gem 'daemons'
