@@ -11,7 +11,7 @@
       <td><%= price_goods.good_id %></td>
       <td><%= link_to "Show", price_goods %></td>
       <td><%= link_to "Edit", edit_price_goods_path(price_goods) %></td>
-      <td><%= link_to "Destroy", price_goods, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Destroy", price_goods, confirm: 'Are you sure?', method:  :delete %></td>
     </tr>
   <% end %>
 </table>

@@ -14,7 +14,7 @@ class MyTasks
 
   def accept(task_id)
     user_tasks = @user.user_tasks
-    accepted = user_tasks.where(:"user_tasks.task_id"=>task_id,:finished_at=>nil)
+    accepted = user_tasks.where("user_tasks.task_id = ?", task_id).where(finished_at: nil)
 
     if accepted.blank?
       @task = Task.find(task_id)
@@ -25,7 +25,7 @@ class MyTasks
   end
 
   def give_up(task_id)
-    user_task = @user.user_tasks.where(:task_id => task_id).first
+    user_task = @user.user_tasks.where(task_id: task_id).first
     if user_task
       @task = user_task.task
       user_task.destroy 
@@ -34,7 +34,7 @@ class MyTasks
   end
 
   def finish(task_id)
-    user_task = @user.user_tasks.where(:finished_at => nil,:task_id => task_id).first
+    user_task = @user.user_tasks.where(finished_at: nil,task_id: task_id).first
     user_task.finish if user_task and user_task.could_finish?
   end
 

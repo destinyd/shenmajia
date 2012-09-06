@@ -5,33 +5,33 @@ class Good < ActiveRecord::Base
   belongs_to :user
   belongs_to :brand
   belongs_to :product
-  has_many :brand_goods,:dependent => :destroy
-  has_many :brands,:through => :brand_goods
+  has_many :brand_goods,dependent:  :destroy
+  has_many :brands,through:  :brand_goods
 
   #has_many :price_goods
-  has_many :prices#,:through => :price_goods
-  has_many :outlinks, :as => :outlinkable
-  has_many :records, :as => :recordable
-  has_many :uploads, :as => :uploadable
-  has_many :focuss, :as => :focusable
-  has_many :attrs, :as => :attrable
-  has_many :reviews, :as => :reviewable
-  has_many :integrals, :as => :integralable
-  has_many :package_goods, :dependent => :destroy
-  has_many :good_packages, :dependent => :destroy,:foreign_key => :package_id,:class_name => 'PackageGood'
-  has_many :goods,:through => :package_goods,:source =>:package#,:foreign_key => :package_id
-  has_many :packages,:through => :good_packages,:source =>:good,:foreign_key => :package_id
+  has_many :prices#,through:  :price_goods
+  has_many :outlinks, as:  :outlinkable
+  has_many :records, as:  :recordable
+  has_many :uploads, as:  :uploadable
+  has_many :focuss, as:  :focusable
+  has_many :attrs, as:  :attrable
+  has_many :reviews, as:  :reviewable
+  has_many :integrals, as:  :integralable
+  has_many :package_goods, dependent:  :destroy
+  has_many :good_packages, dependent:  :destroy,foreign_key:  :package_id,class_name:  'PackageGood'
+  has_many :goods,through:  :package_goods,source: :package#,foreign_key:  :package_id
+  has_many :packages,through:  :good_packages,source: :good,foreign_key:  :package_id
 
-  has_many :shop_goods,:dependent => :destroy
-  has_many :shops,:through => :shop_goods
+  has_many :shop_goods,dependent:  :destroy
+  has_many :shops,through:  :shop_goods
 
-  has_many :place_goods,:dependent => :destroy
-  has_many :places,:through => :place_goods
+  has_many :place_goods,dependent:  :destroy
+  has_many :places,through:  :place_goods
 
   has_many :inventories
 
-  #has_many :good_costs,:dependent => :destroy
-  #has_many :costs , :through => :good_costs
+  #has_many :good_costs,dependent:  :destroy
+  #has_many :costs , through:  :good_costs
   #has_many :costs
 
   accepts_nested_attributes_for :outlinks
@@ -39,11 +39,11 @@ class Good < ActiveRecord::Base
 
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   scope :recent,order('id desc')#.includes(:reviews).limit(10)
-  scope :running,where(:deleted_at => DateTime.new(0))
+  scope :running,where(deleted_at:  DateTime.new(0))
   scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at')
 
-  validates :name, :presence => true,:uniqueness => {:scope => [:unit,:norm]}
-  validates :unit, :presence => true
+  validates :name, presence:  true,uniqueness:  {scope:  [:unit,:norm]}
+  validates :unit, presence:  true
   
   acts_as_commentable
   acts_as_taggable
@@ -88,7 +88,7 @@ class Good < ActiveRecord::Base
   after_create :exp
 
   def uniq_barcode_or_nil
-    raise 'uniq_barcode_or_nil' if barcode and !Good.where(:barcode =>barcode).blank?
+    raise 'uniq_barcode_or_nil' if barcode and !Good.where(barcode: barcode).blank?
   end
 
   def exp

@@ -1,7 +1,7 @@
 <% @where_name = "商品列表，第#{params[:page] || 1}页" %>
-<% set_meta_tags :keywords => "商品,单位", 
-  :description => "商品列表，第#{params[:page] || 1}页",
-  :title => @where_name
+<% set_meta_tags keywords:  "商品,单位", 
+  description:  "商品列表，第#{params[:page] || 1}页",
+  title: @where_name
 %>
 <%= render @goods %>
 <div class="r">

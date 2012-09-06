@@ -17,7 +17,7 @@
     <td><%= outlink.target %></td>
     <td><%= link_to t('labels.show'), outlink %></td>
     <td><%= link_to 'Edit', edit_outlink_path(outlink) %></td>
-    <td><%= link_to 'Destroy', outlink, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', outlink, confirm: 'Are you sure?', method:  :delete %></td>
   </tr>
 <% end %>
 </table>

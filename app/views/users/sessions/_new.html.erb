@@ -1,5 +1,5 @@
 <div id='sign_in'>
-  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name),:remote => @is_remote || false ) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name),remote: @is_remote || false ) do |f| %>
     <p><%= f.label :email %><br />
     <%= f.email_field :email %></p>
 
@@ -13,5 +13,5 @@
     <p><%= f.submit t("labels.sign_in") %></p>
   <% end %>
 
-  <%= render :partial => "devise/shared/links" %>
+  <%= render partial:  "devise/shared/links" %>
 </div>

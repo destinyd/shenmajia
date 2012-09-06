@@ -17,7 +17,7 @@
     <td><%= integral.user %></td>
     <td><%= link_to t('labels.show'), integral %></td>
     <td><%= link_to 'Edit', edit_integral_path(integral) %></td>
-    <td><%= link_to 'Destroy', integral, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', integral, confirm: 'Are you sure?', method:  :delete %></td>
   </tr>
 <% end %>
 </table>

@@ -31,13 +31,13 @@ class PriceGoodsController < ApplicationController
     if @price_good.update_attributes(params[:price_good])
       respond_to :js
     else
-      render :action => 'edit'
+      render action: 'edit'
     end
   end
 
   def destroy
     @price_good = PriceGood.find(params[:id])
     @price_good.destroy
-    redirect_to price_goods_url, :notice => "Successfully destroyed price goods."
+    redirect_to price_goods_url, notice: "Successfully destroyed price goods."
   end
 end

@@ -5,7 +5,7 @@
 </div>
 
 <% content_for :plus do -%>
-	<% section :title => '搜索、添加商品到账单' do %>
+	<% section title: '搜索、添加商品到账单' do %>
 		<%= render 'goods_search' %>
 		<div id="goods_search">
 		<%= render 'goods' unless params[:q].blank? %>

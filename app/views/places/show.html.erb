@@ -1,6 +1,6 @@
-<% set_meta_tags :keywords => "#{@place},地点,消费", 
-  :description => "#{@place}，地址：#{@place.address}，#{@place}地点信息、菜单、消费情况",
-  :title => "#{@place}地点信息、消费情况"
+<% set_meta_tags keywords:  "#{@place},地点,消费", 
+  description:  "#{@place}，地址：#{@place.address}，#{@place}地点信息、菜单、消费情况",
+  title:  "#{@place}地点信息、消费情况"
 %>
 <% @where_name = @place.name %>
 <% @where = @place %>
@@ -14,21 +14,21 @@
   <%= @place.address %>
 </p>
 
-<% unless @place.tel.blank? %>
+<% if @place.tel? %>
   <p>
     <b>地点电话:</b>
     <%= @place.tel %>
   </p>
 <% end %>
 
-<% unless @place.city.blank? %>
+<% if @place.city? %>
   <p>
     <b>所在城市:</b>
     <%= @place.city %>
   </p>
 <% end %>
   <p>
-    <%= link_to '在这里消费了',new_bill_path(:place_id => @place.id,:step => 2),:class => 'button' %>
+    <%= link_to '在这里消费了',new_bill_path(place_id: @place.id,step: 2),class: 'button' %>
   </p>
 
 
@@ -59,10 +59,10 @@
   </section>
   <% end unless @place.checkin_num.blank? %>
 
-  <%= render 'section',:plus => {:things => @place.bills.recent.limit(10),:title=> "#{@place}的消费记录",
-  :section_path => place_costs_path(@place)} %>
+  <%= render 'section',plus: {things: @place.bills.recent.limit(10),title:  "#{@place}的消费记录",
+  section_path: place_costs_path(@place)} %>
 
-  <%= section :title => '图片' do %>
+  <%= section title: '图片' do %>
     <div id="gallery">
       <% @place.photos.each do |photo| %>
         <div class="thumb">
@@ -76,7 +76,7 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <%= render 'map', :resource => @place %>
-  <%#= render 'section',:plus => {:things => @place.near_places.where(:good_id=>@place.good_id).recent,:title=> "本商品周边最新价格",:section_path => places_path} %>
-  <%= render 'section',:plus => {:things => @place.near_places,:title=> "周边地点"} %>
+  <%= render 'map', resource: @place %>
+  <%#= render 'section',plus: {things: @place.near_places.where(good_id: @place.good_id).recent,title:  "本商品周边最新价格",section_path: places_path} %>
+  <%= render 'section',plus: {things: @place.near_places,title:  "周边地点"} %>
 <% end -%>

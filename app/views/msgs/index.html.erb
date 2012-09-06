@@ -21,7 +21,7 @@
     <td><%= msg.is_read %></td>
     <td><%= link_to t('labels.show'), msg %></td>
     <td><%= link_to 'Edit', edit_msg_path(msg) %></td>
-    <td><%= link_to 'Destroy', msg, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', msg, confirm: 'Are you sure?', method:  :delete %></td>
   </tr>
 <% end %>
 </table>

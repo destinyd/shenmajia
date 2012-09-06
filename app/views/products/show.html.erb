@@ -18,7 +18,7 @@
 <% end %>
 <% content_for :plus do -%>
   <% unless @product.goods.blank? %>
-    <%= section :title => '品牌商品' do %>
+    <%= section title: '品牌商品' do %>
       <%= render(@product.goods) %>
     <% end-%>
   <% end %>

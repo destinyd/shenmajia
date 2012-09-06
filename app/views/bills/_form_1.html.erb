@@ -3,7 +3,7 @@
   require 'jiepang'
   unless params[:q].blank?
     @page = params[:page] ? params[:page].to_i : 1
-    args = {:q => params[:q],:page => params[:page],:lat => cookies["lat"],:lon => cookies["lon"]}
+    args = {q: params[:q],page: params[:page],lat: cookies["lat"],lon: cookies["lon"]}
     @jiepang = Jiepang.new
     result = @jiepang.search args
     @places = result["places"]

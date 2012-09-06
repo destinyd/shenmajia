@@ -4,7 +4,7 @@
       <nav>
         <ul>
           <li class="title"><h2 id="<%= plus[:title] %>"><%= link_to plus[:title],'#' + plus[:title] -%></h2></li>
-        <% if plus[:section_path]  -%><li class="more"><%= link_to "更多",plus[:section_path],:title => '更多' -%> </li><% end -%>
+        <% if plus[:section_path]  -%><li class="more"><%= link_to "更多",plus[:section_path],title: '更多' -%> </li><% end -%>
         </ul>
       </nav>
     </header>
@@ -15,11 +15,11 @@
           <% diy_path =  eval("#{plus[:link_path]}(thing.#{plus[:try_path]})") if plus[:try_path] -%>
           <li>
           <% if diy_path.blank? -%>
-            <%= link_to thing.try(plus[:thing_name]),thing,:target => '_blank',:title => thing if plus[:thing_name] -%>
-            <%= link_to thing,thing,:target => '_blank',:title => thing unless plus[:thing_name] -%>
+            <%= link_to thing.try(plus[:thing_name]),thing,target: '_blank',title: thing if plus[:thing_name] -%>
+            <%= link_to thing,thing,target: '_blank',title: thing unless plus[:thing_name] -%>
           <% else -%>
-            <%= link_to thing.try(plus[:try_path]),diy_path,:target => '_blank',:title => thing.try(plus[:try_path]) if plus[:try_path] -%>
-            <%= link_to thing,diy_path,:target => '_blank',:title => thing unless plus[:try_path] -%>
+            <%= link_to thing.try(plus[:try_path]),diy_path,target: '_blank',title: thing.try(plus[:try_path]) if plus[:try_path] -%>
+            <%= link_to thing,diy_path,target: '_blank',title: thing unless plus[:try_path] -%>
           <% end -%>
           <%= eval("thing.#{plus[:plus_text]}") if plus[:plus_text] -%>
           </li>

@@ -15,7 +15,7 @@
   </div>
   <div class="detail">
   <%= content_tag 'p' do -%>
-    <%=link_to  good.name.try(:block,150),good,:target => '_blank', :title=> good.name %>
+    <%=link_to  good.name.try(:block,150),good,target: '_blank', title: good.name %>
   <% end %>
   <%= content_tag 'p' do -%>
     规格：<%= good.norm %>

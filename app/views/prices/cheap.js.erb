@@ -7,7 +7,7 @@
 <% else %>
   <% cache "prices_show_cheapest_#{"%.02f" % @price.lat}_#{"%.02f" % @price.lon}_#{@cache_id}" do %>
     $(document).ready(function(){
-      $('#cheap').html('<%= j(render 'near_prices',:prices => @price.good.prices.cheapest.where("id != ?",@price.id).includes(:good).limit(10),:prices_title => '本商品全国最低价格') %>')
+      $('#cheap').html('<%= j(render 'near_prices',prices: @price.good.prices.cheapest.where("id != ?",@price.id).includes(:good).limit(10),prices_title: '本商品全国最低价格') %>')
     });
   <% end %>
 <% end %>

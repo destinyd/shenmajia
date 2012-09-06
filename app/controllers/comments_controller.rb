@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :find_commentable
-  before_filter :authenticate_user!,:except =>[:index]
+  before_filter :authenticate_user!,except: [:index]
 
   def index
     @comments = @commentable.comments
@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
     @comment.commentable = @commentable
     @comment.save
 
-    @comments = @commentable.comments.paginate(:per_page => 10, :page => params[:comments_page])
+    @comments = @commentable.comments.paginate(per_page: 10, page: params[:comments_page])
   end
 
 private

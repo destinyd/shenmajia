@@ -1,17 +1,17 @@
 <%= simple_form_for @inventory do |f| %>
 	<%= f.error_notification %>
 
-	<%= f.input :name, :disabled => true, :require => true, :wrapper_html  => {:name => nil} %>
+	<%= f.input :name, disabled: true, require: true, wrapper_html: {name: nil} %>
 	<%= f.input :current %>
-	<%= f.input :original, :hint => '市场建议价' if @inventory.new_record? %>
-	<%= f.input :amount,:hint  => '份'	 %>
-	<%= f.input :good_id, :as => :hidden %>
-	<%#= f.input :type_id, :as => :select, :collection => Price.shop_types 	 %>
+	<%= f.input :original, hint: '市场建议价' if @inventory.new_record? %>
+	<%= f.input :amount,hint: '份'	 %>
+	<%= f.input :good_id, as:  :hidden %>
+	<%#= f.input :type_id, as:  :select, collection: Price.shop_types 	 %>
 	<%= hidden_field_tag :shop_id, @inventory.shop_id %>
 	<%= f.button :submit %>
 <% end %>
 <% content_for :plus do -%>
-	<% section :title => '搜索商品' do %>
+	<% section title: '搜索商品' do %>
 		<%= render 'goods_search' %>
 		<div id="goods_search">
 		<%= render 'goods' unless params[:q].blank? %>

@@ -1,10 +1,10 @@
 <%= simple_form_for(@place) do |f| %>
   <div>*请记得在右边地图，选择地点所在位置</div><br />
   <%= f.input :name %>
-  <%= f.input :address,:input_html => {:id => 'form_address'} %>
+  <%= f.input :address,input_html: {id: 'form_address'} %>
   <%= f.input :tel %>
-  <%= f.input :lat , :as => :hidden,:input_html => {:id => 'form_lat'} %>
-  <%= f.input :lon , :as => :hidden,:input_html => {:id => 'form_lon'} %>
-  <%= f.input :city_id , :as => :hidden,:input_html => {:id => 'form_city'} %>
+  <%= f.input :lat , as:  :hidden,input_html: {id: 'form_lat'} %>
+  <%= f.input :lon , as:  :hidden,input_html: {id: 'form_lon'} %>
+  <%= f.input :city_id , as:  :hidden,input_html: {id: 'form_city'} %>
   <%= f.submit %>
 <% end %>

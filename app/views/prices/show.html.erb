@@ -1,8 +1,8 @@
 <% @where_name = "[#{@price.type_id}]#{@price.good},单价#{@price.price}元" %>
 <% @where = @price %>
-<% set_meta_tags :keywords => "#{@price.good},价格,#{@price.type_id}", 
-:description => "#{@price.good}在#{@price.locatable || @price.address}的#{@price.type_id}信息、所在位置信息",
-  :title => @where_name %>
+<% set_meta_tags keywords:  "#{@price.good},价格,#{@price.type_id}", 
+description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price.type_id}信息、所在位置信息",
+  title: @where_name %>
 
 <p>
 <b><%= label :price,:name %>:</b>
@@ -37,7 +37,7 @@
 <%  unless @price.outlinks.blank? %>
   <p>
   <b>链接：</b>
-  <%= link_to @price.outlinks.first.url,@price.outlinks.first.url ,:rel=>"nofollow",:target => '_blank'%>
+  <%= link_to @price.outlinks.first.url,@price.outlinks.first.url ,rel: "nofollow",target: '_blank'%>
 <% end -%>
 
 <% unless @price.type_id != "团购价" or @price.uploads.first.nil? %>
@@ -47,35 +47,35 @@
 <br />
 <br />
 
-<%#= button_to '我也这价在这买了一件！',{:controller => :bills, :action => :new ,:place_id => @price.locatable_id,:step => 2,:cost => {:good_id => @price.good_id,:price_id => @price.id}}, :method => :get %>
-<%= render 'reviews/links',:reviewable => @price %>
+<%#= button_to '我也这价在这买了一件！',{controller:  :bills, action:  :new ,place_id: @price.locatable_id,step: 2,cost: {good_id: @price.good_id,price_id: @price.id}}, method:  :get %>
+<%= render 'reviews/links',reviewable: @price %>
 <div class="c"></div>
 
 
 <% content_for :plus do -%>
   <div id="near_groupbuy">
-    <%= section :title => '附近特价商品信息' do %>
+    <%= section title: '附近特价商品信息' do %>
       读取中...
     <% end %>
   </div>
-  <%= render 'comments/comments',:commentable => @price %>
+  <%= render 'comments/comments',commentable: @price %>
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <%= render 'map', :resource => @price unless @price.no_locate? %>
+  <%= render 'map', resource: @price unless @price.no_locate? %>
   <div id="near_cheapest">
-    <%= section :title => '本商品附近最低价' do %>
+    <%= section title: '本商品附近最低价' do %>
       读取中...
     <% end %>
   </div>
 
   <div id="cheap">
-    <%= section :title => '本商品全国最低价' do %>
+    <%= section title: '本商品全国最低价' do %>
       读取中...
     <% end %>
   </div>
 <% end -%>
 
-<script src="<%= near_groupbuy_price_path(@price,:format => :js) %>" type="text/javascript"></script>
-<script src="<%= near_cheapest_price_path(@price,:format => :js) %>" type="text/javascript"></script>
-<script src="<%= cheap_price_path(@price,:format => :js) %>" type="text/javascript"></script>
+<script src="<%= near_groupbuy_price_path(@price,format:  :js) %>" type="text/javascript"></script>
+<script src="<%= near_cheapest_price_path(@price,format:  :js) %>" type="text/javascript"></script>
+<script src="<%= cheap_price_path(@price,format:  :js) %>" type="text/javascript"></script>

@@ -20,21 +20,21 @@
 <% end %>
   <div class="field">
     <%= f.label :type_id %><br />
-    <%= f.select :type_id,Price.selects,{},:onchange => "onchange_type_id(this)" %>
+    <%= f.select :type_id,Price.selects,{},onchange:  "onchange_type_id(this)" %>
   </div>
   <div class="field">
     <%= f.label :price %><br />
-    <%= f.text_field :price,:id => 'price_price',:onblur =>'price_on_blur()' %>
+    <%= f.text_field :price,id: 'price_price',onblur: 'price_on_blur()' %>
     <span id="span_is_cheap_price"><%= f.label :is_cheap_price %>
-      <%= f.check_box :is_cheap_price,:onclick =>"toggle_cheap_price(this)",:id => 'is_cheap_price' %></span>
+      <%= f.check_box :is_cheap_price,onclick: "toggle_cheap_price(this)",id: 'is_cheap_price' %></span>
   </div>
   <div class="field h" id="div_original_price">
     <%= f.label :original_price %><br />
-    <%= f.text_field :original_price,:id => 'original_price' %>
+    <%= f.text_field :original_price,id: 'original_price' %>
   </div>
   <div class="field">
     <%= f.label :amount,"商品数量(不填为未知)" %><br />
-    <%= f.text_field :amount,:id => 'price_amount',:onblur =>'price_on_blur()' %>
+    <%= f.text_field :amount,id: 'price_amount',onblur: 'price_on_blur()' %>
   </div>
   <div class="field">
     <%= f.label :total %><br />
@@ -42,12 +42,12 @@
   </div>
   <div class="field">
     <%= f.label :address %><br />
-    <%= f.text_field :address,:id => 'form_address' %>
+    <%= f.text_field :address,id: 'form_address' %>
   </div>  
-  <%= f.hidden_field :lat,:id => 'form_lat' %>
-  <%= f.hidden_field :lon,:id => 'form_lon' %>
+  <%= f.hidden_field :lat,id: 'form_lat' %>
+  <%= f.hidden_field :lon,id: 'form_lon' %>
   <%= f.fields_for :outlinks,:outlinks do |builder| %>
-    <%= render 'prices/outlink_fields',:f => builder %>
+    <%= render 'prices/outlink_fields',f: builder %>
   <% end -%>
   <div class="actions">
     <%= f.submit %>

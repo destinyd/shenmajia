@@ -13,7 +13,7 @@
         <p>库存:<%= inventory.amount %></p>
       </div>
       <div id="shop_cart_<%= inventory.id %>" class="tc">
-        <%= button_to '添加到购物车', shop_shop_carts_path(@shop,:inventory_id => inventory.id), :remote => true %>
+        <%= button_to '添加到购物车', shop_shop_carts_path(@shop,inventory_id: inventory.id), remote: true %>
       </div>
     </div>
   </li>

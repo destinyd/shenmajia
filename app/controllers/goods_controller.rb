@@ -1,10 +1,10 @@
 class GoodsController < InheritedResources::Base
-  before_filter :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy]
+  before_filter :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
   respond_to :html#, :json
-  #respond_to :json,:only => :search
-  actions :all,:except => [:edit,:update,:destroy]
-  #belongs_to :breads, :optional => true
-  belongs_to :shop, :optional => true
+  #respond_to :json,only: :search
+  actions :all,except: [:edit,:update,:destroy]
+  #belongs_to :breads, optional: true
+  belongs_to :shop, optional: true
 
   caches_page :index,:show
   cache_sweeper :good_sweeper
@@ -15,9 +15,9 @@ class GoodsController < InheritedResources::Base
   end
 
   #def search
-    #@goods = Good.where('name like ?' , '%' + params[:name_q] + '%').list.paginate(:page => params[:page])
+    #@goods = Good.where('name like ?' , '%' + params[:name_q] + '%').list.paginate(page: params[:page])
     #respond_to do |f|
-      ##f.json{render :json => @goods.to_json}
+      ##f.json{render json: @goods.to_json}
       #f.html{render :index}
     #end
   #end
@@ -28,11 +28,11 @@ class GoodsController < InheritedResources::Base
 
   def tag
     @tagname = params[:id]
-    @taggables  = Good.tagged_with(params[:id]).paginate(:page => params[:page])
+    @taggables  = Good.tagged_with(params[:id]).paginate(page: params[:page])
   end
 
   protected
   def collection
-    @goods ||= end_of_association_chain.list.paginate(:page => params[:page])
+    @goods ||= end_of_association_chain.list.paginate(page: params[:page])
   end
 end

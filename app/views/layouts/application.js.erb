@@ -1,6 +1,6 @@
 <%= yield %>
 <% flash.each do |name, msg| %>
-  $('body').append('<%= j content_tag :div, msg, :class => "flash_#{name} flash" %>');
+  $('body').append('<%= j content_tag :div, msg, class:  "flash_#{name} flash" %>');
 <% end %>
 $('.flash').purr();
 <% flash.discard %>;

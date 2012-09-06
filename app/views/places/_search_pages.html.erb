@@ -1,5 +1,5 @@
 <div class="r">
-  <%= link_to '上一页',search_places_path(params.merge({:page => @page - 1})) if @page > 1 %>
-  <%= link_to '下一页',search_places_path(params.merge({:page => @page + 1})) if @has_more %>
+  <%= link_to '上一页',search_places_path(params.merge({page: @page - 1})) if @page > 1 %>
+  <%= link_to '下一页',search_places_path(params.merge({page: @page + 1})) if @has_more %>
 </div>
 

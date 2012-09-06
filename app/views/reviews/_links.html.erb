@@ -1,6 +1,6 @@
 <% if current_user and  reviewable.user != current_user %>
-  <%= form_for [reviewable,Review.new],:remote => true,:html=>{:id => "new_review_#{reviewable.class.name}_#{reviewable.id}"} do |f| %>
+  <%= form_for [reviewable,Review.new],remote: true,html: {id:  "new_review_#{reviewable.class.name}_#{reviewable.id}"} do |f| %>
     <%= f.label :status %>
-    <%= f.select :status,Review.selects,{ :include_blank => '请选择你的评价' },{:onchange =>"send_review('#new_review_#{reviewable.class.name}_#{reviewable.id}')"} %>
+    <%= f.select :status,Review.selects,{ include_blank: '请选择你的评价' },{onchange: "send_review('#new_review_#{reviewable.class.name}_#{reviewable.id}')"} %>
   <% end -%>
 <% end -%>

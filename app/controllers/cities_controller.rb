@@ -3,7 +3,7 @@ class CitiesController < ApplicationController
 
   caches_page :index, :show
   #caches_action :show,
-    #:expires_in => 2.hours
+    #expires_in: 2.hours
 
   def index
   end
@@ -11,7 +11,7 @@ class CitiesController < ApplicationController
   def show
     @name = params[:id]
     @city = City.find_by_name @name 
-    @prices= @city.prices.recent.running.with_good.paginate( :page => params[:page]).limit(100)
+    @prices= @city.prices.recent.running.with_good.paginate( page: params[:page]).limit(100)
     #@value = @city.lat,@city.lon
     #@cheapest = Price.cheapest.near(@value,20).limit(10)
     #@recent_prices =     Price.recent.near(@value,20).limit(10)
@@ -24,7 +24,7 @@ class CitiesController < ApplicationController
   def search
     @cities = City.search params[:term]
     respond_to do |format|
-      format.json{ render :json => @cities.map(&:name).to_json}
+      format.json{ render json: @cities.map(&:name).to_json}
     end
   end
 

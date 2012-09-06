@@ -5,7 +5,7 @@ class ShopCartsController < ApplicationController
   def update
   	session[:shop] ||= {}
   	session[:shop][:items] ||= {}
-	  session[:shop][:items][params[:id]].merge!(:amount => params[:amount].to_f) unless session[:shop][:items][params[:id]].blank? or params[:amount].blank?
+	  session[:shop][:items][params[:id]].merge!(amount: params[:amount].to_f) unless session[:shop][:items][params[:id]].blank? or params[:amount].blank?
     @shop = Shop.find(params[:shop_id]) unless params[:shop_id].blank?
   end
 
@@ -16,9 +16,9 @@ class ShopCartsController < ApplicationController
       @shop = Shop.find(params[:shop_id]) unless params[:shop_id].blank?
   		@inventory = Inventory.find(params[:inventory_id])
   		session[:shop][:items][params[:inventory_id]] = {
-        :name => @inventory.name, 
-        :amount => 1, 
-        :price => @inventory.price.price
+        name: @inventory.name, 
+        amount: 1, 
+        price: @inventory.price.price
         } if session[:shop][:items][params[:inventory_id]].blank?
   	end
     render :update

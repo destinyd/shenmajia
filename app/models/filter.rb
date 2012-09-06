@@ -9,7 +9,7 @@ module ToCreateFilter
     end_time = args.shift
     super(*args)
     klass.where(active:1).where(
-      :created_at => start_time..end_time
+      created_at: start_time..end_time
     )
   end
 end

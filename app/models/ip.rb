@@ -1,6 +1,6 @@
 class Ip < ActiveRecord::Base
   belongs_to :city
-  validates :ip, :presence => true,:uniqueness => true
+  validates :ip, presence: true,uniqueness: true
   before_create :get_ip
   def city_name
     self.city.try(:name)

@@ -4,26 +4,26 @@ class Place < ActiveRecord::Base
 
   store :jiepang , accessors: [ 'mayor_id', 'checkin_users_num', 'checkin_num', 'mayor', 'categories', :photos ]
 
-  #validates :guid, :presence => true
-  #validates :guid, :uniqueness => true, :on => :create
-  validates :name, :presence => true
-  validates :name, :uniqueness => {:scope => [:lat,:lon]}, :on => :create
-  validates :address, :presence => true
-  #validates :name, :presence => true,:uniqueness => true
-  validates :lat, :presence => true, :numericality => {:greater_than_or_equal_to => -90, :less_than_or_equal_to => 90}
-  validates :lon, :presence => true, :numericality => {:greater_than_or_equal_to => -180, :less_than_or_equal_to => 180}
+  #validates :guid, presence: true
+  #validates :guid, uniqueness: true, on: :create
+  validates :name, presence: true
+  validates :name, uniqueness: {scope: [:lat,:lon]}, on: :create
+  validates :address, presence: true
+  #validates :name, presence: true,uniqueness: true
+  validates :lat, presence: true, numericality: {greater_than_or_equal_to: -90, less_than_or_equal_to: 90}
+  validates :lon, presence: true, numericality: {greater_than_or_equal_to: -180, less_than_or_equal_to: 180}
 
   require 'locate_validator'
   validates_with LocateValidator
 
   belongs_to :city
-  has_many :shops, :as => :locatable, :dependent => :destroy
-  has_many :place_goods,:dependent => :destroy
-  has_many :goods,:through => :place_goods
-  #has_many :costs, :as => :locatable, :dependent => :destroy
-  has_many :bills, :as => :locatable, :dependent => :destroy
-  has_many :costs, :through => :bills, :dependent => :destroy
-  has_many :prices, :as => :locatable, :dependent => :destroy
+  has_many :shops, as: :locatable, dependent: :destroy
+  has_many :place_goods,dependent: :destroy
+  has_many :goods,through: :place_goods
+  #has_many :costs, as: :locatable, dependent: :destroy
+  has_many :bills, as: :locatable, dependent: :destroy
+  has_many :costs, through: :bills, dependent: :destroy
+  has_many :prices, as: :locatable, dependent: :destroy
   
   scope :recent,order("id desc")
 
@@ -99,13 +99,14 @@ class Place < ActiveRecord::Base
       require 'jiepang'
     end
     PlaceSearch.where(args).create
-    where('name LIKE ?', "%#{args[:q]}%").where(:city_id => [City.find_by_name(args[:city]).try(:id),nil])
+    where('name LIKE ?', "%#{args[:q]}%").where(city_id: [City.find_by_name(args[:city]).try(:id),nil])
+
   end
 
 
   include PosHelper
 
-  geocoded_by :address, :latitude  => :lat, :longitude => :lon
+  geocoded_by :address, latitude: :lat, longitude: :lon
   def near_places long = 20
     @nears ||= nearbys(long)
     @nears = @nears.limit(10) unless @nears == []

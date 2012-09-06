@@ -1,6 +1,6 @@
 class ContactsController < InheritedResources::Base
   before_filter :authenticate_user!
-  actions :all, :except => [:edit,:update]
+  actions :all, except: [:edit,:update]
   def set_default
   	@contact = current_user.contacts.find(params[:id])
   	@contact.update_attribute  :is_default, true
@@ -8,7 +8,7 @@ class ContactsController < InheritedResources::Base
   end
 
   def create
-    create!(:notice => "success.") { contacts_url }
+    create!(notice: "success.") { contacts_url }
   end
 
   protected

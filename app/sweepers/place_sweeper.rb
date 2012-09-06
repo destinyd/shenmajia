@@ -18,11 +18,11 @@ class PlaceSweeper < ActionController::Caching::Sweeper
   #end
   private
   def expire_cache_for_single(place)
-    expire_page(:controller => 'places', :action => 'show')
+    expire_page(controller: 'places', action: 'show')
   end
   
   def expire_cache_for(place)
-    expire_page(:controller => 'places', :action => 'index')
+    expire_page(controller: 'places', action: 'index')
     
     FileUtils.rm_r "#{Rails.root}/public/places/page" if File.exist?("#{Rails.root}/public/places/page")
   end

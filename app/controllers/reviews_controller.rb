@@ -1,8 +1,8 @@
 # coding: utf-8
 class ReviewsController < ApplicationController
-  before_filter :authenticate_user!#, :only => [:create]
+  before_filter :authenticate_user!#, only: [:create]
   before_filter :find_reviewable
-  before_filter :too_soon , :only =>[:new,:create,:up]
+  before_filter :too_soon , only: [:new,:create,:up]
   # GET /reviews
   # GET /reviews.json
   def index
@@ -98,13 +98,13 @@ private
   end
 
   def too_soon
-    if @reviewable.reviews.where(:user_id => current_user).count == 0
+    if @reviewable.reviews.where(user_id: current_user).count == 0
       true
     else
       @error = '你已经评价过了。'
     respond_to do |format|
       format.js {render 'fault.js'}
-      format.html {redirect_to @reviewable,:notice  => '先歇歇，等会再来。'}
+      format.html {redirect_to @reviewable,notice: '先歇歇，等会再来。'}
     end
       false
     end

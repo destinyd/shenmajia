@@ -5,9 +5,9 @@ class Inventory < ActiveRecord::Base
   belongs_to :good
   belongs_to :price
 
-  validates :current, :presence => true
-  validates :amount, :presence => true
-  validates :good_id, :presence => true
+  validates :current, presence: true
+  validates :amount, presence: true
+  validates :good_id, presence: true
 
   default_scope includes(:good,:price)
 
@@ -20,19 +20,19 @@ class Inventory < ActiveRecord::Base
   end
 
   before_validation do
-	p = self.shop.prices.recent.where(:good_id => self.good_id,:type_id => 101).first
+	p = self.shop.prices.recent.where(good_id: self.good_id,type_id: 101).first
 	if p and p.price == current
 		self.price = p
 	else
-		self.price =  self.shop.prices.new :price => current, :good_id => self.good_id, :type_id => 101
+		self.price =  self.shop.prices.new price: current, good_id: self.good_id, type_id: 101
 		self.price.user_id = self.shop.user_id
 		self.price.save
 	end
   	unless original.blank?
   		self.type_id = 102
-  		p = self.shop.prices.recent.where(:good_id => self.good_id,:type_id => 102).first
+  		p = self.shop.prices.recent.where(good_id: self.good_id,type_id: 102).first
   		unless p and p.price == original
-  			p = self.shop.prices.new :price => original, :good_id => self.good_id, :type_id => 102
+  			p = self.shop.prices.new price: original, good_id: self.good_id, type_id: 102
   			p.user_id = self.shop.user_id
   			p.save
 		end

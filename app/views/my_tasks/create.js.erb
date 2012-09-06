@@ -1,2 +1,2 @@
-$('#accepted').append('<%= j render 'accepted',:my_task => @task %>');
+$('#accepted').append('<%= j render 'accepted',my_task: @task %>');
 $('.acceptables_<%= @id %>').remove();

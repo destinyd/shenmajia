@@ -1,6 +1,6 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method:  :put }) do |f| %>
   <%= devise_error_messages! %>
 
   <div><%= f.label :email %><br />
@@ -20,6 +20,6 @@
 
 <nav><h2 id="Cancel my account"><a href=#Cancel my account>Cancel my account</a></h2></nav>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
+<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), confirm:  "Are you sure?", method:  :delete %>.</p>
 
 <%= link_to "Back", :back %>

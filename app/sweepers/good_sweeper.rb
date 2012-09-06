@@ -19,7 +19,7 @@ class GoodSweeper < ActionController::Caching::Sweeper
 
   private
   def expire_cache_for(good)
-    expire_page(:controller => 'goods', :action => 'index')
+    expire_page(controller: 'goods', action: 'index')
     #expire_page '/goods.html'
     
     # manually remove pages(1.html, 2.html, etc)

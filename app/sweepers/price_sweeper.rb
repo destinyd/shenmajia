@@ -17,12 +17,12 @@ class PriceSweeper < ActionController::Caching::Sweeper
     end
 
     #cities
-    expire_page(:controller => 'cities', :action => 'show', :id => price.city.name) if price.city
+    expire_page(controller: 'cities', action: 'show', id: price.city.name) if price.city
     rm "#{Rails.root}/public/cities/#{price.city.name}.html" if price.city
     rm_r "#{Rails.root}/public/cities/#{price.city.name}" if price.city
 
     #prices
-    expire_page(:controller => 'prices', :action => 'index')
+    expire_page(controller: 'prices', action: 'index')
     rm_r "#{Rails.root}/public/prices/page"
     rm_r "#{Rails.root}/public/prices/cheapest"
     rm_r "#{Rails.root}/public/prices/groupbuy"

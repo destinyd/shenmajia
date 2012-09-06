@@ -1,9 +1,9 @@
 <% @where_name = "消费记录列表，第#{params[:page] || 1}页" %>
 <% @where_name = '在' + @place.name + '的' + @where_name if @place %>
 <% @where_name = @good.name + '的' + @where_name if @good  %>
-<% set_meta_tags :keywords => "消费,单价,地点", 
-  :description => "消费记录列表，第#{params[:page] || 1}页",
-  :title => @where_name
+<% set_meta_tags keywords:  "消费,单价,地点", 
+  description:  "消费记录列表，第#{params[:page] || 1}页",
+  title: @where_name
 %>
 <%= render @costs %>
 <div class="c"></div>

@@ -1,4 +1,4 @@
-<%= form_for(@flash, :html => { :multipart => true}) do |f| %>
+<%= form_for(@flash, html: { multipart: true}) do |f| %>
   <% if @flash.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@flash.errors.count, "error") %> prohibited this flash from being saved:</h2>

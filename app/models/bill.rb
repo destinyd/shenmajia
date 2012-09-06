@@ -2,16 +2,16 @@
 class Bill < ActiveRecord::Base
   attr_accessor :cost, :desc
   attr_accessible :locatable_id, :locatable_type, :ordered_at, :total, :bill_prices_attributes, :cost, :desc, :contact_id
-  has_many :bill_prices, :dependent => :destroy
-  has_many :prices,:through => :bill_prices
+  has_many :bill_prices, dependent: :destroy
+  has_many :prices,through: :bill_prices
   has_many :costs
-  has_many :uploads, :as => :uploadable
-  belongs_to :locatable, :polymorphic => true
+  has_many :uploads, as: :uploadable
+  belongs_to :locatable, polymorphic: true
   belongs_to :user
   belongs_to :shop
   belongs_to :contact
 
-  accepts_nested_attributes_for :bill_prices, :allow_destroy => true
+  accepts_nested_attributes_for :bill_prices, allow_destroy: true
 
   scope :recent,order("bills.id desc")
 
@@ -39,10 +39,10 @@ class Bill < ActiveRecord::Base
       end
       costs.new(
         {
-          :money => cost,
-          :user_id => user_id,
-          :desc => self.desc
-        }, :on => :bill
+          money: cost,
+          user_id: user_id,
+          desc: self.desc
+        }, on: :bill
         )
     end
   end

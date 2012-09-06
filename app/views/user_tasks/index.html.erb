@@ -17,7 +17,7 @@
       <td><%= user_task.degree %></td>
       <td><%= link_to "Show", user_task %></td>
       <td><%= link_to "Edit", edit_user_task_path(user_task) %></td>
-      <td><%= link_to "Destroy", user_task, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Destroy", user_task, confirm: 'Are you sure?', method:  :delete %></td>
     </tr>
   <% end %>
 </table>

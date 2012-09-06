@@ -7,7 +7,7 @@
 <% else %>
   <% cache "prices_show_near_groupbuy_#{"%.02f" % @price.lat}_#{"%.02f" % @price.lon}_#{@cache_id}" do %>
     $(document).ready(function(){
-      $('#near_groupbuy').html('<%= j(render 'near_prices',:prices => @price.near_prices.groupbuy.includes(:good).limit(10),:prices_title => '附近特价商品信息') %>');
+      $('#near_groupbuy').html('<%= j(render 'near_prices',prices: @price.near_prices.groupbuy.includes(:good).limit(10),prices_title: '附近特价商品信息') %>');
     });
   <% end %>
 <% end %>

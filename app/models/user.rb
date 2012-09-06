@@ -12,18 +12,18 @@ class User < ActiveRecord::Base
   has_many :goods
   has_many :integrals
   has_many :msgs
-  has_many :got_msgs, :class_name => "Msg",:as => :getable
+  has_many :got_msgs, class_name: "Msg",as: :getable
   has_many :articles
   has_many :uploads
   has_many :focuss
   has_many :outlinks
   has_many :records
   has_many :user_tasks
-  has_many :tasks,:through => :user_tasks
+  has_many :tasks,through: :user_tasks
   has_many :price_goods
   has_many :shops
   #has_many :user_costs
-  has_many :costs#,:through => :user_costs
+  has_many :costs#,through: :user_costs
   has_many :bills
   has_many :companies
   has_many :brands
@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   has_many :units
   has_many :contacts
 
-  validates :username, :presence => true,:uniqueness => true
+  validates :username, presence: true,uniqueness: true
 
 
   scope :recent ,limit(10).order('id desc')#.select('email,created_at')
@@ -45,12 +45,12 @@ class User < ActiveRecord::Base
     self.username || self.email
   end
   def get_point(point,integralable,type_id = 0,desc = nil)
-    integral = self.integrals.new :point => point,:desc => desc,:type_id => type_id
+    integral = self.integrals.new point: point,desc: desc,type_id: type_id
     integral.integralable = integralable
     integral.save!
   end
 
   def points type_id = 0
-    self.integrals.sum(:point).where(:type_id => type_id)
+    self.integrals.sum(:point).where(type_id: type_id)
   end
 end

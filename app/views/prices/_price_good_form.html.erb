@@ -2,7 +2,7 @@
 <nav><h2 id="商品绑定"><a href=#商品绑定>商品绑定</a></h2></nav>
 <header>
 <div class="user_hide">
-  <%= link_to "请先登录。",new_user_session_path(:format => :js),:method => :get,:remote => true  %>
+  <%= link_to "请先登录。",new_user_session_path(format:  :js),method:  :get,remote: true  %>
 </div>
 <div class="user_show">
   <% unless price.could_post_good? current_user %>
@@ -10,7 +10,7 @@
   <% else %>
     <% price_good = price.price_goods.new %>
     <% price_good.build_good %>
-    <%= form_for price_good,:url => price_goods_path,:remote => true do |f| -%>
+    <%= form_for price_good,url: price_goods_path,remote: true do |f| -%>
       <div class="field" id="new_price_good_f">
         <%= f.label :name %><br />
         <%= f.text_field :good_name %>
@@ -22,7 +22,7 @@
         <%= f.fields_for :good do |gf| %>
           <div class="field">
             <%= gf.label t('attributes.name') %><br />
-            <%= gf.text_field :name,:id => 'price_good_name' %>
+            <%= gf.text_field :name,id: 'price_good_name' %>
           </div>
           <div class="field">
             <%= gf.label t('attributes.desc') %><br />
@@ -38,7 +38,7 @@
           <%end %>
         <% end -%>
         <div class="actions">
-          <%= f.submit :id => 'price_good_good_submit' %>
+          <%= f.submit id: 'price_good_good_submit' %>
         </div>
       </div>
     <% end -%>

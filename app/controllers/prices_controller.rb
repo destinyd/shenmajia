@@ -1,25 +1,25 @@
 class PricesController < InheritedResources::Base
-  before_filter :authenticate_user!, :only => [:new,:create,:edit,:update,:destroy]
+  before_filter :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
   respond_to :html
-  respond_to :js, :only => [:cheap,:near_cheapest, :near_groupbuy]
-  belongs_to :city, :finder => :find_by_name, :optional => true
-  belongs_to :good, :optional => true
+  respond_to :js, only: [:cheap,:near_cheapest, :near_groupbuy]
+  belongs_to :city, finder: :find_by_name, optional: true
+  belongs_to :good, optional: true
 
   caches_page :index, :show, :groupbuy, :cheapest#, :near_cheapest, :near_groupbuy, :cheap
   cache_sweeper :price_sweeper
 
   def groupbuy
     @prices = collection
-    render :action => "index"
+    render action: "index"
   end
 
   #def buy_one
     #price = Price.find(params[:id])
-    #@price = current_user.prices.new :type_id => 0,
-      #:price => price.price,
-      #:address => price.address,
-      #:lat => price.lat,
-      #:lon => price.lon
+    #@price = current_user.prices.new type_id: 0,
+      #price: price.price,
+      #address: price.address,
+      #lat: price.lat,
+      #lon: price.lon
     #@price.good_id = price.good_id
     #@price.save
     #redirect_to @price
@@ -35,7 +35,7 @@ class PricesController < InheritedResources::Base
 
   def cheapest
     @prices = collection
-    render :action => "index"
+    render action: "index"
   end
 
   def cheap
@@ -46,7 +46,7 @@ class PricesController < InheritedResources::Base
   def collection
     @prices ||= end_of_association_chain
     @prices = @prices.send action_name if %w{cheapest groupbuy}.include? action_name
-    @prices = @prices.recent.paginate(:page => params[:page])
+    @prices = @prices.recent.paginate(page: params[:page])
   end
   #private
   #def find_able_and_prices
@@ -54,11 +54,11 @@ class PricesController < InheritedResources::Base
     #params.each do |name, value|
       #if name =~ /(.+)_id$/
         #if $1 == 'city'
-          #@able = $1.classify.constantize.where(:name =>value).first
+          #@able = $1.classify.constantize.where(name: value).first
           #loc = @able.lat,@able.lon
         #elsif $1 == 'locate'
-          #@able = $1.classify.constantize.where(:name =>value).first
-          #@able = Locate.create(:name => value) unless @able
+          #@able = $1.classify.constantize.where(name: value).first
+          #@able = Locate.create(name: value) unless @able
           #loc = @able.lat,@able.lon
         #else
           #@able = $1.classify.constantize.find(value) 

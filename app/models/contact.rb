@@ -6,11 +6,11 @@ class Contact < ActiveRecord::Base
   belongs_to :province
   has_many :bills
 
-  validates :city_id, :presence => true
-  validates :address, :presence => true
-  validates :telephone, :presence => true
-  validates :name, :presence => true
-  scope :default, where(:is_default => true)
+  validates :city_id, presence: true
+  validates :address, presence: true
+  validates :telephone, presence: true
+  validates :name, presence: true
+  scope :default, where(is_default: true)
   default_scope order('is_default desc')
 
   before_save :change_default

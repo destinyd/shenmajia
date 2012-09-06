@@ -1,5 +1,5 @@
 <% content_for :plus do %>
-  <%= section :title => '账单支付情况' do %>
+  <%= section title: '账单支付情况' do %>
     <% if bill.fully_paid %>
       本账单由<%= bill.user %>独自支付，<%= link_to '消费记录连接',bill.costs.first %>
     <% else %>
@@ -10,7 +10,7 @@
           </li>
         <% end %>
       </ul>
-      <%= link_to '您也为此买单了？',new_bill_path(:cost => {:bill_id => bill.id,:money => bill.total - bill.costs.sum(&:money)}) %>
+      <%= link_to '您也为此买单了？',new_bill_path(cost: {bill_id: bill.id,money: bill.total - bill.costs.sum(&:money)}) %>
     <% end %>
   <% end unless bill.costs.blank? %>
 <% end %>

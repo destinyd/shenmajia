@@ -1,8 +1,8 @@
 <% @where_name = "#{@cost.user.username if @cost.user}于#{@cost.created_at}在#{@cost.locatable}的消费记录" %>
 <% @where = @cost %>
-<% set_meta_tags :keywords => "消费,消费记录", 
-  :description => "#{@cost.user}#{@cost.desc}",
-  :title => @where_name
+<% set_meta_tags keywords:  "消费,消费记录", 
+  description:  "#{@cost.user}#{@cost.desc}",
+  title: @where_name
 %>
 <p>
 <b>消费记录:</b>
@@ -38,13 +38,13 @@
 <div class="c"></div>
 
 <% content_for :plus do -%>
-    <%= section :title => "账单详情" do %>
-      <%= render 'bills/show', :bill => @cost.bill %>
+    <%= section title:  "账单详情" do %>
+      <%= render 'bills/show', bill: @cost.bill %>
     <% end if @cost.bill %>
-  <%= render 'comments/comments',:commentable => @cost %>
+  <%= render 'comments/comments',commentable: @cost %>
 <% end -%>
 
 
 <% content_for :sidebar do -%>
-  <%= render 'map', :resource => @cost.locatable %>
+  <%= render 'map', resource: @cost.locatable %>
 <% end -%>

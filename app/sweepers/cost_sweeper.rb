@@ -20,7 +20,7 @@ class CostSweeper < ActionController::Caching::Sweeper
   #end
   private
   #def expire_cache_for_single(cost)
-    #expire_page(:controller => 'costs', :action => 'show')
+    #expire_page(controller: 'costs', action: 'show')
   #end
   #def expire_cache_for_belongs_to(cost)
     #expire_cache_for_other(cost.locatable) unless cost.locatable.blank?
@@ -42,7 +42,7 @@ class CostSweeper < ActionController::Caching::Sweeper
   end
   
   def expire_cache_for(cost)
-    expire_page(:controller => 'costs', :action => 'index')  if cost.id % 10 == 0
+    expire_page(controller: 'costs', action: 'index')  if cost.id % 10 == 0
 
     expire_cache_for_other(cost.locatable) unless cost.locatable.blank?
     # expire_cache_for_other(cost.good) unless cost.good.blank?
@@ -59,7 +59,7 @@ class CostSweeper < ActionController::Caching::Sweeper
 
     if cost.id % 10 == 0
     #prices
-      # expire_page(:controller => 'prices', :action => 'index')
+      # expire_page(controller: 'prices', action: 'index')
       # rm_r "#{Rails.root}/public/prices/page"
       # rm_r "#{Rails.root}/public/prices/cheapest"
       # rm_r "#{Rails.root}/public/prices/groupbuy"

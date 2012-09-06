@@ -1,7 +1,7 @@
 <% 
   tmp = "地点列表，第#{params[:page] || 1}页" 
   tmp = "'#{params[:q].html_safe}'" + tmp if action_name == 'search'
-  set_meta_tags :keywords => "地点", :description => tmp, :title => tmp
+  set_meta_tags keywords:  "地点", description: tmp, title: tmp
  @where_name = tmp
 %>
 <table>

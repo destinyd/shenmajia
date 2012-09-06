@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
     unless cookies[:got_ip]
       cookies[:got_ip] = true
       ip = request.ip
-      @ip = Ip.where(:ip => ip).first_or_create
+      @ip = Ip.where(ip: ip).first_or_create
       get_city_name @ip.city
     end
     ip_infos
@@ -47,9 +47,9 @@ class ApplicationController < ActionController::Base
 
   def ip_infos
     @ip_infos = {
-      :city => cookies[:city],
-      :lat => cookies[:lat],
-      :lon => cookies[:lon]
+      city: cookies[:city],
+      lat: cookies[:lat],
+      lon: cookies[:lon]
     }
   end
 

@@ -7,7 +7,7 @@ class City < ActiveRecord::Base
   has_many    :shops
   has_many    :contacts
 
-  geocoded_by :name, :latitude  => :lat, :longitude => :lon
+  geocoded_by :name, latitude: :lat, longitude: :lon
   #after_validation :geocode
   # def shops
   #   Shop.near(self,20)

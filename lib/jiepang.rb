@@ -11,12 +11,12 @@ class Jiepang
   def secret; config['secret']; end
 
   def locations_photos guid,page =1
-    args = {:guid => guid,:page => page.to_s}
+    args = {guid: guid,page: page.to_s}
     json = get_json('locations/photos',args)
   end
 
   def locations_show guid
-    args = {:guid => guid}
+    args = {guid: guid}
     json = get_json('locations/show',args)
   end
 
@@ -26,11 +26,11 @@ class Jiepang
       guids = json["items"].map{|j| j["guid"]}
 
       #import json
-      exist_places_guid = Place.where(:guid => guids).select(:guid).map(&:guid)
+      exist_places_guid = Place.where(guid: guids).select(:guid).map(&:guid)
       json['items'].delete_if{|i|  exist_places_guid.include?(i['guid'])}
       Place.create json["items"] unless json['items'].blank?
 
-      json["places"] = Place.where(:guid =>guids)
+      json["places"] = Place.where(guid: guids)
       #puts guids
       #puts json
       return json
@@ -57,7 +57,7 @@ class Jiepang
   end
 
   def get_json action,args,count = nil
-    args.merge! :source => key,:count => (count || @@count).to_s
+    args.merge! source: key,count: (count || @@count).to_s
     str_p = ''
     #puts args
     args.each do |k,v|
@@ -86,7 +86,7 @@ class Jiepang
   end
 
   def self.get_next_search args
-    p_args = args.merge(:page => (((args[:page] || 1).to_i) +1).to_s)
+    p_args = args.merge(page: (((args[:page] || 1).to_i) +1).to_s)
     @jiepang = Jiepang.new
     result = @jiepang.search p_args
     @places = result["places"]

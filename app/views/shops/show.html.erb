@@ -7,14 +7,14 @@
 </p>
 
 <% content_for :plus do -%>
-	<%= section :title => '本店商品' do %>
-		<%= render 'inventories/index', :inventories => @shop.inventories %>
+	<%= section title: '本店商品' do %>
+		<%= render 'inventories/index', inventories: @shop.inventories %>
 	<% end %>
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <%= render 'map', :resource => @shop.locatable unless @shop.locatable.blank? or @shop.locatable.no_locate? %>
-  <%= section :title => '购物车' do %>
+  <%= render 'map', resource: @shop.locatable unless @shop.locatable.blank? or @shop.locatable.no_locate? %>
+  <%= section title: '购物车' do %>
     <div id="bill_select">
 	  <%= render 'shop_carts/form' %>
 	</div>

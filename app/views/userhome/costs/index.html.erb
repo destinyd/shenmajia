@@ -2,25 +2,25 @@
 <%  if @cost_months = collection.group_by{|a| a.created_at.beginning_of_month} %>
 <% @cost_months.sort.each do |month,costs| %>
   <% month_count = 0 %>
-  <%= content_tag :div,:class => 'month' do %>
+  <%= content_tag :div,class: 'month' do %>
     <%= month.strftime('%Y-%m') %>
   <% end %>
   <% costs.each do |cost| %>
-    <%= content_tag :div,:class => 'price_cost' do %>
+    <%= content_tag :div,class: 'price_cost' do %>
       <% @count = @count + cost.money; month_count = month_count + cost.money %>
-      <%= content_tag :div,:class => 'time' do %>
+      <%= content_tag :div,class: 'time' do %>
         <%=cost.created_at.strftime('%d日%H:%M') %>
       <% end %>
-      <%= content_tag :div,:class => 'title' do %>
+      <%= content_tag :div,class: 'title' do %>
         <%=link_to cost,cost %>
       <% end %>
-      <%= content_tag :div,:class => 'price' do %>
+      <%= content_tag :div,class: 'price' do %>
         <span style="color:red"><%= cost.money %></span>元
       <% end %>
       <div class='clearer'></div>
     <% end %>
   <% end %>
-  <%= content_tag :div,:class => 'r' do %>
+  <%= content_tag :div,class: 'r' do %>
     <%= month.strftime('%Y年%m月')  %> <%= costs.length %>笔消费，总共花费<span style="color:red"><%= month_count %></span>元
   <% end %>
   <div class="clearer"></div>
@@ -29,5 +29,5 @@
 <% else %>
   <div>暂无消费数据</div>
 <% end %>
-<%= button_to '记录消费',new_cost_path, :method => :get %>
+<%= button_to '记录消费',new_cost_path, method:  :get %>
 

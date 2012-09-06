@@ -3,29 +3,29 @@ class Price < ActiveRecord::Base
   STATUS_LOW = 5
   attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title,:img
   attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:img,:good_id,:locatable,:city_id
-  attr_accessible :user_id, :on => :bill
-  #validates :type_id, :presence => true
-  validates :price, :presence => true
+  attr_accessible :user_id, on: :bill
+  #validates :type_id, presence: true
+  validates :price, presence: true
   belongs_to :user
   belongs_to :good
   belongs_to :city
   #belongs_to :shop
 
-  has_many :outlinks, :as => :outlinkable, :dependent => :destroy
-  has_many :integrals, :as => :integralable, :dependent => :destroy
-  has_many :reviews, :as => :reviewable, :dependent => :destroy
-  has_many :uploads, :as => :uploadable, :dependent => :destroy
+  has_many :outlinks, as: :outlinkable, dependent: :destroy
+  has_many :integrals, as: :integralable, dependent: :destroy
+  has_many :reviews, as: :reviewable, dependent: :destroy
+  has_many :uploads, as: :uploadable, dependent: :destroy
   has_many :inventories
-  #has_many :price_costs,:dependent => :destroy
-  #has_many :costs,:through => :price_costs
+  #has_many :price_costs,dependent: :destroy
+  #has_many :costs,through: :price_costs
   #has_many :costs
-  belongs_to :locatable, :polymorphic => true
+  belongs_to :locatable, polymorphic: true
 
-  has_many :bill_prices, :dependent => :destroy
-  has_many :bills,:through => :bill_prices
+  has_many :bill_prices, dependent: :destroy
+  has_many :bills,through: :bill_prices
 
   acts_as_commentable
-  geocoded_by :address, :latitude  => :lat, :longitude => :lon
+  geocoded_by :address, latitude: :lat, longitude: :lon
 
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   scope :review_low, Filter.new(self).extend(ReviewFilter)
@@ -34,18 +34,18 @@ class Price < ActiveRecord::Base
   scope :running,where("finish_at > ? OR finish_at is null",Time.now)
   scope :cheapest,running.order("price")
   scope :recent,running.order("id desc")
-  scope :groupbuy,recent.where(:type_id=>[21,22])
+  scope :groupbuy,recent.where(type_id: [21,22])
   scope :not_finish,where("finish_at > ?",Time.now)
-  # scope :costs,recent.where(:type_id=>[0,1])  
+  # scope :costs,recent.where(type_id: [0,1])  
   scope :with_good,includes(:good)
   scope :you_like,running.order('rand()')
-  scope :shop_type, where(:type_id => 101..103)
-  scope :shop_price, lambda {|shop| recent.shop_type.where(:locatable_type => 'Shop', :locatable_id => shop.id)}
+  scope :shop_type, where(type_id: 101..103)
+  scope :shop_price, lambda {|shop| recent.shop_type.where(locatable_type: 'Shop', locatable_id: shop.id)}
 
 
   accepts_nested_attributes_for :good
   accepts_nested_attributes_for :uploads
-  accepts_nested_attributes_for :outlinks, :reject_if => lambda { |outlink| outlink[:url].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :outlinks, reject_if: lambda { |outlink| outlink[:url].blank? }, allow_destroy: true
 
   TYPE = {
   0=>'消费',
@@ -121,15 +121,15 @@ class Price < ActiveRecord::Base
   # end
 
   # def create_alias_price type_id,price
-  #   p = Price.new :title => title,
-  #     :type_id => type_id,
-  #     :price => price,
-  #     :address => address,
-  #     :lat => lat,
-  #     :lon => lon,
-  #     :amount => amount
+  #   p = Price.new title: title,
+  #     type_id: type_id,
+  #     price: price,
+  #     address: address,
+  #     lat: lat,
+  #     lon: lon,
+  #     amount: amount
   #   outlinks.each do |outlink|
-  #     o = Outlink.new :url => outlink.url
+  #     o = Outlink.new url: outlink.url
   #     o.user_id = outlink.user_id
   #     p.outlinks << o
   #   end
@@ -206,15 +206,15 @@ class Price < ActiveRecord::Base
 
   # before_validation :init_type_id
   before_create :locate_city, :locate_pos #:locate_by_city
-  # before_create :geocode, :if => [:no_locate?,:address_changed?]#,:on =>:create
-  #before_update :geocode, :if => :address_changed?
+  # before_create :geocode, if: [:no_locate?,:address_changed?]#,on: :create
+  #before_update :geocode, if: :address_changed?
   before_create :outlink_user
   after_create :exp,:deal_good,:deal_img
   # after_create :deal_cheap_price,:deal_original_price
   protected
   # def locate_by_city
   #   if self.user_id.nil? and self.no_locate? and ! self.city.blank?
-  #     if @locate = Locate.where(:name => self.city).first_or_create
+  #     if @locate = Locate.where(name: self.city).first_or_create
   #       self.lat = @locate.lat
   #       self.lon = @locate.lon
   #     end
@@ -236,14 +236,14 @@ class Price < ActiveRecord::Base
   
   def deal_good
     return if good_id
-    tmp = Good.where(:name => title).first_or_create
+    tmp = Good.where(name: title).first_or_create
     self.good_id = tmp.id  unless self.good_id
     save if changed?
   end
 
   def deal_img
     return if img.blank?
-    good.uploads.first_or_create :image_file_name => img
+    good.uploads.first_or_create image_file_name: img
     #self.good_id = tmp.id  unless self.good_id
     #save if changed?
   end

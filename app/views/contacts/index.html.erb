@@ -1,7 +1,7 @@
 <% @contacts.each do |contact| %>
 	<div class="contact">
 		<div class="l">
-		<%= render 'contact', :contact => contact %>
+		<%= render 'contact', contact: contact %>
 		</div>
 		<div class="r">
 		<% if contact.is_default %>
@@ -9,9 +9,9 @@
 		<% else %>
 		<%= button_to '设为默认', set_default_contact_path(contact) unless contact.is_default %>
 		<% end %>
-		<%= button_to '删除', contact_path(contact),:method => :delete,:confirm => '你确定？'%>
+		<%= button_to '删除', contact_path(contact),method:  :delete,confirm: '你确定？'%>
 		</div>
 		<div class="c"></div>
 	</div>
 <% end -%>
-<%= button_to '添加',new_contact_path, :method => :get %>
+<%= button_to '添加',new_contact_path, method:  :get %>

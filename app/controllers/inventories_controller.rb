@@ -1,8 +1,8 @@
 class InventoriesController < InheritedResources::Base
-  before_filter :could_modify? ,:only =>[:new,:update,:edit,:destroy]
-  before_filter :authenticate_user!,:only =>[:new,:create,:update,:edit,:destroy]
+  before_filter :could_modify? ,only: [:new,:update,:edit,:destroy]
+  before_filter :authenticate_user!,only: [:new,:create,:update,:edit,:destroy]
   actions :all
-  belongs_to :shop, :optional => true
+  belongs_to :shop, optional: true
   respond_to :html
 
   def create
@@ -17,7 +17,7 @@ class InventoriesController < InheritedResources::Base
 
   protected
   def collection
-    @inventories ||= end_of_association_chain.paginate(:page => params[:page])
+    @inventories ||= end_of_association_chain.paginate(page: params[:page])
   end
 
   def could_modify?
