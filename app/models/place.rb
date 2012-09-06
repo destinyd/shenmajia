@@ -42,6 +42,7 @@ class Place < ActiveRecord::Base
   #end
   def update_jiepang
     if updated_at == created_at or DateTime.now > updated_at + 1.month
+      return self.touch if self.guid.blank?
       require 'jiepang'
       @jiepang = Jiepang.new
       @j = @jiepang.locations_show self.guid
@@ -49,10 +50,12 @@ class Place < ActiveRecord::Base
       self.checkin_num = @j['checkin_num']
       self.checkin_users_num = @j['checkin_users_num']
       self.categories = @j['categories']
-      @photos['items'].each do |photo|
-        photo['user'].delete 'birthday'
+      unless @photos['items'].blank?
+        @photos['items'].each do |photo|
+          photo['user'].delete 'birthday'
+        end
+        self.photos = @photos['items']
       end
-      self.photos = @photos['items']
       self.city = @j['city'] if self.city_id.blank? and !@j['city'].blank? 
       unless @j['mayor'].blank?
         self.mayor = @j['mayor']

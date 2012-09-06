@@ -54,8 +54,10 @@ class CostSweeper < ActionController::Caching::Sweeper
     # end
 
     #cities
-    rm "#{Rails.root}/public/cities/#{cost.locatable.city.name}.html" if cost.locatable.city
-    rm_r "#{Rails.root}/public/cities/#{cost.locatable.city.name}" if cost.locatable.city
+    if cost.locatable and cost.locatable.city
+      rm "#{Rails.root}/public/cities/#{cost.locatable.city.name}.html" 
+      rm_r "#{Rails.root}/public/cities/#{cost.locatable.city.name}"
+    end
 
     if cost.id % 10 == 0
     #prices

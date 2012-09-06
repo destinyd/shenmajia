@@ -9,10 +9,12 @@
 <%= link_to @cost,@cost %>
 </p>
 
+<% if @cost.bill %>
 <p>
 <b>所属账单:</b>
 <%= link_to @cost.bill,@cost.bill %>
 </p>
+<% end %>
 
 <p>
 <b><%= label :cost,:money %>:</b>
@@ -46,5 +48,5 @@
 
 
 <% content_for :sidebar do -%>
-  <%= render 'map', resource: @cost.locatable %>
+  <%= render 'map', resource: @cost.locatable if @cost.locatable and @cost.locatable.class.name == 'Place' %>
 <% end -%>
