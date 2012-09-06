@@ -55,9 +55,9 @@ class Good < ActiveRecord::Base
     self.deleted_at = DateTime.new 0
   end
 
-  def self.search(search)
-    unless search.blank?
-      running.where('name LIKE ?', "%#{search}%")
+  def self.search(q)
+    unless q.blank?
+      running.where('name LIKE ?', "%#{q}%")
     else
       running 
     end
