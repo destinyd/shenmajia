@@ -15,7 +15,7 @@
   </div>
   <div class="detail">
     <%=link_to  cost,cost,target: '_blank', title: cost.name %><br />
-    <% content_tag :div do %>
+    <%= content_tag :div do %>
       所属账单：<%= link_to cost.bill, cost.bill %>
     <% end if cost.bill %>
     消费：<%= cost.money %><br />

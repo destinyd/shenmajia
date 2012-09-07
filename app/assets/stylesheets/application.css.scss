@@ -492,6 +492,13 @@ footer{
     .detail{
       margin-left: 130px;
     }
+    .images{
+      margin-left: 200px;
+      a img{
+        max-width: 200px;
+        max-height: 120px;
+      }
+    }
   }
 }
 /*详细*/

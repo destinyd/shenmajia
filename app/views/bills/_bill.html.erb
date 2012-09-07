@@ -6,8 +6,8 @@
       地点：<%= link_to bill.locatable, bill.locatable %>
     <% end %>
   </div>  
-  <div class="detail">
-    <% bill.prices.map(&:uploads).map(&:first).each do |upload| %>
+  <div class="images">
+    <% bill.goods.map(&:uploads).map(&:first).each do |upload| %>
       <%= link_to bill do %>
         <% if upload.image_file_name.scan(/http/).blank? %>
           <img src='<%=upload.image.url %>' alt='<%= bill %>' title='<%= bill %>' />
