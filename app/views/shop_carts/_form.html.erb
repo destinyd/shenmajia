@@ -31,7 +31,7 @@
       </tr>      
     </tfoot>
   </table>
-  <% if current_user.default_contact %>
+  <% if current_user and current_user.default_contact %>
     <h3>联系方式</h3>
     <%= render 'contacts/contact', contact: current_user.default_contact %>
     <%= f.hidden_field :contact_id,value: current_user.default_contact.id %>
@@ -41,7 +41,6 @@
     <% else %>
       <%= f.submit '提交', name: nil %>    
     <% end -%>    
-  <% else %>
-    <%= link_to '请先添加联系方式',new_contact_path, target: '_blank' %>
   <% end -%>
 <% end %>
+<%= link_to '请先添加联系方式',new_contact_path, target: '_blank' if current_user and !current_user.default_contact %>
