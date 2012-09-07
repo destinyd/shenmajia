@@ -15,7 +15,8 @@
   </tr>
 <% end %>
 </table>
-
-<br />
+<div class="r">
+  <%= will_paginate @flashes %>
+</div>
 
 <%= link_to 'New Flash', new_flash_path %>

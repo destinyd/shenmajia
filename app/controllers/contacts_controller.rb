@@ -12,9 +12,9 @@ class ContactsController < InheritedResources::Base
   end
 
   protected
-	def begin_of_association_chain
-	  current_user
-	end
+  def begin_of_association_chain
+    current_user
+  end
 
   # def collection
   #   @contacts = end_of_association_chain.

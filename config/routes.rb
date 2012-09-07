@@ -114,11 +114,11 @@ Zhekou::Application.routes.draw do
   #match '/prices/local' => redirect('/prices/costs')
   resources :user_infos
 
-  resources :my_tasks
+  #resources :my_tasks
 
-  resources :user_tasks
+  #resources :user_tasks
 
-  resources :tasks
+  #resources :tasks
 
   resources :price_goods
 
@@ -127,7 +127,7 @@ Zhekou::Application.routes.draw do
     resources :reviews
   end
 
-  resources :flashes
+  #resources :flashes
 
   resources :articles do
     resources :comments
@@ -180,9 +180,9 @@ Zhekou::Application.routes.draw do
 
   #  get '/users/sign_out(.:format)',to: 'users/sessions#destroy'
 
-  resources :records
+  #resources :records
 
-  resources :msgs
+  #resources :msgs
 
 
 

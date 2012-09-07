@@ -6,7 +6,7 @@ class Article < ActiveRecord::Base
   validates :title, presence: true,uniqueness: true
 
   default_scope order('articles.is_top desc,articles.id desc')
-  scope :recent,limit(10)
+  scope :recent,order('id desc')
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   scope :review_low, Filter.new(self).extend(ReviewFilter)
   scope :truth,review_low(Review.truth_point)

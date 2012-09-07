@@ -4,7 +4,7 @@ describe InventoriesController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/inventories").should route_to("inventories#index")
+      get("/shops/1/inventories").should route_to("inventories#index", :shop_id => "1")
     end
 
     it "routes to #new" do
@@ -12,7 +12,7 @@ describe InventoriesController do
     end
 
     it "routes to #show" do
-      get("/inventories/1").should route_to("inventories#show", :id => "1")
+      get("/shops/1/inventories/1").should route_to("inventories#show", :id => "1", :shop_id => "1")
     end
 
     it "routes to #edit" do
