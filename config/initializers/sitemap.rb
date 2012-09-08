@@ -8,9 +8,14 @@ DynamicSitemaps::Sitemap.draw do
     #:change_freq => 'daily', :priority => 0.8
   ##new_page!
 
+  url bills_url, 
+:last_mod => Bill.last.created_at,
+ :change_freq => 'daily', :priority => 0.6
+
   url costs_url, 
 :last_mod => Cost.last.created_at,
  :change_freq => 'daily', :priority => 0.6
+
   url places_url, 
 :last_mod => Place.last.created_at,
  :change_freq => 'daily', :priority => 0.5

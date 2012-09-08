@@ -1,4 +1,5 @@
-<% upload = cost.bill.try(:uploads).try(:first) %>
+<% upload = nil %>
+<% upload ||= cost.bill.goods.first.try(:uploads).try(:first) if cost.bill %>
 <div class="cost c" data-time="<%= cost.created_at.to_i %>" id="cost_<%= cost.id %>">  
   <div class="l">
     <%= link_to cost do %>
