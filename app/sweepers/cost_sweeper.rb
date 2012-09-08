@@ -12,12 +12,6 @@ class CostSweeper < ActionController::Caching::Sweeper
     expire_cache_for(cost)
     expire_cache_for_single(cost)
   end
- 
-  # If our sweeper detects that a cost was deleted call this
-  #def after_destroy(cost)
-    #expire_cache_for(cost)
-    #expire_cache_for_single(cost)
-  #end
   private
   #def expire_cache_for_single(cost)
     #expire_page(controller: 'costs', action: 'show')
@@ -42,9 +36,9 @@ class CostSweeper < ActionController::Caching::Sweeper
   end
   
   def expire_cache_for(cost)
-    expire_page(controller: 'costs', action: 'index')  if cost.id % 10 == 0
+    expire_page(controller: 'costs', action: 'index')#  if cost.id % 10 == 0
 
-    expire_cache_for_other(cost.locatable) unless cost.locatable.blank?
+    #expire_cache_for_other(cost.locatable) unless cost.locatable.blank?
     # expire_cache_for_other(cost.good) unless cost.good.blank?
 
     #good
@@ -54,10 +48,10 @@ class CostSweeper < ActionController::Caching::Sweeper
     # end
 
     #cities
-    if cost.locatable and cost.locatable.city
-      rm "#{Rails.root}/public/cities/#{cost.locatable.city.name}.html" 
-      rm_r "#{Rails.root}/public/cities/#{cost.locatable.city.name}"
-    end
+    #if cost.locatable and cost.locatable.city
+      #rm "#{Rails.root}/public/cities/#{cost.locatable.city.name}.html" 
+      #rm_r "#{Rails.root}/public/cities/#{cost.locatable.city.name}"
+    #end
 
     if cost.id % 10 == 0
     #prices
