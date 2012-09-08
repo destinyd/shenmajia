@@ -59,7 +59,7 @@
   </section>
   <% end unless @place.checkin_num.blank? %>
 
-  <%= render 'section',plus: {things: @place.bills.recent.limit(10),title:  "#{@place}的消费记录",
+  <%= render 'section',plus: {things: @place.bills.recent.limit(10),title:  "#{@place}产生的账单",
   section_path: place_costs_path(@place)} %>
 
   <%= section title: '图片' do %>
