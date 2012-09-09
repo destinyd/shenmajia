@@ -15,6 +15,5 @@
 </table>
 <div class="c"></div>
 <div class="r">
-  <%= link_to '上一页',new_bill_path(params.merge({page: @page - 1})) if @page > 1 %>
-  <%= link_to '下一页',new_bill_path(params.merge({page: @page + 1})) if @has_more %>
+  <%= will_paginate @places %>
 </div>

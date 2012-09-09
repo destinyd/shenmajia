@@ -97,13 +97,13 @@ class Place < ActiveRecord::Base
     PlaceSearch.already_got args
   end
 
-  def self.search(args)
+  def self.search(args={})
     unless already_got(args)
       require 'jiepang'
     end
     PlaceSearch.where(args).create
-    where('name LIKE ?', "%#{args[:q]}%").where(city_id: [City.find_by_name(args[:city]).try(:id),nil])
-
+    return where('name LIKE ?', "%#{args[:q]}%").where(city_id: [City.find_by_name(args[:city]).try(:id),nil]) unless args[:city].blank?
+    where('name LIKE ?', "%#{args[:q]}%") if  args[:city].blank?
   end
 
 
