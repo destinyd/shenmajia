@@ -7,6 +7,9 @@ class BillsController < InheritedResources::Base
 
   respond_to :js, only: [:index, :new]
 
+  caches_page :index,:show
+  cache_sweeper :bill_sweeper
+
   def create
     @bill = current_user.bills.new params[:bill]
     if params[:shop_id]
