@@ -221,3 +221,9 @@ function change_shop_bill_val(shop_id,id,name,val){
     '/shops/' + shop_id + '/shop_carts/'+id, name + '=' +val + '&_method=PUT'
     );
 }
+$.fn.extend({'form_wait':function(){
+  $(this).find("input[type=submit]").attr('disabled',true);//.val('请等待')
+}})
+$.fn.extend({'form_ready':function(){
+  $(this).find("input[type=submit]").attr('disabled',false);
+}})

@@ -1,4 +1,4 @@
-<%= form_tag new_bill_path(params),method:  :get, remote: true do |f| -%>
+<%= form_tag new_bill_path,method:  :get, remote: true, onsubmit: '$(this).form_wait();$("#new_bill").form_wait()',id: 'form_bill_search_goods' do |f| -%>
   <%= text_field_tag :q,params[:q], placeholder: '您购买的商品：如 矿泉水' %>
   <%= hidden_field_tag :step,2 %>
   <%= hidden_field_tag :place_id,params[:place_id] %>

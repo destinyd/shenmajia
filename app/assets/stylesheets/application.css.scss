@@ -554,6 +554,15 @@ button:hover,input[type="submit"]:hover,.button:hover{
   text-decoration: none;
   line-height:20px\9;
 }
+input[type=submit]:disabled,button[disabled],.button[disabled],.button_disabled{
+  background-color:$first-color;
+  color:$main-color;
+  border:$main-color solid 1px;
+  height:20px;
+  padding: 1px 6px;
+  text-decoration: none;
+  line-height:20px\9;
+}
 .userhome_left{
   /*width:30%;*/
   width:240px;

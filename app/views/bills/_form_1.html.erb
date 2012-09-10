@@ -1,6 +1,6 @@
 <%= render 'places_search' %>
 <%
-  args = {q: params[:q],page: @page.to_s,lat: cookies["lat"],lon: cookies["lon"]}
+  args = {q: params[:q],lat: cookies["lat"],lon: cookies["lon"]}
   args.merge! city: cookies['city'] if !cookies['city'].blank? and cookies['city'].scan(/自治/).blank?
   @places = Place.search(args).paginate(:page => params[:page]) unless params[:q].blank?
 %>
