@@ -17,4 +17,4 @@ public/images/flashes/*
 public/assets/*
 *.html
 *.bak
-public/uploads
+public/images/uploads
