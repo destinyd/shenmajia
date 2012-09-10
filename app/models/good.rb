@@ -8,8 +8,7 @@ class Good < ActiveRecord::Base
   has_many :brand_goods,dependent:  :destroy
   has_many :brands,through:  :brand_goods
 
-  #has_many :price_goods
-  has_many :prices#,through:  :price_goods
+  has_many :prices
   has_many :outlinks, as:  :outlinkable
   has_many :records, as:  :recordable
   has_many :uploads, as:  :uploadable

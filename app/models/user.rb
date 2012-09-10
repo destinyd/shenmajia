@@ -20,7 +20,6 @@ class User < ActiveRecord::Base
   has_many :records
   has_many :user_tasks
   has_many :tasks,through: :user_tasks
-  has_many :price_goods
   has_many :shops
   #has_many :user_costs
   has_many :costs#,through: :user_costs

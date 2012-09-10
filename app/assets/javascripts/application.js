@@ -34,28 +34,6 @@ function send_review(selector){
   $(selector).submit();
   $(selector + ' select').attr('disable',true);
 }
-function good_bound(){
-  var obj = $('#price_good_good_id');
-  var obj_good_name = $('#price_good_good_name');
-  if(obj.val())
-  {
-    //obj_good_name.remove();
-    obj_good_name.attr('disabled',true);
-    $('#new_price_good_btn').attr('disabled',true);
-    $('#new_price_good_ff').remove();
-    $('#new_price_good').submit();
-  }
-  else{
-    $('#new_price_good_btn').hide();
-    $('#price_good_name').val(obj_good_name.val());
-    obj_good_name.remove();
-    $('#price_good_good_id').remove();
-    $('#new_price_good_ff').show();
-    $('#new_price_good_f').hide();
-    //$('#price_good_good_submit').attr('disabled',true)
-  }
-  return false;
-}
 
 function get_attrs(id){
   $.getJSON('/goods/'+id+'/attrs', function(data) {
