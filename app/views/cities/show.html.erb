@@ -1,4 +1,5 @@
 <% tmp1 = "最新、最全的#{"《#{@name}》附近的" if @name}价格信息" %>
+<% tmp1 += ",第#{params[:page]}页" unless params[:page].blank? %>
 <% set_meta_tags keywords:  "商品,价,#{@name.html_safe}", description: tmp1, title: tmp1 %>
 <div id="good_flows">
   <% @prices.group_by(&:good).each do |good,prices_group| %>

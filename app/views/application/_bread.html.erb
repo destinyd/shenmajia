@@ -13,10 +13,10 @@
       <% unless (could_bread? and ['index','show'].include? action_name) %>
         <li>&raquo;</li>
         <% begin %>
-          <% if t("action.#{controller_name}.#{action_name}").scan /translation_missing/ %>
-          <li><%= link_to(t("action.#{action_name}")) %></li>
+          <% if t("action.#{controller_name}.#{action_name}").scan(/translation_missing/).blank? %>
+            <li><%= link_to(t("action.#{controller_name}.#{action_name}")) %></li>
           <% else %>
-          <li><%= link_to(t("action.#{controller_name}.#{action_name}")) %></li>
+            <li><%= link_to(t("action.#{action_name}")) %></li>
           <% end -%>
         <% rescue %>
         <li><%= link_to(t("action.#{action_name}")) %></li>

@@ -1,9 +1,7 @@
 <% tmp = t("action.#{controller_name}.#{action_name}") %>
-<% if @able %>
-  <% tmp1 = "#{@able}的#{tmp}价格信息" %>
-<% else %>
-  <% tmp1 = "#{tmp}价格信息" %>
-<% end -%>
+<% tmp1 = "#{tmp}价格信息" %>
+<% tmp1 = "#{@good}的#{tmp1}" if @good %>
+<% tmp1 = "#{@city.name}的#{tmp1}" if @city %>
 <% @where_name = @meta_title ="#{tmp1}，第#{params[:page] || 1}页" %>
 <% set_meta_tags keywords:  "价格,地址,#{tmp}价格", 
 description: @meta_title,
