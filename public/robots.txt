@@ -4,7 +4,6 @@
 # User-Agent: *
 # Disallow: /
 User-agent: *
-Crawl-delay: 2
 Allow: /
 Disallow: /userhomes
 Disallow: /users/
