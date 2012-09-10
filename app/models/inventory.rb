@@ -38,4 +38,8 @@ class Inventory < ActiveRecord::Base
 		end
   	end
   end
+
+  before_destroy do
+    self.price.finish
+  end
 end

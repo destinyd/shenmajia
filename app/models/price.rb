@@ -248,6 +248,10 @@ class Price < ActiveRecord::Base
     #save if changed?
   end
 
+  def finish
+    self.update_attribute :finish_at, DateTime.now if self.finish_at.nil? and  self.price.inventories.length == 1
+  end
+
   after_initialize do
     self.type_id = 0 if read_attribute(:type_id).blank?
   end

@@ -6,9 +6,12 @@ class InventoriesController < InheritedResources::Base
   respond_to :html
 
   def create
-   @shop ||= Shop.find(params[:shop_id])
-	 @inventory = @shop.inventories.new(params[:inventory])
-	 create!
+   @inventory = current_shop.inventories.new(params[:inventory])
+   create!{userhome_inventories_path}
+  end
+
+  def update
+   update!{userhome_inventories_path}
   end
 
   def search

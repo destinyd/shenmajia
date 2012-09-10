@@ -39,6 +39,10 @@ class ApplicationController < ActionController::Base
     ip_infos
   end
 
+  def current_shop
+    @current_shop ||= current_user.shops.first
+  end
+
 
   private
   def get_cache_id

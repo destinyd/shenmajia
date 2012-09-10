@@ -199,6 +199,7 @@ zh-CN:
       cost: 消费
       bill: 账单
       contact: 联系方式
+      inventory: 商品
     attributes:
       price:
         price: 单价
