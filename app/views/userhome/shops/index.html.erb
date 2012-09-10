@@ -1,0 +1,16 @@
+<table class="">
+  <thead>
+    <th>店名</th>
+    <th>操作</th>
+    <th></th>
+  </thead>
+  <tbody>
+<% collection.each do |shop| %>
+  <tr>
+    <td><%= link_to shop,shop %></td>
+    <td><%= link_to '修改',edit_userhome_shop_path(shop) %></td>
+    <td><%= link_to '添加商品',new_userhome_inventory_path %></td>
+  </tr>
+<% end %>
+  <tbody>
+</table>

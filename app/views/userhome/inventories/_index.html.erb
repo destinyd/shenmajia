@@ -1,0 +1,21 @@
+<ul id="inventories">
+<% inventories.each do |inventory| %>
+  <li>
+    <div>
+      <div class="pic">
+        <%= link_to inventory.good do  %>
+        <%= img_upload inventory.good.uploads.first,inventory.good %>
+        <% end -%>
+      </div>
+      <div class="detail">
+        <p class="tc"><%= link_to inventory.good,inventory.good %></p>
+        <p>单价:<%= inventory.current %></p>
+        <p>库存:<%= inventory.amount %></p>
+      </div>
+      <div id="shop_cart_<%= inventory.id %>" class="tc">
+        <%= button_to '添加到购物车', shop_shop_carts_path(@shop,inventory_id: inventory.id), remote: true %>
+      </div>
+    </div>
+  </li>
+<% end -%>
+</ul>

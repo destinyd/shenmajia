@@ -28,6 +28,6 @@
 <div class="r">从<%= collection.first.created_at  %>至现在，总共<%= collection.length %>笔消费，总共花费<span style="color:red"><%= @count %></span>元</div>
 <% else %>
   <div>暂无消费数据</div>
-<% end %>
+<% end unless collection.blank? %>
 <%= button_to '记录消费',new_cost_path, method:  :get %>
 

@@ -82,6 +82,7 @@ Zhekou::Application.routes.draw do
     #resources :prices
     resources :shops
     resources :costs
+    resources :inventories
     root to:  "homes#index"
     #match 'costs' => 'homes#costs'
     match 'integrals' => 'homes#integrals'
