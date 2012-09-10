@@ -7,4 +7,4 @@
     <% end %>
   <%  end %>
 <% end %><br />
-<%= link_to '你也上传一张？',"#{params[:id]}/uploads/new",class: 'button' %>
+<%= button_to '你也上传一张？',"#{params[:id]}/uploads/new", method: :get %>

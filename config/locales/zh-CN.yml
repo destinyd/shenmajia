@@ -214,6 +214,8 @@ zh-CN:
         address:  商家地址
       contact:
         name:  联系人名称
+      upload:
+        image_file_name: 图片
 
   attributes:
     created_at: '创建于'
@@ -346,6 +348,7 @@ zh-CN:
     bills:
       new: 记账
     new: 添加
+    create: 提交
     index: 列表
     edit: 修改
     search: 搜索

@@ -47,15 +47,15 @@
   <div class="goods_div_<%=good.id%> h" id="product_attrs_<%= good.id -%>">
   <div id='attrs'>
   </div>
-  <%= link_to '新建',new_good_attr_path(good),remote: true %>
+  <%= button_to '新建参数',new_good_attr_path(good),method: :get,remote: true %>
   </div>
 
   <div class="product_links goods_div_<%=good.id%> h" id="product_links_<%= good.id -%>">
   <ul id='links'%>
     <%= render good.outlinks %>
   </ul>
-  <%= link_to '新建',new_good_outlink_path(good),remote: true %>
-</div>
+  <%= button_to '新建外链',new_good_outlink_path(good),method: :get,remote: true %>
+  </div>
 
 <p>
 <%= button_to '关注',good_focus_path(good),remote: true %>

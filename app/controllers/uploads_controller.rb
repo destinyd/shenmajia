@@ -5,6 +5,10 @@ class UploadsController < InheritedResources::Base
 
   caches_page :index,:show
   cache_sweeper :upload_sweeper
+
+  def create
+    create!{@upload.uploadable}
+  end
   
   protected
   def collection
