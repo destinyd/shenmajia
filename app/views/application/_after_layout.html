@@ -2,6 +2,8 @@
 <% flash.each do |name, msg| %>
 <%= content_tag :div, msg, class:  "flash_#{name} flash"%>
 <% end %>
+<div id="loading">
+</div>
 
 <script src="/users/status.js" type="text/javascript"></script>
 

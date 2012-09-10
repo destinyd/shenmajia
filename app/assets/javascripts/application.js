@@ -34,9 +34,6 @@ function send_review(selector){
   $(selector).submit();
   $(selector + ' select').attr('disable',true);
 }
-$(function(){
-  ajaxForm($('#new_comment'));
-})
 function good_bound(){
   var obj = $('#price_good_good_id');
   var obj_good_name = $('#price_good_good_name');
@@ -221,9 +218,37 @@ function change_shop_bill_val(shop_id,id,name,val){
     '/shops/' + shop_id + '/shop_carts/'+id, name + '=' +val + '&_method=PUT'
     );
 }
-$.fn.extend({'form_wait':function(){
-  $(this).find("input[type=submit]").attr('disabled',true);//.val('请等待')
-}})
-$.fn.extend({'form_ready':function(){
-  $(this).find("input[type=submit]").attr('disabled',false);
-}})
+$.fn.extend({
+  'form_wait':function(){
+    $(this).find("input[type=submit]").attr('disabled',true);//.val('请等待')
+    $('#loading').show();
+  },
+  'form_ready':function(){
+    $(this).find("input[type=submit]").attr('disabled',false);
+    $('#loading').hide();
+  }
+});
+$.fn.spin = function(opts) {
+  this.each(function() {
+    var $this = $(this),
+        data = $this.data();
+
+    if (data.spinner) {
+      data.spinner.stop();
+      delete data.spinner;
+    }
+    if (opts !== false) {
+      data.spinner = new Spinner($.extend({color: $this.css('color')}, opts)).spin(this);
+    }
+  });
+  return this;
+};
+$.fn.ajax_paginate = function() {
+  var pagination_a = $(this).find('.pagination a');
+  pagination_a.attr('data-remote', 'true');
+  pagination_a.bind('ajax:beforeSend',function(){$('#loading').show()}).bind('ajax:complete',function(){$('#loading').hide()});
+}
+$(function(){
+  ajaxForm($('#new_comment'));
+  $('#loading').spin();
+})

@@ -1,6 +1,1 @@
-<% unless params[:q].blank? %>
-	$('#new_bill_goods_search').html('<%= j render 'goods' %>');
-	$('#new_bill').form_ready();
-<% end %>
-$('#form_bill_search_goods').form_ready();
-$('#new_bill_goods_search .pagination a').attr('data-remote', 'true');
+<%= render "new_#{params[:step] || 1}" %>

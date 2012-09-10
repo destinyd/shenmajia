@@ -1,3 +1,8 @@
+<%
+  args = {q: params[:q],lat: cookies["lat"],lon: cookies["lon"]}
+  #args.merge! city: cookies['city'] if !cookies['city'].blank? and cookies['city'].scan(/自治/).blank?
+  @places = Place.search(args).recent.paginate(:page => params[:page]) unless params[:q].blank?
+%>
 <table>
   <tr>
     <th>名称</th>

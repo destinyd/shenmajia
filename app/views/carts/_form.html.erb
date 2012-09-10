@@ -18,7 +18,7 @@
             <td><%= text_field_tag 'price[]', bp[:price], onblur:  "change_bill_val(#{key},'price',$(this).val())" %></td>
             <td><%= text_field_tag 'amount[]', bp[:amount], onblur:  "change_bill_val(#{key},'amount',$(this).val())" %></td>
             <td><%= "%.2f" % total    %></td>
-            <td><%= link_to 'X',cart_path(key), method:  :delete, confirm: '你确定？',remote: true %></td>
+            <td><%= link_to 'X',cart_path(key), method:  :delete,remote: true %></td>
           </tr>
       <% end unless session[:cart][:items].blank? %>
       <tr class="total">

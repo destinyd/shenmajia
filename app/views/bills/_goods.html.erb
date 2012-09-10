@@ -1,10 +1,10 @@
-<% @goods = Good.search(params[:q]).paginate(page: params[:page]) unless params[:q].blank? %>
+<% @goods = Good.search(params[:q]).recent.paginate(page: params[:page]) unless params[:q].blank? %>
 <div id="form_goods_search">
   <ul class="table pretty">  
     <li class="name">名称</li>  
     <li>规格</li>  
     <li>单位</li>  
-    <li>参考产地</li>  
+    <%#<li>参考产地</li>  %>
     <li>操作</li>  
   </ul>
   <% @goods.each do |good|  %>
@@ -20,7 +20,7 @@
       <% end %>
       <%= content_tag 'li' do -%>
         <%= good.origin %>&nbsp;
-      <% end %>
+      <% end if nil %>
       <%= content_tag 'li' do -%>
         <%= button_to '选择',carts_path(good_id: good.id),method:  :post, remote: true %>
       <% end %>      
