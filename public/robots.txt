@@ -13,4 +13,7 @@ Disallow: /*/new$
 Disallow: /*/edit$
 Disallow: /*/buy_one$
 Disallow: /locates*
+Disallow: /*locates
+Disallow: /*just_started
+Disallow: /*nearly_finish
 Sitemap:http://shenmajia/sitemap.xml
