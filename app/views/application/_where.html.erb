@@ -1,0 +1,4 @@
+您的位置:
+    <%= link_to city_info_of_ip[:city],city_path(city_info_of_ip[:city]) unless city_info_of_ip[:city].blank? %>
+    <%= "无法确认" if city_info_of_ip[:city].blank? %>
+    <small><%= button_to '(重新定位)',new_locate_path(format:  :js),method:  :get,remote: true %></small>
