@@ -16,4 +16,5 @@ Disallow: /locates*
 Disallow: /*locates
 Disallow: /*just_started
 Disallow: /*nearly_finish
+Disallow: /*prices/costs
 Sitemap:http://shenmajia/sitemap.xml
