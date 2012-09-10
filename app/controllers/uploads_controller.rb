@@ -2,6 +2,9 @@ class UploadsController < InheritedResources::Base
   before_filter :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
   actions :all,except: [:edit,:update,:destroy]
   belongs_to :good, optional: true
+
+  caches_page :index,:show
+  cache_sweeper :upload_sweeper
   
   protected
   def collection
