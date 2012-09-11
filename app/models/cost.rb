@@ -1,6 +1,7 @@
 # coding: utf-8
 class Cost < ActiveRecord::Base
   acts_as_paranoid
+  acts_as_commentable
   attr_accessor :name, :address, :unit, :unit_price, :norm#, :shop
   attr_accessible :name, :good_id, :price_id, :money, :shop_id, :costs_attributes, :locatable_type, :locatable_id, :locatable, :desc, :unit, :amount, :unit_price, :norm, :bill_id#:price_attributes#, :price
   attr_accessible :user_id, on: :bill
@@ -31,7 +32,8 @@ class Cost < ActiveRecord::Base
 
   #scope :with_locatable,includes(:locatable)
   scope :with_bill,includes(:bill)
-  acts_as_commentable
+
+  default_scope includes([:user,:bill])
 
   def form_price
     unit_price ||= price.try(:price) 
