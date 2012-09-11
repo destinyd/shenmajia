@@ -31,16 +31,21 @@
       </tr>      
     </tfoot>
   </table>
-  <% if current_user and current_user.default_contact %>
-    <h3>联系方式</h3>
-    <%= render 'contacts/contact', contact: current_user.default_contact %>
-    <%= f.hidden_field :contact_id,value: current_user.default_contact.id %>
-    <p><%= link_to '修改默认联系方式',contacts_path %></p>
-    <% if session[:shop] and session[:shop][:items].blank? %>
-      <button disabled="disabled">请先添加商品</button>
+  <% if current_user %>
+    <% if current_user.default_contact %>
+      <h3>联系方式</h3>
+      <%= render 'contacts/contact', contact: current_user.default_contact %>
+      <%= f.hidden_field :contact_id,value: current_user.default_contact.id %>
+      <p><%= link_to '修改默认联系方式',contacts_path %></p>
+      <% if session[:shop] and session[:shop][:items].blank? %>
+        <button disabled="disabled">请先添加商品</button>
+      <% else %>
+        <%= f.submit '提交', name: nil %>    
+      <% end -%>    
     <% else %>
-      <%= f.submit '提交', name: nil %>    
-    <% end -%>    
+      <%= link_to '请先添加联系方式',new_contact_path, target: '_blank' if current_user and !current_user.default_contact %>
+    <% end %>
+  <% else %>
+    请先<b><%= link_to '登录',new_user_session_path %></b>再进行相关操作
   <% end -%>
 <% end %>
-<%= link_to '请先添加联系方式',new_contact_path, target: '_blank' if current_user and !current_user.default_contact %>

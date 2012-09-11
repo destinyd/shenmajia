@@ -1,0 +1,11 @@
+<% @where_name = "账单列表，第#{params[:page] || 1}页" %>
+<% @where_name = '在' + @place.name + '的' + @where_name if @place %>
+<% set_meta_tags keywords:  "账单,消费,地点", 
+  description:  "账单列表，第#{params[:page] || 1}页",
+  title: @where_name
+%>
+<%= render collection %>
+<div class="c"></div>
+<div class="r">
+  <%= will_paginate collection %> 
+</div>

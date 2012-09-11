@@ -1,5 +1,6 @@
 # coding: utf-8
 class Cost < ActiveRecord::Base
+  acts_as_paranoid
   attr_accessor :name, :address, :unit, :unit_price, :norm#, :shop
   attr_accessible :name, :good_id, :price_id, :money, :shop_id, :costs_attributes, :locatable_type, :locatable_id, :locatable, :desc, :unit, :amount, :unit_price, :norm, :bill_id#:price_attributes#, :price
   attr_accessible :user_id, on: :bill

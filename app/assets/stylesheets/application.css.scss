@@ -489,6 +489,24 @@ footer{
     .detail{
       margin-left: 130px;
     }
+  }
+}
+.product_l,.userhome_right{
+  div.bill{
+    padding:5px;
+    height:135px;
+    border-bottom:dashed 1px black;
+    overflow:hidden;
+    .l{
+      padding:2px;
+      width: 180px;
+      margin-right: 10px;
+      overflow:hidden;
+      a img{
+        width:120px;
+        height:120px;
+      }
+    }
     .images{
       margin-left: 200px;
       a img{
@@ -772,4 +790,9 @@ table.bill{
     }
   }
   clear: both;
+}
+#userhome_shops{
+  th,td{
+    font-size: 14px;
+  }
 }

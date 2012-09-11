@@ -1,11 +1,12 @@
 # coding: utf-8
 class Bill < ActiveRecord::Base
+  acts_as_paranoid
   attr_accessor :cost, :desc
   attr_accessible :locatable_id, :locatable_type, :ordered_at, :total, :bill_prices_attributes, :cost, :desc, :contact_id
-  has_many :bill_prices, dependent: :destroy
+  has_many :bill_prices#, dependent: :destroy
   has_many :prices,through: :bill_prices
   has_many :goods,through: :prices
-  has_many :costs
+  has_many :costs, dependent: :destroy
   has_many :uploads, as: :uploadable
   belongs_to :locatable, polymorphic: true
   belongs_to :user

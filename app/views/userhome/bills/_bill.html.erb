@@ -1,10 +1,11 @@
-<div class="bill" data-time="<%= bill.created_at.to_i %>" id="bill_<%= bill.id %>">  
+<div class="bill" data-time="<%= bill.updated_at.to_i %>" id="bill_<%= bill.id %>">  
   <div class="l">
     <%=link_to  bill,bill,target: '_blank', title: bill %><br />
     账单总额：<%= bill.total %><br />
     <% if bill.locatable %>
       地点：<%= link_to bill.locatable, bill.locatable %>
     <% end %>
+    <%= button_to '删除',userhome_bill_path(bill),method: :delete,confirm: '你确定？' %>
   </div>  
   <div class="images">
     <% bill.goods.map(&:uploads).map(&:first).each do |upload| %>

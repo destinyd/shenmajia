@@ -1,5 +1,6 @@
 # coding: utf-8
 class Price < ActiveRecord::Base
+  acts_as_paranoid
   STATUS_LOW = 5
   attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title,:img
   attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:img,:good_id,:locatable,:city_id
@@ -11,17 +12,17 @@ class Price < ActiveRecord::Base
   belongs_to :city
   #belongs_to :shop
 
-  has_many :outlinks, as: :outlinkable, dependent: :destroy
-  has_many :integrals, as: :integralable, dependent: :destroy
-  has_many :reviews, as: :reviewable, dependent: :destroy
-  has_many :uploads, as: :uploadable, dependent: :destroy
+  has_many :outlinks, as: :outlinkable#, dependent: :destroy
+  has_many :integrals, as: :integralable#, dependent: :destroy
+  has_many :reviews, as: :reviewable#, dependent: :destroy
+  has_many :uploads, as: :uploadable#, dependent: :destroy
   has_many :inventories
   #has_many :price_costs,dependent: :destroy
   #has_many :costs,through: :price_costs
   #has_many :costs
   belongs_to :locatable, polymorphic: true
 
-  has_many :bill_prices, dependent: :destroy
+  has_many :bill_prices#, dependent: :destroy
   has_many :bills,through: :bill_prices
 
   acts_as_commentable

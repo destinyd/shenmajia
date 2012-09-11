@@ -1,0 +1,8 @@
+<% @where_name = @bill.to_s  %>
+<% @where = @bill %>
+<% set_meta_tags keywords:  "账单,消费#{',' + @bill.locatable.name if @bill.locatable}", 
+  description:  "#{@where_name} 购买商品：#{@bill.prices.map(&:name).join}",
+  title: @where_name
+%>
+<%= render 'bills/show', bill: @bill %>
+<%= render 'costs', bill: @bill %>
