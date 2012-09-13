@@ -59,6 +59,7 @@ Zhekou::Application.routes.draw do
   %w{groupbuy cheapest}.each do |p|
     get "/cities/:city_id/prices/#{p}/page/:page" => "prices##{p}"
   end
+  get "/cities/:city_id/prices/page/:page" => "prices#index"
 
   get "/goods/:good_id/prices/page/:page" => "prices#index"
 
