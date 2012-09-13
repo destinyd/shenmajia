@@ -21,6 +21,38 @@ class Bill < ActiveRecord::Base
     total = 0 unless total.blank?
     fully_paid = false if fully_paid.nil?
   end
+
+  def pay
+    unless fully_paid
+      self.fully_paid = true
+      self.cost = self.total
+      build_desc
+      create_cost
+      save
+    end
+  end
+
+  def build_desc
+    if self.desc.blank?
+      self.desc = "#{user}于#{DateTime.now}在#{self.locatable}购买"
+      arr_desc = []
+      bill_prices.each do |bp|
+        arr_desc.push "#{bp.price.good}*#{bp.amount}"
+      end
+      arr_desc.push fully_paid ? "共支付了#{cost}元。" : "支付了其中的#{cost}元。"
+      self.desc += arr_desc.join("，")
+    end
+  end
+
+  def create_cost
+    costs.new(
+      {
+        money: cost,
+        user_id: user_id,
+        desc: self.desc
+      }, on: :bill
+      )
+  end
   
   def to_s
     "#{locatable}产生的账单"
@@ -30,22 +62,8 @@ class Bill < ActiveRecord::Base
     ordered_at = DateTime.now if ordered_at.blank?
     unless cost.blank?
       self.fully_paid = true if cost.to_f == total
-      if self.desc.blank?
-        self.desc = "#{user}于#{DateTime.now}在#{self.locatable}购买"
-        arr_desc = []
-        bill_prices.each do |bp|
-          arr_desc.push "#{bp.price.good}*#{bp.amount}"
-        end
-        arr_desc.push fully_paid ? "共支付了#{cost}元。" : "支付了其中的#{cost}元。"
-        self.desc += arr_desc.join("，")
-      end
-      costs.new(
-        {
-          money: cost,
-          user_id: user_id,
-          desc: self.desc
-        }, on: :bill
-        )
+      build_desc
+      create_cost
     end
   end
 end

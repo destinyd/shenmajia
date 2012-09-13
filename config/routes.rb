@@ -85,6 +85,7 @@ Zhekou::Application.routes.draw do
     resources :costs
     resources :inventories
     resources :bills,except: [:edit,:update]
+    resources :orders
     root to:  "homes#index"
     #match 'costs' => 'homes#costs'
     match 'integrals' => 'homes#integrals'

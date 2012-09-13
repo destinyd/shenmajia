@@ -311,6 +311,7 @@ zh-CN:
     homes: 用户主页
     bills: 账单
     contacts: 联系方式
+    orders: 订单
   action:
     prices:
       new: 记账

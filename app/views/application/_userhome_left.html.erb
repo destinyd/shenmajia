@@ -2,7 +2,11 @@
 <div class="content">
   <p><%= link_to t('action.userhomes.homes'), userhome_root_path %></p>
   <p><%= link_to t('action.userhomes.costs'), userhome_costs_path %></p>
-  <p><%= link_to t('controller.shops'), userhome_shops_path if current_shop %></p>
   <p><%= link_to t('controller.bills'), userhome_bills_path %></p>
+  
+  <% if current_shop %>
+    <p><%= link_to t('controller.shops'), userhome_shops_path %></p>
+    <p><%= link_to t('controller.orders'), userhome_orders_path %></p>
+  <% end %>
   <%#= link_to t('activerecord.models.integral'),'/userhomes/integrals'%>
 </div>
