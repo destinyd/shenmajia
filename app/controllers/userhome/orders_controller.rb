@@ -1,6 +1,6 @@
 class Userhome::OrdersController < UserhomeController
   defaults :resource_class => Bill, :collection_name => 'bills', :instance_name => 'bill'
-  actions :all#, except: [:update]
+  actions :all, except: [:index,:update,:destroy]
   def update
     current_shop.bills.find(params[:id]).pay
     redirect_to userhome_orders_path

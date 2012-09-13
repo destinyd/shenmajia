@@ -81,11 +81,11 @@ Zhekou::Application.routes.draw do
   namespace :userhome do
     resources :homes
     #resources :prices
-    resources :shops
-    resources :costs
+    resources :shops,only: [:index,:edit,:update]
+    resources :costs,only: [:index]
     resources :inventories
-    resources :bills,except: [:edit,:update]
-    resources :orders
+    resources :bills,only: [:index,:destroy]
+    resources :orders,only: [:index,:destroy,:update]
     root to:  "homes#index"
     #match 'costs' => 'homes#costs'
     match 'integrals' => 'homes#integrals'

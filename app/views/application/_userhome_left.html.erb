@@ -1,13 +1,15 @@
 <header><nav><h2 id="控制面板"><a href=#控制面板>控制面板</a></h2></nav></header>
 <div class="content">
+  <h3>用户操作</h3>
   <p><%= link_to t('action.userhomes.homes'), userhome_root_path %></p>
   <p><%= link_to t('action.userhomes.costs'), userhome_costs_path %></p>
   <p><%= link_to t('controller.bills'), userhome_bills_path %></p>
-  
+  <p><%= link_to t('activerecord.models.integral'),userhome_integrals_path%></p>
   <% if current_shop %>
+  <hr />
+  <h3>店铺操作</h3>
     <p><%= link_to t('controller.shops'), userhome_shops_path %></p>
     <p><%= link_to t('controller.inventories'), userhome_inventories_path %></p>
     <p><%= link_to t('controller.orders'), userhome_orders_path %></p>
   <% end %>
-  <%#= link_to t('activerecord.models.integral'),'/userhomes/integrals'%>
 </div>

@@ -1,4 +1,4 @@
 class Userhome::ShopsController < UserhomeController
-  actions :all, except: [:new,:create,:destroy]
+  actions :all, only: [:index,:new,:create]
 end
 
