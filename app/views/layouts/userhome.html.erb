@@ -5,7 +5,8 @@
   </section>
   <section class="userhome_right">
   <header>
-  <nav><h1 id="<%= t("action.userhomes.#{controller_name}") %>"><a href=#<%= t("action.userhomes.#{controller_name}") %>><%= t("action.userhomes.#{controller_name}") %></a></h1></nav>
+  <% bread_name = t("controller.#{controller_name}"); bread_name += ' » ' + t("action.#{controller_name}.#{action_name}") if action_name != 'index' %>
+  <nav><h1 id=""><a href='#<%= bread_name  %>'><%= bread_name %></a></h1></nav>
   </header>
   <article class="content">
   <%= yield %>

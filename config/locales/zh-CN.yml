@@ -335,11 +335,8 @@ zh-CN:
       new: 登录
     registrations:
       new: 注册
-    userhomes:
-      homes: 用户主页
-      costs: 消费记录
-      integral: 积分记录
-      gold: 神币记录
+    homes:
+      integrals: 积分记录
     costs:
       new: 记录消费
       create: 记录消费
