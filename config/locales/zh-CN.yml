@@ -312,6 +312,7 @@ zh-CN:
     bills: 账单
     contacts: 联系方式
     orders: 订单
+    inventories: 商品管理
   action:
     prices:
       new: 记账

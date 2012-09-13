@@ -203,6 +203,10 @@ class Price < ActiveRecord::Base
     good.desc
   end
 
+  def finish
+    self.update_attribute :finish_at, DateTime.now if self.finish_at.nil? and  self.inventories.length == 1
+  end
+
   include PosHelper
 
   # before_validation :init_type_id
@@ -212,6 +216,8 @@ class Price < ActiveRecord::Base
   before_create :outlink_user
   after_create :exp,:deal_good,:deal_img
   # after_create :deal_cheap_price,:deal_original_price
+
+
   protected
   # def locate_by_city
   #   if self.user_id.nil? and self.no_locate? and ! self.city.blank?
@@ -247,10 +253,6 @@ class Price < ActiveRecord::Base
     good.uploads.first_or_create image_file_name: img
     #self.good_id = tmp.id  unless self.good_id
     #save if changed?
-  end
-
-  def finish
-    self.update_attribute :finish_at, DateTime.now if self.finish_at.nil? and  self.price.inventories.length == 1
   end
 
   after_initialize do

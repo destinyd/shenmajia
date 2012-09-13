@@ -6,6 +6,7 @@
   
   <% if current_shop %>
     <p><%= link_to t('controller.shops'), userhome_shops_path %></p>
+    <p><%= link_to t('controller.inventories'), userhome_inventories_path %></p>
     <p><%= link_to t('controller.orders'), userhome_orders_path %></p>
   <% end %>
   <%#= link_to t('activerecord.models.integral'),'/userhomes/integrals'%>
