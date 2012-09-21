@@ -1,5 +1,6 @@
 class Shop < ActiveRecord::Base
-  attr_accessible :desc, :name,:brand_id,:tag_list
+  attr_accessor :place_id,:place_name
+  attr_accessible :desc, :name,:brand_id,:tag_list,:place_id,:place_name
   validates :name, presence:  true
   # validates :address, presence:  true
 
@@ -30,5 +31,11 @@ class Shop < ActiveRecord::Base
   
   def to_s
     name
+  end
+  def place_name_read
+    self.locatable
+  end
+  before_update do
+    self.locatable = Place.find(self.place_id) if self.place_id
   end
 end

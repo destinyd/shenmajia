@@ -259,6 +259,7 @@ zh-CN:
     is_default: 设为默认
     barcode: 条形码
     origin: 原产地
+    place_name: 地点名称
 
 
 

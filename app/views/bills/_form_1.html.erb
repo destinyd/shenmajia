@@ -1,4 +1,4 @@
-<%= render 'places_search' %>
+<%= render 'places_search',form_path: new_bill_path,id:'form_bill_search_places' %>
 <div id="new_bill_places_search">
   <%= render 'places' unless params[:q].blank? %>
 </div>

@@ -81,7 +81,9 @@ Zhekou::Application.routes.draw do
   namespace :userhome do
     resources :homes
     #resources :prices
-    resources :shops,only: [:index,:edit,:update]
+    resources :shops,only: [:index,:edit,:update] do
+      get :places_search,on: :collection
+    end
     resources :costs,only: [:index]
     resources :inventories
     resources :bills,only: [:index,:destroy]
