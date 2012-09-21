@@ -1,5 +1,5 @@
 <% if (@price = Price.find(params[:id])).no_locate? %>
-  <% cache "prices_show_cheapest_id_#{@price.id}_#{@cache_id}" do %>
+  <% cache "prices_show_near_cheapest_id_#{@price.id}_#{@cache_id}" do %>
     $(document).ready(function(){
       $('#near_cheapest_article').html('暂无数据');
     });
