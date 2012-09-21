@@ -257,6 +257,8 @@ zh-CN:
     telephone: 手机号码
     phone: 电话号码
     is_default: 设为默认
+    barcode: 条形码
+    origin: 原产地
 
 
 

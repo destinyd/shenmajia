@@ -8,11 +8,6 @@
 <b>名称:</b>
 <%= good.name %>
 </p>
-<%= content_tag 'p' do %>
-  <b>描述:</b>
-  <%= raw good.desc unless good.user_id %>
-  <%= good.desc if good.user_id %>
-<% end unless good.desc.blank? %>
 
 <%= content_tag 'p' do %>
   <b>规格:</b>
@@ -22,8 +17,23 @@
 <%= content_tag 'p' do %>
   <b>单位:</b>
   <%= good.unit  %>
-<% end if good.unit %>
+<% end %>
 
+<%= content_tag 'p' do %>
+  <b>条形码:</b>
+  <%= good.barcode  %>
+<% end unless good.barcode.blank? %>
+
+<%= content_tag 'p' do %>
+  <b>原产地:</b>
+  <%= good.origin  %>
+<% end unless good.origin.blank? %>
+
+<%= content_tag 'p' do %>
+  <b>描述:</b>
+  <%= raw good.desc unless good.user_id %>
+  <%= good.desc if good.user_id %>
+<% end unless good.desc.blank? %>
 
 
 <%= content_tag 'p' do %>
