@@ -55,7 +55,9 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
 <% content_for :plus do -%>
   <div id="near_groupbuy">
     <%= section title: '附近特价商品信息' do %>
-      读取中...
+      <div id='near_groupbuy_article'>
+        读取中...
+      </div>
     <% end %>
   </div>
   <%= render 'comments/comments',commentable: @price %>
@@ -65,13 +67,17 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
   <%= render 'map', resource: @price unless @price.no_locate? %>
   <div id="near_cheapest">
     <%= section title: '本商品附近最低价' do %>
-      读取中...
+      <div id='near_cheapest_article'>
+        读取中...
+      </div>
     <% end %>
   </div>
 
   <div id="cheap">
     <%= section title: '本商品全国最低价' do %>
+      <div id='cheap_article'>
       读取中...
+      </div>
     <% end %>
   </div>
 <% end -%>
