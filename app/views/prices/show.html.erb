@@ -81,7 +81,12 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
     <% end %>
   </div>
 <% end -%>
-
-<script src="<%= near_groupbuy_price_path(@price,format:  :js) %>" type="text/javascript"></script>
-<script src="<%= near_cheapest_price_path(@price,format:  :js) %>" type="text/javascript"></script>
-<script src="<%= cheap_price_path(@price,format:  :js) %>" type="text/javascript"></script>
+<% if @price.no_locate? %>
+  <script>
+    <%= render 'near_empty' %>
+  </script>
+<% else %>
+  <script src="<%= near_groupbuy_price_path(@price,format:  :js) %>" type="text/javascript"></script>
+  <script src="<%= near_cheapest_price_path(@price,format:  :js) %>" type="text/javascript"></script>
+  <script src="<%= cheap_price_path(@price,format:  :js) %>" type="text/javascript"></script>
+<% end %>

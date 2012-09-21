@@ -1,8 +1,6 @@
 <% if (@price = Price.find(params[:id])).no_locate? %>
   <% cache "prices_show_cheapest_id_#{@price.id}_#{@cache_id}" do %>
-    $(document).ready(function(){
-      $('#cheap_article').html('暂无数据');
-    });
+    <%= render 'near_empty' %>
   <% end %>
 <% else %>
   <% cache "prices_show_cheapest_#{"%.02f" % @price.lat}_#{"%.02f" % @price.lon}_#{@cache_id}" do %>
