@@ -87,7 +87,8 @@ class Good < ActiveRecord::Base
   after_create :exp
 
   def uniq_barcode_or_nil
-    raise 'uniq_barcode_or_nil' if barcode and !Good.where(barcode: barcode).blank?
+    barcode = nil if barcode == ''
+    raise 'uniq_barcode_or_nil' if barcode? and !Good.where(barcode: barcode).blank?
   end
 
   def exp
