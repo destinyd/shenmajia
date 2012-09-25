@@ -1,31 +1,26 @@
-<h1>Listing msgs</h1>
-
-<table>
+<%= render 'links' %>
+<table id="msgs">
   <tr>
-    <th>Title</th>
-    <th>Body</th>
-    <th>From</th>
-    <th>To</th>
-    <th>Is read</th>
-    <th></th>
-    <th></th>
+    <th>&nbsp;</th>
+    <th class="name">标题</th>
+    <th class="from">发送者</th>
     <th></th>
   </tr>
 
 <% @msgs.each do |msg| %>
   <tr>
-    <td><%= msg.title %></td>
-    <td><%= msg.body %></td>
-    <td><%= msg.from %></td>
-    <td><%= msg.to %></td>
-    <td><%= msg.is_read %></td>
-    <td><%= link_to t('labels.show'), msg %></td>
-    <td><%= link_to 'Edit', edit_msg_path(msg) %></td>
-    <td><%= link_to 'Destroy', msg, confirm: 'Are you sure?', method:  :delete %></td>
+    <td>&nbsp;<%#= check_box_tag :select %></td>
+  <td class="name">
+    <span class="msg<%= msg.is_read %>">
+      <%= link_to msg.title,msg,target: '_blank' %>
+    </span>
+  </td>
+    <td class="from"><%= msg.from %></td>
+    <td><%= link_to 'X', msg, confirm: '你确定?', method:  :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Msg', new_msg_path %>
+<%= button_to '写短信息', new_msg_path,method: :get %>

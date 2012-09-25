@@ -188,7 +188,9 @@ Zhekou::Application.routes.draw do
 
   #resources :records
 
-  #resources :msgs
+  resources :msgs do
+    get :sents, on: :collection
+  end
 
 
 

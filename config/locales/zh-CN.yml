@@ -170,6 +170,8 @@ zh-CN:
       even: "必须为双数"
       taken: "已经被使用"
       record_invalid: "校验失败: %{errors}"
+      not_exist: 不存在
+      could_not_self: 不能为自己
 
   helpers:
     select:
@@ -200,6 +202,7 @@ zh-CN:
       bill: 账单
       contact: 联系方式
       inventory: 商品
+      msg: 短信息
     attributes:
       price:
         price: 单价
@@ -216,6 +219,9 @@ zh-CN:
         name:  联系人名称
       upload:
         image_file_name: 图片
+      msg:
+        to_name: 用户名
+        from: 发送者
 
   attributes:
     created_at: '创建于'
@@ -260,6 +266,7 @@ zh-CN:
     barcode: 条形码
     origin: 原产地
     place_name: 地点名称
+    body: 内容
 
 
 
@@ -316,6 +323,7 @@ zh-CN:
     contacts: 联系方式
     orders: 订单
     inventories: 商品管理
+    msgs: 短信息
   action:
     prices:
       new: 记账
@@ -354,6 +362,8 @@ zh-CN:
     index: 列表
     edit: 修改
     search: 搜索
+    msgs:
+      sents: 发件箱
 
   will_paginate:
     previous_label: "&#8592; 上一页"

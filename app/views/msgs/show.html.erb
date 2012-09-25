@@ -1,29 +1,7 @@
-
-<p>
-  <b>Title:</b>
-  <%= @msg.title %>
-</p>
-
-<p>
-  <b>Body:</b>
-  <%= @msg.body %>
-</p>
-
-<p>
-  <b>From:</b>
-  <%= @msg.from %>
-</p>
-
-<p>
-  <b>To:</b>
-  <%= @msg.to %>
-</p>
-
-<p>
-  <b>Is read:</b>
-  <%= @msg.is_read %>
-</p>
-
-
-<%= link_to 'Edit', edit_msg_path(@msg) %> |
-<%= link_to t('labels.back'), msgs_path %>
+<% @where = @msg %>
+<% @where_name = @msg.title %>
+<div class="tc">
+  <h1><%= @msg.title %></h1>
+  <%= p_field @msg,:from %>
+</div>
+<%= @msg.body %>

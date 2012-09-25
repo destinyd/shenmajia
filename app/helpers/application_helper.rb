@@ -55,4 +55,13 @@ module ApplicationHelper
    end
    raw content
   end
+
+  def p_field record,attr_name
+    if record.send(attr_name).blank?
+      ''
+    else 
+      content = "<p><b>#{record.class.human_attribute_name(attr_name)}:</b>#{record.send(attr_name)}</p>"
+      raw content
+    end
+  end
 end
