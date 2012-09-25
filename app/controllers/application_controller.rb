@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :get_cache_id
+  before_filter :get_cache_id,:log_user_agent
   helper_method :city_info_of_ip,:get_city_name,:current_shop
 
   #def sort_direction  
@@ -56,6 +56,11 @@ class ApplicationController < ActionController::Base
       lon: cookies[:lon]
     }
   end
+
+  def log_user_agent
+    logger.info "HTTP_USER_AGENT #{request.env["HTTP_USER_AGENT"]}"
+  end
+
 
 
 end
