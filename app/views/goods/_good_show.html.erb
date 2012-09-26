@@ -30,9 +30,8 @@
 <% end unless good.origin.blank? %>
 
 <%= content_tag 'p' do %>
-  <b>描述:</b>
-  <%= raw good.desc unless good.user_id %>
-  <%= good.desc if good.user_id %>
+  <%= raw good.desc if (good.user_id? and  good.is_valid) or !good.user_id? %>
+  <%= good.desc if good.user_id and !good.is_valid %>
 <% end unless good.desc.blank? %>
 
 

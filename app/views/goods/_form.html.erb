@@ -4,7 +4,8 @@
   <%= f.input :norm %>
   <%= f.input :barcode %>
   <%= f.input :origin %>
-  <%= f.input :desc %>  
+  <%= f.input :desc, as:  :kindeditor, label: false, input_html: { width: '100%', height: 500 } if current_user.is_vip? %>
+  <%= f.input :desc unless current_user.is_vip? %>  
   <%= f.input :tag_list, hint: '最多5个,请使用,(半角)分割,如:数码,手机' %>
   <%= f.submit %>
 <% end %>
