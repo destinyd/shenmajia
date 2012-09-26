@@ -1,7 +1,7 @@
 <% @where = @msg %>
 <% @where_name = @msg.title %>
 <div class="tc">
-  <h1><%= @msg.title %></h1>
-  <%= p_field @msg,:from %>
+  <h1><%= @msg.sender ? @msg.title : raw(@msg.title) %></h1>
+  <%= p_field @msg,:sender %>
 </div>
-<%= @msg.body %>
+<%= @msg.sender ? @msg.body : raw(@msg.body) %>

@@ -22,7 +22,10 @@ class BillsController < InheritedResources::Base
         bp = @bill.bill_prices.new amount: items[inventory.id.to_s][:amount]
         bp.price_id = inventory.price_id
       end
-      session[:shop] = {} if create!
+      if create!
+        session[:shop] = {}
+        Msg.delay.create({to:@shop.user_id,title:t('msg.bill.new.title'),body: t('msg.bill.new.body',bill:@bill),to_name: @shop.user.username},on: :admin)
+      end
     else
       @bill.locatable = Place.find(session[:cart][:place_id])
       session[:cart][:items].each do |key,item|

@@ -2,7 +2,7 @@
 <table id="msgs">
   <tr>
     <th class="name">标题</th>
-    <th class="from">发送至</th>
+    <th class="user">发送至</th>
     <th>已阅读？</th>
   </tr>
 
@@ -11,7 +11,7 @@
   <td class="name">
     <%= msg.title %>
   </td>
-    <td class="from"><%= msg.to_user %></td>
+    <td class="user"><%= msg.to_user %></td>
     <td><%= msg.is_read ? '√' : 'X' %></td>
   </tr>
 <% end %>

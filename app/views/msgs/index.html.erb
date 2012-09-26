@@ -3,7 +3,7 @@
   <tr>
     <th>&nbsp;</th>
     <th class="name">标题</th>
-    <th class="from">发送者</th>
+    <th class="user">发送者</th>
     <th></th>
   </tr>
 
@@ -15,11 +15,14 @@
       <%= link_to msg.title,msg,target: '_blank' %>
     </span>
   </td>
-    <td class="from"><%= msg.from %></td>
+    <td class="user"><%= msg.sender %></td>
     <td><%= link_to 'X', msg, confirm: '你确定?', method:  :delete %></td>
   </tr>
 <% end %>
 </table>
+<div class="r">
+  <%= will_paginate @msgs %>
+</div>
 
 <br />
 

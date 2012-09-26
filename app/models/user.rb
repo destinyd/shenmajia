@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :goods
   has_many :integrals
-  has_many :msgs
-  has_many :got_msgs, class_name: "Msg",foreign_key: 'to'
+  has_many :msgs, class_name: "Msg",foreign_key: 'to'
+  has_many :sent_msgs, class_name: "Msg",foreign_key: 'user_id'
   has_many :articles
   has_many :uploads
   has_many :focuss
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   has_many :units
   has_many :contacts
 
-  validates :username, presence: true,uniqueness: true, length: {in: 3..12 }
+  validates :username, presence: true,uniqueness: true, length: {in: 2..12 }
 
 
   scope :recent ,limit(10).order('id desc')#.select('email,created_at')
