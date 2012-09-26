@@ -8,7 +8,7 @@
 
 <% content_for :plus do -%>
 	<%= section title: '本店商品' do %>
-		<%= render 'inventories/index', inventories: @shop.inventories %>
+		<%= render 'inventories/index', inventories: @shop.inventories.recent %>
 	<% end %>
 <% end -%>
 
