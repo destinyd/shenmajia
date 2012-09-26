@@ -1,7 +1,7 @@
 <%  uploads.each do |upload| %>
   <%= link_to [uploadable,upload] do%>
     <% if upload.image_file_name.scan(/http/).blank? %>
-      <img src="<%= upload.image.url %>" alt="<%= uploadable.try(:name) %>" />
+      <img src="<%= upload.image.url(:small) %>" alt="<%= uploadable.try(:name) %>" />
     <% else %>
       <img src="<%= upload.image_file_name %>" alt="<%= uploadable.try(:name) %>" />
     <% end %>

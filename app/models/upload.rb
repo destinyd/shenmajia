@@ -3,7 +3,7 @@ class Upload < ActiveRecord::Base
   has_many :reviews, as: :reviewable
   acts_as_commentable
 
-  validates_attachment_size :image, less_than: 1.megabytes
+  validates_attachment_size :image, less_than: 2.megabytes
   validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/png', 'image/gif']
 
   validates :image_file_name, presence: true,uniqueness: {scope: [:uploadable_id, :uploadable_type]}
@@ -14,7 +14,7 @@ class Upload < ActiveRecord::Base
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
  
   has_attached_file :image, 
-                     styles: { original: '250x250>',  small: '120x120>' }, 
+                     styles: { original: '640x3000>',  small: '120x120#',shop:'180x180#' }, 
                      path: ":rails_root/public/images/items/:style_:id_:updated_at.:extension", 
                      url: "/images/items/:style_:id_:updated_at.:extension" 
 

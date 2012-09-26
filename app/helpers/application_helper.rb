@@ -43,10 +43,10 @@ module ApplicationHelper
     render 's',p.merge(content: content)
   end
 
-  def img_upload upload,name
+  def img_upload upload,name,size=nil
    if upload
      if upload.image_file_name.scan(/http/).blank?
-       content = "<img src='#{upload.image.url}' alt='#{name}' title='#{name}' />"
+       content = "<img src='#{upload.image.url(size)}' alt='#{name}' title='#{name}' />"
      else
        content = "<img src='#{upload.image_file_name}' alt='#{name}' title='#{name}' />"
      end

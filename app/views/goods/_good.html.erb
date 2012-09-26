@@ -4,7 +4,7 @@
     <%= link_to good do %>
       <% if upload  %>
         <% if upload.image_file_name.scan(/http/).blank? %>
-          <img src='<%=upload.image.url %>' alt='<%= good.name %>' title='<%= good.name %>' />
+          <img src='<%=upload.image.url(:small) %>' alt='<%= good.name %>' title='<%= good.name %>' />
         <% else %>
           <img src='<%=upload.image_file_name %>' alt='<%= good.name %>' title='<%= good.name %>' />
         <% end %>
