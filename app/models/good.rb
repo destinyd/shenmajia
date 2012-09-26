@@ -78,13 +78,20 @@ class Good < ActiveRecord::Base
   end
 
   def valid
-    return if self.is_valid
+    return false if self.is_valid
     self.update_attribute(:is_valid, true)
-    self.user.get_point(1,self,1) if self.user_id
+  end
+
+  def valid_with_exp
+    self.user.get_point(1,self,1) if self.user_id and valid
+  end
+
+  def valid_if_user_is_vip
+    valid if self.user.try(:is_vip?)
   end
 
   before_create :uniq_barcode_or_nil
-  after_create :exp
+  after_create :exp,:valid_if_user_is_vip
 
   def uniq_barcode_or_nil
     barcode = nil if barcode == ''

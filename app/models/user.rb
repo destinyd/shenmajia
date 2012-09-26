@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
   has_many :units
   has_many :contacts
 
+  has_many :user_vips
+
   validates :username, presence: true,uniqueness: true, length: {in: 2..12 }
 
 
@@ -51,5 +53,18 @@ class User < ActiveRecord::Base
 
   def points type_id = 0
     self.integrals.sum(:point).where(type_id: type_id)
+  end
+
+  def renewals_vip month=1
+    @up = self.user_vips.first
+    if @up.blank? or DateTime.now > @up.finish_at
+      self.user_vips.create started_at:DateTime.now,finish_at:DateTime.now + month.months
+    else
+      self.user_vips.create started_at:@up.finish_at,finish_at:@up.finish_at + month.months
+    end
+  end
+
+  def is_vip?
+    user_vips.now.first
   end
 end
