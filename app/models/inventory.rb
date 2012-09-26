@@ -10,6 +10,7 @@ class Inventory < ActiveRecord::Base
   validates :good_id, presence: true
 
   default_scope includes(:good,:price)
+  scope :recent,order('created_at desc')
 
   def name
   	good.try(:name)
