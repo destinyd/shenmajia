@@ -36,6 +36,6 @@ class Shop < ActiveRecord::Base
     self.locatable
   end
   before_update do
-    self.locatable = Place.find(self.place_id) if self.place_id
+    self.locatable = Place.find(self.place_id) unless self.place_id.blank?
   end
 end
