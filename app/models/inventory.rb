@@ -21,23 +21,12 @@ class Inventory < ActiveRecord::Base
   end
 
   before_validation do
-	p = self.shop.prices.recent.where(good_id: self.good_id,type_id: 101).first
-	if p and p.price == current
-		self.price = p
-	else
-		self.price =  self.shop.prices.new price: current, good_id: self.good_id, type_id: 101
-		self.price.user_id = self.shop.user_id
-		self.price.save
-	end
-  	unless original.blank?
-  		self.type_id = 102
-  		p = self.shop.prices.recent.where(good_id: self.good_id,type_id: 102).first
-  		unless p and p.price == original
-  			p = self.shop.prices.new price: original, good_id: self.good_id, type_id: 102
-  			p.user_id = self.shop.user_id
-  			p.save
-		end
-  	end
+    unless self.original.blank?
+      self.type_id = 102
+      self.shop.prices.recent.where(good_id: self.good_id,type_id: 101,price: self.original,user_id:self.shop.user_id).first_or_create({},on: :bill)
+    end
+    self.price = 
+      self.shop.prices.recent.where(good_id: self.good_id,type_id: self.type_id,price: self.current,user_id:self.shop.user_id).first_or_create({},on: :bill)
   end
 
   before_destroy do

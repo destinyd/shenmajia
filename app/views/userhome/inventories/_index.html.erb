@@ -4,13 +4,14 @@
     <div>
       <div class="pic">
         <%= link_to inventory.good do  %>
-        <%= img_upload inventory.good.uploads.first,inventory.good %>
+        <%= img_upload inventory.good.uploads.first,inventory.good,:shop %>
         <% end -%>
       </div>
       <div class="detail">
-        <p class="tc"><%= link_to inventory.good,inventory.good %></p>
-        <p>单价:<%= inventory.current %></p>
-        <p>库存:<%= inventory.amount %></p>
+        <p class="title"><%= link_to inventory.good,inventory.good,title: inventory.good %></p>
+        <p><b>单价</b>:<%= inventory.current %><%= "(#{'%.1f' % (inventory.current / inventory.original*10)}折)" if inventory.original and inventory.original > 0 %></p>
+        <%= p_field inventory,:original %>
+        <%= p_field inventory,:amount %>
       </div>
       <div class="tc">
         <%= button_to '修改', edit_userhome_inventory_path(inventory), method: :get %>

@@ -7,7 +7,7 @@
 <% content_for :plus do -%>
 	<% section title: '搜索、添加商品到账单' do %>
 		<%= render 'goods_search' %>
-		<div id="new_bill_goods_search">
+		<div id="new_bill_goods_search" class="ajax_paginate">
 		<%= render 'goods' unless params[:q].blank? %>
 		</div>
 	<% end %>

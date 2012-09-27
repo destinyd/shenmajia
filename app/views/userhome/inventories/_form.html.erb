@@ -3,7 +3,8 @@
 
 	<%= f.input :name, disabled: true, require: true, wrapper_html: {name: nil} %>
 	<%= f.input :current %>
-	<%= f.input :original, hint: '市场建议价' if @inventory.new_record? %>
+	<%= f.input :original, hint: '市场建议价' %>
+        <%#  if @inventory.new_record? %>
 	<%= f.input :amount,hint: '份'	 %>
 	<%= f.input :good_id, as:  :hidden %>
 	<%#= f.input :type_id, as:  :select, collection: Price.shop_types 	 %>
@@ -13,7 +14,7 @@
 <% content_for :plus do -%>
 	<% section title: '搜索商品' do %>
 		<%= render 'goods_search' %>
-		<div id="goods_search">
+		<div id="goods_search" class="ajax_paginate">
 		<%= render 'goods' unless params[:q].blank? %>
 		</div>
 	<% end %>

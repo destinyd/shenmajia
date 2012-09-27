@@ -46,10 +46,10 @@ Zhekou::Application.routes.draw do
   }
   @prices.call
 
-  %w{place cost good price bill}.each do |p|
-    get "/#{p}s/page/:page" => "#{p}s#index"
-    get "/#{p}s/:#{p}_id/costs/page/:page" => "costs#index" if %w{bill}.include?(p)
-    get "/#{p}s/:#{p}_id/bills/page/:page" => "bills#index" if %w{place price}.include?(p)
+  %w{place cost good price bill inventory}.each do |p|
+    get "/#{p.pluralize}/page/:page" => "#{p.pluralize}#index"
+    get "/#{p.pluralize}/:#{p}_id/costs/page/:page" => "costs#index" if %w{bill}.include?(p)
+    get "/#{p.pluralize}/:#{p}_id/bills/page/:page" => "bills#index" if %w{place price}.include?(p)
   end
 
   %w{groupbuy cheapest}.each do |p|
@@ -102,6 +102,7 @@ Zhekou::Application.routes.draw do
   resources :inventories, except: [:index, :show] do
     match :search, on:  :collection
   end
+  match "/inventories/search/page/:page" => "inventories#search"
 
   match 'sitemap.xml' => 'sitemaps#sitemap'
 
