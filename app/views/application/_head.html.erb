@@ -1,23 +1,23 @@
-<div class='head_left'>
-  <ul>
-    <li><a href='/' title='神马价'><div>神马价</div></a></li>
-    <li><%= link_to '/shops/1',title: '官方店' do %><div>官方店</div><% end %></li>    
-    <li><%= link_to '/shops',title: '店铺列表' do %><div>店铺列表</div><% end %></li>    
-    <li><%= link_to '/cities',title: '区域价格' do %><div>区域价格</div><% end %></li>
-    <li><%= link_to costs_path,title: '消费记录' do %><div>消费记录</div><% end %></li>
-    <li><%= link_to new_bill_path, title: '记账' do %><div>记账</div><% end %></li>
-    <li class='where' id='where'>
-    </li>
-    <li class='search'>
-    <%= form_tag search_places_path,method:  :get do |f| -%>
-      <%= text_field_tag :q,params[:q] %>
-      <%= submit_tag '搜索附近',name: nil %>
-    <% end -%>
-    <%#= text_field_tag :locate_id %>
-    <%#<button onclick="if($('#locate_id').val()!='')window.location.href='/locates/'+$('#locate_id').val();return false;">搜索附近</button>%>
-    </li>
-  </ul>
-</div>
-<div class='head_login'>
-  你好！
+<div id="head">
+  <div class='head_left'>
+    <ul>
+      <li><a href='/' title='神马价'><div>神马价</div></a></li>
+      <li><%= link_to '/shops/1',title: '官方店' do %><div>官方店</div><% end %></li>    
+      <li><%= link_to '/shops',title: '店铺列表' do %><div>店铺列表</div><% end %></li>    
+      <li><%= link_to new_bill_path, title: '记账' do %><div>记账</div><% end %></li>
+      <li class='where' id='where'>
+      </li>
+      <li class='search'>
+      <%= form_tag search_places_path,method:  :get do |f| -%>
+        <%= text_field_tag :q,params[:q] %>
+        <%= submit_tag '搜索附近',name: nil %>
+      <% end -%>
+      <%#= text_field_tag :locate_id %>
+      <%#<button onclick="if($('#locate_id').val()!='')window.location.href='/locates/'+$('#locate_id').val();return false;">搜索附近</button>%>
+      </li>
+    </ul>
+  </div>
+  <div class='head_login'>
+    你好！
+  </div>
 </div>
