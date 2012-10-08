@@ -7,4 +7,4 @@
   <% shop.shop_contacts.each do |sc| %>
     <%= p_field sc,:phone %>
   <% end %>
-<% end %>
+<% end unless shop.shop_contacts.blank? %>
