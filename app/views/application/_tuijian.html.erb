@@ -1,0 +1,25 @@
+<% cache "sidebar_tuijian_#{@cache_id}" do %>
+  <%= section title:'推荐商品' do %>
+    <ul id="tuijian">
+      <% Shop.first.inventories.recent.limit(6).each do |inventory| %>
+      <li>
+          <div>
+            <div class="pic">
+              <%= link_to inventory.shop do  %>
+              <%= img_upload inventory.good.uploads.first,inventory.good,:small %>
+              <% end -%>
+            </div>
+            <div class="detail">
+              <p class="title"><%= link_to inventory.good,inventory.good,title: inventory.good %></p>
+              <p><b>单价</b>:<%= inventory.current %></p>
+              <% if inventory.original and inventory.current <= inventory.original %>
+                <p><b>折扣</b>:<%= "#{'%.1f' % (inventory.current / inventory.original*10)}折"  %></p>
+              <% end %>
+              <p><b>店铺</b>:<%= link_to inventory.shop,inventory.shop  %></p>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

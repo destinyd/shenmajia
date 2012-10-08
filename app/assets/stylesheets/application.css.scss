@@ -799,6 +799,30 @@ table.bill{
   }
   clear: both;
 }
+#tuijian{
+  li{
+    width: 120px;
+    float: left;
+    padding: 5px 10px;
+    margin: 0 10px 10px 0;
+    div.pic{
+      text-align: center;
+      width:120px;
+      height:100px;
+      a img{
+        max-width:100px;
+      }
+    }
+    div.detail{
+      margin: 5px 0;
+      p.title{
+        text-align: center;
+        white-space:nowrap;
+      }
+    }
+  }
+  clear: both;
+}
 #userhome_shops{
   th,td{
     font-size: 14px;
