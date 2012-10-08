@@ -14,6 +14,7 @@ class Shop < ActiveRecord::Base
   has_many :costs
   has_many :inventories
   has_many :bills
+  has_many :shop_contacts
   belongs_to :locatable, polymorphic:  true
 
   # geocoded_by :address, latitude :  :lat, longitude:  :lon

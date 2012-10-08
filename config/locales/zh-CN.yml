@@ -324,6 +324,7 @@ zh-CN:
     orders: 订单
     inventories: 商品管理
     msgs: 短信息
+    shop_contacts: 联系方式
   action:
     prices:
       new: 记账

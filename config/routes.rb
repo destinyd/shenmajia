@@ -91,6 +91,7 @@ Zhekou::Application.routes.draw do
     root to:  "homes#index"
     #match 'costs' => 'homes#costs'
     match 'integrals' => 'homes#integrals'
+    resources :shop_contacts
   end
 
   resources :shops do
