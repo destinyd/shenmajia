@@ -9,16 +9,16 @@
 <% content_for :plus do -%>
   <%= section title: '价格分析' do %>
   <ul>
-    <li>商品的平均价格为：<%= @good.prices.count > 0 ? "#{@good.prices.sum(&:price) / @good.prices.count}元" : "暂无资料"  %></li>
+    <li>商品的平均价格为：<%= @good.prices.count > 0 ?  "#{"%.2f" % (@good.prices.sum(&:price) / @good.prices.count)}元" : "暂无资料"  %></li>
     <% adv = @good.prices.where(created_at: Time.now.beginning_of_month..Time.now) %>
     <% if adv.count > 0 %>
       <% adv = adv.sum(&:price) / adv.count %>
-      <li>商品当月平均价格为：<%= adv  %>元</li>
+      <li>商品当月平均价格为：<%= "%.2f" % adv  %>元</li>
     <% end %>
     <% min = @good.prices.where(created_at: Time.now.beginning_of_month..Time.now).order("price").first %>
     <% if min %><li>月内最低价为：<%= link_to min.price,min   %>元 <strong><%= link_to "价格链接",min   %></strong></li><% end %>
   </ul>
-  <% end unless cookies[:lat].blank? %>
+  <% end if @good.prices.count > 0 %>
 
   <%= render 'section',plus: {things: @good.find_related_tags,title:  "相关商品",not_count: true} unless @good.find_related_tags %>
   <%= render 'comments/comments',commentable: @good %>
