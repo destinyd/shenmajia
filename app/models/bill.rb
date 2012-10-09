@@ -26,23 +26,13 @@ class Bill < ActiveRecord::Base
     unless fully_paid
       self.fully_paid = true
       self.cost = self.total
-      build_desc
+      build_cost_desc
       create_cost
       save
     end
   end
 
-  def build_desc
-    if self.desc.blank?
-      self.desc = "#{user}于#{DateTime.now}在#{self.locatable}购买"
-      arr_desc = []
-      bill_prices.each do |bp|
-        arr_desc.push "#{bp.price.good}*#{bp.amount}"
-      end
-      arr_desc.push fully_paid ? "共支付了#{cost}元。" : "支付了其中的#{cost}元。"
-      self.desc += arr_desc.join("，")
-    end
-  end
+  include DescBuilder
 
   def create_cost
     costs.new(
@@ -61,8 +51,8 @@ class Bill < ActiveRecord::Base
   before_create do
     ordered_at = DateTime.now if ordered_at.blank?
     unless cost.blank?
-      self.fully_paid = true if cost.to_f == total
-      build_desc
+      self.fully_paid = true if cost.to_d == total.to_d
+      build_cost_desc
       create_cost
     end
   end

@@ -1,0 +1,19 @@
+<h1>提交成功</h1>
+<p><%= link_to '查看您的账单',@bill %></p>
+<p><%= link_to '继续记账', new_bill_path %></p>
+<h2>分享你的账单。</h2>
+<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare" data="{'text':'<%= j @bill.costs.first.desc %>,地点：<%= place_url(@bill.locatable) %>,账单：','url':'<%= bill_url(@bill) %>'}">
+        <a class="bds_qzone"></a>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_renren"></a>
+        <span class="bds_more">更多</span>
+    </div>
+<script type="text/javascript" id="bdshare_js1" data="type=tools" ></script>
+<script type="text/javascript" id="bdshell_js1"></script>
+<script type="text/javascript">
+	document.getElementById("bdshell_js1").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+<!-- Baidu Button END -->
+

@@ -12,6 +12,7 @@ class BillsController < InheritedResources::Base
 
   def create
     @bill = current_user.bills.new params[:bill]
+    return redirect_to(new_bill_path,error:t('error.fault')) if session[:cart][:place_id].blank?
     if params[:shop_id]
       @shop = Shop.find params[:shop_id]
       @bill.locatable = @shop
@@ -22,7 +23,7 @@ class BillsController < InheritedResources::Base
         bp = @bill.bill_prices.new amount: items[inventory.id.to_s][:amount]
         bp.price_id = inventory.price_id
       end
-      if create!
+      if create!{|success,failure| success.html}
         session[:shop] = {}
         Msg.delay.create({to:@shop.user_id,title:t('msg.bill.new.title'),body: t('msg.bill.new.body',bill:@bill),to_name: @shop.user.username},on: :admin)
       end
@@ -41,7 +42,7 @@ class BillsController < InheritedResources::Base
           city_id: @bill.locatable.city_id
           ).first_or_create({type_id: 0,user_id: @bill.user_id}, on: :bill)
       end
-      session[:cart] = {} if create!      
+      session[:cart] = {} if create!{|success,failure| success.html}
     end
   end
 

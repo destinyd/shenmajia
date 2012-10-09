@@ -1,7 +1,12 @@
 <%
   args = {q: params[:q],lat: cookies["lat"],lon: cookies["lon"]}
   args.merge! city: cookies['city'] if !cookies['city'].blank? and cookies['city'].scan(/自治/).blank?
-  @places = Place.search(args).recent.paginate(:page => params[:page]) unless params[:q].blank?
+if params[:q].blank?
+  %>
+  <p>请输入您要搜索的地点名称！</p>
+  <%
+  else
+  @places = Place.search(args).recent.paginate(:page => params[:page])
 %>
 <table>
   <tr>
@@ -22,3 +27,4 @@
 <div class="r">
   <%= will_paginate @places %>
 </div>
+<% end %>
