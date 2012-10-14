@@ -229,4 +229,5 @@ $.fn.ajax_paginate = function() {
 $(function(){
   ajaxForm($('#new_comment'));
   $('#loading').spin();
+  $('body').UItoTop();
 })
