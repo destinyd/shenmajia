@@ -1,0 +1,8 @@
+<article class="section">
+<%= render 'bread' %>
+<div id="<%= controller_name %>_<%= action_name %>" class="yield ">
+  <%= yield %>
+</div>
+<div class="c"></div>
+</article>
+<%= yield(:plus) %>

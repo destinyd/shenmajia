@@ -1,6 +1,7 @@
 <% @total = 0 %>
 <% @bill = Bill.new %>
-<%= form_for @bill, url: shop_bills_url(@shop) do |f| %>
+<% @inventories = Inventory.find(session[:shop][:items].keys) unless session[:shop].blank? or session[:shop][:items].blank? %>
+<%= form_for @bill do |f| %>
   <p id="notice"><%= notice %></p>
   <table class="bill">
     <thead>
@@ -11,23 +12,24 @@
       <th>操作</th>
     </thead>
     <tbody>
-      <% session[:shop][:items].each do |key,bp| %>
-        <% @total += total = ((bp[:price] || 0) * bp[:amount]) %>
-          <tr id="good_<%= key %>">          
-            <td class="name"><%= bp[:name] %></td>
-            <td><%= bp[:price] %></td>
-            <td><%= text_field_tag 'amount[]', bp[:amount], onblur:  "change_shop_bill_val(#{@shop.id},#{key},'amount',$(this).val())" %></td>
+      <% @inventories.each do |inventory| %>
+        <% amount = session[:shop][:items][inventory.id.to_s][:amount] %>
+        <% @total += total = inventory.current * amount %>
+          <tr id="inventory_<%= inventory.id %>">          
+            <td class="name"><%= inventory.name %></td>
+            <td><%= inventory.current %></td>
+            <td><%= text_field_tag 'amount[]', amount, onblur:  "change_bill_val(#{inventory.id},'amount',$(this).val())" %></td>
             <td><%= "%.2f" % total    %></td>
-            <td><%= link_to 'X',shop_shop_cart_path(@shop,key), method:  :delete, confirm: '你确定？',remote: true %></td>
+            <td><%= link_to 'X',shop_cart_path(inventory.id), method:  :delete, confirm: '你确定？',remote: true %></td>
           </tr>
-      <% end unless session[:shop].blank? or session[:shop][:items].blank? %>
+      <% end if @inventories %>
     </tbody>
     <tfoot>
       <tr class="total">
         <td class="name">&nbsp;</td>
         <td>&nbsp;</td>
         <td>最终总额</td>
-        <td><%= @total %><%= f.hidden_field :total,value: @total %></td>
+        <td><%= "%.2f" % @total %><%= f.hidden_field :total,value: "%.2f" % @total %></td>
       </tr>      
     </tfoot>
   </table>

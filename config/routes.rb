@@ -97,10 +97,13 @@ Zhekou::Application.routes.draw do
   resources :shops do
     resources :inventories
     resources :bills, except: [:edit,:update]
-    resources :shop_carts, only: [:index,:update,:create,:destroy]
+    #resources :shop_carts, only: [:index,:update,:create,:destroy]
   end
 
-  resources :inventories, except: [:index, :show] do
+  resources :shop_carts, only: [:index,:update,:create,:destroy]
+
+  resources :inventories, except: [:index] do
+    resources :comments
     collection do
       match :search#, on:  :collection
       get :tuijian#,on

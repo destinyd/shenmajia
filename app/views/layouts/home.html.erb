@@ -1,6 +1,14 @@
 <%= render 'before_layout' %>
-<div class="wrap">
-<%= yield %>
-<div class="c"></div>
+<div id="wrap">
+  <article class="section">
+    <%= render 'bread' %>
+    <div id="<%= controller_name %>_<%= action_name %>" class="yield ">
+      <%= yield %>
+    </div>
+    <div class="c"></div>
+  </article>
+  <div class="c"></div>
+  <%= yield(:plus) %>
+  <div class="c"></div>
 </div>
 <%= render 'after_layout' %>

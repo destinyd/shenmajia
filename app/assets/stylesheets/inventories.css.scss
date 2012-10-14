@@ -1,0 +1,44 @@
+#inventories_show{
+  #inventory{
+    margin:15px 0;
+    #images_field,.detail{
+      float:left;
+    }
+    #images_field{
+      #current_img{
+        width:310px;
+        height:310px;
+        border:solid 1px #BBB;
+        margin-bottom:10px;
+        img{
+          max-width:300px;
+          max-height:300px;
+        }
+      }
+      .images{
+        overflow: hidden;
+        margin:10px 0 0 26px;
+        .small_img{
+          float:left;
+          width:42px;
+          height:42px;
+          border:solid 1px #BBB;
+          margin-left: 5px;
+          img{
+            width:40px;
+            height:40px;
+          }
+        }
+      }
+    }
+    .detail{
+      margin-left:20px;
+      font-size: 14px;
+      input[type=submit]{
+        width:120px;
+        height:50px;
+        font-size:24px;
+      }
+    }
+  }
+}

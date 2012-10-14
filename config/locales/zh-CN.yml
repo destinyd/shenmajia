@@ -324,9 +324,10 @@ zh-CN:
     bills: 账单
     contacts: 联系方式
     orders: 订单
-    inventories: 商品管理
+    inventories: 店铺商品
     msgs: 短信息
-    shop_contacts: 联系方式
+    shop_contacts: 店铺联系方式
+    shop_carts: 购物车
   action:
     prices:
       new: 记账

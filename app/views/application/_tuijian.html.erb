@@ -4,12 +4,12 @@
       <li>
       <div>
         <div class="pic">
-          <%= link_to inventory.shop do  %>
-            <%= img_upload inventory.good.uploads.first,inventory.good,:small %>
+          <%= link_to inventory do  %>
+            <%= img_upload inventory.good.uploads.first,inventory,:shop %>
           <% end -%>
         </div>
         <div class="detail">
-          <p class="title"><%= link_to inventory.good,inventory.good,title: inventory.good %></p>
+          <p class="title"><%= link_to inventory,inventory,title: inventory %></p>
           <p><b>单价</b>:<%= inventory.current %></p>
           <% if inventory.original and inventory.current <= inventory.original %>
             <p><b>折扣</b>:<%= "#{'%.1f' % (inventory.current / inventory.original*10)}折"  %></p>

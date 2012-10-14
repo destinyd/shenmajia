@@ -2,15 +2,21 @@
   <nav>
     <ul>
       <li><a href='/'>神马价</a></li>
-      <% if @able %>
-        <li>&raquo;</li>
-        <li><%= link_to(@able,@able) %></li>
-      <% end -%>
-      <%  if could_bread? %>
+      <% begin %>
+        <% if parent %>
+          <li>&raquo;</li>
+          <li><%= link_to parent %></li>
+        <% end -%>
+      <% rescue %>
+      <% end %>
+      <% if could_bread? %>
+      <% begin %>
         <li>&raquo;</li>
         <li><%= link_to(t("controller.#{controller_name}"),eval("#{controller_name}_path")) %></li>
+      <% rescue %>
+      <% end %>
       <% end -%>
-      <% unless (could_bread? and ['index','show'].include? action_name) %>
+      <% unless (could_bread? or ['index','show'].include? action_name) %>
         <li>&raquo;</li>
         <% begin %>
           <% if t("action.#{controller_name}.#{action_name}").scan(/translation_missing/).blank? %>

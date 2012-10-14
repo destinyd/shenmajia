@@ -191,10 +191,13 @@ function change_bill_val(id,name,val){
     );
 }
 
-function change_shop_bill_val(shop_id,id,name,val){
+function change_bill_val(id,name,val){
+  var p = {'_method':'PUT'};
+  p[name] = val;
   $.post(
-    '/shops/' + shop_id + '/shop_carts/'+id, name + '=' +val + '&_method=PUT'
-    );
+    '/shop_carts/'+id, 
+    p
+  );
 }
 $.fn.extend({
   'form_wait':function(){

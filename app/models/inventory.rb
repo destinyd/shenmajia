@@ -1,4 +1,6 @@
 class Inventory < ActiveRecord::Base
+  acts_as_commentable
+
   attr_accessor :name
   attr_accessible :amount, :current, :good_id, :original, :price_id, :name#, :shop_id, :type_id
   belongs_to :shop
@@ -13,7 +15,11 @@ class Inventory < ActiveRecord::Base
   scope :recent,order('created_at desc')
 
   def name
-  	good.try(:name)
+    @name ||= (good.try(:name) || '')
+  end
+
+  def to_s
+    name
   end
 
   after_initialize do
