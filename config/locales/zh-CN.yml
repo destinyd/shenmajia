@@ -203,6 +203,7 @@ zh-CN:
       contact: 联系方式
       inventory: 商品
       msg: 短信息
+      order: 网站订单
     attributes:
       price:
         price: 单价

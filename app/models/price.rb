@@ -25,6 +25,9 @@ class Price < ActiveRecord::Base
   has_many :bill_prices#, dependent: :destroy
   has_many :bills,through: :bill_prices
 
+  has_many :order_prices
+  has_many :orders,through: :order_prices
+
   acts_as_commentable
   geocoded_by :address, latitude: :lat, longitude: :lon
 

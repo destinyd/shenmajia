@@ -1,0 +1,17 @@
+<div class="bill" data-time="<%= order.created_at.to_i %>" id="order_<%= order.id %>">  
+  <div class="l">
+    <%=link_to  order,order,target: '_blank', title: order %><br />
+    账单总额：<%= order.total %><br />
+    <% if order.shop %>
+      地点：<%= link_to order.shop, order.shop %>
+    <% end %>
+  </div>  
+  <div class="images">
+    <% order.goods.map(&:uploads).map(&:first).each do |upload| %>
+      <%= link_to order do %>
+        <%= img_upload upload,order,:small %>
+      <% end if upload %>
+    <% end -%>
+  </div>
+</div>
+

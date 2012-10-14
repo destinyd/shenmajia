@@ -1,6 +1,6 @@
 <%= simple_form_for(@contact) do |f| %>
   <%= f.error_notification %>
-  <%= f.input :city_id, collection: Province.all, as:  :grouped_select, group_method:  :cities %>
+  <%= f.input :city_id, collection: Province.all, as:  :grouped_select, group_method:  :cities, :prompt => "请选择你所在城市" %>
   <%#= f.input :area_id, collection: Province.all %>
   <%= f.input :address %>
   <%= f.input :telephone %>

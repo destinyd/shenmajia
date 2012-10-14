@@ -9,11 +9,7 @@
   <div class="images">
     <% bill.goods.map(&:uploads).map(&:first).each do |upload| %>
       <%= link_to bill do %>
-        <% if upload.image_file_name.scan(/http/).blank? %>
-          <img src='<%=upload.image.url %>' alt='<%= bill %>' title='<%= bill %>' />
-        <% else %>
-          <img src='<%=upload.image_file_name %>' alt='<%= bill %>' title='<%= bill %>' />
-        <% end %>
+        <%= img_upload upload,bill,:small %>
       <% end if upload %>
     <% end -%>
   </div>

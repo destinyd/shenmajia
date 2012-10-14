@@ -1,7 +1,7 @@
 <% @total = 0 %>
-<% @bill = Bill.new %>
+<% @order = Order.new %>
 <% @inventories = Inventory.find(session[:shop][:items].keys) unless session[:shop].blank? or session[:shop][:items].blank? %>
-<%= form_for @bill do |f| %>
+<%= form_for @order do |f| %>
   <p id="notice"><%= notice %></p>
   <table class="bill">
     <thead>

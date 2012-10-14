@@ -21,6 +21,10 @@ Zhekou::Application.routes.draw do
     resources :comments
   end
 
+  resources :orders, except: [:edit,:update] do
+    resources :comments
+  end
+
   resources :costs, except: [:edit,:update] do
     resources :comments
   end

@@ -14,6 +14,7 @@ class Shop < ActiveRecord::Base
   has_many :costs
   has_many :inventories
   has_many :bills
+  has_many :orders
   has_many :shop_contacts
   belongs_to :locatable, polymorphic:  true
 
