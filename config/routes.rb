@@ -101,7 +101,10 @@ Zhekou::Application.routes.draw do
   end
 
   resources :inventories, except: [:index, :show] do
-    match :search, on:  :collection
+    collection do
+      match :search#, on:  :collection
+      get :tuijian#,on
+    end
   end
   match "/inventories/search/page/:page" => "inventories#search"
 

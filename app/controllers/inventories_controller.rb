@@ -4,6 +4,7 @@ class InventoriesController < InheritedResources::Base
   actions :all
   belongs_to :shop, optional: true
   respond_to :html
+  respond_to :js, only: [:tuijian]
 
   def create
    @inventory = current_shop.inventories.new(params[:inventory])
@@ -16,6 +17,10 @@ class InventoriesController < InheritedResources::Base
 
   def search
 
+  end
+
+  def tuijian
+    
   end
 
   protected

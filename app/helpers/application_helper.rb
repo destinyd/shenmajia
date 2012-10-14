@@ -39,6 +39,11 @@ module ApplicationHelper
   #end
 
   def section p ,&block
+    default_p = {
+      title:'',
+      id:''
+    }
+    p = default_p.merge(p)
     content = capture(&block) 
     render 's',p.merge(content: content)
   end
