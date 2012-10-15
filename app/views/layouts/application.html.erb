@@ -1,6 +1,10 @@
 <%= render 'application/before_layout' %>
 <div id="wrap">
-  <%= render 'application/with_siderbar' %>
-  <div class="c"></div>
+  <div class="product_l">
+    <%= render 'content' %>
+  </div>
+  <aside>
+    <%= render "sidebar" %>
+  </aside>
 </div>
 <%= render 'application/after_layout' %>

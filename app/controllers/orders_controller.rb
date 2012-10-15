@@ -1,4 +1,5 @@
 class OrdersController < InheritedResources::Base
+  layout 'userhome',only: [:index,:show]
   before_filter :authenticate_user!,only: [:new,:create]
   actions :all, except: [:edit,:update,:destroy]
   #belongs_to :place, optional: true

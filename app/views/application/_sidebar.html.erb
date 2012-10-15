@@ -1,15 +1,3 @@
-<div class="product_l">
-  <article class="section">
-  <%= render 'bread' %>
-  <div id="<%= controller_name %>_<%= action_name %>" class="yield ">
-    <%= yield %>
-  </div>
-  <div class="c"></div>
-  </article>
-  <div class="c"></div>
-  <%= yield(:plus) %>
-</div>
-<aside>
 <%= yield(:sidebar) %>
 <%= section title:'推荐商品',id:'tuijian' do %>
 <% end -%>
@@ -17,4 +5,3 @@
 <% cache "sidebar_prices_youlike_#{@cache_id}" do %>
   <%= render 'section',plus: {things: Price.you_like.limit(10),title:  "猜你喜欢"} %>
 <% end if nil %>
-</aside>

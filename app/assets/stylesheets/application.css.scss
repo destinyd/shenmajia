@@ -277,6 +277,13 @@ aside{
       /*width:95%;*/
     }
 }
+aside.userhome{
+  margin: 0 10px 0 0;
+  .content{
+    font-size:20px;
+    text-align:center;
+  }
+}
 aside,.product_l{
   section,article.section{
     margin-bottom:10px;
@@ -551,21 +558,6 @@ input[type=submit]:disabled,button[disabled],.button[disabled],.button_disabled{
   padding: 1px 6px;
   text-decoration: none;
   line-height:20px\9;
-}
-.userhome_left{
-  /*width:30%;*/
-  width:240px;
-  overflow:hidden;
-  margin-right:10px;
-  .content{
-    font-size:20px;
-    text-align:center;
-  }
-}
-.userhome_right{
-  width:70%;
-  min-width:650px;
-  min-height:300px;
 }
 .content{
   .price_cost{

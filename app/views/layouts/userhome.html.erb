@@ -1,17 +1,11 @@
 <%= render 'before_layout' %>
-<div class="wrap">
-  <section class="userhome_left">
-  <%=render 'userhome_left' %>
-  </section>
-  <section class="userhome_right">
-  <header>
-  <% bread_name = t("controller.#{controller_name}"); bread_name += ' » ' + t("action.#{controller_name}.#{action_name}") if action_name != 'index' %>
-  <nav><h1 id=""><a href='#<%= bread_name  %>'><%= bread_name %></a></h1></nav>
-  </header>
-  <article class="content">
-  <%= yield %>
-  </article>
-  </section>
-  <div class="clearer"></div>
+<div id="wrap">
+  <aside class="userhome">
+    <%=render 'userhome_left' %>
+  </aside>
+  <div class="product_l">
+    <%= render "content" %>
+  </div>
+  <div class="c"></div>
 </div>
 <%= render 'after_layout' %>

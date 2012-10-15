@@ -91,11 +91,15 @@ Zhekou::Application.routes.draw do
     resources :costs,only: [:index]
     resources :inventories
     resources :bills,only: [:index,:destroy]
-    resources :orders,only: [:index,:destroy,:update]
+    #resources :orders,only: [:index,:destroy,:update]
     root to:  "homes#index"
     #match 'costs' => 'homes#costs'
     match 'integrals' => 'homes#integrals'
     resources :shop_contacts
+  end
+
+  scope module: 'userhome' do
+    resource :orders
   end
 
   resources :shops do

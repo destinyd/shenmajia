@@ -1,16 +1,18 @@
-<header><nav><h2 id="用户面板"><a href=#用户面板>用户面板</a></h2></nav></header>
+<%= section title:'用户面板' do %>
 <div class="content">
   <p><%= link_to t('controller.homes'), userhome_root_path %></p>
   <p><%= link_to t('controller.costs'), userhome_costs_path %></p>
   <p><%= link_to t('controller.bills'), userhome_bills_path %></p>
   <p><%= link_to t('activerecord.models.integral'),userhome_integrals_path%></p>
 </div>
+<% end -%>
 <% if current_shop %>
-<header><nav><h2 id="店铺面板"><a href=#店铺面板>店铺面板</a></h2></nav></header>
+<%= section title:'店铺面板' do %>
 <div class="content">
     <p><%= link_to t('controller.shops'), userhome_shops_path %></p>
     <p><%= link_to t('controller.inventories'), userhome_inventories_path %></p>
-    <p><%= link_to t('controller.orders'), userhome_orders_path %></p>
+    <p><%= link_to t('controller.orders'), orders_path %></p>
     <p><%= link_to t('controller.shop_contacts'), userhome_shop_contacts_path %></p>
 </div>
+<% end -%>
 <% end %>
