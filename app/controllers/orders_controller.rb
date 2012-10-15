@@ -10,6 +10,7 @@ class OrdersController < InheritedResources::Base
   def create
     @order = current_user.orders.new params[:order]
     items = session[:shop][:items]
+    return redirect_to userhome_orders_path if items.nil? or items.keys.length ==0
     inventories = Inventory.find(items.keys)
     inventories.each do |inventory|
       order_price = @order.order_prices.new amount: items[inventory.id.to_s][:amount]
@@ -23,7 +24,7 @@ class OrdersController < InheritedResources::Base
   end
 
   def collection
-    @orders = collection ||= end_of_association_chain.recent.paginate(page: params[:page])
+    @orders = collection ||= end_of_association_chain.recent.paginate(page: params[:page]).index
   end
 end
 

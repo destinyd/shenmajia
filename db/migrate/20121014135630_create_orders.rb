@@ -4,7 +4,7 @@ class CreateOrders < ActiveRecord::Migration
       t.integer :shop_id
       t.integer :user_id
       t.integer :status
-      t.decimal :total
+      t.decimal :total, :precision => 8, :scale => 2
 
       t.timestamps
     end
