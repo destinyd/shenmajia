@@ -1,0 +1,6 @@
+<% collection.each do |sc| %>
+  <%= p_field sc,:qq %>
+  <%= p_field sc,:phone %>
+  <%= button_to t('labels.del'),shop_shop_contact_path(sc),method: :delete, confirm: t('labels.sure?') %>
+<% end %>
+<%= button_to t('action.new'),new_shop_shop_contact_path,method: :get %>

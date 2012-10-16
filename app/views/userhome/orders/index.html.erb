@@ -1,11 +1,11 @@
-<% @where_name = "账单列表，第#{params[:page] || 1}页" %>
-<% @where_name = '在' + @place.name + '的' + @where_name if @place %>
-<% set_meta_tags keywords:  "账单,消费,地点", 
-  description:  "账单列表，第#{params[:page] || 1}页",
+<% @where_name = "网站账单列表，第#{params[:page] || 1}页" %>
+<% set_meta_tags keywords:  "网站账单", 
+  description:  "网站账单列表，第#{params[:page] || 1}页",
   title: @where_name
 %>
-<%= render partial: 'bill', collection: collection %>
+<%= render @orders %>
 <div class="c"></div>
 <div class="r">
-  <%= will_paginate collection %> 
+  <%= will_paginate @orders %> 
 </div>
+

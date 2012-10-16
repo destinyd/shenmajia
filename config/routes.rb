@@ -1,9 +1,5 @@
 Zhekou::Application.routes.draw do
   
-  resources :contacts do
-    post :set_default, on:  :member
-  end
-
   resources :carts, only: [:index,:update,:create,:destroy]
   
   get '/users/status' => "users/Status#index", as:  :user_status
@@ -21,9 +17,9 @@ Zhekou::Application.routes.draw do
     resources :comments
   end
 
-  resources :orders, except: [:edit,:update] do
-    resources :comments
-  end
+  #resources :orders, except: [:edit,:update] do
+    #resources :comments
+  #end
 
   resources :costs, except: [:edit,:update] do
     resources :comments
@@ -85,26 +81,50 @@ Zhekou::Application.routes.draw do
   namespace :userhome do
     resources :homes
     #resources :prices
-    resources :shops,only: [:index,:edit,:update] do
-      get :places_search,on: :collection
-    end
     resources :costs,only: [:index]
-    resources :inventories
     resources :bills,only: [:index,:destroy]
-    #resources :orders,only: [:index,:destroy,:update]
+    resources :orders,only: [:index,:show,:destroy,:update] do
+      post :receive,on: :member
+      post :cancel,on: :member
+    end
+
     root to:  "homes#index"
     #match 'costs' => 'homes#costs'
     match 'integrals' => 'homes#integrals'
-    resources :shop_contacts
+    #resources :shops,only: [:index,:edit,:update] do
+      #get :places_search,on: :collection
+    #end
   end
 
-  scope module: 'userhome' do
-    resource :orders
+  namespace :shop do
+    resources :orders,only: [:index,:show,:destroy,:update] do
+      post :pay,on: :member
+      post :cancel,on: :member
+    end
+    resources :inventories
+    resources :shops,only: [:index,:edit]
+    resources :shop_contacts
+    root to:  "homes#index"
+    get 'edit' => "homes#edit"
   end
+
+  scope '/userhome' do 
+    resources :contacts do
+      post :set_default, on:  :member
+    end
+  end
+
+
+  resources :orders, only: [:create]#, path:'/userhome/orders'
+  #resources :orders, only: [:create] do
+    #resources :comments
+  #end
 
   resources :shops do
     resources :inventories
     resources :bills, except: [:edit,:update]
+    resources :orders, except: [:edit,:update]
+    get :places_search,on: :collection
     #resources :shop_carts, only: [:index,:update,:create,:destroy]
   end
 

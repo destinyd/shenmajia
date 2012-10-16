@@ -1,0 +1,18 @@
+<div class="bill" data-time="<%= order.created_at.to_i %>" id="order_<%= order.id %>">  
+  <div class="l">
+    <%=link_to  order,shop_order_path(order),target: '_blank', title: order %><br />
+    <%= p_field order,:total %>
+    <%= p_field order, :shop %>
+    <p><b>账单状态：</b><%= t("status.order.#{order.status}") %></p>
+    <%= button_to '已支付', pay_shop_order_path(order) if [0].include?(order.status) %>
+    <%= button_to '取消', cancel_shop_order_path(order) if [0].include?(order.status) %>
+  </div>  
+  <div class="images">
+    <% order.goods.limit(4).map(&:uploads).map(&:first).each do |upload| %>
+      <%= link_to shop_order_path(order) do %>
+        <%= img_upload upload,order,:small %>
+      <% end if upload %>
+    <% end -%>
+  </div>
+</div>
+

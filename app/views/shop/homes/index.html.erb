@@ -1,0 +1,7 @@
+<p>
+<%= link_to @shop,@shop %>
+</p>
+<p>
+<%= @shop %>的订单总数：<%= @shop.orders.count %>
+</p>
+<%= link_to '修改店铺信息',edit_shop_shop_path(current_shop),class:'button' %>

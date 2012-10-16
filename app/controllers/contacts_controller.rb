@@ -1,4 +1,5 @@
 class ContactsController < InheritedResources::Base
+  layout 'userhome'
   before_filter :authenticate_user!
   actions :all, except: [:edit,:update]
   def set_default

@@ -3,16 +3,18 @@
   <p><%= link_to t('controller.homes'), userhome_root_path %></p>
   <p><%= link_to t('controller.costs'), userhome_costs_path %></p>
   <p><%= link_to t('controller.bills'), userhome_bills_path %></p>
-  <p><%= link_to t('activerecord.models.integral'),userhome_integrals_path%></p>
+  <!--  <p><%= link_to t('activerecord.models.integral'),userhome_integrals_path%></p>-->
+  <p><%= link_to t('controller.userhome.orders'), userhome_orders_path %></p>
+  <p><%= link_to t('controller.contacts'), contacts_path %></p>
 </div>
 <% end -%>
 <% if current_shop %>
 <%= section title:'店铺面板' do %>
 <div class="content">
-    <p><%= link_to t('controller.shops'), userhome_shops_path %></p>
-    <p><%= link_to t('controller.inventories'), userhome_inventories_path %></p>
-    <p><%= link_to t('controller.orders'), orders_path %></p>
-    <p><%= link_to t('controller.shop_contacts'), userhome_shop_contacts_path %></p>
+    <p><%= link_to t('controller.shop.home'), '/shop' %></p>
+    <p><%= link_to t('controller.inventories'), shop_inventories_path %></p>
+    <p><%= link_to t('controller.shop_contacts'), shop_shop_contacts_path %></p>
+    <p><%= link_to t('controller.shop.orders'), shop_orders_path %></p>
 </div>
 <% end -%>
 <% end %>

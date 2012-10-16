@@ -12,7 +12,7 @@
 
 <% @places.each do |place| %>
   <tr>
-    <td><%= link_to_function place,"shop_select_place(#{place.id},'#{place}')" %></td>
+    <td><%= link_to_function place,"shop_select_place(#{place.id},'#{place}');$('#div_places_search').remove();" %></td>
     <td><%= place.address %></td>
     <td><%= place.tel %></td>
   </tr>

@@ -3,7 +3,15 @@
   <%= f.input :desc, as:  :kindeditor, label: false, input_html: { width: '100%', height: 500 } if @shop.is_valid %>
   <%= f.input :desc unless @shop.is_valid %>  
   <%= f.input :tag_list%>
+  <%= f.input :place_name, disabled: true,input_html:{value: @shop.place_name_read} %>
+  <%= f.input :place_id, as: :hidden %>
   <% # , hint:  "半角逗号(,)分割。填写商店类别，让客户更容易找到你。" %>
   <%= f.submit %>
 <% end -%>
-
+<%= content_for :plus do -%>
+  <%= section title:'搜索店铺地点',section_id:'div_places_search' do %>
+    <%= render 'places_search',form_path: places_search_shops_path,id:'form_shop_search_places' %>
+    <div id="new_shop_places_search">
+    </div>
+  <% end %>
+<% end -%>

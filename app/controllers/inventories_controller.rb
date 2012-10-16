@@ -9,11 +9,11 @@ class InventoriesController < InheritedResources::Base
 
   def create
    @inventory = current_shop.inventories.new(params[:inventory])
-   create!{userhome_inventories_path}
+   create!{shop_inventories_path}
   end
 
   def update
-   update!{userhome_inventories_path}
+   update!{shop_inventories_path}
   end
 
   def search

@@ -172,6 +172,7 @@ zh-CN:
       record_invalid: "校验失败: %{errors}"
       not_exist: 不存在
       could_not_self: 不能为自己
+      status_change_fault: 状态转换失败
 
   helpers:
     select:
@@ -195,7 +196,7 @@ zh-CN:
       attr: 属性
       outlink: 外链
       price_good: "商品绑定"
-      shop: 商店
+      shop: 店铺
       brand: 品牌
       place: 地点
       cost: 消费
@@ -223,6 +224,9 @@ zh-CN:
       msg:
         to_name: 用户名
         from: 发送者
+      order:
+        shop: 店铺
+        total: 账单总额
 
   attributes:
     created_at: '创建于'
@@ -316,7 +320,7 @@ zh-CN:
     attrs: 属性
     outlinks: 外链
     price_goods: "商品绑定"
-    shops: 商店
+    shops: 店铺
     brands: 品牌
     places: 地点
     costs: 消费
@@ -329,6 +333,11 @@ zh-CN:
     msgs: 短信息
     shop_contacts: 店铺联系方式
     shop_carts: 购物车
+    userhome:
+      orders: 用户订单
+    shop:
+      orders: 店铺订单
+      home: 店铺信息
   action:
     prices:
       new: 记账
@@ -380,3 +389,18 @@ zh-CN:
       new:
         title: 你有新的订单
         body: "<a href='/userhome/orders'>订单操作链接</a>"
+
+  #status{
+  #0:new -> 11 -> 51 -> 52
+  #11:paid
+  #51:user cancel
+  #52:shop cancel
+  #101: done
+  #}
+  status:
+    order:
+      '0': 新建订单
+      '11': 用户已支付
+      '51': 用户取消
+      '52': 商家取消
+      '101': 交易成功
