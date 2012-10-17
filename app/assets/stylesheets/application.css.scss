@@ -5,6 +5,7 @@
 $main-color: #66CCFF;
 $first-color: #F7F5F5;
 $second-color: #F8B651;
+$third-color: #F96251;
 $font-color: #444;
 @mixin rounded-corners($radius){
   border-radius: $radius;
@@ -855,4 +856,9 @@ table.bill{
       }
     }
   }
+}
+span.big_price{
+  color: $third-color;
+  font-size: 30px;
+  font-weight:bold;
 }

@@ -22,20 +22,34 @@
       <div class="c"></div>
     </div>
   </div>
-  <div class = "detail">
-    <%= p_field @inventory,:current %>
-    <%= p_field @inventory,:original %>
-    <%= p_field @inventory.good,:norm %>
-    <%= p_field @inventory.good,:unit %>
-    <%= p_field @inventory.good,:barcode %>
-    <%= p_field @inventory.good,:origin %>
-    <br />
-    <%= button_to '购买',shop_carts_path(inventory_id: @inventory) %>
+  <div class="detail">
+    <div class="inventory">
+      <p><b><%= Shop.human_attribute_name :name %>:</b><%= link_to @inventory.shop,@inventory.shop %></p>
+      <%#= render 'shops/show',shop:@inventory.shop %>
+      <%= render 'shops/contacts',shop:@inventory.shop %>
+      <%= p_field @inventory.good,:unit %>
+      <%= p_field @inventory.good,:barcode %>
+      <%= p_field @inventory.good,:origin %>
+      <%= p_field @inventory.good,:norm %>
+      <%= p_field @inventory,:original %>
+      <p><b><%= Inventory.human_attribute_name :current %>:</b><span class="big_price"><%= @inventory.current %></span></p>
+      <br />
+      <%= button_to '购买',shop_carts_path(inventory_id: @inventory) %>
+    </div>
+    <div class="map">
+      <% unless @inventory.shop.locatable.blank? or @inventory.shop.locatable.no_locate? %>
+        <%= render 'map_head',resource: @inventory.shop.locatable  %>
+        <div id="google_map" style="height:380px;width:380px;">
+      <% end %>
+      <div class="c"></div>
+    </div>
+    <div class="c"></div>
   </div>
   <div class="c"></div>
 </div>
+<div class="c"></div>
 
-<%= content_tag 'p' do %>
+<%= content_tag 'div' do %>
   <%= raw @inventory.good.desc if (@inventory.good.user_id? and  @inventory.good.is_valid) or !@inventory.good.user_id? %>
   <%= @inventory.good.desc if @inventory.good.user_id and !@inventory.good.is_valid %>
 <% end unless @inventory.good.desc.blank? %>

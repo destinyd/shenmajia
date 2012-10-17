@@ -217,6 +217,7 @@ zh-CN:
         name: 地点名称
       shop:
         address:  商家地址
+        name: 店铺名称
       contact:
         name:  联系人名称
       upload:

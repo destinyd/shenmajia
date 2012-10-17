@@ -7,22 +7,17 @@
 <% @where = @shop %>
 <% session[:shop] ||= {} %>
 <% session[:shop][:id] = @shop.id %>
-<p>
-<%= @shop.is_valid ? raw(@shop.desc) : @shop.desc  %>
-</p>
+<%= render 'show',shop: @shop %>
 
 <% content_for :plus do -%>
-	<%= section title: '本店商品' do %>
-		<%= render 'inventories/index', inventories: @shop.inventories.recent.paginate(page: params[:page]) %>
-	<% end %>
+  <%= section title: '本店商品' do %>
+    <%= render 'inventories/index', inventories: @shop.inventories.recent.paginate(page: params[:page]) %>
+  <% end %>
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <%= section title: '购物车' do %>
-    <div id="bill_select">
-	  <%= render 'shop_carts/form' %>
-	</div>
-  <% end %>
+  <%= section title: '联系方式' do %>
+    <%= render 'contacts',shop: @shop %>
+  <% end unless @shop.shop_contacts.blank? %>
   <%= render 'map', resource: @shop.locatable unless @shop.locatable.blank? or @shop.locatable.no_locate? %>
-  <%= render 'contacts',shop: @shop %>
 <% end -%>

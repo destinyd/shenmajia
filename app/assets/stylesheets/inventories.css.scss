@@ -32,12 +32,23 @@
       }
     }
     .detail{
+      width:800px;
+      overflow:hidden;
       margin-left:20px;
       font-size: 14px;
       input[type=submit]{
         width:120px;
         height:50px;
         font-size:24px;
+      }
+      .inventory{
+        width:390px;
+        float:left;
+      }
+      .map{
+        width:400px;
+        margin-left:10px;
+        float:left;
       }
     }
   }
