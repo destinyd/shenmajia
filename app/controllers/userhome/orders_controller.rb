@@ -3,13 +3,19 @@ class Userhome::OrdersController < UserhomeController
   actions :all, except: [:update,:create,:destroy]
 
   def receive
-    resource.receive
-    redirect_to userhome_orders_path
+    if resource.receive
+      redirect_to userhome_orders_path
+    else
+      redirect_to :back,alert: resource.errors.messages[:status].join
+    end
   end
 
   def cancel
-    resource.user_cancel
-    redirect_to userhome_orders_path
+    if resource.user_cancel
+      redirect_to userhome_orders_path
+    else
+      redirect_to :back,alert: resource.errors.messages[:status].join
+    end
   end
 
   protected

@@ -3,13 +3,19 @@ class Shop::OrdersController < ShopController
   actions :all, except: [:update,:create,:destroy]
 
   def pay
-    resource.pay
-    redirect_to shop_orders_path
+    if resource.pay
+      redirect_to shop_orders_path
+    else
+      redirect_to :back,error: resource.errors.messages[:status].join
+    end
   end
 
   def cancel
-    resource.shop_cancel
-    redirect_to shop_orders_path
+    if resource.shop_cancel
+      redirect_to shop_orders_path
+    else
+      redirect_to :back,error: resource.errors.messages[:status].join
+    end
   end
 
   protected

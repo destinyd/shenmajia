@@ -52,8 +52,9 @@ class Order < ActiveRecord::Base
   
   private
   def status_change to,from=[]
-     unless from.include? self.status
-      return self.errors.add(:status,:status_change_fault)
+    unless from.include? self.status
+      self.errors.add(:status,:status_change_fault)
+      return false
     end
     self.status = to
     save

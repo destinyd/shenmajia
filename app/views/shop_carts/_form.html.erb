@@ -18,7 +18,7 @@
           <tr id="inventory_<%= inventory.id %>">          
             <td class="name"><%= inventory.name %></td>
             <td><%= inventory.current %></td>
-            <td><%= text_field_tag 'amount[]', amount, onblur:  "change_bill_val(#{inventory.id},'amount',$(this).val())" %></td>
+            <td><%= text_field_tag 'amount[]', amount, onblur:  "change_order_val(#{inventory.id},'amount',$(this).val())" %></td>
             <td><%= "%.2f" % total    %></td>
             <td><%= link_to 'X',shop_cart_path(inventory.id), method:  :delete, confirm: '你确定？',remote: true %></td>
           </tr>

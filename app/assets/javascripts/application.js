@@ -191,7 +191,7 @@ function change_bill_val(id,name,val){
     );
 }
 
-function change_bill_val(id,name,val){
+function change_order_val(id,name,val){
   var p = {'_method':'PUT'};
   p[name] = val;
   $.post(
