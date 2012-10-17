@@ -12,7 +12,8 @@
 <%= section title:'店铺面板' do %>
 <div class="content">
     <p><%= link_to t('controller.shop.home'), '/shop' %></p>
-    <p><%= link_to t('controller.inventories'), shop_inventories_path %></p>
+    <p><%= link_to '添加商品',new_shop_inventory_path %></p>
+    <p><%= link_to '商品管理', shop_inventories_path %></p>
     <p><%= link_to t('controller.shop_contacts'), shop_shop_contacts_path %></p>
     <p><%= link_to t('controller.shop.orders'), shop_orders_path %></p>
 </div>

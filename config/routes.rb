@@ -1,4 +1,30 @@
 Zhekou::Application.routes.draw do
+  @prices = lambda{
+    resources :prices,only: [:index,:show,:new,:create] do
+      collection do
+        get :cheapest
+        get :groupbuy
+        get :costs
+      end
+      member do
+        #get :buy_one
+        get :near_groupbuy
+        get :near_cheapest
+        get :cheap
+      end
+
+      resources :comments
+      resources :reviews
+      resources :uploads
+    end
+  }
+  @prices.call
+
+  @page = lambda{|controller_action|
+    member do
+      get '/page/:page' => controller_action
+    end
+  }
   
   resources :carts, only: [:index,:update,:create,:destroy]
   
@@ -25,26 +51,7 @@ Zhekou::Application.routes.draw do
     resources :comments
   end
 
-  @prices = lambda{
-    resources :prices,only: [:index,:show,:new,:create] do
-      collection do
-        get :cheapest
-        get :groupbuy
-        get :costs
-      end
-      member do
-        #get :buy_one
-        get :near_groupbuy
-        get :near_cheapest
-        get :cheap
-      end
 
-      resources :comments
-      resources :reviews
-      resources :uploads
-    end
-  }
-  @prices.call
 
   %w{place cost good price bill inventory}.each do |p|
     get "/#{p.pluralize}/page/:page" => "#{p.pluralize}#index"
@@ -101,7 +108,7 @@ Zhekou::Application.routes.draw do
       post :pay,on: :member
       post :cancel,on: :member
     end
-    resources :inventories
+    resources :inventories,except: [:show]
     resources :shops,only: [:index,:edit]
     resources :shop_contacts
     root to:  "homes#index"
@@ -125,6 +132,7 @@ Zhekou::Application.routes.draw do
     resources :bills, except: [:edit,:update]
     resources :orders, except: [:edit,:update]
     get :places_search,on: :collection
+    @page.call 'shops#show'
     #resources :shop_carts, only: [:index,:update,:create,:destroy]
   end
 

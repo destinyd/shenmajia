@@ -13,7 +13,7 @@
 
 <% content_for :plus do -%>
 	<%= section title: '本店商品' do %>
-		<%= render 'inventories/index', inventories: @shop.inventories.recent %>
+		<%= render 'inventories/index', inventories: @shop.inventories.recent.paginate(page: params[:page]) %>
 	<% end %>
 <% end -%>
 
