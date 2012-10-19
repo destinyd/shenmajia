@@ -11,12 +11,12 @@
   <div id="images_field">
     <div id="current_img">
       <% upload = @inventory.good.uploads.first %>
-      <%= img_upload upload,@inventory %>
+      <%= upload_image_tag upload,@inventory %>
     </div>
     <div class="images">
       <% Upload.limit(5).each do |upload| %>
         <div class="small_img">
-          <%= img_upload upload,@inventory,:small %>
+          <%= upload_image_tag upload,@inventory,:list %>
         </div>
       <% end %>
       <div class="c"></div>

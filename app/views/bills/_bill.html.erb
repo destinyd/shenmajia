@@ -9,7 +9,7 @@
   <div class="images">
     <% bill.goods.map(&:uploads).map(&:first).each do |upload| %>
       <%= link_to bill do %>
-        <%= img_upload upload,bill,:small %>
+        <%= upload_image_tag upload,bill,:list %>
       <% end if upload %>
     <% end -%>
   </div>

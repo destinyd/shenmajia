@@ -4,7 +4,7 @@
     <div>
       <div class="pic">
         <%= link_to inventory.good do  %>
-        <%= img_upload inventory.good.uploads.first,inventory.good,:shop %>
+        <%= upload_image_tag inventory.good.uploads.first,inventory.good,:medium %>
         <% end -%>
       </div>
       <div class="detail">

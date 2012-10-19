@@ -38,6 +38,6 @@ Zhekou::Application.configure do
   # Do not compress assets
   config.assets.compress = false
 end
-Paperclip.options[:command_path] = "/usr/bin"
+#Paperclip.options[:command_path] = "/usr/bin"
 
 

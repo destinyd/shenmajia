@@ -10,7 +10,7 @@
   <div class="images">
     <% order.goods.limit(4).map(&:uploads).map(&:first).each do |upload| %>
       <%= link_to shop_order_path(order) do %>
-        <%= img_upload upload,order,:small %>
+        <%= upload_image_tag upload,order,:list %>
       <% end if upload %>
     <% end -%>
   </div>

@@ -2,15 +2,7 @@
 <div class="good c" data-time="<%= good.created_at.to_i %>" id="good_<%= good.id %>">  
   <div class="l">
     <%= link_to good do %>
-      <% if upload  %>
-        <% if upload.image_file_name.scan(/http/).blank? %>
-          <img src='<%=upload.image.url(:small) %>' alt='<%= good.name %>' title='<%= good.name %>' />
-        <% else %>
-          <img src='<%=upload.image_file_name %>' alt='<%= good.name %>' title='<%= good.name %>' />
-        <% end %>
-      <% else %>
-        <img src='/images/nopic.gif'  alt='<%= good.name %>' title='<%= good.name %>' />
-      <% end -%>
+      <%= upload_image_tag upload,good,:list %>
     <% end %>
   </div>
   <div class="detail">

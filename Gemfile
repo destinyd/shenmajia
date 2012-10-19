@@ -23,7 +23,7 @@ end
 #for Tuan
 gem 'geocoder'
 gem "devise", ">= 2.1.0.rc"
-gem 'paperclip'
+#gem 'paperclip'
 gem 'mime-types', :require => 'mime/types'
 gem "will_paginate", ">= 3.0.3"
 gem 'jquery-rails'
@@ -80,3 +80,5 @@ gem 'rails_kindeditor', '~> 0.3.0'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'paranoia'
+gem 'carrierwave', '~>0.6.2'
+gem 'mini_magick','~>3.4'

@@ -4,7 +4,9 @@
     <% if upload = good.uploads.first %>
       <div class="img">
         <%= link_to good,target: '_blank' do %>
-          <%= img_upload upload,good,:shop %>
+          <%= image_tag upload.image.pin.url,
+            width:upload.image.pin.width,
+            height: upload.image.pin.height %>
         <% end %>
       </div>
     <% end %>
