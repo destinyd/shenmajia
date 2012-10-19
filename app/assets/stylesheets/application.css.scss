@@ -799,7 +799,7 @@ table.bill{
   min-width:1250px;
   #good_flows{
     .pin{
-      margin:5px 0 10px 5px;
+      margin:0 0 10px 5px;
       position: absolute;
       width: 200px;
       padding: 10px 10px 0;
@@ -823,8 +823,8 @@ table.bill{
         .img{
           text-align:center;
           img{
-            height:120px;
-            max-width:200px;
+            height:180px;
+            width:180px;
           }
           margin-bottom:15px;
         }

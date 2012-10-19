@@ -4,11 +4,7 @@
     <% if upload = good.uploads.first %>
       <div class="img">
         <%= link_to good,target: '_blank' do %>
-          <% if upload.image_file_name.scan(/http/).blank? %>
-            <img src='<%=upload.image.url %>' alt='<%= good.name %>' />
-          <% else %>
-            <img src='<%=upload.image_file_name %>' alt='<%= good.name %>'/>
-          <% end %>
+          <%= img_upload upload,good,:shop %>
         <% end %>
       </div>
     <% end %>
