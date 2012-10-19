@@ -11,13 +11,13 @@ class Good < ActiveRecord::Base
   has_many :prices
   has_many :outlinks, as:  :outlinkable
   has_many :records, as:  :recordable
-  has_many :uploads, as:  :uploadable
+  has_many :uploads, as:  :uploadable, dependent: :destroy
   has_many :focuss, as:  :focusable
   has_many :attrs, as:  :attrable
   has_many :reviews, as:  :reviewable
   has_many :integrals, as:  :integralable
   has_many :package_goods, dependent:  :destroy
-  has_many :good_packages, dependent:  :destroy,foreign_key:  :package_id,class_name:  'PackageGood'
+  has_many :good_packages,foreign_key:  :package_id,class_name:  'PackageGood', dependent:  :destroy
   has_many :goods,through:  :package_goods,source: :package#,foreign_key:  :package_id
   has_many :packages,through:  :good_packages,source: :good,foreign_key:  :package_id
 

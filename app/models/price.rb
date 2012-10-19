@@ -12,7 +12,7 @@ class Price < ActiveRecord::Base
   belongs_to :city
   #belongs_to :shop
 
-  has_many :outlinks, as: :outlinkable#, dependent: :destroy
+  has_many :outlinks, as: :outlinkable, dependent: :destroy
   has_many :integrals, as: :integralable#, dependent: :destroy
   has_many :reviews, as: :reviewable#, dependent: :destroy
   has_many :uploads, as: :uploadable#, dependent: :destroy
