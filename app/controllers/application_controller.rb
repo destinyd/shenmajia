@@ -43,6 +43,10 @@ class ApplicationController < ActionController::Base
     @current_shop ||= current_user.shops.first
   end
 
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
 
   private
   def get_cache_id

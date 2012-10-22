@@ -1,3 +1,4 @@
+<% @flash.build_outlink %>
 <%= form_for(@flash, html: { multipart: true}) do |f| %>
   <% if @flash.errors.any? %>
     <div id="error_explanation">

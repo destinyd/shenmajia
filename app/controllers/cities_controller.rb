@@ -1,5 +1,5 @@
 class CitiesController < ApplicationController
-  layout 'home',only: :index
+  layout 'no_sidebar',only: :index
 
   caches_page :index, :show
   #caches_action :show,

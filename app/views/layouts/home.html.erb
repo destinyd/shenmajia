@@ -1,5 +1,10 @@
 <%= render 'before_layout' %>
 <div id="wrap">
-  <%= render "content" %>
+  <div id="home">
+    <%= yield %>
+    <div class="c"></div>
+  </div>
 </div>
 <%= render 'after_layout' %>
+
+

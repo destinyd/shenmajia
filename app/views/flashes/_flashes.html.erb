@@ -1,12 +1,12 @@
 <%= content_tag :ul do %>
-  <% @flashes.each do |flash| %>
+  <% flashes.each do |flash| %>
     <%= content_tag :li do %>
       <% if flash.outlink %>
         <%= link_to flash.outlink.url do%>
-          <%= image_tag(flash.image.url(:flash_pic)) -%>
+          <%= image_tag(flash.image) -%>
         <% end -%>
       <% else %>
-        <%= image_tag(flash.image.url(:flash_pic)) -%>
+        <%= image_tag(flash.image) -%>
       <% end %>
     <% end -%>
   <% end -%>

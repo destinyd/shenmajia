@@ -247,6 +247,7 @@ section li,.articles li{
 }
 .articles{
     margin-left:20px;
+    float: left;
 }
 .articles_index
 {
@@ -402,14 +403,6 @@ div#wrap {
 
 .user_show,.user_hide{
   display:none;
-}
-.flashAD{
-  width: 70%;
-  height:350px;
-}
-.flashAD a img{
-  width:100%; /*width:683px*/
-  height:328px;
 }
 .table{
   clear:both;

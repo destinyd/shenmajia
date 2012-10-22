@@ -1,5 +1,5 @@
 class LocatesController < ApplicationController
-  layout 'home'
+  layout 'no_sidebar'
   def new
   end
 

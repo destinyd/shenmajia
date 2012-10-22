@@ -177,7 +177,7 @@ Zhekou::Application.routes.draw do
     resources :reviews
   end
 
-  #resources :flashes
+  resources :flashes
 
   resources :articles do
     resources :comments

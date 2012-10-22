@@ -1,5 +1,5 @@
 class ShopCartsController < ApplicationController
-  layout 'home'
+  layout 'no_sidebar'
   #before_filter :authenticate_user!,only: [:new,:create,:update,:edit,:destroy]
 
   def index
