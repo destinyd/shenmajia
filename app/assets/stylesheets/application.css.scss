@@ -856,3 +856,23 @@ span.big_price{
   font-size: 30px;
   font-weight:bold;
 }
+.c1{
+color:$first-color;
+a{color:$first-color;}
+}
+.c2{
+color:$second-color;
+a{color:$second-color;}
+}
+.c3{
+color:$third-color;
+a{color:$third-color;}
+}
+.cf{
+color:$font-color;
+a{color:$font-color;}
+}
+.cm{
+color:$main-color;
+a{color:$main-color;}
+}

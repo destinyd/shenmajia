@@ -10,7 +10,10 @@
     </div>
   </div>
   <section class="articles">
-    <nav><h2 id="文章"><a href=#文章>文章</a></h2></nav><%= render 'articles/articles_li',articles:Article.recent %>
+  <header><nav><h2 id="记账使用说明"><a href=#记账使用说明>记账使用说明</a></h2></nav></header>
+  <div class="article">
+    <%= render 'home/help' %>
+  </div>
   </section>
   <div class="c"></div>
 </div>
