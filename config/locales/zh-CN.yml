@@ -339,6 +339,7 @@ zh-CN:
     shop:
       orders: 店铺订单
       home: 店铺信息
+    home: '主页'
   action:
     prices:
       new: 记账
