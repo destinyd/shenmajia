@@ -19,7 +19,7 @@
 </div>
 
 <%= section title:'最新账单' do  %>
-  <% Bill.recent.limit(10).each do |bill| %>
+  <% Bill.recent.with_pic.limit(10).each do |bill| %>
     <%= render bill %>
   <% end -%>
 <% end -%>

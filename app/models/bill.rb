@@ -16,10 +16,12 @@ class Bill < ActiveRecord::Base
   accepts_nested_attributes_for :bill_prices, allow_destroy: true
 
   scope :recent,order("bills.id desc")
+  scope :with_pic,where('bills.picture_count > 0')
 
   after_initialize do
     total = 0 unless total.blank?
     fully_paid = false if fully_paid.nil?
+    picture_count = 0 if picture_count.nil?
   end
 
   def pay

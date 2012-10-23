@@ -9,6 +9,7 @@ class Good < ActiveRecord::Base
   has_many :brands,through:  :brand_goods
 
   has_many :prices
+  has_many :bills,through:  :prices#,foreign_key:  :package_id
   has_many :outlinks, as:  :outlinkable
   has_many :records, as:  :recordable
   has_many :uploads, as:  :uploadable, dependent: :destroy
@@ -40,6 +41,7 @@ class Good < ActiveRecord::Base
   scope :recent,order('id desc')#.includes(:reviews).limit(10)
   scope :running,where(deleted_at:  DateTime.new(0))
   scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at')
+  scope :with_pic,where('goods.picture_count > 0')
 
   validates :name, presence:  true,uniqueness:  {scope:  [:unit,:norm]}
   validates :unit, presence:  true
@@ -51,7 +53,8 @@ class Good < ActiveRecord::Base
 
   after_initialize do
     self.unit = '份' if self.unit.blank?
-    self.deleted_at = DateTime.new 0
+    self.deleted_at = DateTime.new(0) if self.deleted_at.nil?
+    self.picture_count = 0 if self.picture_count.nil?
   end
 
   def self.search(q)
