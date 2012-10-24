@@ -9,7 +9,7 @@
 //= require jquery-ui
 //= require jquery.purr
 //= require jquery.lightbox-0.5.min
-//= require jquery_nested_form
+//= require ajax_nested_form
 //= require kindeditor
 //= require_tree .
 function show_and_hide(show,hide){

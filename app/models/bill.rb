@@ -2,7 +2,7 @@
 class Bill < ActiveRecord::Base
   acts_as_paranoid
   attr_accessor :cost, :desc
-  attr_accessible :locatable_id, :locatable_type, :ordered_at, :total, :bill_prices_attributes, :cost, :desc, :contact_id
+  attr_accessible :locatable_id, :locatable_type, :ordered_at, :total, :bill_prices_attributes, :cost, :desc, :contact_id#,:uploads_attributes
   has_many :bill_prices#, dependent: :destroy
   has_many :prices,through: :bill_prices
   has_many :goods,through: :prices
@@ -14,6 +14,7 @@ class Bill < ActiveRecord::Base
   belongs_to :contact
 
   accepts_nested_attributes_for :bill_prices, allow_destroy: true
+  #accepts_nested_attributes_for :uploads
 
   scope :recent,order("bills.id desc")
   scope :with_pic,where('bills.picture_count > 0')

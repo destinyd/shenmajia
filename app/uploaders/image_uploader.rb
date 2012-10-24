@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class ImageUploader < CarrierWave::Uploader::Base
-  include CarrierWave::Compatibility::Paperclip
+  #include CarrierWave::Compatibility::Paperclip
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -33,8 +33,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
   def default_url
-  #   # asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-    '/images/nopic.gif'
+      #asset_path("fallback/" + ["nopic",version_name].compact.join('_') + ".gif")
+    "/images/" + ["nopic",version_name].compact.join('_') + ".gif"
   end
 
 
@@ -89,7 +89,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "#{model.created_at.strftime '%Y%m'}/#{secure_token}.#{file.extension}" if original_filename.present?
+    "#{(model.created_at || DateTime.now).strftime '%Y%m'}/#{secure_token}.#{file.extension}" if original_filename.present?
     ##"#{model.id}_#{model.updated_at}.#{extension}"# if original_filename
   end
 

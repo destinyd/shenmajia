@@ -1,5 +1,6 @@
 # coding: utf-8
 class Good < ActiveRecord::Base
+  attr_accessible :product_name,:brand_name,:norm_name,:name,:desc,:norm,:unit,:barcode,:origin#,:picture_count
   attr_accessor :brand_name,:product_name,:norm_name#,:brand_name,
   STATUS_LOW = 2
   belongs_to :user
@@ -49,12 +50,12 @@ class Good < ActiveRecord::Base
   acts_as_commentable
   acts_as_taggable
 
-  default_scope includes(:uploads) #
+  #default_scope includes(:uploads) #
 
   after_initialize do
     self.unit = '份' if self.unit.blank?
-    self.deleted_at = DateTime.new(0) if self.deleted_at.nil?
-    self.picture_count = 0 if self.picture_count.nil?
+    self.deleted_at = DateTime.new(0) if self.deleted_at? and self.deleted_at.nil?
+    self.picture_count = 0 if self.picture_count? and self.picture_count.nil?
   end
 
   def self.search(q)

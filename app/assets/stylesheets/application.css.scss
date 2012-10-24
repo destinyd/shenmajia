@@ -715,9 +715,13 @@ input[type=submit]:disabled,button[disabled],.button[disabled],.button_disabled{
 table.bill{
   width: 95%;
   text-align: center;
+  .image{
+    width:150px;
+    input{width:150px;}
+    overflow: hidden;
+  }
   .name{
-    width:60%;
-    margin-right:10px;
+    width:300px;
   }
   tr.total td{
     font-size:18px;

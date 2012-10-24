@@ -1,5 +1,5 @@
 class Upload < ActiveRecord::Base
-  include CarrierWave::Compatibility::Paperclip
+  attr_accessible :image,:image_file_name
   mount_uploader :image, ImageUploader, :mount_on => :image_file_name
   belongs_to :uploadable, polymorphic: true
   has_many :reviews, as: :reviewable

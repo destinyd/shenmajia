@@ -68,7 +68,8 @@ end
 gem 'inherited_resources'
 gem 'simple_form'
 gem 'nested_form'
-gem 'simple_nested_form'
+#gem 'simple_nested_form'
+gem 'ajax_nested_form'
 
 gem 'quiet_assets', :group => :development
 #gem 'omniauth-oauth2'
@@ -80,5 +81,5 @@ gem 'rails_kindeditor', '~> 0.3.0'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'paranoia'
-gem 'carrierwave', '~>0.6.2'
+gem 'carrierwave', '~>0.7'
 gem 'mini_magick','~>3.4'

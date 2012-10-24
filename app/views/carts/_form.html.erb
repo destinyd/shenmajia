@@ -1,9 +1,10 @@
 <% @total = 0 %>
 <% @bill = Bill.new %>
-<%= form_for @bill do |f| %>
+<%= nested_form_for @bill, html: { multipart: true} do |f| %>
   <p id="notice"><%= notice %></p>
   <table class="bill">
     <thead>
+      <th class="image">图片</th>
       <th class="name">商品名称</th>
       <th>价格</th>
       <th>数量</th>
@@ -14,6 +15,7 @@
       <% session[:cart][:items].each do |key,bp| %>
         <% @total += total = ((bp[:price] || 0) * bp[:amount]) %>
           <tr id="good_<%= key %>">          
+            <td class="image"><%= file_field_tag "image[#{key}]" %></td>
             <td class="name"><%= bp[:name] %></td>
             <td><%= text_field_tag 'price[]', bp[:price], onblur:  "change_bill_val(#{key},'price',$(this).val())" %></td>
             <td><%= text_field_tag 'amount[]', bp[:amount], onblur:  "change_bill_val(#{key},'amount',$(this).val())" %></td>

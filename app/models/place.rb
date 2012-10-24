@@ -24,6 +24,7 @@ class Place < ActiveRecord::Base
   has_many :bills, as: :locatable, dependent: :destroy
   has_many :costs, through: :bills, dependent: :destroy
   has_many :prices, as: :locatable, dependent: :destroy
+  has_many :uploads, as: :uploadable
   
   scope :recent,order("id desc")
 

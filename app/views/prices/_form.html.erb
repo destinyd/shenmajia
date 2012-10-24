@@ -1,7 +1,6 @@
-<% @price ||= @price.new %>
 <% @price.outlinks.new %>
 
-<%= form_for @price  do |f| %>
+<%= form_for @price, html: { multipart: true}  do |f| %>
   <% if @price.errors.any? %>
     <div id="error_explanation">
       <ul>
@@ -43,6 +42,10 @@
   <div class="field">
     <%= f.label :address %><br />
     <%= f.text_field :address,id: 'form_address' %>
+  </div>  
+  <div class="field">
+    <%= f.label :image %><br />
+    <%= f.file_field :image %>
   </div>  
   <%= f.hidden_field :lat,id: 'form_lat' %>
   <%= f.hidden_field :lon,id: 'form_lon' %>

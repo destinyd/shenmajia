@@ -2,11 +2,13 @@
 class Price < ActiveRecord::Base
   acts_as_paranoid
   STATUS_LOW = 5
-  attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title,:img
-  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:img,:good_id,:locatable,:city_id
+  mount_uploader :image, ImageUploader
+  attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title
+  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:locatable,:city_id,:image,:uploads_attributes
   attr_accessible :user_id, on: :bill
   #validates :type_id, presence: true
   validates :price, presence: true
+  #validates :good_id, presence: true
   belongs_to :user
   belongs_to :good
   belongs_to :city
@@ -217,7 +219,7 @@ class Price < ActiveRecord::Base
   # before_create :geocode, if: [:no_locate?,:address_changed?]#,on: :create
   #before_update :geocode, if: :address_changed?
   before_create :outlink_user
-  after_create :exp,:deal_good,:deal_img
+  after_create :exp,:deal_good,:deal_image
   # after_create :deal_cheap_price,:deal_original_price
 
 
@@ -251,9 +253,11 @@ class Price < ActiveRecord::Base
     save if changed?
   end
 
-  def deal_img
-    return if img.blank?
-    good.uploads.first_or_create image_file_name: img
+  def deal_image
+    return if image.blank?
+    u = good.uploads.new
+    u.image_file_name =  self.read_attribute(:image)
+    u.save
     #self.good_id = tmp.id  unless self.good_id
     #save if changed?
   end

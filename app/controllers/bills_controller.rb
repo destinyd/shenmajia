@@ -1,4 +1,5 @@
 class BillsController < InheritedResources::Base
+  layout 'no_sidebar',only: [:new,:create]
   before_filter :authenticate_user!,only: [:new,:create]
   actions :all, except: [:edit,:update,:destroy]
   belongs_to :place, optional: true
@@ -32,6 +33,7 @@ class BillsController < InheritedResources::Base
       session[:cart][:items].each do |key,item|
         bp = @bill.bill_prices.new
         bp.amount = item[:amount]
+        bp.image = params[:image][key]
         bp.price = Price.where(
           locatable_type: 'Place',
           locatable_id: session[:cart][:place_id],

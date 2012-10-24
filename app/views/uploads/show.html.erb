@@ -1,9 +1,5 @@
 <div  class="m">
-  <% if @upload.image_file_name.scan(/http/).blank? %>
-    <img src="<%= @upload.image.url %>" alt="<%= @upload.uploadable.try(:name) %>" />
-  <% else %>
-    <img src="<%= @upload.image_file_name %>" alt="<%= @upload.uploadable.try(:name) %>" />
-  <% end %>
+  <%= image_tag @upload.image.url(:large) %>
   <p>
   <%= link_to @upload.uploadable,@upload.uploadable %>
   </p>

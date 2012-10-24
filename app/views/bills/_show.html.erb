@@ -2,6 +2,7 @@
 <% @total = 0.0 %>
 <table class="bill">
   <thead>
+    <th class="image"></th>
     <th class="name">商品</th>
     <th>单价</th>
     <th>数量</th>
@@ -10,6 +11,11 @@
   <tbody>
     <% bill.bill_prices.each do |bp| %>
       <tr>
+        <td>
+          <%= link_to bp.upload do %>
+            <%= image_tag bp.image.url(:list) %>
+          <% end -%>
+        </td>
         <% price = bp.price; total = bp.amount * price.price; @total += total %>
         <td class="name"><%= link_to price.good,price.good %></td>
         <td><%= price.price %></td>
