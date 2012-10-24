@@ -10,7 +10,9 @@
           </li>
         <% end %>
       </ul>
-      <%= link_to '您也为此买单了？',new_bill_path(cost: {bill_id: bill.id,money: bill.total - bill.costs.sum(&:money)}) %>
+      <p style="margin:5px 0;">
+        <%= link_to '您也为此买单了？',new_bill_path(cost: {bill_id: bill.id,money: bill.total - bill.costs.sum(&:money)}),rel: 'nofollow',class: 'button' %>
+      </p>
     <% end %>
   <% end unless bill.costs.blank? %>
 <% end %>

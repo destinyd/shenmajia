@@ -12,7 +12,7 @@
     <% bill.bill_prices.each do |bp| %>
       <tr>
         <td>
-          <%= link_to bp.upload do %>
+          <%= link_to bp.price.good do %>
             <%= image_tag bp.image.url(:list) %>
           <% end -%>
         </td>

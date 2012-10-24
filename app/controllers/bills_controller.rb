@@ -34,6 +34,7 @@ class BillsController < InheritedResources::Base
         bp = @bill.bill_prices.new
         bp.amount = item[:amount]
         bp.image = params[:image][key]
+        @bill.picture_count +=1 unless params[:image][key].blank?
         bp.price = Price.where(
           locatable_type: 'Place',
           locatable_id: session[:cart][:place_id],

@@ -7,10 +7,10 @@
     <% end %>
   </div>  
   <div class="images">
-    <% bill.goods.with_pic.map(&:uploads).map(&:first).each do |upload| %>
-      <%= link_to bill do %>
-        <%= upload_image_tag upload,bill,:list %>
-      <% end if upload %>
+    <% bill.goods.with_pic.each do |good| %>
+      <%= link_to good do %>
+        <%= image_tag good.image.url :list %>
+      <% end %>
     <% end -%>
   </div>
 </div>

@@ -42,11 +42,9 @@
   <% end -%>
 <% end if good.tags.any? %>
 <br />
-<% if upload = good.try(:uploads).try(:first) %>
   <div class="tc">
-    <%= upload_image_tag upload,good,:large %>
+    <%= image_tag good.image.url :large %>
   </div>
-<% end %>
 </div>
 
 <div class="goods_div_<%=good.id%> h" id="product_images_<%= good.id -%>">

@@ -1,8 +1,7 @@
-<% upload = good.uploads.first %>
 <div class="good c" data-time="<%= good.created_at.to_i %>" id="good_<%= good.id %>">  
   <div class="l">
     <%= link_to good do %>
-      <%= upload_image_tag upload,good,:list %>
+      <%= image_tag good.image.url(:list) %>
     <% end %>
   </div>
   <div class="detail">

@@ -1,5 +1,6 @@
 # coding: utf-8
 class Good < ActiveRecord::Base
+  mount_uploader :image, ImageUploader
   attr_accessible :product_name,:brand_name,:norm_name,:name,:desc,:norm,:unit,:barcode,:origin#,:picture_count
   attr_accessor :brand_name,:product_name,:norm_name#,:brand_name,
   STATUS_LOW = 2
@@ -41,8 +42,8 @@ class Good < ActiveRecord::Base
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   scope :recent,order('id desc')#.includes(:reviews).limit(10)
   scope :running,where(deleted_at:  DateTime.new(0))
-  scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at')
-  scope :with_pic,where('goods.picture_count > 0')
+  scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at,goods.image')
+  scope :with_pic,where('goods.image is not null')
 
   validates :name, presence:  true,uniqueness:  {scope:  [:unit,:norm]}
   validates :unit, presence:  true
