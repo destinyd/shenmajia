@@ -31,7 +31,7 @@ Zhekou::Application.routes.draw do
   get '/users/status' => "users/Status#index", as:  :user_status
 
   resources :places, except: [:edit,:update,:destroy] do
-    resources :bills, only:  :index
+    resources :bills, only:  [:index,:new,:create]
     resources :costs, only:  :index
     get 'search' ,on:  :collection
     #match '/search/:q/page/:page' => 'places#search', on:  :collection,as:  :search
@@ -39,7 +39,7 @@ Zhekou::Application.routes.draw do
 
   resources :products
 
-  resources :bills, except: [:edit,:update] do
+  resources :bills, except: [:create,:edit,:update] do
     resources :comments
   end
 

@@ -9,7 +9,7 @@ class BillSweeper < ActionController::Caching::Sweeper
   # If our sweeper detects that a bill was updated call this
   def after_update(bill)
     expire_cache_for(bill)
-    expire_cache_for_single(bill)
+    #expire_cache_for_single(bill)
   end
   private
   def expire_cache_for_other(obj)

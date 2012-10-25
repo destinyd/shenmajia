@@ -3,5 +3,8 @@
   description: @where_name,
   title: @where_name
 %>
-
-<%= render "form_#{params[:step] || 1}" %>
+<% if @place %>
+  <%= render "form_2" %>
+<% else %>
+  <%= render "form_1" %>
+<% end %>

@@ -1,6 +1,6 @@
 <% @total = 0 %>
 <% @bill = Bill.new %>
-<%= nested_form_for @bill, html: { multipart: true} do |f| %>
+<%= nested_form_for [@place, @bill], html: { multipart: true} do |f| %>
   <p id="notice"><%= notice %></p>
   <table class="bill">
     <thead>
