@@ -18,6 +18,8 @@ class Bill < ActiveRecord::Base
 
   scope :recent,order("bills.id desc")
   scope :with_pic,where('bills.picture_count > 0')
+  scope :in_place,includes(:locatable)
+  scope :list,includes(:goods,:locatable)
 
   after_initialize do
     total = 0 unless total.blank?

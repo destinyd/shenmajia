@@ -1,11 +1,11 @@
 <% cache "sidebar_tuijian_#{@cache_id}" do %>
   <ul id="tuijian">
-    <% Shop.first.inventories.recent.limit(6).each do |inventory| %>
+    <% Shop.first.inventories.recent.list.limit(6).each do |inventory| %>
       <li>
       <div>
         <div class="pic">
           <%= link_to inventory do  %>
-            <%= upload_image_tag inventory.good.uploads.first,inventory,:medium %>
+            <%= image_tag inventory.good.image.url :medium %>
           <% end -%>
         </div>
         <div class="detail">

@@ -49,13 +49,8 @@ module ApplicationHelper
     render 's',p.merge(content: content)
   end
 
-  def upload_image_tag upload,name,size=nil
-   if upload
-     content = image_tag upload.image.url(size),alt:name,title:name
-   else
-     content = "<img src='/images/nopic.gif'  alt='#{name}' title='#{name}' />"
-   end
-   raw content
+  def upload_image_tag image,name,size=nil
+    raw image_tag image.url(size),alt:name,title:name
   end
 
   def p_field record,attr_name

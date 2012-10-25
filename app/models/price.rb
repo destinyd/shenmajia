@@ -4,7 +4,7 @@ class Price < ActiveRecord::Base
   STATUS_LOW = 5
   mount_uploader :image, ImageUploader
   attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title
-  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:locatable,:city_id,:image,:uploads_attributes
+  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:locatable,:city_id,:image#,:uploads_attributes
   attr_accessible :user_id, on: :bill
   #validates :type_id, presence: true
   validates :price, presence: true
@@ -17,7 +17,7 @@ class Price < ActiveRecord::Base
   has_many :outlinks, as: :outlinkable, dependent: :destroy
   has_many :integrals, as: :integralable#, dependent: :destroy
   has_many :reviews, as: :reviewable#, dependent: :destroy
-  has_many :uploads, as: :uploadable#, dependent: :destroy
+  #has_many :uploads, as: :uploadable#, dependent: :destroy
   has_many :inventories
   #has_many :price_costs,dependent: :destroy
   #has_many :costs,through: :price_costs
@@ -47,10 +47,14 @@ class Price < ActiveRecord::Base
   scope :you_like,running.order('rand()')
   scope :shop_type, where(type_id: 101..103)
   scope :shop_price, lambda {|shop| recent.shop_type.where(locatable_type: 'Shop', locatable_id: shop.id)}
+  scope :has_image,where('prices.image is not null')
+  scope :in_city,has_image.includes(:good)
+  scope :list,includes(:good)
+  scope :just_ten,limit(10)
 
 
   accepts_nested_attributes_for :good
-  accepts_nested_attributes_for :uploads
+  #accepts_nested_attributes_for :uploads
   accepts_nested_attributes_for :outlinks, reject_if: lambda { |outlink| outlink[:url].blank? }, allow_destroy: true
 
   TYPE = {

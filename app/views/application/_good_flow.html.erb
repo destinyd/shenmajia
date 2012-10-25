@@ -1,28 +1,25 @@
-<% if good %>
+<% price = prices_group.first %>
 <div class="pin">
   <div class="good" style="height:auto;">
-    <% if upload = good.uploads.first %>
       <div class="img">
-        <%= link_to good,target: '_blank' do %>
-          <%= image_tag upload.image.pin.url,
-            width:upload.image.pin.width,
-            height: upload.image.pin.height %>
+        <%= link_to price.good,target: '_blank' do %>
+          <%= image_tag price.image.pin,
+            width:price.image.pin.width,
+            height: price.image.pin.height %>
         <% end %>
       </div>
-    <% end %>
     <div class="title">
-      <h4><%= link_to good.name,good,target: '_blank' %></h4>
+      <h4><%= link_to price.good.name,price.good,target: '_blank' %></h4>
     </div>
   </div>
   <div class="prices">
-    <% prices.each do |price| %>
+    <% prices_group.each do |price| %>
       <div class="per_price">
         <div class="type_id">[<%= price.type_id %>]</div><div class="price"> <%= link_to price.price,price,target: '_blank' %></div>
       </div>
-    <% end %>
+    <% end -%>
     <%# <div class="more_price">
-      <%= link_to "总共#{good.prices.count}条价格信息，点击查看。",good_prices_path(good),target: '_blank' if prices.count > 5 % >
+      <%= link_to "总共#{price.good.prices.count}条价格信息，点击查看。",price.good_prices_path(price.good),target: '_blank' if prices.count > 5 % >
       </div>%>
   </div>
 </div>
-<% end %>

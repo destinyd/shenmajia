@@ -44,6 +44,10 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
   <img src="<%=@price.uploads.first.image_file_name%>" alt="<%= @price.name %>" />
 <% end %>
 
+<div class="tc">
+  <%= image_tag @price.image.large %>
+</div>
+
 <br />
 <br />
 
@@ -53,18 +57,11 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
 
 
 <% content_for :plus do -%>
-  <div id="near_groupbuy">
-    <%= section title: '附近特价商品信息' do %>
-      <div id='near_groupbuy_article'>
-        读取中...
-      </div>
-    <% end %>
-  </div>
+  <%= render 'map', resource: @price unless @price.no_locate? %>
   <%= render 'comments/comments',commentable: @price %>
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <%= render 'map', resource: @price unless @price.no_locate? %>
   <div id="near_cheapest">
     <%= section title: '本商品附近最低价' do %>
       <div id='near_cheapest_article'>
@@ -86,7 +83,6 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
     <%= render 'near_empty' %>
   </script>
 <% else %>
-  <script src="<%= near_groupbuy_price_path(@price,format:  :js) %>" type="text/javascript"></script>
   <script src="<%= near_cheapest_price_path(@price,format:  :js) %>" type="text/javascript"></script>
   <script src="<%= cheap_price_path(@price,format:  :js) %>" type="text/javascript"></script>
 <% end %>

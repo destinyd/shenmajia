@@ -13,6 +13,7 @@ class Inventory < ActiveRecord::Base
 
   default_scope includes(:good,:price)
   scope :recent,order('created_at desc')
+  scope :list,includes(:good,:shop)
 
   def name
     @name ||= (good.try(:name) || '')

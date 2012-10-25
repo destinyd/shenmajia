@@ -33,8 +33,10 @@ class BillsController < InheritedResources::Base
       session[:cart][:items].each do |key,item|
         bp = @bill.bill_prices.new
         bp.amount = item[:amount]
-        bp.image = params[:image][key]
-        @bill.picture_count +=1 unless params[:image][key].blank?
+        unless params[:image].blank?
+          bp.image = params[:image][key]
+          @bill.picture_count +=1 unless params[:image][key].blank?
+        end
         bp.price = Price.where(
           locatable_type: 'Place',
           locatable_id: session[:cart][:place_id],
@@ -50,6 +52,6 @@ class BillsController < InheritedResources::Base
   end
 
   def collection
-    @bills = collection ||= end_of_association_chain.recent.paginate(page: params[:page])
+    @bills = collection ||= end_of_association_chain.list.paginate(page: params[:page])
   end
 end

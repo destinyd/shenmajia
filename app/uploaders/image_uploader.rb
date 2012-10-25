@@ -49,7 +49,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # version :thumb do
   #   process :scale => [50, 50]
   # end
-  process :resize_to_limit => [1280, 6000]
+  #process :resize_to_limit => [1280, 6000]
 
   version :large do
     process :resize_to_limit => [640, 3000]
@@ -69,7 +69,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def image
-    @image ||= MiniMagick::Image.open(file.path)
+    begin
+      @image ||= MiniMagick::Image.open(file.path)
+    rescue
+      @image ||= {'width'=> 0,'height'=> 0}
+    end
+    @image
   end
 
   def width

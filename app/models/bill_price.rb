@@ -7,21 +7,25 @@ class BillPrice < ActiveRecord::Base
   after_create do
     unless image.blank?
       @image = read_attribute(:image)
-      u = price.uploads.new
-      u.image_file_name = @image
-      u.save
+      #u = price.uploads.new
+      #u.image_file_name = @image
+      #u.save
 
-      self.upload_id = u.id
-      self.save
-
-      price.image= @image if price.image.blank?
-      price.save
+      if price.image.blank?
+        price.write_uploader(:image, @image) 
+        price.save
+      end
 
       u = price.good.uploads.new
       u.image_file_name = @image
       u.save
-      price.good.image= @image if price.good.image.blank?
-      price.good.save
+      if price.good.image.blank?
+        price.good.write_uploader(:image, @image)
+        price.good.save if price.good.changed?
+      end
+
+      self.upload_id = u.id
+      self.save
     end
   end
 end

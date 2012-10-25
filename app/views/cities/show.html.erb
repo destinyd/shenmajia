@@ -2,8 +2,10 @@
 <% tmp1 += ",第#{params[:page]}页" unless params[:page].blank? %>
 <% set_meta_tags keywords:  "商品,价,#{@name.html_safe}", description: tmp1, title: tmp1 %>
 <div id="good_flows">
-  <% @prices.group_by(&:good).each do |good,prices_group| %>
-    <%= render 'good_flow',good: good,prices: prices_group %>
+  <% @prices.group_by(&:image_url).each do |image,prices_group| %>
+  <%# @prices.each do |price| %>
+    <%#= render 'good_flow',price: price %>
+    <%= render 'good_flow',image:image,prices_group: prices_group %>
 <% end %>
 </div>
 <nav id="page-nav" style="display:none;">
