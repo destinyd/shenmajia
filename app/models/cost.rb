@@ -31,7 +31,7 @@ class Cost < ActiveRecord::Base
   #scope :with_good,includes(:good)
 
   #scope :with_locatable,includes(:locatable)
-  scope :with_bill,includes(:bill)
+  #scope :with_bill,includes(:bill)
 
   default_scope includes([:user,:bill])
 

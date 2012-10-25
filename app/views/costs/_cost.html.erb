@@ -1,17 +1,7 @@
-<% upload = nil %>
-<% upload ||= cost.bill.goods.first.try(:uploads).try(:first) if cost.bill %>
 <div class="cost c" data-time="<%= cost.created_at.to_i %>" id="cost_<%= cost.id %>">  
   <div class="l">
     <%= link_to cost do %>
-      <% if upload  %>
-        <% if upload.image_file_name.scan(/http/).blank? %>
-          <img src='<%=upload.image.url %>' alt='<%= cost.bill %>' title='<%= cost.bill %>' />
-        <% else %>
-          <img src='<%=upload.image_file_name %>' alt='<%= cost.bill %>' title='<%= cost.bill %>' />
-        <% end %>
-      <% else %>
-        <img src='/images/nopic.gif'  alt='<%= cost.bill %>' title='<%= cost.bill %>' />
-      <% end -%>
+      <%= upload_image_tag cost.bill.bill_prices.first.image,:bill,:list %>
     <% end %>
   </div>
   <div class="detail">
