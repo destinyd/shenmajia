@@ -40,6 +40,12 @@
   <%= render 'section',plus: {things: @place.bills.in_place.recent.limit(10),title:  "#{@place}产生的账单",
   section_path: place_costs_path(@place)} %>
 
+  <%= section title: '记录在本店的商品' do %>
+    <div id="new_bill_place_goods" class="ajax_paginate">
+      <%= render 'goods/goods',goods:@place.goods.paginate(page: params[:page]) %>
+    </div>
+  <% end unless @place.goods.blank? -%>
+
   <%= section title: '图片' do %>
     <div id="gallery">
       <% @place.photos.each do |photo| %>

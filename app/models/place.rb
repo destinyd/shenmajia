@@ -19,7 +19,7 @@ class Place < ActiveRecord::Base
   belongs_to :city
   has_many :shops, as: :locatable, dependent: :destroy
   has_many :place_goods,dependent: :destroy
-  has_many :goods,through: :place_goods
+  has_many :goods,through: :place_goods, :uniq => true
   #has_many :costs, as: :locatable, dependent: :destroy
   has_many :bills, as: :locatable, dependent: :destroy
   has_many :costs, through: :bills, dependent: :destroy

@@ -1,6 +1,8 @@
-<% unless params[:q].blank? %>
-	$('#new_bill_goods_search').html('<%= j render 'goods' %>');
-	$('#new_bill').form_ready();
+<% if params[:q].blank? %>
+  $('#new_bill_place_goods').html('<%= j render 'goods',goods:@place.goods.paginate(page: params[:page]),place:@place %>');
+<% else %>
+  $('#new_bill_goods_search').html('<%= j render 'goods',goods:Good.search(params[:q]).recent.paginate(page: params[:page]),place:@place %>');
+  $('#new_bill').form_ready();
 <% end %>
 $('.ajax_form').form_ready();
 $('.ajax_paginate').ajax_paginate();

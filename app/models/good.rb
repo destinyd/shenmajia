@@ -28,7 +28,7 @@ class Good < ActiveRecord::Base
   has_many :shops,through:  :shop_goods
 
   has_many :place_goods,dependent:  :destroy
-  has_many :places,through:  :place_goods
+  has_many :places,through:  :place_goods, :uniq => true
 
   has_many :inventories
 
@@ -63,7 +63,7 @@ class Good < ActiveRecord::Base
     unless q.blank?
       running.where('name LIKE ?', "%#{q}%")
     else
-      running 
+      running
     end
   end
 

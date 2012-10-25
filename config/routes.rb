@@ -26,11 +26,12 @@ Zhekou::Application.routes.draw do
     end
   }
   
-  resources :carts, only: [:index,:update,:create,:destroy]
+  resources :carts, only: [:index]
   
   get '/users/status' => "users/Status#index", as:  :user_status
 
   resources :places, except: [:edit,:update,:destroy] do
+    resources :carts, only: [:update,:create,:destroy]
     resources :bills, only:  [:index,:new,:create]
     resources :costs, only:  :index
     get 'search' ,on:  :collection

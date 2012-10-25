@@ -62,4 +62,8 @@ class Bill < ActiveRecord::Base
       create_cost
     end
   end
+
+  after_create do
+    locatable.goods << self.goods
+  end
 end

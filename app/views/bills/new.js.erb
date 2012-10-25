@@ -1,1 +1,5 @@
-<%= render "new_#{params[:step] || 1}" %>
+<% if @place %>
+  <%= render "new_2" %>
+<% else %>
+  <%= render "new_1" %>
+<% end %>
