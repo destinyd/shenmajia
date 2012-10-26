@@ -10,7 +10,12 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
 </p>
 <p>
 <b><%= label :price,:price%>:</b>
-<%= @price.price %>
+<span class="big_price"><%= @price.human_price %></span>
+</p>
+
+<p>
+<b>地点:</b>
+<%= link_to @price.locatable,@price.locatable %>
 </p>
 
 <p>

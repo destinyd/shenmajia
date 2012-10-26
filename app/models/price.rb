@@ -44,12 +44,13 @@ class Price < ActiveRecord::Base
   scope :not_finish,where("finish_at > ?",Time.now)
   # scope :costs,recent.where(type_id: [0,1])  
   scope :with_good,includes(:good)
+  scope :with_locatable,includes(:locatable)
   scope :you_like,running.order('rand()')
   scope :shop_type, where(type_id: 101..103)
   scope :shop_price, lambda {|shop| recent.shop_type.where(locatable_type: 'Shop', locatable_id: shop.id)}
   scope :with_pic,where('prices.image is not null')
   scope :in_city,with_pic.includes(:good)
-  scope :list,includes(:good)
+  scope :list,with_good.with_locatable
   scope :just_ten,limit(10)
 
 
@@ -87,7 +88,7 @@ class Price < ActiveRecord::Base
 
   def human_price
     #return self.price.to_s + '元' + '(待审)' if self.type_id !='团购价' or self.is_valid.nil?# and self.reviews.sum(:status) < STATUS_LOW
-    self.price.to_s + '元'
+    self.price == 0.0 ? "免费" :"#{"%0.2f" %self.price} 元"
   end
 
   def human_amount

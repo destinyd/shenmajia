@@ -6,9 +6,12 @@
   </div>
   <div class="detail">[<%= price.type_id %>] <%=link_to  price.name.try(:block,150),price,target: '_blank' %>
     <br />
-    价格：<%= link_to price,price %>
-    <% if price.address %><br />地址：<%= price.address %><% end %>
-    <% if price.finish_at %><br />
-      截止日期：<em> <%= price.finish_at %></em><% end -%>
+    <p><b>价格</b>：<%= link_to price,price %></p>
+    <% if price.locatable %>
+      <p><b>地点</b>:<%= link_to price.locatable,price.locatable %></p>
+    <% end %>
+    <% if price.address %>
+      <p><b>地址</b>：<%= price.address %></p>
+    <% end %>
   </div>
 </div>
