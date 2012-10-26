@@ -59,6 +59,6 @@ class BillsController < InheritedResources::Base
   end
 
   def collection
-    @bills = collection ||= end_of_association_chain.list.paginate(page: params[:page])
+    @bills = collection ||= end_of_association_chain.recent.list.paginate(page: params[:page])
   end
 end

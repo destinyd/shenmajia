@@ -17,8 +17,8 @@
           <tr id="good_<%= key %>">          
             <td class="image"><%= file_field_tag "image[#{key}]" %></td>
             <td class="name"><%= bp[:name] %></td>
-            <td><%= text_field_tag 'price[]', bp[:price], onblur:  "change_bill_val(#{key},'price',$(this).val())" %></td>
-            <td><%= text_field_tag 'amount[]', bp[:amount], onblur:  "change_bill_val(#{key},'amount',$(this).val())" %></td>
+            <td><%= text_field_tag 'price[]', bp[:price], onblur:  "change_bill_val(#{@place.id},#{key},'price',$(this).val())" %></td>
+            <td><%= text_field_tag 'amount[]', bp[:amount], onblur:  "change_bill_val(#{@place.id},#{key},'amount',$(this).val())" %></td>
             <td><%= "%.2f" % total    %></td>
             <td><%= link_to 'X',place_cart_path(@place,key), method:  :delete,remote: true %></td>
           </tr>

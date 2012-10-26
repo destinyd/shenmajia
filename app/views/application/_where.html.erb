@@ -1,4 +1,5 @@
+<% get_city_name(City.first) if city_info_of_ip[:city].blank? %>
 您在:
-    <%= link_to city_info_of_ip[:city],city_path(city_info_of_ip[:city]) unless city_info_of_ip[:city].blank? %>
-    <%= "无法确认" if city_info_of_ip[:city].blank? %>
+    <%= link_to city_info_of_ip[:city],city_path(city_info_of_ip[:city]) %>
+    <%#= "无法确认" if city_info_of_ip[:city].blank? %>
     <small>(<%= link_to '重新定位',new_locate_path,method:  :get,remote: true,rel: 'nofollow' %>)</small>

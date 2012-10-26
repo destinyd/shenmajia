@@ -47,8 +47,8 @@ class Price < ActiveRecord::Base
   scope :you_like,running.order('rand()')
   scope :shop_type, where(type_id: 101..103)
   scope :shop_price, lambda {|shop| recent.shop_type.where(locatable_type: 'Shop', locatable_id: shop.id)}
-  scope :has_image,where('prices.image is not null')
-  scope :in_city,has_image.includes(:good)
+  scope :with_pic,where('prices.image is not null')
+  scope :in_city,with_pic.includes(:good)
   scope :list,includes(:good)
   scope :just_ten,limit(10)
 

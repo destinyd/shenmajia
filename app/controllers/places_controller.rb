@@ -2,7 +2,7 @@
 class PlacesController < InheritedResources::Base
   before_filter :authenticate_user!,only: [:new,:create]
   actions :all, except: [:edit,:update,:destroy]
-  #belongs_to :city,finder: :find_by_name!, optional: true
+  belongs_to :city,finder: :find_by_name!, optional: true
   #belongs_to :place, optional: true
   respond_to :html
   caches_page :index,:show
@@ -38,6 +38,11 @@ class PlacesController < InheritedResources::Base
       format.html { render :index } # index.html.erb
       format.json { render json: @places }
     end
+  end
+
+  def local
+    get_city_name(City.first) if city_info_of_ip[:city].blank?
+    redirect_to city_places_path(city_info_of_ip[:city])
   end
 
 

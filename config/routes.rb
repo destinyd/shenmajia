@@ -35,6 +35,7 @@ Zhekou::Application.routes.draw do
     resources :bills, only:  [:index,:new,:create]
     resources :costs, only:  :index
     get 'search' ,on:  :collection
+    get 'local',on: :collection
     #match '/search/:q/page/:page' => 'places#search', on:  :collection,as:  :search
   end
 
@@ -156,6 +157,7 @@ Zhekou::Application.routes.draw do
   resources :cities,only: [:index,:show] do
     @prices.call
     resources :shops
+    resources :places,only: :index
     get :search, on:  :collection    
   end
 

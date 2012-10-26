@@ -185,9 +185,9 @@ function form_map_init(){
 
     }
 
-function change_bill_val(id,name,val){
+function change_bill_val(place_id,id,name,val){
   $.post(
-    '/carts/'+id, name + '=' +val + '&_method=PUT'
+    '/places/' + place_id + '/carts/'+id, name + '=' +val + '&_method=PUT'
     );
 }
 

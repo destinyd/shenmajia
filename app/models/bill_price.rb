@@ -4,6 +4,9 @@ class BillPrice < ActiveRecord::Base
   belongs_to :bill
   belongs_to :price
   belongs_to :upload
+
+  scope :with_pic,where('bill_prices.image is not null')
+
   after_create do
     unless image.blank?
       @image = read_attribute(:image)

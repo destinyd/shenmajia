@@ -1,20 +1,20 @@
 <% cache "sidebar_tuijian_#{@cache_id}" do %>
   <ul id="tuijian">
-    <% Shop.first.inventories.recent.list.limit(6).each do |inventory| %>
+    <% Price.recent.with_pic.list.limit(6).each do |price| %>
       <li>
       <div>
-        <div class="pic">
-          <%= link_to inventory do  %>
-            <%= image_tag inventory.good.image.url :medium %>
-          <% end -%>
+        <div class="pics">
+          <div class="pic">
+            <%= link_to price do  %>
+              <%= image_tag price.image.url :medium %>
+            <% end -%>
+          </div>
+          <div class="c"></div>
         </div>
         <div class="detail">
-          <p class="title"><%= link_to inventory,inventory,title: inventory %></p>
-          <p><b>单价</b>:<%= inventory.current %></p>
-          <% if inventory.original and inventory.current <= inventory.original %>
-            <p><b>折扣</b>:<%= "#{'%.1f' % (inventory.current / inventory.original*10)}折"  %></p>
-          <% end %>
-          <p><b>店铺</b>:<%= link_to inventory.shop,inventory.shop  %></p>
+          <p><b>商品</b>:<%= link_to price.good,price.good %></p>
+          <p><b>单价</b>:<%= link_to price,price %></p>
+          <p><b>地点</b>:<%= link_to price.locatable,price.locatable %></p>
         </div>
       </div>
       </li>
