@@ -1,5 +1,5 @@
 <nav class="none">
 <%= link_to t("action.prices.index"),@city ? city_prices_path(@city) : prices_path  %>
-<%= link_to t("action.prices.groupbuy"),@city ? groupbuy_city_prices_path(@city) : groupbuy_prices_path  %>
+<%#= link_to t("action.prices.groupbuy"),@city ? groupbuy_city_prices_path(@city) : groupbuy_prices_path  %>
 <%= link_to t("action.prices.cheapest"),@city ? cheapest_city_prices_path(@city) : cheapest_prices_path  %>
 </nav>
