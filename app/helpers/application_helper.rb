@@ -42,7 +42,8 @@ module ApplicationHelper
     default_p = {
       title:'',
       id:'',
-      section_id:''
+      section_id:'',
+      plus_path:nil
     }
     p = default_p.merge(p)
     content = capture(&block) 

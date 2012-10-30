@@ -28,52 +28,15 @@
   </p>
 <% end %>
   <p>
-    <%= link_to '在这里消费了',new_bill_path(place_id: @place.id,step: 2),class: 'button' %>
+    <%= button_to '在这里消费了',new_place_bill_path(@place.id),method: :get %>
   </p>
 
 
 <% content_for :plus do -%>
-  <%= content_tag 'div' do -%>
-
-  <%= render 'map', resource: @place %>
-
-  <%= render 'section',plus: {things: @place.bills.in_place.recent.limit(10),title:  "#{@place}产生的账单",
-  section_path: place_costs_path(@place)} %>
-
-  <%= section title: '记录在本店的商品' do %>
-    <div id="new_bill_place_goods" class="ajax_paginate">
-      <%= render 'goods/goods',goods:@place.goods.paginate(page: params[:page]) %>
-    </div>
-  <% end unless @place.goods.blank? -%>
-
-  <%= section title: '图片' do %>
-    <div id="gallery">
-      <% @place.photos.each do |photo| %>
-        <div class="thumb">
-          <%= link_to "#{photo['photo']['url']}?size=500&style=1&quality=high"  do %>
-            <img src="<%= photo['photo']['url'] %>" alt="<%= photo['body'] %>" title="<%= photo['body'] %>" />
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% end  unless @place.photos.blank? -%>
+  <%= render "plus" %>
 <% end -%>
 
 <% content_for :sidebar do -%>
-    <%= section title: '以下信息来至街旁' do %>
-      <% unless @place.mayor.blank? %>
-        地主: <img src="<%= @place.mayor['avatar'] %>" alt="<%= @place.mayor['nick'] %>" /><br />
-      <% end %>
-      <% unless @place.categories.blank? or @place.categories.class != Array %>
-        分类: 
-        <% @place.categories.each do |category| %>
-          <img src="http://jiepang.com<%= category['icon'] %>" alt="<%= category['name'] %>" title="<%= category['name'] %>" />
-        <% end %><br />
-      <% end %>
-        签到次数: <%= @place.checkin_num %><br />
-        签到总人数: <%= @place.checkin_users_num %><br />
-      <% end %>
-    <% end unless @place.checkin_num.blank? %>
-  <%#= render 'section',plus: {things: @place.near_places.where(good_id: @place.good_id).recent,title:  "本商品周边最新价格",section_path: places_path} %>
-  <%= render 'section',plus: {things: @place.near_places,title:  "周边地点"} %>
-<% end -%>
+  <%= render "sidebar" %>
+<% end %>
+<%#= render 'section',plus: {things: @place.near_places.where(good_id: @place.good_id).recent,title:  "本商品周边最新价格",section_path: places_path} %>

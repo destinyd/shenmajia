@@ -1,9 +1,22 @@
 <section class="s" id="<%= section_id %>">
 <header>
-<nav><h2 id="<%= title %>"><a href=#<%= title %>><%= title %></a></h2></nav>
+<nav>
+<ul>
+  <li>
+  <h2 id="<%= title %>">
+    <a href=#<%= title %>><%= title %></a>
+  </h2>
+  </li>
+  <% if plus_path  -%>
+    <li class="more">
+    <%= link_to "更多",plus_path,title: '更多' -%>
+    </li>
+  </ul>
+<% end -%>
+</nav>
 </header>
 <div class="article" id="<%= id %>">
-<%= content %>
+  <%= content %>
 </div>
 </section>
 

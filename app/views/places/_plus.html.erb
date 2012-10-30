@@ -1,0 +1,22 @@
+<%= render 'map', resource: @place %>
+
+<%= render 'section',plus: {things: @place.bills.in_place.recent.limit(10),title:  "#{@place}产生的账单",
+section_path: place_costs_path(@place)} if nil %>
+
+<%= section title: '本店的消费情况',plus_path:place_prices_path(@place) do %>
+  <div id="place_prices" class="ajax_paginate">
+    <%= render 'prices',prices:@prices %>
+  </div>
+<% end if @prices.length > 0 -%>
+
+<%= section title: '街旁图片' do %>
+  <div id="gallery">
+    <% @place.photos.each do |photo| %>
+      <div class="thumb">
+        <%= link_to "#{photo['photo']['url']}?size=500&style=1&quality=high"  do %>
+          <img src="<%= photo['photo']['url'] %>" alt="<%= photo['body'] %>" title="<%= photo['body'] %>" />
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end unless @place.photos.blank? -%>

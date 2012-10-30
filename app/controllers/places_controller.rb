@@ -5,6 +5,7 @@ class PlacesController < InheritedResources::Base
   belongs_to :city,finder: :find_by_name!, optional: true
   #belongs_to :place, optional: true
   respond_to :html
+  respond_to :js,only: :show
   caches_page :index,:show
   #caches_action :search, expires_in: 1.day
   #caches_action :show,
@@ -19,6 +20,7 @@ class PlacesController < InheritedResources::Base
   def show
     @place = Place.find(params[:id])
     @place.update_jiepang
+    @prices = @place.prices.in_place.paginate(page: params[:page])
     super
   end
 

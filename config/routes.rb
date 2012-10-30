@@ -34,10 +34,16 @@ Zhekou::Application.routes.draw do
     resources :carts, only: [:update,:create,:destroy]
     resources :bills, only:  [:index,:new,:create]
     resources :costs, only:  :index
+    get 'prices(/:page)' => 'prices#index', constraints: {
+      page: /[23456789]|\d{2,}/
+    },
+    defaults: {page: 1},as: :prices
+
     get 'search' ,on:  :collection
     get 'local',on: :collection
     #match '/search/:q/page/:page' => 'places#search', on:  :collection,as:  :search
   end
+  get '/places/:id/page/:page' => 'places#show'
 
   resources :products
 

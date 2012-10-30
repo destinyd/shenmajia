@@ -20,7 +20,7 @@ class Bill < ActiveRecord::Base
   scope :with_pic,where('bills.picture_count > 0')
   scope :in_place,includes(:locatable)
   scope :list,includes(:goods)
-  default_scope includes(:bill_prices,:locatable)
+  scope :with_bl,includes(:bill_prices,:locatable)
 
   after_initialize do
     total = 0 unless total.blank?

@@ -53,6 +53,8 @@ class Price < ActiveRecord::Base
   scope :list,with_good.with_locatable
   scope :just_ten,limit(10)
 
+  scope :in_place,with_good.order('type_id desc').recent#.group('good_id')
+
 
   accepts_nested_attributes_for :good
   #accepts_nested_attributes_for :uploads

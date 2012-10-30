@@ -1,0 +1,36 @@
+<div class="form_goods_search">
+  <ul class="table pretty">  
+    <li class="name">名称</li>  
+    <li>规格</li>  
+    <li class="unit">单位</li>  
+    <li class="unit_price">价格</li>  
+    <li class="time">记录时间</li>  
+  </ul>
+  <% prices.each do |price|  %>
+    <%= content_tag :ul,class: 'table' do %>
+      <%= content_tag 'li',class: 'name' do -%>
+        <%= link_to price.name,price.good %>
+      <% end %>
+      <%= content_tag 'li' do -%>
+        <%= price.good.norm %>&nbsp;
+      <% end %>
+      <%= content_tag 'li',class: 'unit' do -%>
+        <%= price.good.unit %>
+      <% end %>
+      <%= content_tag 'li' do -%>
+        <%= price.good.origin %>&nbsp;
+      <% end if nil %>
+      <%= content_tag 'li',class: 'unit_price' do -%>
+        <%= link_to "[#{price.type_id}]#{price.human_price}",price %>&nbsp;
+      <% end %>
+      <%= content_tag 'li',class:'time' do -%>
+        <%= price.created_at %>&nbsp;
+      <% end %>
+    <% end %>
+  <% end  %>
+  <div class="c"></div>
+  <div class="r">
+    <%= will_paginate prices %>
+  </div>
+</div>
+<div class="c"></div>

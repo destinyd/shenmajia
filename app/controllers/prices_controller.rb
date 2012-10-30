@@ -4,6 +4,7 @@ class PricesController < InheritedResources::Base
   respond_to :js, only: [:cheap,:near_cheapest, :near_groupbuy]
   belongs_to :city, finder: :find_by_name, optional: true
   belongs_to :good, optional: true
+  belongs_to :place, optional: true
 
   caches_page :index, :show, :groupbuy, :cheapest#, :near_cheapest, :near_groupbuy, :cheap
   cache_sweeper :price_sweeper

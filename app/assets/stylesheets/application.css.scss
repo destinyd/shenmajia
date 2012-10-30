@@ -163,7 +163,6 @@ section,article.section{
     @include rounded-corners(5px);
     nav{
       height:25px;
-      white-space: nowrap;
       line-height:25px;
       padding:3px 5px;
       background-color:$main-color;
@@ -414,13 +413,28 @@ div#wrap {
 }
 .form_goods_search{
   .table{
+    white-space:nowrap;
     li{
-      width:14%;
+      width:12%;
+      margin-right:5px;
     }
     .name{
       width:40%;
-      margin-right:10px;
     }
+    .unit{
+      width: 6%;
+    }
+    .unit_price{
+      width: 20%;
+    }
+    .time{
+      width: 18%;
+      margin-right:0px;
+    }
+  }
+  .pretty{
+    font-size:16px;
+    font-weight:bold;
   }
 }
 
