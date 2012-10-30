@@ -157,7 +157,10 @@ Zhekou::Application.routes.draw do
   resources :cities,only: [:index,:show] do
     @prices.call
     resources :shops
-    resources :places,only: :index
+    resources :places,only: :index,page: 1
+    match 'places/page/:page' => 'places#index', constraints: {
+      page: /[23456789]|\d{2,}/
+    }
     get :search, on:  :collection    
   end
 
