@@ -90,7 +90,7 @@ class Price < ActiveRecord::Base
 
   def human_price
     #return self.price.to_s + '元' + '(待审)' if self.type_id !='团购价' or self.is_valid.nil?# and self.reviews.sum(:status) < STATUS_LOW
-    self.price == 0.0 ? "免费" :"#{"%0.2f" %self.price} 元"
+    self.price == 0.0 ? "免费" :"#{"%0.2f" %self.price}元"
   end
 
   def human_amount

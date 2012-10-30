@@ -1,5 +1,8 @@
 <% @total = 0 %>
 <% @bill = Bill.new %>
+<% @goods = session[:b].blank? ? [] : Good.find(session[:b].keys) %>
+<% @goods_hash ={} %> 
+<% @goods.each{|good| @goods_hash[good.id.to_s] = good } %>
 <%= nested_form_for [@place, @bill], html: { multipart: true} do |f| %>
   <p id="notice"><%= notice %></p>
   <table class="bill">
@@ -12,17 +15,23 @@
       <th>操作</th>
     </thead>
     <tbody>
-      <% session[:cart][:items].each do |key,bp| %>
+      <% session[:b].each do |key,bp| %>
         <% @total += total = ((bp[:price] || 0) * bp[:amount]) %>
           <tr id="good_<%= key %>">          
             <td class="image"><%= file_field_tag "image[#{key}]" %></td>
-            <td class="name"><%= bp[:name] %></td>
-            <td><%= text_field_tag 'price[]', bp[:price], onblur:  "change_bill_val(#{@place.id},#{key},'price',$(this).val())" %></td>
+            <td class="name"><%= @goods_hash[key].name %></td>
+            <td>
+              <% if bp[:price_id] %>
+              <%= bp[:price] %>
+              <% else %>
+              <%= text_field_tag 'price[]', bp[:price], onblur:  "change_bill_val(#{@place.id},#{key},'price',$(this).val())" %>
+              <% end %>
+            </td>
             <td><%= text_field_tag 'amount[]', bp[:amount], onblur:  "change_bill_val(#{@place.id},#{key},'amount',$(this).val())" %></td>
             <td><%= "%.2f" % total    %></td>
             <td><%= link_to 'X',place_cart_path(@place,key), method:  :delete,remote: true %></td>
           </tr>
-      <% end unless session[:cart][:items].blank? %>
+      <% end unless session[:b].blank? %>
       <tr class="total">
         <% if @total != @bill.total %>
           <td class="name">&nbsp;</td>
@@ -47,11 +56,9 @@
       </tr>
     </tfoot>
   </table>
-  <% if session[:cart] %>
-    <% if session[:cart][:items].blank? %>
-      <button disabled="disabled">请先添加商品</button> 
-    <% else %>
-      <%= f.submit '提交', name: nil %>
-    <% end -%>
-  <% end %>
+  <% if session[:b].blank? %>
+    <button disabled="disabled">请先添加商品</button> 
+  <% else %>
+    <%= f.submit '提交', name: nil %>
+  <% end -%>
 <% end %>

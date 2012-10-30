@@ -5,7 +5,7 @@
 <% content_for :plus do -%>
   <%= section title: '记录在本店的商品' do %>
     <div id="new_bill_place_goods" class="ajax_paginate">
-      <%= render 'goods',goods:@place.goods.paginate(page: params[:page]),place:@place %>
+      <%= render 'prices',prices:@place.prices.in_place.paginate(page: params[:page]),place:@place %>
     </div>
   <% end unless @place.goods.blank? -%>
 
