@@ -3,7 +3,7 @@
 <%= render 'section',plus: {things: @place.bills.in_place.recent.limit(10),title:  "#{@place}产生的账单",
 section_path: place_costs_path(@place)} if nil %>
 
-<%= section title: '本店的消费情况',plus_path:place_prices_path(@place) do %>
+<%= section title: '本店的最新价格信息',plus_path: place_prices_path(@place) do %>
   <div id="place_prices" class="ajax_paginate">
     <%= render 'prices',prices:@prices %>
   </div>
