@@ -27,6 +27,7 @@ class Place < ActiveRecord::Base
   has_many :uploads, as: :uploadable
   
   scope :recent,order("id desc")
+  scope :order_city_id,order("city_id desc")
 
   #include UuidHelper
   before_create do

@@ -171,7 +171,7 @@ function form_map_init(){
 }
     function show_map_init() {
       var mapOptions = {
-        center: new google.maps.LatLng(lat, lon),
+        center: pos,
         zoom: 17,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
@@ -181,9 +181,48 @@ function form_map_init(){
       var marker = new google.maps.Marker({
         map: map
       });
-      marker.setPosition(new google.maps.LatLng(lat, lon));
+      marker.setPosition(pos);
 
     }
+
+markers = [];
+InfoWindows = [];
+function index_map_init() {
+
+  var bounds = new google.maps.LatLngBounds();
+
+  var mapOptions = {
+    zoom: 14,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById('google_map'), mapOptions);
+
+  $.each(poses,function(i,pos){
+    bounds.extend(pos['pos']);
+    var contentString = '<h1>' + pos['title'] + '</h1>';
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+    var str = String.fromCharCode('a'.charCodeAt() + i);
+    InfoWindows.push(infowindow);
+    var marker =  new google.maps.Marker({
+      position: pos['pos'],
+        map: map,
+        title: pos['title'],
+        icon: '/images/google/' + str +'.png'
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+      $.each(InfoWindows,function(i,win){
+        win.close(map);
+      }
+      );
+      infowindow.open(map,marker);
+    });
+    markers.push(marker);
+  }
+  );
+  map.fitBounds(bounds);//这句最重要  
+}
 
 function change_bill_val(place_id,id,name,val){
   $.post(

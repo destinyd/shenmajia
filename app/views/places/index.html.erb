@@ -6,13 +6,15 @@
 %>
 <table>
   <tr>
+    <th class="id">编号</th>
     <th class="name">地点名称</th>
     <th class="addr">地点地址</th>
     <th class="phone">地点电话</th>
   </tr>
 
-<% @places.each do |place| %>
+<% @places.each_with_index do |place,i| %>
   <tr>
+    <td><a href='javascript:void(0);' class="google_marker_a"><%= ('A'.ord+i).chr %></a></td>
     <td class="name"><%= link_to place,place %></td>
     <td><%= place.address %></td>
     <td><%= place.tel %></td>
@@ -23,3 +25,17 @@
 <div class="r">
   <%= will_paginate @places %>
 </div>
+<% content_for :plus do -%>
+  <%= render "index_plus" %>
+<% end -%>
+
+<script>
+  $('.google_marker_a').each(function(i,a){
+    $(a).click(function(){
+      $.each(InfoWindows,function(j,win){
+        win.close(map);
+      });
+      InfoWindows[i].open(map,markers[i]);
+    });
+  });
+</script>

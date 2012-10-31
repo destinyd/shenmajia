@@ -1,0 +1,15 @@
+<% content_for :head do -%>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-CN" type="text/javascript"></script>
+  <script>
+    poses = [
+    <% collection.each do |resource| %>
+      {
+        pos:new google.maps.LatLng(<%= resource.lat %>, <%= resource.lon %>),
+        'title':'<%= resource.name %>'}<%= ',' unless collection.last == resource %>
+    <% end -%>
+    ];
+      google.maps.event.addDomListener(window, 'load', index_map_init);
+  </script>
+<% end unless collection.blank? -%>
+
+

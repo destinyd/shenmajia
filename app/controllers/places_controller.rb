@@ -50,6 +50,6 @@ class PlacesController < InheritedResources::Base
 
   protected
   def collection
-    @places = collection ||= end_of_association_chain.paginate(page: params[:page])
+    @places = collection ||= end_of_association_chain.order_city_id.paginate(page: params[:page])
   end
 end
