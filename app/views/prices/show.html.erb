@@ -3,8 +3,8 @@
 <% set_meta_tags keywords:  "#{@price.good},价格,#{@price.type_id}", 
 description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price.type_id}信息、所在位置信息",
   title: @where_name %>
-
-<p>
+<div class="l">
+ <p>
 <b><%= label :price,:name %>:</b>
 <%= link_to @price.name,@price.good %>
 </p>
@@ -13,41 +13,30 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
 <span class="big_price"><%= @price.human_price %></span>
 </p>
 
-<p>
-<b>地点:</b>
-<%= link_to @price.locatable,@price.locatable %>
-</p>
+<%= p_field @price,:locatable %>
+<%= p_field @price,:type_id %>
+<%= p_field @price,:address %>
+<%= p_field @price,:amount %>
+<%= p_field @price,:finish_at %>
 
-<p>
-<b><%= label :price,:type%>:</b>
-<%= @price.type_id %>
-</p>
-
-<% if @price.address %>
-  <p>
-  <b><%= label :price,:address%>:</b>
-  <%= @price.address %>
-  </p>
-<% end %>
-
-<p>
-<b><%= label :price,:amount%>:</b>
-<%= @price.human_amount %>
-</p>
-
-<p>
-<b><%= label :price,:finish_at%>:</b>
-<%= @price.human_finish_at %>
-</p>
 <%  unless @price.outlinks.blank? %>
   <p>
   <b>链接：</b>
   <%= link_to @price.outlinks.first.url,@price.outlinks.first.url ,rel: "nofollow",target: '_blank'%>
 <% end -%>
+ 
+</div>
+<div class="r">
+  <div>
+  <%= button_to '我也这价在这买了一件！',place_carts_path(@price.locatable_id,price_id: @price.id) if @price.locatable %>
+  </div>
+  <div>
+  <%= render 'reviews/links',reviewable: @price %>
+  </div> 
+</div>
+<div class="c"></div>
 
-<% unless @price.type_id != "团购价" or @price.uploads.first.nil? %>
-  <img src="<%=@price.uploads.first.image_file_name%>" alt="<%= @price.name %>" />
-<% end %>
+
 
 <% unless @price.image.blank? %>
   <div class="tc">
@@ -55,11 +44,6 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
   </div>
 <% end %>
 
-<br />
-<br />
-
-<%= button_to '我也这价在这买了一件！',place_carts_path(@price.locatable_id,price_id: @price.id) %>
-<%= render 'reviews/links',reviewable: @price %>
 <div class="c"></div>
 
 

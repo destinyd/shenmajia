@@ -209,6 +209,7 @@ zh-CN:
       price:
         price: 单价
         total: 总价
+        locatable: 消费地点
       cost:
         money: 总额
         good: 商品

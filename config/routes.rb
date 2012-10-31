@@ -162,6 +162,7 @@ Zhekou::Application.routes.draw do
 
   resources :cities,only: [:index,:show] do
     @prices.call
+    get 'inventories/tuijian' => 'inventories#tuijian'
     resources :shops
     resources :places,only: :index,page: 1
     match 'places/page/:page' => 'places#index', constraints: {

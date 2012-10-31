@@ -1,12 +1,14 @@
-<% cache "sidebar_tuijian_#{@cache_id}" do %>
+<% cache "sidebar_tuijian_#{params[:city_id]}_#{@cache_id}" do %>
   <ul id="tuijian">
-    <% Price.recent.with_pic.list.limit(6).each do |price| %>
+    <% @prices = City.find_by_name(params[:city_id]).prices.tuijian %>
+    <% @prices = Price.tuijian if @price.blank? %>
+    <% @prices.each do |price| %>
       <li>
       <div>
         <div class="pics">
           <div class="pic">
-            <%= link_to price do  %>
-              <%= image_tag price.image.url :medium %>
+            <%= link_to price,title: price.human_name do  %>
+              <%= image_tag price.image.url(:medium),title: price.human_name,alt: price.human_name + '中图' %>
             <% end -%>
           </div>
           <div class="c"></div>

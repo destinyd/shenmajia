@@ -2,7 +2,7 @@
 <%= section title:'推荐价格信息',id:'tuijian' do %>
   读取中...
 <% end -%>
-<script src="/inventories/tuijian.js" type="text/javascript"></script>
+<script src="/cities/<%= city_info_of_ip[:city] %>/inventories/tuijian.js" type="text/javascript"></script>
 <% cache "sidebar_prices_youlike_#{@cache_id}" do %>
   <%= render 'section',plus: {things: Price.you_like.limit(10),title:  "猜你喜欢"} %>
 <% end if nil %>

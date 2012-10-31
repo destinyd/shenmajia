@@ -54,6 +54,7 @@ class Price < ActiveRecord::Base
   scope :just_ten,limit(10)
 
   scope :in_place,with_good.order('type_id desc').recent#.group('good_id')
+  scope :tuijian,recent.with_pic.list.limit(6)
 
 
   accepts_nested_attributes_for :good

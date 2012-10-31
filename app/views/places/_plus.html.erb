@@ -1,6 +1,6 @@
 <%= render 'map', resource: @place %>
 
-<%= render 'section',plus: {things: @place.bills.in_place.recent.limit(10),title:  "#{@place}产生的账单",
+<%= render 'section',plus: {things: @place.bills.in_place,title:  "#{@place}产生的账单",
 section_path: place_costs_path(@place)} if nil %>
 
 <%= section title: '本店的最新价格信息',plus_path: place_prices_path(@place) do %>
