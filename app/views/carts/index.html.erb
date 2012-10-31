@@ -1,1 +1,12 @@
-<%= render 'form' %>
+<% if @place  %>
+  <%= render 'form',place:@place %>
+<% elsif @places %>
+  <% @places.each do |place| %>
+    <div class="margin-b10">
+      <%= render 'form',place:place %>
+      
+    </div>
+  <% end -%>
+<% else %>
+  请先添加商品
+<% end %>

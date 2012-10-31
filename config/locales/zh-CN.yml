@@ -334,6 +334,7 @@ zh-CN:
     msgs: 短信息
     shop_contacts: 店铺联系方式
     shop_carts: 购物车
+    carts: '购物车'
     userhome:
       orders: 用户订单
     shop:

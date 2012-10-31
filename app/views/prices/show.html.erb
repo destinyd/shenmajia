@@ -49,14 +49,16 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
   <img src="<%=@price.uploads.first.image_file_name%>" alt="<%= @price.name %>" />
 <% end %>
 
-<div class="tc">
-  <%= image_tag @price.image.large %>
-</div>
+<% unless @price.image.blank? %>
+  <div class="tc">
+    <%= image_tag @price.image.large %>
+  </div>
+<% end %>
 
 <br />
 <br />
 
-<%#= button_to '我也这价在这买了一件！',{controller:  :bills, action:  :new ,place_id: @price.locatable_id,step: 2,cost: {good_id: @price.good_id,price_id: @price.id}}, method:  :get %>
+<%= button_to '我也这价在这买了一件！',place_carts_path(@price.locatable_id,price_id: @price.id) %>
 <%= render 'reviews/links',reviewable: @price %>
 <div class="c"></div>
 

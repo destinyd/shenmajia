@@ -13,7 +13,7 @@ class BillsController < InheritedResources::Base
 
   def create
     @bill = current_user.bills.new params[:bill]
-    return redirect_to(new_bill_path,error:t('error.fault')) if params[:place_id].blank? or session[:b].blank?
+    return redirect_to(new_bill_path,error:t('error.fault')) if params[:place_id].blank? or session[:b].blank? or session[:b][params[:place_id]].blank?
     #if params[:shop_id]
       #@shop = Shop.find params[:shop_id]
       #@bill.locatable = @shop
@@ -30,7 +30,7 @@ class BillsController < InheritedResources::Base
       #end
     #else
       @bill.locatable = @place = Place.find(params[:place_id])
-      session[:b].each do |key,item|
+      session[:b][@place.id.to_s].each do |key,item|
         bp = @bill.bill_prices.new
         bp.amount = item[:amount]
         unless params[:image].blank?
@@ -53,7 +53,7 @@ class BillsController < InheritedResources::Base
       end
       create!{|success,failure| 
         success.html{
-          session[:b] = {}
+          session[:b][@place.id.to_s] = nil
         }
         failure.html{
           render :new

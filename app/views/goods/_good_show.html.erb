@@ -41,10 +41,12 @@
     <%= link_to tag,tag_good_path(tag.name) -%>
   <% end -%>
 <% end if good.tags.any? %>
-<br />
+
+<% unless good.image.blank? %>
   <div class="tc">
     <%= image_tag good.image.url :large %>
   </div>
+<% end -%>
 </div>
 
 <div class="goods_div_<%=good.id%> h" id="product_images_<%= good.id -%>">

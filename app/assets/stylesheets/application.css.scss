@@ -499,9 +499,13 @@ footer{
     }
     .images{
       margin-left: 200px;
-      a img{
-        max-width: 200px;
-        max-height: 120px;
+      a
+      {
+        text-decoration: none;
+        img{
+          max-width: 200px;
+          max-height: 120px;
+        }
       }
     }
   }
@@ -894,3 +898,4 @@ a{color:$font-color;}
 color:$main-color;
 a{color:$main-color;}
 }
+.margin-b10{margin-bottom:10px;}
