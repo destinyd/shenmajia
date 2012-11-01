@@ -202,7 +202,7 @@ function index_map_init() {
 
 function put_markers_with_word(){
   $.each(poses,function(i,pos){
-    var contentString = '<h1>' + pos['title'] + '</h1><a href="/places/' + pos['id'] +'">查看详情</a>';
+    var contentString = '<h1>' + pos['title'] + '</h1><a href="/places/' + pos['id'] +'" target="_blank">查看详情</a>';
     var infowindow = new google.maps.InfoWindow({
         content: contentString
     });
@@ -272,7 +272,7 @@ function put_markers(){
     }
     else{
       var contentString = '<h1>' + pos['title'] + '</h1>'+ 
-    '<p><a href="/places/' + pos['id'] +'">查看详情</a><p>'+
+    '<p><a href="/places/' + pos['id'] +'" target="_blank">查看详情</a><p>'+
     '<p><a href="/places/' + pos['id'] +'/bills/new"><span class="c3">在此地记账</span></a><p>';
       var infowindow = new google.maps.InfoWindow({
           content: contentString
