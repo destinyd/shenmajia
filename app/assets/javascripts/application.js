@@ -187,6 +187,7 @@ function form_map_init(){
 
 markers = [];
 InfoWindows = [];
+map = null;
 function index_map_init() {
 
   var bounds = new google.maps.LatLngBounds();

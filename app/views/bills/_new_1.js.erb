@@ -1,3 +1,18 @@
-$('#new_bill_places_search').html('<%= j render 'places' %>');
+<% if params[:q].blank? %>
+  page = <%= params[:page] || 1 %>;
+<% collection= Place.near([city_info_of_ip[:lat],city_info_of_ip[:lon]]).paginate(page: params[:page]) %>
+  poses = [
+  <% collection.each do |resource| %>
+  {
+    pos: new google.maps.LatLng(<%= resource.lat %>, <%= resource.lon %>),
+    'title':'<%= resource.name %>'}<%= ',' unless collection.last == resource %>
+  <% end -%>
+  ];
+
+  index_map_init();
+  set_control();
+<% else %>
+  $('#new_bill_places_search').html('<%= j render 'places' %>');
+<% end %>
 $('#form_bill_search_places').form_ready();
 //$('#form_goods_search').ajax_paginate();

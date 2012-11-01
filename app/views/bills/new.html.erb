@@ -7,4 +7,7 @@
   <%= render "form_2" %>
 <% else %>
   <%= render "form_1" %>
+  <% content_for :plus do -%>
+    <%= render "bills/map_select" %>
+  <% end -%>
 <% end %>

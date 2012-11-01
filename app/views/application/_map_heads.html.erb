@@ -1,6 +1,7 @@
 <% content_for :head do -%>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&language=zh-CN" type="text/javascript"></script>
   <script>
+    home = new google.maps.LatLng(<%= cookies[:lat] %>,<%= cookies[:lon] %>);
     poses = [
     <% collection.each do |resource| %>
       {
