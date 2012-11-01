@@ -190,16 +190,14 @@ InfoWindows = [];
 map = null;
 function index_map_init() {
 
-  var bounds = new google.maps.LatLngBounds();
-
   var mapOptions = {
+    center: poses[0]['pos'],
     zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById('google_map'), mapOptions);
 
   $.each(poses,function(i,pos){
-    bounds.extend(pos['pos']);
     var contentString = '<h1>' + pos['title'] + '</h1>';
     var infowindow = new google.maps.InfoWindow({
         content: contentString
@@ -222,7 +220,6 @@ function index_map_init() {
     markers.push(marker);
   }
   );
-  map.fitBounds(bounds);//这句最重要  
 }
 
 function change_bill_val(place_id,id,name,val){
@@ -274,3 +271,13 @@ $(function(){
   $('#loading').spin();
   $('body').UItoTop();
 })
+
+
+//map 
+function placeMarker(position, map) {
+  var marker = new google.maps.Marker({
+    position: position,
+      map: map
+  });
+  map.panTo(position);
+}

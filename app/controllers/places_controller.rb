@@ -4,8 +4,8 @@ class PlacesController < InheritedResources::Base
   actions :all, except: [:edit,:update,:destroy]
   belongs_to :city,finder: :find_by_name!, optional: true
   #belongs_to :place, optional: true
-  respond_to :html
-  respond_to :js,only: :show
+  respond_to :html,except: :near
+  respond_to :js,only: [:show,:near]
   caches_page :index,:show
   #caches_action :search, expires_in: 1.day
   #caches_action :show,
@@ -45,6 +45,14 @@ class PlacesController < InheritedResources::Base
   def local
     get_city_name(City.first) if city_info_of_ip[:city].blank?
     redirect_to city_places_path(city_info_of_ip[:city])
+  end
+
+  def near
+    if params[:lat].nil? or params[:lon].nil?
+      @places = Place.near([city_info_of_ip[:lat],city_info_of_ip[:lon]],20).paginate(page: params[:page])
+    else
+      @places = Place.near([params[:lat],params[:lon]],20).paginate(page: params[:page])
+    end
   end
 
 

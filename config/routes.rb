@@ -37,13 +37,26 @@ Zhekou::Application.routes.draw do
     get 'prices(/:page)' => 'prices#index', constraints: {
       page: /[23456789]|\d{2,}/
     },
-    defaults: {page: 1},as: :prices
+    defaults: {page: 1},as: :prices,on: :member
+
+    #get 'near(/:page)' => 'places#near', constraints: {
+      #page: /[23456789]|\d{2,}/
+    #},
+    #defaults: {page: 1},as: :near,on: :collection
+
+    get 'near(/:lat/:lon)(/page/:page)' => 'places#near', constraints: {
+      page: /[23456789]|\d{2,}/,
+      lat: /\d+(\.\d+)?/,
+      lon: /\d+(\.\d+)?/
+    },
+    defaults: {page: 1},as: :prices,on: :collection
+
 
     get 'search' ,on:  :collection
     get 'local',on: :collection
     #match '/search/:q/page/:page' => 'places#search', on:  :collection,as:  :search
   end
-  get '/places/:id/page/:page' => 'places#show'
+  #get '/places/:id/page/:page' => 'places#show'
 
   resources :products
 

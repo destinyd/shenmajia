@@ -1,0 +1,19 @@
+page = <%= params[:page] || 1 %>;
+<% collection= Place.near([city_info_of_ip[:lat],city_info_of_ip[:lon]]).paginate(page: params[:page]) %>
+poses = [
+<% @places.each do |resource| %>
+{
+  pos: new google.maps.LatLng(<%= resource.lat %>, <%= resource.lon %>),
+  'title':'<%= resource.name %>'}<%= ',' unless collection.last == resource %>
+<% end -%>
+];
+
+index_map_init();
+<% if params[:lat].nil? and params[:lon].nil? %>
+  fit_bounds()
+<% end %>
+set_control();
+google.maps.event.addListener(map, 'click', function(e) {
+  pos_change(e.latLng, map);
+});
+
