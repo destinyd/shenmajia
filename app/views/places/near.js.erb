@@ -4,16 +4,13 @@ poses = [
 <% @places.each do |resource| %>
 {
   pos: new google.maps.LatLng(<%= resource.lat %>, <%= resource.lon %>),
-  'title':'<%= resource.name %>'}<%= ',' unless collection.last == resource %>
+    title:'<%= resource.name %>',
+    id:'<%= resource.id %>'
+}
+<%= ',' unless @places.last == resource %>
 <% end -%>
 ];
-
-index_map_init();
-<% if params[:lat].nil? and params[:lon].nil? %>
+put_markers();
+<% if params[:swlat].nil? %>
   fit_bounds()
 <% end %>
-set_control();
-google.maps.event.addListener(map, 'click', function(e) {
-  pos_change(e.latLng, map);
-});
-

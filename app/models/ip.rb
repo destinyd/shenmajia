@@ -7,10 +7,11 @@ class Ip < ActiveRecord::Base
   end
   def get_ip
     @get_ip = GetIp.new self.ip
-    city = @get_ip.city
-    unless city.blank?
-      @city = City.find_by_name city
-      self.city,self.lat,self.lon = @city,@city.lat,@city.lon if @city
+    if @get_ip.city
+      @city = City.find_by_name @get_ip.city
+    else
+      @city = City.first
     end
+    self.city,self.lat,self.lon = @city,@city.lat,@city.lon if @city
   end
 end

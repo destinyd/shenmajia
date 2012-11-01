@@ -44,10 +44,13 @@ Zhekou::Application.routes.draw do
     #},
     #defaults: {page: 1},as: :near,on: :collection
 
-    get 'near(/:lat/:lon)(/page/:page)' => 'places#near', constraints: {
+    @pos_regexp = /\d+(\.\d+)?/
+    get 'near(/:swlat,:swlon,:nelat,:nelon)(/page/:page)' => 'places#near', constraints: {
       page: /[23456789]|\d{2,}/,
-      lat: /\d+(\.\d+)?/,
-      lon: /\d+(\.\d+)?/
+      swlat: @pos_regexp,
+      swlon: @pos_regexp,
+      nelat: @pos_regexp,
+      nelon: @pos_regexp
     },
     defaults: {page: 1},as: :prices,on: :collection
 

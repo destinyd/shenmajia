@@ -48,10 +48,10 @@ class PlacesController < InheritedResources::Base
   end
 
   def near
-    if params[:lat].nil? or params[:lon].nil?
-      @places = Place.near([city_info_of_ip[:lat],city_info_of_ip[:lon]],20).paginate(page: params[:page])
+    if params[:swlat].nil? or params[:swlon].nil? or params[:nelat].nil? or params[:nelon].nil?
+      @places = Place.near([city_info_of_ip[:lat],city_info_of_ip[:lon]],20).paginate(page: params[:page],per_page: 100)
     else
-      @places = Place.near([params[:lat],params[:lon]],20).paginate(page: params[:page])
+      @places = Place.square([params[:swlat],params[:swlon]],[params[:nelat],params[:nelon]]).paginate(page: params[:page],per_page: 100)
     end
   end
 

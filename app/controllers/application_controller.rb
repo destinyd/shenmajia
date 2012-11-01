@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 
   def city_info_of_ip
     return @ip_infos if @ip_infos and cookies[:ip] == request.ip
-    unless cookies[:ip] == request.ip
+    if cookies[:city].nil? or cookies[:ip] != request.ip
       cookies[:ip] = request.ip
       ip = request.ip
       @ip = Ip.where(ip: ip).first_or_create

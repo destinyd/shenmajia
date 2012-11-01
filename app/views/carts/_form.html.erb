@@ -1,6 +1,7 @@
 <p> <%= link_to place,place %>的账单 </p>
 <% @total = 0 %>
 <% @bill = Bill.new %>
+<% session[:b] ||= {} %>
 <% @goods = session[:b][place.id.to_s].blank? ? [] : Good.find(session[:b][place.id.to_s].keys) %>
 <% @goods_hash ={} %> 
 <% @goods.each{|good| @goods_hash[good.id.to_s] = good } %>

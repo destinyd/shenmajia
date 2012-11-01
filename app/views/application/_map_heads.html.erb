@@ -5,8 +5,10 @@
     poses = [
     <% collection.each do |resource| %>
       {
-        pos:new google.maps.LatLng(<%= resource.lat %>, <%= resource.lon %>),
-        'title':'<%= resource.name %>'}<%= ',' unless collection.last == resource %>
+  pos: new google.maps.LatLng(<%= resource.lat %>, <%= resource.lon %>),
+    title:'<%= resource.name %>',
+    id:'<%= resource.id %>'
+    }<%= ',' unless collection.last == resource %>
     <% end -%>
     ];
       google.maps.event.addDomListener(window, 'load', index_map_init);

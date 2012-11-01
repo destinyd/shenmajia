@@ -186,6 +186,7 @@ function form_map_init(){
     }
 
 markers = [];
+markers_hash = {};
 InfoWindows = [];
 map = null;
 function index_map_init() {
@@ -197,8 +198,11 @@ function index_map_init() {
   };
   map = new google.maps.Map(document.getElementById('google_map'), mapOptions);
 
+}
+
+function put_markers_with_word(){
   $.each(poses,function(i,pos){
-    var contentString = '<h1>' + pos['title'] + '</h1>';
+    var contentString = '<h1>' + pos['title'] + '</h1><a href="/places/' + pos['id'] +'">查看详情</a>';
     var infowindow = new google.maps.InfoWindow({
         content: contentString
     });
@@ -208,7 +212,8 @@ function index_map_init() {
       position: pos['pos'],
         map: map,
         title: pos['title'],
-        icon: '/images/google/' + str +'.png'
+        icon: '/images/google/' + str +'.png',
+        animation: google.maps.Animation.DROP
     });
     google.maps.event.addListener(marker, 'click', function() {
       $.each(InfoWindows,function(i,win){
@@ -221,6 +226,97 @@ function index_map_init() {
   }
   );
 }
+
+function clear_markers(markers,new_markers){
+  var is_has;
+  $.each(markers,function(i,m){
+    is_has = false;
+    $.each(new_markers,function(j,nm)
+    {
+      if(m.getPosition() == nm.getPosition())
+      {
+        is_has = true;
+      }
+    });
+    if(!is_has){
+      m.setMap(null);
+    }
+  });
+}
+
+function add_markers(markers,new_markers){
+  var is_has;
+  $.each(new_markers,function(i,nm){
+    is_has = false;
+    $.each(markers,function(j,m)
+    {
+      if(m.getPosition() == nm.getPosition())
+      {
+        is_has = true;
+      }
+    });
+    if(!is_has)
+    {
+      nm.setMap(map);
+    }
+  });
+}
+
+
+function put_markers(){
+  var new_markers = [];
+  $.each(poses,function(i,pos){
+    if(markers_hash[pos['id']])
+    {
+      new_markers.push(markers_hash[pos['id']]);
+    }
+    else{
+      var contentString = '<h1>' + pos['title'] + '</h1>'+ 
+    '<p><a href="/places/' + pos['id'] +'">查看详情</a><p>'+
+    '<p><a href="/places/' + pos['id'] +'/bills/new"><span class="c3">在此地记账</span></a><p>';
+      var infowindow = new google.maps.InfoWindow({
+          content: contentString
+      });
+      var str = String.fromCharCode('a'.charCodeAt() + i);
+      InfoWindows.push(infowindow);
+      var marker =  new google.maps.Marker({
+        position: pos['pos'],
+          //map: map,
+          title: pos['title'],
+          animation: google.maps.Animation.DROP
+      });
+      google.maps.event.addListener(marker, 'click', function() {
+        $.each(InfoWindows,function(i,win){
+          win.close(map);
+        }
+        );
+        infowindow.open(map,marker);
+      });
+      markers_hash[pos['id']] = marker;
+      new_markers.push(marker);
+    }
+  }
+  );
+  if(markers.length > 0)
+  {
+    clear_markers(markers,new_markers);
+  }
+  add_markers(markers,new_markers);
+  markers = new_markers;
+}
+// Sets the map on all markers in the array.
+function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+// Removes the overlays from the map, but keeps them in the array.
+function clearOverlays() {
+  setAllMap(null);
+  markers = [];
+}
+
 
 function change_bill_val(place_id,id,name,val){
   $.post(
@@ -271,13 +367,3 @@ $(function(){
   $('#loading').spin();
   $('body').UItoTop();
 })
-
-
-//map 
-function placeMarker(position, map) {
-  var marker = new google.maps.Marker({
-    position: position,
-      map: map
-  });
-  map.panTo(position);
-}

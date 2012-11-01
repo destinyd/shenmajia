@@ -1,4 +1,7 @@
 <%= render 'map_heads',collection: collection %>
+<script>
+    google.maps.event.addDomListener(window, 'load', put_markers_with_word);
+</script>
 <section>
   <header>
     <nav>
