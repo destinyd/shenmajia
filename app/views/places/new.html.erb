@@ -4,4 +4,6 @@
   title: where_name
 %>
 <%= render 'form' %>
-<%= render 'map_form', resouce: @place %>
+<% content_for :plus do -%>
+  <%= render 'map_form', resouce: @place %>
+<% end -%>

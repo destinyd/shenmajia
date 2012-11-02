@@ -1,2 +1,4 @@
 <%= render 'form' %>
-<%= render 'map_form',resource: @shop %>
+<% content_for :plus do -%>
+  <%= render 'map_form',resource: @shop %>
+<% end -%>
