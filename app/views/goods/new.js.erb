@@ -1,0 +1,10 @@
+var obj_sign_in = $('#new_good');
+if(obj_sign_in.length <= 0){
+  $('body').append('<%=j(render 'goods/form',good:@good) %>');
+}
+var obj_sign_in = $('#new_good');
+obj_sign_in.dialog({
+  height: 500,
+  width: 800,
+  modal: true
+});

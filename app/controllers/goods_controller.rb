@@ -1,6 +1,7 @@
 class GoodsController < InheritedResources::Base
   before_filter :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
   respond_to :html#, :json
+  respond_to :js, only: [:new,:create]
   #respond_to :json,only: :search
   actions :all,except: [:edit,:update,:destroy]
   #belongs_to :breads, optional: true

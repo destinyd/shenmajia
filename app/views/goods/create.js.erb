@@ -1,0 +1,13 @@
+<% @place = Place.find(params[:place_id]) %>
+<% if @good.errors.any?  %>
+  <% @really_good = Good.where(name:@good.name,unit:@good.unit,norm:@good.norm).first %>
+  <% if @really_good %>
+    $('#new_bill_goods_search').html('<%= j render 'bills/goods',goods:[@really_good],place:@place %>');
+    $('#new_good').remove();
+  <% else %>
+    $('#new_good').html('<%= j render 'form',good:@good %>');
+  <% end %>
+<% else %>
+  $('#new_bill_goods_search').html('<%= j render 'bills/goods',goods:[@good],place:@place %>');
+  $('#new_good').remove();
+<% end -%>

@@ -1,7 +1,7 @@
 # coding: utf-8
 class Good < ActiveRecord::Base
   mount_uploader :image, ImageUploader
-  attr_accessible :product_name,:brand_name,:norm_name,:name,:desc,:norm,:unit,:barcode,:origin#,:picture_count
+  attr_accessible :product_name,:brand_name,:norm_name,:name,:desc,:norm,:unit,:barcode,:origin,:tag_list
   attr_accessor :brand_name,:product_name,:norm_name#,:brand_name,
   STATUS_LOW = 2
   belongs_to :user

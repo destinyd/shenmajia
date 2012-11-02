@@ -3,5 +3,5 @@
   <%= hidden_field_tag :step,2 %>
   <%= hidden_field_tag :place_id,params[:place_id] %>
   <%= submit_tag '搜索商品',name: nil %>
-  <%= link_to '搜索不到，先创建商品',new_good_path(good: {name: params[:q]}),class: 'button',target: '_blank' %>
+  <%= link_to '搜索不到，先创建商品',new_good_path(good: {name: params[:q]},place_id:@place.id),remote:true,class: 'button',target: '_blank' %>
 <% end -%>

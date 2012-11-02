@@ -1,11 +1,28 @@
-<%= simple_form_for(good) do |f| %>
+<%= simple_form_for(good,remote: request.xhr?) do |f| %>
+  <%= f.error_messages %>
   <%= f.input :name %>
-  <%= f.input :unit %>
-  <%= f.input :norm %>
-  <%= f.input :barcode %>
-  <%= f.input :origin %>
-  <%= f.input :desc, as:  :kindeditor, label: false, input_html: { width: '100%', height: 500 } if current_user.is_vip? %>
-  <%= f.input :desc unless current_user.is_vip? %>  
-  <%= f.input :tag_list, hint: '最多5个,请使用,(半角)分割,如:数码,手机' %>
+  <div class="input check_boxes"><label class="check_boxes control-label">高级属性</label><%= check_box_tag '','高级属性',false,class: 'check_boxes',name:nil,onclick:'adv_options(this);',id:'adv_check_box' %></div>
+  <div class="h" id="full_message">
+    <%= f.input :unit %>
+    <%= f.input :norm %>
+    <%= f.input :barcode %>
+    <%= f.input :origin %>
+    <%= f.input :desc %>  
+    <%= f.input :tag_list, hint: '最多5个,请使用,(半角)分割,如:数码,手机' %>
+    <%= hidden_field_tag :place_id, params[:place_id] %>
+  </div>
   <%= f.submit %>
 <% end %>
+<script>
+  function adv_options(obj){
+    if($(obj).attr('checked') == 'checked')
+    {
+      $('#full_message').show();
+      KindEditor.create('#good_desc', {});
+    }
+    else{
+      KindEditor.remove('#good_desc');
+      $('#full_message').hide();
+    }
+  }
+</script>
