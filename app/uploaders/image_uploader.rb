@@ -91,16 +91,5 @@ class ImageUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg gif png)
   end
 
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  def filename
-    "#{(model.created_at || DateTime.now).strftime '%Y%m'}/#{secure_token}.#{file.extension}" if original_filename.present?
-    ##"#{model.id}_#{model.updated_at}.#{extension}"# if original_filename
-  end
-
-  protected
-  def secure_token
-    var = :"@#{mounted_as}_secure_token"
-    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
-  end
+  include UploaderHelper
 end

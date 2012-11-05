@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class FlashUploader < CarrierWave::Uploader::Base
+class MenuUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -14,21 +14,18 @@ class FlashUploader < CarrierWave::Uploader::Base
   storage :file
   # storage :fog
 
-  process :resize_to_fit => [1280, 6000]
-
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "p/f"
+    "p/m"
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
+  def default_url
+      #asset_path("fallback/" + ["nopic",version_name].compact.join('_') + ".gif")
+    "/images/" + ["nopic",version_name].compact.join('_') + ".gif"
+  end
+
 
   # Process files as they are uploaded:
   # process :scale => [200, 300]
@@ -48,6 +45,9 @@ class FlashUploader < CarrierWave::Uploader::Base
     %w(jpg jpeg gif png)
   end
 
+  version :large do
+    process :resize_to_limit => [640, 3000]
+  end
 
   include UploaderHelper
 end
