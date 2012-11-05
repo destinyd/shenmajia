@@ -17,6 +17,8 @@ class Place < ActiveRecord::Base
   validates_with LocateValidator
 
   belongs_to :city
+  belongs_to :user
+  belongs_to :admin,class_name: 'User',readonly: true
   has_many :shops, as: :locatable, dependent: :destroy
   has_many :place_goods,dependent: :destroy
   has_many :goods,through: :place_goods, :uniq => true
