@@ -21,7 +21,7 @@
         <%= good.origin %>&nbsp;
       <% end if nil %>
       <%= content_tag 'li' do -%>
-        <%= button_to '选择',place_carts_path(place,good_id: good.id),method:  :post, remote: true %>
+        <%= button_to '选此商品',place_carts_path(place,good_id: good.id),method:  :post, remote: true %>
       <% end %>      
     <% end %>
   <% end  %>

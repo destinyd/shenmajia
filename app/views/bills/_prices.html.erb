@@ -21,7 +21,8 @@
         <%= link_to price.human_price,price %>&nbsp;
       <% end %>
       <%= content_tag 'li' do -%>
-        <%= button_to '选择',place_carts_path(place,price_id: price.id),method:  :post, remote: true %>
+        <%= button_to '选此商品',place_carts_path(place,good_id: price.good_id),method:  :post, remote: true,class: 'l' %>
+        <%= button_to '选此价格',place_carts_path(place,price_id: price.id),method:  :post, remote: true,class: 'l' %>
       <% end %>      
     <% end %>
   <% end  %>
