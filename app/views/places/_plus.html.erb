@@ -3,7 +3,19 @@
 <%= render 'section',plus: {things: @place.bills.in_place,title:  "#{@place}产生的账单",
 section_path: place_costs_path(@place)} if nil %>
 
-<%= section title: '本店的最新价格信息',plus_path: place_prices_path(@place) do %>
+<%= section title: '本店的菜单',plus_path: place_menus_path(@place) do %>
+  <div id="menus" class="tc">
+  <% @place.menus.each do |menu| %>
+    <div class="image">
+    <%= link_to [@place,menu] do %>
+      <%= image_tag menu.image.large %>
+    <% end %>
+    </div>
+  <% end -%>
+  </div>
+<% end unless @place.menus.blank? -%>
+
+<%= section title: '本店的最新价格信息',plus_path: prices_place_path(@place) do %>
   <div id="place_prices" class="ajax_paginate">
     <%= render 'prices',prices:@prices %>
   </div>

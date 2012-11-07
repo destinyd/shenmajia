@@ -205,6 +205,7 @@ zh-CN:
       inventory: 商品
       msg: 短信息
       order: 网站订单
+      menu: 菜单
     attributes:
       price:
         price: 单价
@@ -274,6 +275,7 @@ zh-CN:
     origin: 原产地
     place_name: 地点名称
     body: 内容
+    page: 页数
 
 
 
@@ -336,6 +338,7 @@ zh-CN:
     shop_contacts: 店铺联系方式
     shop_carts: 购物车
     carts: '购物车'
+    menus: '菜单'
     userhome:
       orders: 用户订单
     shop:
@@ -375,13 +378,14 @@ zh-CN:
       search: 搜索
     bills:
       new: 记账
+    msgs:
+      sents: 发件箱
     new: 添加
     create: 提交
     index: 列表
     edit: 修改
+    show: 显示
     search: 搜索
-    msgs:
-      sents: 发件箱
 
   will_paginate:
     previous_label: "&#8592; 上一页"
@@ -408,3 +412,7 @@ zh-CN:
       '51': 用户取消
       '52': 商家取消
       '101': 交易成功
+
+
+  model:
+    menu: '%{place_name}的%{tag}菜单'

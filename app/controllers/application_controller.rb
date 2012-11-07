@@ -47,6 +47,10 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found')
   end
 
+  def admin?
+    current_user.id == 1 ? true : not_found
+  end
+
 
   private
   def get_cache_id

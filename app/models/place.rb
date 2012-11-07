@@ -27,6 +27,8 @@ class Place < ActiveRecord::Base
   has_many :costs, through: :bills, dependent: :destroy
   has_many :prices, as: :locatable, dependent: :destroy
   has_many :uploads, as: :uploadable
+
+  has_many :menus
   
   scope :recent,order("id desc")
   scope :order_city_id,order("city_id desc")

@@ -5,8 +5,4 @@ class FlashesController < InheritedResources::Base
   def collection
     @flashes ||= end_of_association_chain.recent.paginate(page: params[:page])
   end
-
-  def admin?
-    current_user.id == 1 ? true : not_found
-  end
 end

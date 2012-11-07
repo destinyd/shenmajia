@@ -1,4 +1,5 @@
 Zhekou::Application.routes.draw do
+  resources :menus,except: :index
   @prices = lambda{
     resources :prices,only: [:index,:show,:new,:create] do
       collection do
@@ -34,6 +35,8 @@ Zhekou::Application.routes.draw do
     resources :carts, only: [:update,:create,:destroy,:index]
     resources :bills, only:  [:index,:new,:create]
     resources :costs, only:  :index
+    resources :menus
+
     get 'prices(/:page)' => 'prices#index', constraints: {
       page: /[23456789]|\d{2,}/
     },
@@ -52,7 +55,7 @@ Zhekou::Application.routes.draw do
       nelat: @pos_regexp,
       nelon: @pos_regexp
     },
-    defaults: {page: 1},as: :prices,on: :collection
+    defaults: {page: 1},as: :near,on: :collection
 
 
     get 'search' ,on:  :collection
@@ -127,17 +130,17 @@ Zhekou::Application.routes.draw do
     #end
   end
 
-  namespace :shop do
-    resources :orders,only: [:index,:show,:destroy,:update] do
-      post :pay,on: :member
-      post :cancel,on: :member
-    end
-    resources :inventories,except: [:show]
-    resources :shops,only: [:index,:edit]
-    resources :shop_contacts
-    root to:  "homes#index"
-    get 'edit' => "homes#edit"
-  end
+  #namespace :shop do
+    #resources :orders,only: [:index,:show,:destroy,:update] do
+      #post :pay,on: :member
+      #post :cancel,on: :member
+    #end
+    #resources :inventories,except: [:show]
+    #resources :shops,only: [:index,:edit]
+    #resources :shop_contacts
+    #root to:  "homes#index"
+    #get 'edit' => "homes#edit"
+  #end
 
   scope '/userhome' do 
     resources :contacts do

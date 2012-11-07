@@ -46,7 +46,7 @@ class MenuUploader < CarrierWave::Uploader::Base
   end
 
   version :large do
-    process :resize_to_limit => [640, 3000]
+    process :resize_to_limit => [960, 3000]
   end
 
   include UploaderHelper
