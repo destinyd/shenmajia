@@ -3,7 +3,7 @@ class Ptoc < Thor
   def migrate_from_paperclip_to_carrierwave
     require File.expand_path 'config/environment'
 
-    FileUtils.mkdir_p Rails.root.join('public', 'uploads')
+    FileUtils.mkdir_p Rails.root.join('public', 'p')
 
     uploads = Upload.where('image_file_name IS NOT NULL')#.each do |upload|
     dir = Rails.root.join('public', 'images', 'items')
