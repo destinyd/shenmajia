@@ -23,7 +23,7 @@ module ApplicationHelper
   end
 
   def could_bread?
-    !['home','sessions','registrations','inventories'].include? controller_name
+    !['sessions','registrations'].include? controller_name
   end
 
   #def link_to_add_fields(name, f, association)

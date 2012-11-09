@@ -71,7 +71,7 @@ gem 'nested_form'
 #gem 'simple_nested_form'
 gem 'ajax_nested_form'
 
-gem 'quiet_assets', :group => :development
+#gem 'quiet_assets', :group => :development
 #gem 'omniauth-oauth2'
 #gem 'omniauth-jiepang',:git => 'git://github.com/transist/omniauth-jiepang.git'
 gem 'guid'

@@ -12,8 +12,9 @@ description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price
 <b><%= label :price,:price%>:</b>
 <span class="big_price"><%= @price.human_price %></span>
 </p>
-
-<%= p_field @price,:locatable %>
+<% if @price.locatable %>
+<p><b>消费地点:</b> <%= link_to @price.locatable,@price.locatable %> </p>
+<% end -%>
 <%= p_field @price,:type_id %>
 <%= p_field @price,:address %>
 <%= p_field @price,:amount %>
