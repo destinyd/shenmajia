@@ -1,7 +1,12 @@
 <div class="cost c" data-time="<%= cost.created_at.to_i %>" id="cost_<%= cost.id %>">  
   <div class="l">
     <%= link_to cost do %>
-      <%= upload_image_tag cost.bill.bill_prices.first.image,:bill,:list %>
+      <% if cost.bill %>
+        <%= upload_image_tag cost.bill.bill_prices.first.image,:bill,:list %>
+      <% else %>
+        <%#= upload_image_tag cost.bill.bill_prices.first.image,:bill,:list %>
+        <img alt="bill" src="/images/nopic_list.gif" title="bill">
+      <% end %>
     <% end %>
   </div>
   <div class="detail">
