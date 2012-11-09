@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
       cookies[:ip] = request.ip
       ip = request.ip
       @ip = Ip.where(ip: ip).first_or_create
-      get_city_name @ip.city
+      get_city_name @ip.city.nil? ? City.first : @ip.city
     end
     ip_infos
   end
