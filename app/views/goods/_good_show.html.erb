@@ -50,7 +50,7 @@
 </div>
 
 <div class="goods_div_<%=good.id%> h" id="product_images_<%= good.id -%>">
-  <%= render  'uploads/uploads',uploadable: good,uploads: good.uploads %>
+  <%= render  'uploads/uploads',uploadable: good,uploads: good.uploads.recent %>
   </div>
 
   <div class="goods_div_<%=good.id%> h" id="product_attrs_<%= good.id -%>">

@@ -11,8 +11,8 @@ class Upload < ActiveRecord::Base
   #validates :image_file_name, presence: true#,uniqueness: {scope: [:uploadable_id, :uploadable_type]}
   validates :uploadable_type, presence: true
   
-  default_scope where(deleted_at: nil).order('id desc')
-  scope :recent,limit(9)
+  default_scope where(deleted_at: nil)
+  scope :recent,order('id desc')#.limit(9)
   scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
  
   #has_attached_file :image, 

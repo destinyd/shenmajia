@@ -1,3 +1,8 @@
+<% @where_name = "图片列表，第#{params[:page] || 1}页" %>
+<% set_meta_tags keywords:  "图片", 
+  description:  "图片列表，第#{params[:page] || 1}页",
+  title: @where_name
+%>
 <div class="images">
   <% @uploads.each do |upload| %>
     <div class="l margin-r10">
