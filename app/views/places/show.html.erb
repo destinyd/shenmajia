@@ -1,6 +1,22 @@
 <% set_meta_tags keywords:  "#{@place},地点,消费", 
   description:  "#{@place}，地址：#{@place.address}，#{@place}地点信息、菜单、消费情况",
-  title:  "#{@place}地点信息、消费情况"
+  title:  "#{@place}地点信息、消费情况",
+  og:{
+  url: place_url(@place),
+  title: "#{@place}地点信息、消费情况",
+  type: 'website',
+  description: @place.address,
+  latitude: @place.lat,
+  longitude: @place.lon,
+  map: raw("http://maps.google.com/maps/api/staticmap?zoom=14&size=318x160&maptype=roadmap&format=png&sensor=false&markers=#{@place.lat},#{@place.lon}")
+  },
+  place:{
+    location:
+    {
+      latitude: @place.lat,
+      longitude: @place.lon
+    }
+  }
 %>
 <% @where_name = @place.name %>
 <% @where = @place %>

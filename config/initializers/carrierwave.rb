@@ -17,3 +17,6 @@ module CarrierWave
     end
   end
 end
+CarrierWave.configure do |config|
+  config.asset_host     = 'https://shenmajia.com' if Rails.env == 'production'     # optional, defaults to nil
+end

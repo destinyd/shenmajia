@@ -1,8 +1,27 @@
 <% @where_name = "[#{@price.type_id}]#{@price.good},单价#{@price.price}元" %>
 <% @where = @price %>
+<% @desc = "#{@price.good}在#{@price.locatable || @price.address}的#{@price.type_id}信息、所在位置信息" %>
 <% set_meta_tags keywords:  "#{@price.good},价格,#{@price.type_id}", 
-description:  "#{@price.good}在#{@price.locatable || @price.address}的#{@price.type_id}信息、所在位置信息",
-  title: @where_name %>
+description:  @desc,
+  title: @where_name,
+  og:{
+  url: price_url(@price),
+  title: @where_name,
+  type: 'website',
+  image: @price.image.medium,
+  description: @desc,
+  latitude: @price.lat,
+  longitude: @price.lon,
+  map: raw("http://maps.google.com/maps/api/staticmap?zoom=14&size=318x160&maptype=roadmap&format=png&sensor=false&markers=#{@price.lat},#{@price.lon}")
+  },
+  place:{
+    location:
+    {
+      latitude: @price.lat,
+      longitude: @price.lon
+    }
+  }
+%>
 <div class="l">
  <p>
 <b><%= label :price,:name %>:</b>

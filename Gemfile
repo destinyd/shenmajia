@@ -76,7 +76,7 @@ gem 'ajax_nested_form'
 #gem 'omniauth-jiepang',:git => 'git://github.com/transist/omniauth-jiepang.git'
 gem 'guid'
 
-gem 'meta-tags', :require => 'meta_tags'
+gem 'meta-tags', :require => 'meta_tags',git: 'git://github.com/destinyd/meta-tags.git'
 gem 'rails_kindeditor', '~> 0.3.0'
 gem 'delayed_job_active_record'
 gem 'daemons'

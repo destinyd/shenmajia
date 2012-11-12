@@ -1,7 +1,15 @@
+<% @desc = "#{@good}商品信息,#{@good}价格分析,#{@good}价格信息" %>
 <% 
-  set_meta_tags keywords:  "商品,#{@good.tag_list.insert(0,@good.name).uniq.join(',')}", 
-  description:  "#{@good}商品信息,#{@good}价格分析,#{@good}价格信息",
-  title:  "#{@good}商品信息"
+  set_meta_tags keywords:  "#{@good.tag_list.insert(0,@good.name).push('商品').uniq.join(',')}", 
+  description:  @desc,
+  title:  "#{@good}商品信息",
+  og:{
+  url: good_url(@good),
+  title: @good.name,
+  type: 'product',
+  image: @good.image.medium,
+  description: @good.desc.blank? ? @desc : "#{strip_tags(@good.desc).gsub(/\s|\n|\r|\t|&nbsp;/,'').block 200}",
+  }
 %>
 <% @where_name = @good.name %>
 <% @where = @good %>
