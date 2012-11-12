@@ -1,7 +1,8 @@
 # coding: utf-8
 class PlacesController < InheritedResources::Base
-  before_filter :authenticate_user!,only: [:new,:create]
-  actions :all, except: [:edit,:update,:destroy]
+  before_filter :authenticate_user!,only: [:new,:create,:edit,:update]
+  before_filter :admin?,only: [:edit,:update]
+  actions :all, except: [:destroy]
   belongs_to :city,finder: :find_by_name!, optional: true
   #belongs_to :place, optional: true
   respond_to :html,except: :near

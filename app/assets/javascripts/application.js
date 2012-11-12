@@ -103,13 +103,17 @@ function price_on_blur(){
   }
 }
 
+markers = [];
+markers_hash = {};
+InfoWindows = [];
+map = null;
 function form_map_init(){
       var mapOptions = {
         center: new google.maps.LatLng(lat, lon),
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
-      var map = new google.maps.Map(document.getElementById('google_map'), mapOptions);
+      map = new google.maps.Map(document.getElementById('google_map'), mapOptions);
 
       var input = document.getElementById('form_address');
       if(input){
@@ -121,6 +125,7 @@ function form_map_init(){
       var infowindow = new google.maps.InfoWindow();
       var marker = new google.maps.Marker({
         map: map
+          
       });
       //var geocoder;
       //geocoder = new google.maps.Geocoder();
@@ -169,6 +174,15 @@ function form_map_init(){
         });
       }
 }
+
+function form_map_init_marker(){
+      var infowindow = new google.maps.InfoWindow();
+      var marker = new google.maps.Marker({
+        map: map
+      });
+      marker.setPosition(new google.maps.LatLng(lat, lon));
+      
+}
     function show_map_init() {
       var mapOptions = {
         center: pos,
@@ -185,10 +199,22 @@ function form_map_init(){
 
     }
 
-markers = [];
-markers_hash = {};
-InfoWindows = [];
-map = null;
+    function show_map_init() {
+      var mapOptions = {
+        center: pos,
+        zoom: 17,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(document.getElementById('google_map'), mapOptions);
+
+      var infowindow = new google.maps.InfoWindow();
+      var marker = new google.maps.Marker({
+        map: map
+      });
+      marker.setPosition(pos);
+
+    }
+
 function index_map_init() {
 
   var mapOptions = {
