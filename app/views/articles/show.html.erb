@@ -1,7 +1,8 @@
-<% content_for :title do -%>[公告]<%= @article.title %> <% end -%>
-<% content_for :desc do -%>[公告]<%= @article.title %> <% end -%>
 <% @where_name = @article.title %>
 <% @where = @article %>
+<% set_meta_tags keywords:  "#{@article.title},公告", 
+description:  "#{strip_tags(@article.content).block 250}",
+  title: @where_name %>
 <div>
   <div class="under_title" style="text-align:center;">
     <% if @article.user %>
