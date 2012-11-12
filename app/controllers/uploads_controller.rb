@@ -7,7 +7,7 @@ class UploadsController < InheritedResources::Base
   cache_sweeper :upload_sweeper
 
   def create
-    create!{@upload.uploadable}
+    create!{@upload.uploadable ? @upload.uploadable : @upload}
   end
   
   protected

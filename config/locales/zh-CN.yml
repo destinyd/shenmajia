@@ -192,7 +192,7 @@ zh-CN:
       article: 文章
       integral: 积分
       review: 评价
-      upload: 上传文件
+      upload: 图片
       attr: 属性
       outlink: 外链
       price_good: "商品绑定"
@@ -320,7 +320,7 @@ zh-CN:
     articles: 公告
     integrals: 积分
     reviews: 评价
-    uploads: 上传文件
+    uploads: 图片
     attrs: 属性
     outlinks: 外链
     price_goods: "商品绑定"

@@ -1,7 +1,13 @@
+<% if @upload.uploadable %>
+  <% @where_name = @upload.uploadable.to_s %>
+  <% @where = @upload.uploadable %>
+  <% set_meta_tags keywords:  "#{@upload.uploadable}图片,#{@upload.uploadable}上传文件", 
+  description:  "#{@upload.uploadable}图片,#{@upload.uploadable}上传文件",
+    title: @where_name %>
+<% end -%>
 <div  class="m">
   <%= image_tag @upload.image.url(:large) %>
   <p>
   <%= link_to @upload.uploadable,@upload.uploadable %>
   </p>
-
 </div>

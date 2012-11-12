@@ -24,5 +24,12 @@ class Upload < ActiveRecord::Base
     self.deleted_at = Time.now
     self.save
   end
+
+  after_create do
+    if self.uploadable and self.uploadable.methods.include? :image and self.uploadable.image.blank?
+      self.uploadable.write_uploader(:image, read_attribute(:image_file_name))
+      self.uploadable.save if self.uploadable.changed?
+    end
+  end
      
 end
