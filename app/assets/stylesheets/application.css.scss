@@ -900,7 +900,27 @@ a{color:$main-color;}
 }
 .margin-b10{margin-bottom:10px;}
 .margin-t10{margin-top:10px;}
+.margin-l10{margin-left:10px;}
+.margin-r10{margin-right:10px;}
 
 #menus_index,#menus{
   .image{margin-bottom: 10px;}
+}
+.list_title{
+  width:100%;
+  text-align: center;
+  white-space:nowrap;
+  overflow: hidden;
+}
+#uploads_index{
+  div.images{
+    div{
+      width: 180px;
+    }
+  }
+}
+.pagination{
+  margin-top: 10px;
+  float:right;
+  clear:both;
 }
