@@ -9,7 +9,7 @@ class Upload < ActiveRecord::Base
   #validates_attachment_content_type :image, content_type: ['image/jpeg', 'image/png', 'image/gif']
 
   #validates :image_file_name, presence: true#,uniqueness: {scope: [:uploadable_id, :uploadable_type]}
-  validates :uploadable_type, presence: true
+  #validates :uploadable_type, presence: true
   
   default_scope where(deleted_at: nil)
   scope :recent,order('id desc')#.limit(9)
