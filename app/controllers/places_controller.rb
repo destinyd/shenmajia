@@ -1,8 +1,8 @@
 # coding: utf-8
 class PlacesController < InheritedResources::Base
   before_filter :authenticate_user!,only: [:new,:create,:edit,:update]
-  before_filter :admin?,only: [:edit,:update]
-  actions :all, except: [:destroy]
+  before_filter :admin?,only: [:edit,:update,:admin]
+  actions :all, except: [:destroy],collection: [:admin]
   belongs_to :city,finder: :find_by_name!, optional: true
   #belongs_to :place, optional: true
   respond_to :html,except: :near
@@ -54,6 +54,13 @@ class PlacesController < InheritedResources::Base
     else
       @places = Place.square([params[:swlat],params[:swlon]],[params[:nelat],params[:nelon]]).paginate(page: params[:page],per_page: 100)
     end
+  end
+
+  def admin
+    @place = Place.find(params[:id])
+    @prices = @place.prices.recent.paginate(page: params[:page])
+    @price = @place.prices.new
+    @price.build_good
   end
 
 

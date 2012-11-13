@@ -1,0 +1,13 @@
+<div id="place_prices" class="ajax_paginate form_goods_search">
+  <ul class="table pretty">  
+    <li class="name">名称</li>  
+    <li>规格</li>  
+    <li class="unit">单位</li>  
+    <li class="unit_price">价格</li>  
+    <li class="time">记录时间</li>  
+  </ul>
+  <% @prices.each do |price| %>
+    <%= render "prices/ul",price:price %>
+  <% end -%>
+</div>
+<%= render "admin_plus" %>

@@ -3,9 +3,10 @@ class Price < ActiveRecord::Base
   acts_as_paranoid
   STATUS_LOW = 5
   mount_uploader :image, ImageUploader
-  attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title
-  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:locatable,:city_id,:image#,:uploads_attributes
+  attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title, :place_ids
+  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:city_id,:image, :place_ids#,:uploads_attributes
   attr_accessible :user_id, on: :bill
+  attr_accessible :locatable_type,:locatable_id,:image_path, on: :admin
   #validates :type_id, presence: true
   validates :price, presence: true
   #validates :good_id, presence: true
@@ -50,14 +51,21 @@ class Price < ActiveRecord::Base
   scope :shop_price, lambda {|shop| recent.shop_type.where(locatable_type: 'Shop', locatable_id: shop.id)}
   scope :with_pic,where('prices.image is not null')
   scope :in_city,with_pic.includes(:good)
-  scope :list,with_good.with_locatable
+  scope :in_action,lambda{|action_name|
+    if %w{cheapest groupbuy}.include? action_name
+      eval(action_name)
+    else
+      scoped
+    end
+  }
+  scope :list,with_good.with_locatable.recent
   scope :just_ten,limit(10)
 
   scope :in_place,with_good.order('type_id desc').recent#.group('good_id')
   scope :tuijian,recent.with_pic.list.limit(6).group(:good_id)
 
 
-  accepts_nested_attributes_for :good
+  accepts_nested_attributes_for :good,reject_if: lambda { |good| good[:name].blank? }
   #accepts_nested_attributes_for :uploads
   accepts_nested_attributes_for :outlinks, reject_if: lambda { |outlink| outlink[:url].blank? }, allow_destroy: true
 
@@ -202,12 +210,6 @@ class Price < ActiveRecord::Base
     [21,22].include? read_attribute(:type_id)
   end
 
-  def outlink_user
-    outlinks.each do |outlink|
-      outlink.user_id = user_id
-    end
-  end
-
   def name
     good.name if good
   end
@@ -220,6 +222,14 @@ class Price < ActiveRecord::Base
     self.update_attribute :finish_at, DateTime.now if self.finish_at.nil? and  self.inventories.length == 1
   end
 
+  def image_path= obj
+    write_uploader :image,obj
+  end
+
+  def image_path
+    read_attribute(:image)
+  end
+
   include PosHelper
 
   # before_validation :init_type_id
@@ -227,11 +237,40 @@ class Price < ActiveRecord::Base
   # before_create :geocode, if: [:no_locate?,:address_changed?]#,on: :create
   #before_update :geocode, if: :address_changed?
   before_create :outlink_user
-  after_create :exp,:deal_good,:deal_image
+  after_create :exp,:deal_good,:deal_image,:deal_place_ids
   # after_create :deal_cheap_price,:deal_original_price
 
 
   protected
+  def outlink_user
+    outlinks.each do |outlink|
+      outlink.user_id = user_id
+    end
+  end
+  
+  def deal_place_ids
+    unless place_ids.blank?
+      place_ids.split(',').each do |p_id|
+        if @place = Place.where(id: p_id).first
+          Price.delay.create({
+            price: self.price,
+            type_id: self.read_attribute(:type_id),
+            started_at: self.started_at,
+            finish_at: self.finish_at,
+            good_id: self.good_id,
+            lat: @place.lat,
+            lon: @place.lon,
+            city_id: self.city_id,
+            locatable_type: self.locatable_type,
+            locatable_id: p_id,
+            image_path: self.image_path
+          },on: :admin
+          )
+        end
+      end
+    end
+  end
+
   # def locate_by_city
   #   if self.user_id.nil? and self.no_locate? and ! self.city.blank?
   #     if @locate = Locate.where(name: self.city).first_or_create

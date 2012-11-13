@@ -1,0 +1,5 @@
+<% if @price.valid? %>
+  $('#place_prices').append('<%= j render "prices/ul",price:@price %>')
+<% else %>
+  $('#new_price').html('<%= j render "places/price_form" %>')
+<% end %>

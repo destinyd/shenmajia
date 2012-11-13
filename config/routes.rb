@@ -46,7 +46,7 @@ Zhekou::Application.routes.draw do
     resources :bills, only:  [:index,:new,:create]
     resources :costs, only:  :index
     resources :menus
-    resources :prices,only: :index
+    resources :prices,only: [:index,:create]
 
 
     #get 'near(/:page)' => 'places#near', constraints: {

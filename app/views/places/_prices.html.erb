@@ -7,26 +7,7 @@
     <li class="time">记录时间</li>  
   </ul>
   <% prices.each do |price|  %>
-    <%= content_tag :ul,class: 'table' do %>
-      <%= content_tag 'li',class: 'name' do -%>
-        <%= link_to price.name,price.good %>
-      <% end %>
-      <%= content_tag 'li' do -%>
-        <%= price.good.norm %>&nbsp;
-      <% end %>
-      <%= content_tag 'li',class: 'unit' do -%>
-        <%= price.good.unit %>
-      <% end %>
-      <%= content_tag 'li' do -%>
-        <%= price.good.origin %>&nbsp;
-      <% end if nil %>
-      <%= content_tag 'li',class: 'unit_price' do -%>
-        <%= link_to "[#{price.type_id}]#{price.human_price}",price %>&nbsp;
-      <% end %>
-      <%= content_tag 'li',class:'time' do -%>
-        <%= price.created_at %>&nbsp;
-      <% end %>
-    <% end %>
+    <%= render "prices/ul",price:price %>
   <% end  %>
   <div class="c"></div>
 </div>

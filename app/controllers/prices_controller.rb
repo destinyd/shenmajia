@@ -1,7 +1,7 @@
 class PricesController < InheritedResources::Base
   before_filter :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
   respond_to :html
-  respond_to :js, only: [:cheap,:near_cheapest, :near_groupbuy]
+  respond_to :js, only: [:cheap,:near_cheapest, :near_groupbuy,:create]
   belongs_to :city, finder: :find_by_name, optional: true
   belongs_to :good, optional: true
   belongs_to :place, optional: true
@@ -42,12 +42,20 @@ class PricesController < InheritedResources::Base
   def cheap
   end
 
+  #def create
+    #create! do |format|
+      #format.js{render :create}
+      #format.html {redirect_to @price}
+    #end
+  #end
+
 
   protected
   def collection
-    @prices ||= end_of_association_chain.list
-    @prices = @prices.send action_name if %w{cheapest}.include? action_name
-    @prices = @prices.recent.paginate(page: params[:page])
+    @prices ||= end_of_association_chain.in_action(action_name).list.paginate(page: params[:page])
+    #@prices = @prices.send action_name if %w{cheapest groupbuy}.include? action_name
+    #@prices = @prices.recent.paginate(page: params[:page])
+    #@prices ||=  end_of_association_chain.recent.paginate(page: params[:page])
   end
   #private
   #def find_able_and_prices
