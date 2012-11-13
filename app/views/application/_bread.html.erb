@@ -1,43 +1,44 @@
 <header>
-<nav>
-<ul>
-  <li><a href='/'>神马价</a></li>
-  <% begin %>
-    <% if parent %>
-      <%= raw "<li>&raquo;</li><li>#{link_to parent,parent}</li>" %>
-    <% end -%>
-  <% rescue %>
-  <% end %>
-  <% if could_bread? %>
-    <% begin %>
-      <% if ['index','show'].include? 'index' %>
-        <%= raw "<li>&raquo;</li><li>#{link_to(t("controller.#{controller_name}"),eval("#{parent.class.name.downcase}_#{controller_name}_path(parent)"))}</li>" %>
-      <% else %>
-        <%= raw "<li>&raquo;</li><li>#{link_to(t("controller.#{controller_name}"),[parent,resource])}</li>" %>
+  <nav>
+    <ul>
+      <li><a href='/'>神马价</a></li>
+      <% begin %>
+        <% if parent %>
+          <%= raw "<li>&raquo;</li><li>#{link_to parent,parent}</li>" %>
+        <% end -%>
+      <% rescue %>
       <% end %>
-    <% rescue %>
-      <%# begin %>
-      <%= raw "<li>&raquo;</li><li>#{link_to(t("controller.#{controller_name}"),eval("#{controller_name}_path"))}</li>" %>
-      <%# rescue %>
-      <%# end -%>
-    <% end %>
-  <% end -%>
-  <% unless (could_bread? or ['index','show'].include? action_name) %>
-
-    <% begin %>
-      <% if t("action.#{controller_name}.#{action_name}").scan(/translation_missing/).blank? %>
-        <li>&raquo;</li><li><%= link_to(t("action.#{controller_name}.#{action_name}")) %></li>
-      <% else %>
-        <li>&raquo;</li><li><%= link_to(t("action.#{action_name}")) %></li>
+      <% if could_bread? %>
+        <% begin %>
+          <% if ['index','show'].include? action_name %>
+            <%= raw "<li>&raquo;</li><li>#{link_to(t("controller.#{controller_name}"),eval("#{parent.class.name.downcase}_#{controller_name}_path(parent)"))}</li>" %>
+          <% else %>
+            <%= raw "<li>&raquo;</li><li>#{link_to(t("controller.#{controller_name}"),[parent,resource])}</li>" %>
+          <% end %>
+        <% rescue %>
+          <% begin %>
+            <%= raw "<li>&raquo;</li><li>#{link_to(t("controller.#{controller_name}"),eval("#{controller_name}_path"))}</li>" %>
+          <% rescue %>
+            <%= raw "<li>&raquo;</li><li>#{link_to(t("controller.#{controller_name}"),'#wrap')}</li>" %>
+          <% end -%>
+        <% end %>
       <% end -%>
-    <% rescue %>
-      <li>&raquo;</li><li><%= link_to(t("action.#{action_name}")) %></li>
-    <% end %>
-  <% end  -%>
-  <% if @where_name -%>
-    <li>&raquo;</li>
-    <li><h1><%= link_to @where_name,@where || request.url %></h1></li>
-  <% end -%>
-</ul>
-</nav>
+      <% unless (could_bread? or ['index','show'].include? action_name) %>
+
+        <% begin %>
+          <% if t("action.#{controller_name}.#{action_name}").scan(/translation_missing/).blank? %>
+            <li>&raquo;</li><li><%= link_to(t("action.#{controller_name}.#{action_name}")) %></li>
+          <% else %>
+            <li>&raquo;</li><li><%= link_to(t("action.#{action_name}")) %></li>
+          <% end -%>
+        <% rescue %>
+          <li>&raquo;</li><li><%= link_to(t("action.#{action_name}")) %></li>
+        <% end %>
+      <% end  -%>
+      <% if @where_name -%>
+        <li>&raquo;</li>
+        <li><h1><%= link_to @where_name,@where || request.url %></h1></li>
+      <% end -%>
+    </ul>
+  </nav>
 </header>

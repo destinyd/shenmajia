@@ -27,43 +27,16 @@ Zhekou::Application.routes.draw do
       page: /[2-9]|\d{2,}/
     },default:{page:1},as: controller_name.to_sym
   }
-  #@index_page_with_parent
-
-  #%w{places costs goods prices bills inventories}.each do |p|
-    #@index_page.call p
-  #end
 
   root to:  "home#index"
   match "/:reviewable_type/:reviewable_id/reviews" => "reviews#:action",as: 'reviewable'
   #match "/:locatable_type/:locatable_id" => ":locatable_type#show",id:  :locatable_id,as: 'locatable'
 
-  #  match "/users/sign_out(.:format)",controller: 'users/sessions',action:  :destroy,as: 'destroy_user_session'
-
-  #get '/places/:place_id/prices(/page/:page)' => 'prices#index', constraints: {
-    #page: /[23456789]|\d{2,}/
-  #},
-  #defaults: {page: 1},as: :place_prices
-
-  #%w{place cost good price bill inventory}.each do |p|
-    ##get "/#{p.pluralize}/page/:page" => "#{p.pluralize}#index"
-    #get "/#{p.pluralize}/:#{p}_id/costs/page/:page" => "costs#index" if %w{bill}.include?(p)
-    #get "/#{p.pluralize}/:#{p}_id/bills/page/:page" => "bills#index" if %w{place price}.include?(p)
-  #end
-
   %w{groupbuy cheapest}.each do |p|
     get "/prices/#{p}/page/:page" => "prices##{p}"
-  end
-
-  %w{groupbuy cheapest}.each do |p|
     get "/cities/:city_id/prices/#{p}/page/:page" => "prices##{p}"
   end
 
-  #get "/cities/:city_id/prices/page/:page" => "prices#index"
-
-  #get "/goods/:good_id/prices/page/:page" => "prices#index"
-
-
-  
   resources :carts, only: [:index]
   
   get '/users/status' => "users/Status#index", as:  :user_status
@@ -83,17 +56,18 @@ Zhekou::Application.routes.draw do
 
     @pos_regexp = /\d+(\.\d+)?/
     get 'near(/:swlat,:swlon,:nelat,:nelon)(/page/:page)' => 'places#near', constraints: {
-      page: /[23456789]|\d{2,}/,
+      page: /[2-9]|\d{2,}/,
       swlat: @pos_regexp,
       swlon: @pos_regexp,
       nelat: @pos_regexp,
       nelon: @pos_regexp
     },
-    defaults: {page: 1},as: :near,on: :collection
+    page: 1,as: :near,on: :collection
 
 
     get 'search' ,on:  :collection
     get 'local',on: :collection
+    get 'admin',on: :member
     #match '/search/:q/page/:page' => 'places#search', on:  :collection,as:  :search
   end
 
@@ -111,10 +85,6 @@ Zhekou::Application.routes.draw do
   resources :costs, except: [:edit,:update] do
     resources :comments
   end
-
-  #%w{prices goods costs places}.each do |p|
-    #match "/#{p}", to: redirect{|params,req| "/#{p}/page/#{req.params[:page] || 1}"}
-  #end
 
   resources :norms,only:  :index
   resources :units,only:  :index
@@ -145,22 +115,22 @@ Zhekou::Application.routes.draw do
     #end
   end
 
-  #namespace :shop do
-    #resources :orders,only: [:index,:show,:destroy,:update] do
-      #post :pay,on: :member
-      #post :cancel,on: :member
-    #end
-    #resources :inventories,except: [:show]
-    #resources :shops,only: [:index,:edit]
-    #resources :shop_contacts
-    #root to:  "homes#index"
-    #get 'edit' => "homes#edit"
-  #end
-
   scope '/userhome' do 
     resources :contacts do
       post :set_default, on:  :member
     end
+  end
+
+  namespace :shop do
+    resources :orders,only: [:index,:show,:destroy,:update] do
+      post :pay,on: :member
+      post :cancel,on: :member
+    end
+    resources :inventories,except: [:show]
+    resources :shops,only: [:index,:edit]
+    resources :shop_contacts
+    root to:  "homes#index"
+    get 'edit' => "homes#edit"
   end
 
 
