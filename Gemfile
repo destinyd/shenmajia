@@ -22,8 +22,6 @@ end
 #gem 'libxml-ruby'
 #for Tuan
 gem 'geocoder'
-gem "devise", ">= 2.1.0.rc"
-#gem 'paperclip'
 gem 'mime-types', :require => 'mime/types'
 gem "will_paginate", ">= 3.0.3"
 gem 'jquery-rails'
@@ -72,6 +70,9 @@ gem 'nested_form'
 gem 'ajax_nested_form'
 
 #gem 'quiet_assets', :group => :development
+gem "devise"#, ">= 2.1.0.rc"
+gem 'oauth2', :group => [:development,:test]
+gem 'doorkeeper', '~> 0.6.2'
 #gem 'omniauth-oauth2'
 #gem 'omniauth-jiepang',:git => 'git://github.com/transist/omniauth-jiepang.git'
 gem 'guid'

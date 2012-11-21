@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
 
   has_many :user_vips
 
+  has_many :authentications
+
+  has_many :oauth_applications, class_name: 'Doorkeeper::Application', as: :owner
+
   validates :username, presence: true,uniqueness: true, length: {in: 2..12 }
 
 

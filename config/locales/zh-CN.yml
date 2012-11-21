@@ -345,6 +345,7 @@ zh-CN:
       orders: 店铺订单
       home: 店铺信息
     home: '主页'
+    sessions: 登录
   action:
     prices:
       new: 记账

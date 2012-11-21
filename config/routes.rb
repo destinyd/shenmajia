@@ -1,4 +1,13 @@
 Zhekou::Application.routes.draw do
+  use_doorkeeper
+  namespace :api do
+    namespace :v1 do
+      # another api routes
+      get '/me' => "credentials#me"
+      get '/reg' => "registrations#create"
+    end
+  end
+
   resources :menus,except: :index
   @prices = lambda{
     resources :prices,only: [:index,:show,:new,:create] do
