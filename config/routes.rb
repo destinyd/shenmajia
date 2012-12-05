@@ -4,7 +4,16 @@ Zhekou::Application.routes.draw do
     namespace :v1 do
       # another api routes
       get '/me' => "credentials#me"
-      get '/reg' => "registrations#create"
+      get '/dashboard' => "credentials#dashboard"
+      post '/reg' => "registrations#create"
+      resources :bills,except: [:edit,:update,:new]
+      resources :costs,except: [:edit,:update,:new]
+      resources :places,except: [:edit,:update,:new,:destroy] do
+        match :search,on: :collection
+      end
+      resources :goods,except: [:edit,:update,:new,:destroy] do
+        match :search,on: :collection
+      end
     end
   end
 

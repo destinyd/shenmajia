@@ -61,7 +61,7 @@ class Jiepang
     str_p = ''
     #puts args
     args.each do |k,v|
-      str_p += "&#{k}=#{URI.escape(v)}" unless v.blank?
+      str_p += "&#{k}=#{URI.escape(v.to_s)}" unless v.to_s.blank?
     end
     url = "#{@@url}#{action}?#{str_p}"
     #puts url

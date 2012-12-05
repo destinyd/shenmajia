@@ -32,6 +32,7 @@ class Place < ActiveRecord::Base
   
   scope :recent,order("id desc")
   scope :order_city_id,order("city_id desc")
+  scope :list,select('places.id,places.name,places.tel,places.city_id,places.lat,places.lon')
   scope :square,lambda{|sw,ne|
     where("places.lat >= ? and places.lon >= ? and places.lat <= ? and places.lon <= ?",sw[0],sw[1],ne[0],ne[1])
   }
@@ -110,10 +111,17 @@ class Place < ActiveRecord::Base
     unless already_got(args)
       require 'jiepang'
       Jiepang.search args
-    end
+    end if args[:page] and args[:page].to_i == 1
     PlaceSearch.where(args).create
-    return where('name LIKE ?', "%#{args[:q]}%").where(city_id: [City.find_by_name(args[:city]).try(:id),nil]) unless args[:city].blank?
-    where('name LIKE ?', "%#{args[:q]}%") if  args[:city].blank?
+
+    if args[:q].blank?
+      @result = near([args[:lat].to_f,args[:lon].to_f],40)
+    else
+      @result = where('name LIKE ?', "%#{args[:q]}%")
+      @result = @result.near([args[:lat].to_f,args[:lon].to_f],40) unless args[:lat].blank? or args[:lon].blank?
+    end
+    @result = @result.where(city_id: [City.find_by_name(args[:city]).try(:id),nil]) unless args[:city].blank?
+    @result
   end
 
 

@@ -5,6 +5,8 @@ class PlaceSearch < ActiveRecord::Base
   def self.already_got args
     p_args = args.merge(created_at: DateTime.now.beginning_of_month..DateTime.now.end_of_month)
     p_args.delete(:page)
+    p_args.delete(:source)
+    p_args.delete(:count)
     got = where(p_args).first
     return true if got
     false

@@ -1,9 +1,9 @@
-#source 'http://rubygems.org'
 require 'rbconfig'
 HOST_OS = RbConfig::CONFIG['host_os']
+#source 'http://rubygems.org'
 source 'http://ruby.taobao.org/'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -33,7 +33,7 @@ group :development do
   #gem "nifty-generators"
   gem "rspec-rails", "~> 2.0"
   gem 'guard-rspec'#, '0.5.5'
-  gem 'debugger'
+  gem 'debugger', git: 'git://github.com/cldwalker/debugger.git'
 end
 
 case HOST_OS

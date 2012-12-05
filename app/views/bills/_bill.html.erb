@@ -8,8 +8,8 @@
   </div>  
   <div class="images">
     <% bill.bill_prices.each do |bp| %>
-      <%= link_to bp.price,title: bp.price.human_name do %>
-        <%= upload_image_tag bp.image,bp.price.human_name,:list %>
+      <%= link_to bp.price,title: bp.price.try(:human_name) do %>
+        <%= upload_image_tag bp.image,bp.price.try(:human_name),:list %>
       <% end %>
     <% end -%>
   </div>
