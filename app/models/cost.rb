@@ -26,7 +26,7 @@ class Cost < ActiveRecord::Base
   #has_many :prices,through: :price_costs
 
 
-  scope :recent,order("costs.id desc")
+  scope :recent,order("costs.created_at desc")
   #scope :with_price,includes(:price)
   #scope :with_good,includes(:good)
 
