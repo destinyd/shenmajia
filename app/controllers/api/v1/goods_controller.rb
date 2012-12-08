@@ -3,11 +3,17 @@ module Api::V1
     doorkeeper_for :all
 
     def index
-      @goods = respond_with Good.list.paginate(page: params[:page])
+      if !params[:place_id].blank?
+        @goods = Place.find(params[:place_id]).goods.paginate(page: params[:page])
+      else
+        @goods = Good.list.paginate(page: params[:page])
+      end
+      respond_with @goods
     end
 
     def show
-      @good = respond_with Good.find(params[:id])
+      @good = Good.find(params[:id])
+      respond_with @good
     end
 
     def create
@@ -17,7 +23,7 @@ module Api::V1
 
     def search
       @goods = Good.search(params[:q]).list.paginate(page: params[:page])
-      respond_with @goods
+      render json: @goods
     end
   end
 end

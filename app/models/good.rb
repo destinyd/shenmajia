@@ -60,8 +60,11 @@ class Good < ActiveRecord::Base
   end
 
   def self.search(q)
+    r = nil
     unless q.blank?
-      running.where('name LIKE ?', "%#{q}%")
+      r = running.where(barcode:q) if q.to_i.to_s.length > 1 and q.to_i.to_s.length == q.length
+      r = running.where('name LIKE ?', "%#{q}%") if r.nil?
+      r
     else
       running
     end
