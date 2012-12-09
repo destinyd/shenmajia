@@ -115,7 +115,7 @@ class Place < ActiveRecord::Base
     PlaceSearch.where(args).create
 
     if args[:q].blank?
-      @result = near([args[:lat].to_f,args[:lon].to_f],40)
+      @result = near([args[:lat].to_f,args[:lon].to_f],40,select: 'places.id,places.name,places.tel,places.city_id,places.lat,places.lon')
     else
       @result = where('name LIKE ?', "%#{args[:q]}%")
       @result = @result.near([args[:lat].to_f,args[:lon].to_f],40) unless args[:lat].blank? or args[:lon].blank?
