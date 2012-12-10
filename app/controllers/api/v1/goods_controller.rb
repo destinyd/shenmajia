@@ -4,7 +4,7 @@ module Api::V1
 
     def index
       if !params[:place_id].blank?
-        @goods = Place.find(params[:place_id]).goods.paginate(page: params[:page])
+        @goods = Place.find(params[:place_id]).goods.list.paginate(page: params[:page])
       else
         @goods = Good.list.paginate(page: params[:page])
       end

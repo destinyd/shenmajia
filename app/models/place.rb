@@ -32,7 +32,7 @@ class Place < ActiveRecord::Base
   
   scope :recent,order("id desc")
   scope :order_city_id,order("city_id desc")
-  scope :list,select('places.id,places.name,places.tel,places.city_id,places.lat,places.lon')
+  scope :list,select('places.id,places.name,places.tel,places.city_id,places.lat,places.lon,places.address')
   scope :square,lambda{|sw,ne|
     where("places.lat >= ? and places.lon >= ? and places.lat <= ? and places.lon <= ?",sw[0],sw[1],ne[0],ne[1])
   }
