@@ -4,12 +4,10 @@ module Api::V1
 
     def index
       @bills = respond_with current_resource_owner.bills.paginate page: params[:page]
-      respond_with @bills
     end
 
     def show
       @bill = respond_with current_resource_owner.bills.find(params[:id])
-      respond_with @bill
     end
 
     def create
