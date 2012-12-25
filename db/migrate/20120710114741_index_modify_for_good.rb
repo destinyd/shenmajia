@@ -1,5 +1,5 @@
 class IndexModifyForGood < ActiveRecord::Migration
-  def change
+  def up
     remove_index :goods, :name
     add_index :goods,:name
     add_index :goods, :barcode, :uniq => true
