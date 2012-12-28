@@ -66,9 +66,6 @@ class ApplicationController < ActionController::Base
   end
 
   def log_user_agent
-    logger.info "HTTP_USER_AGENT #{request.env["HTTP_USER_AGENT"]}"
+    logger.info "HTTP_USER_AGENT #{request.env["HTTP_USER_AGENT"]}" if ENV['RAILS_ENV'] == 'production'
   end
-
-
-
 end
