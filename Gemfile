@@ -1,9 +1,9 @@
 require 'rbconfig'
 HOST_OS = RbConfig::CONFIG['host_os']
-#source 'http://rubygems.org'
+#source 'https://rubygems.org'
 source 'http://ruby.taobao.org/'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.11'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
