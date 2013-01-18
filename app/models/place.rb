@@ -1,6 +1,6 @@
 class Place < ActiveRecord::Base
-  attr_accessible :address, :guid, :lat, :lon, :name, :tel, :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :categories, :link, :dist, :city_id, :addr, :city
-  attr_accessor :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :dist
+  attr_accessible :address, :guid, :lat, :lon, :name, :tel, :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :categories, :link, :dist, :city_id, :addr, :city,:venue_info
+  attr_accessor :mayor_description, :has_event, :has_surprise, :has_mayor_coupon, :dist,:venue_info
 
   store :jiepang , accessors: [ 'mayor_id', 'checkin_users_num', 'checkin_num', 'mayor', 'categories', :photos ]
 
