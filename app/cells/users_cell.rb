@@ -8,7 +8,7 @@ class UsersCell < Cell::Rails
   #end
 
   cache :where do |cell, options|
-    options[:city].name
+    options[:city]
   end
 
   def login(args)
