@@ -1,8 +1,0 @@
-<% if user_signed_in? %>
-  $('.head_login').html('<%= j render('is_login')   %>')
-  $(".user_show").show();
-<% else %>
-  $('.head_login').html('<%= j render('login')   %>')
-  $(".user_hide").show();
-<% end %>
-$('#where').html('<%= j render 'where' %>');
