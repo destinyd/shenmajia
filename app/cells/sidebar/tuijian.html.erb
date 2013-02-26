@@ -1,9 +1,6 @@
-<% cache "sidebar_tuijian_#{params[:city_id]}_#{@cache_id}" do %>
-  <ul id="tuijian">
-    <% @prices = City.find_by_name(params[:city_id]).prices.tuijian %>
-    <% @prices = Price.tuijian if @price.blank? %>
-    <% @prices.each do |price| %>
-      <li>
+<ul id="tuijian">
+  <% @prices.each do |price| %>
+    <li>
       <div>
         <div class="pics">
           <div class="pic">
@@ -19,7 +16,6 @@
           <p><b>地点</b>:<%= link_to price.locatable,price.locatable %></p>
         </div>
       </div>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+    </li>
+  <% end %>
+</ul>

@@ -27,9 +27,9 @@ Zhekou::Application.routes.draw do
       end
       member do
         #get :buy_one
-        get :near_groupbuy
-        get :near_cheapest
-        get :cheap
+        #get :near_groupbuy
+        #get :near_cheapest
+        #get :cheap
       end
 
       resources :comments
@@ -170,7 +170,7 @@ Zhekou::Application.routes.draw do
     resources :comments
     collection do
       match :search#, on:  :collection
-      get :tuijian#,on
+      #get :tuijian#,on
     end
   end
   match "/inventories/search/page/:page" => "inventories#search"
@@ -182,7 +182,7 @@ Zhekou::Application.routes.draw do
 
   resources :cities,only: [:index] do
     @prices.call
-    get 'inventories/tuijian' => 'inventories#tuijian'
+    #get 'inventories/tuijian' => 'inventories#tuijian'
     resources :shops
     resources :places,only: :index#,page: 1
     #resources :prices,only: :index#,page: 1

@@ -1,9 +1,11 @@
-<%= section title: prices_title do %>
+<% if @price.no_locate? %>
+  暂无数据
+<% else %>
   <ul class="nowrap">
-    <% prices.each do |price| %>
+    <% @prices.each do |price| %>
       <li>
       <%=link_to price.human_name,price, title: price.human_name %><%= price.address %>
       </li>
     <% end %>
   </ul>
-<% end unless prices.blank? %>
+<% end -%>

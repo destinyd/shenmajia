@@ -1,18 +1,18 @@
 class PricesController < InheritedResources::Base
   before_filter :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
   respond_to :html
-  respond_to :js, only: [:cheap,:near_cheapest, :near_groupbuy,:create]
+  respond_to :js, only: :create
   belongs_to :city, finder: :find_by_name, optional: true
   belongs_to :good, optional: true
   belongs_to :place, optional: true
 
-  caches_page :index, :show, :groupbuy, :cheapest#, :near_cheapest, :near_groupbuy, :cheap
-  cache_sweeper :price_sweeper
+  #caches_page :index, :show#, :groupbuy, :cheapest#, :near_cheapest, :near_groupbuy, :cheap
+  #cache_sweeper :price_sweeper
 
-  def groupbuy
-    @prices = collection
-    render action: "index"
-  end
+  #def groupbuy
+    #@prices = collection
+    #render action: "index"
+  #end
 
   #def buy_one
     #price = Price.find(params[:id])
@@ -26,21 +26,21 @@ class PricesController < InheritedResources::Base
     #redirect_to @price
   #end
 
-  def near_groupbuy
+  #def near_groupbuy
 
-  end
+  #end
 
-  def near_cheapest
+  #def near_cheapest
 
-  end
+  #end
 
   def cheapest
     @prices = collection
     render action: "index"
   end
 
-  def cheap
-  end
+  #def cheap
+  #end
 
   #def create
     #create! do |format|
