@@ -3,10 +3,10 @@ class Price < ActiveRecord::Base
   acts_as_paranoid
   STATUS_LOW = 5
   mount_uploader :image, ImageUploader
-  attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title, :place_ids
-  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:city_id,:image, :place_ids#,:uploads_attributes
+  attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title
+  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:city_id,:image
   attr_accessible :user_id, on: :bill
-  attr_accessible :locatable_type,:locatable_id,:image_path, on: :admin
+  attr_accessible :image_path, on: :admin
   #validates :type_id, presence: true
   validates :price, presence: true
   #validates :good_id, presence: true
@@ -23,7 +23,6 @@ class Price < ActiveRecord::Base
   #has_many :price_costs,dependent: :destroy
   #has_many :costs,through: :price_costs
   #has_many :costs
-  belongs_to :locatable, polymorphic: true
 
   has_many :bill_prices#, dependent: :destroy
   has_many :bills,through: :bill_prices
@@ -45,10 +44,8 @@ class Price < ActiveRecord::Base
   scope :not_finish,where("finish_at > ?",Time.now)
   # scope :costs,recent.where(type_id: [0,1])  
   scope :with_good,includes(:good)
-  scope :with_locatable,includes(:locatable)
   scope :you_like,running.order('rand()')
   scope :shop_type, where(type_id: 101..103)
-  scope :shop_price, lambda {|shop| recent.shop_type.where(locatable_type: 'Shop', locatable_id: shop.id)}
   scope :with_pic,where('prices.image is not null')
   scope :in_city,with_pic.includes(:good)
   scope :in_action,lambda{|action_name|
@@ -58,10 +55,9 @@ class Price < ActiveRecord::Base
       scoped
     end
   }
-  scope :list,with_good.with_locatable.recent
+  scope :list,with_good.recent
   scope :just_ten,limit(10)
 
-  scope :in_place,with_good.order('type_id desc').recent#.group('good_id')
   scope :tuijian,recent.with_pic.list.limit(6).group(:good_id)
 
 
@@ -83,10 +79,6 @@ class Price < ActiveRecord::Base
   102=>'商店特价',
   103=>'商店秒杀价'
   }
-
-  def no_locate?
-    self.lon.blank? or self.lat.blank?
-  end
 
   def type_id
     t = read_attribute(:type_id)
@@ -161,7 +153,6 @@ class Price < ActiveRecord::Base
 
   def near_prices long = 20
     return city.prices.where("id != ?",self.id) if city_id
-    return if no_locate?
     @nears ||= nearbys(long)
     @nears ||= @nears.running.limit(10) unless @nears == []
     @nears
@@ -233,13 +224,15 @@ class Price < ActiveRecord::Base
   include PosHelper
 
   # before_validation :init_type_id
-  before_create :locate_city, :locate_pos #:locate_by_city
   # before_create :geocode, if: [:no_locate?,:address_changed?]#,on: :create
   #before_update :geocode, if: :address_changed?
   before_create :outlink_user
-  after_create :exp,:deal_good,:deal_image,:deal_place_ids
+  after_create :exp,:deal_good,:deal_image
   # after_create :deal_cheap_price,:deal_original_price
 
+  def no_locate?
+    self.lon.blank? or self.lat.blank?
+  end
 
   protected
   def outlink_user
@@ -248,29 +241,6 @@ class Price < ActiveRecord::Base
     end
   end
   
-  def deal_place_ids
-    unless place_ids.blank?
-      place_ids.split(',').each do |p_id|
-        if @place = Place.where(id: p_id).first
-          Price.delay.create({
-            price: self.price,
-            type_id: self.read_attribute(:type_id),
-            started_at: self.started_at,
-            finish_at: self.finish_at,
-            good_id: self.good_id,
-            lat: @place.lat,
-            lon: @place.lon,
-            city_id: self.city_id,
-            locatable_type: self.locatable_type,
-            locatable_id: p_id,
-            image_path: self.image_path
-          },on: :admin
-          )
-        end
-      end
-    end
-  end
-
   # def locate_by_city
   #   if self.user_id.nil? and self.no_locate? and ! self.city.blank?
   #     if @locate = Locate.where(name: self.city).first_or_create
@@ -280,19 +250,6 @@ class Price < ActiveRecord::Base
   #   end
   # end
 
-  def locate_city
-    self.city_id = locatable.city_id if self.city_id.blank? and locatable
-  end
-
-  def locate_pos
-    if locatable.class.name == 'Place'
-      self.pos = locatable.lat,locatable.lon
-    elsif locatable.class.name == 'Shop'
-      self.pos = locatable.locatable.pos if locatable.locatable
-    end if no_locate? and locatable
-    self.pos = city.pos if no_locate? and city
-  end  
-  
   def deal_good
     return if good_id
     tmp = Good.where(name: title).first_or_create

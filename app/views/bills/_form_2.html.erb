@@ -3,12 +3,6 @@
 </div>
 
 <% content_for :plus do -%>
-  <%= section title: '记录在本店的商品' do %>
-    <div id="new_bill_place_goods" class="ajax_paginate">
-      <%= render 'prices',prices:@place.prices.in_place.paginate(page: params[:page]),place:@place %>
-    </div>
-  <% end unless @place.goods.blank? -%>
-
   <%= section title: '搜索、添加商品到账单' do %>
     <%= render 'goods_search' %>
     <div id="new_bill_goods_search" class="ajax_paginate">

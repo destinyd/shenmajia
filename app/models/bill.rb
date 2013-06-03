@@ -2,13 +2,12 @@
 class Bill < ActiveRecord::Base
   acts_as_paranoid
   attr_accessor :cost, :desc
-  attr_accessible :locatable_id, :locatable_type, :ordered_at, :total, :bill_prices_attributes, :cost, :desc, :contact_id#,:uploads_attributes
+  attr_accessible :ordered_at, :total, :bill_prices_attributes, :cost, :desc, :contact_id#,:uploads_attributes
   has_many :bill_prices#, dependent: :destroy
   has_many :prices,through: :bill_prices
   has_many :goods,through: :prices
   has_many :costs, dependent: :destroy
   has_many :uploads, as: :uploadable
-  belongs_to :locatable, polymorphic: true
   belongs_to :user
   belongs_to :shop
   belongs_to :contact
@@ -18,14 +17,12 @@ class Bill < ActiveRecord::Base
 
   scope :recent,order("bills.id desc")
   scope :with_pic,where('bills.picture_count > 0')
-  scope :with_locatable,includes(:locatable)
   scope :with_bill_prices,includes(:bill_prices)
   scope :with_goods,includes(:goods)
 
   #for controller
-  scope :in_place,with_locatable.recent.limit(10)
-  scope :list,with_goods.with_locatable
-  scope :with_bl,with_bill_prices.with_locatable
+  scope :list,with_goods
+  scope :with_bl,with_bill_prices
 
   after_initialize do
     total = 0 unless total.blank?
@@ -43,6 +40,10 @@ class Bill < ActiveRecord::Base
     end
   end
 
+  def to_s
+    "账单#{id}"
+  end
+
   include DescBuilder
 
   def create_cost
@@ -55,10 +56,6 @@ class Bill < ActiveRecord::Base
       )
   end
   
-  def to_s
-    "#{locatable}产生的账单"
-  end
-
   before_create do
     ordered_at = DateTime.now if ordered_at.blank?
     unless cost.blank?
@@ -66,9 +63,5 @@ class Bill < ActiveRecord::Base
       build_cost_desc
       create_cost
     end
-  end
-
-  after_create do
-    locatable.goods << self.goods
   end
 end

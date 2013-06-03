@@ -1,6 +1,6 @@
 <% @where_name = "[#{@price.type_id}]#{@price.good},单价#{@price.price}元" %>
 <% @where = @price %>
-<% @desc = "#{@price.good}在#{@price.locatable || @price.address}的#{@price.type_id}信息、所在位置信息" %>
+<% @desc = "#{@price.good}在#{@price.address}的#{@price.type_id}信息、所在位置信息" %>
 <% set_meta_tags keywords:  "#{@price.good},价格,#{@price.type_id}", 
 description:  @desc,
   title: @where_name,
@@ -31,9 +31,6 @@ description:  @desc,
 <b><%= label :price,:price%>:</b>
 <span class="big_price"><%= @price.human_price %></span>
 </p>
-<% if @price.locatable %>
-<p><b>消费地点:</b> <%= link_to @price.locatable,@price.locatable %> </p>
-<% end -%>
 <%= p_field @price,:type_id %>
 <%= p_field @price,:address %>
 <%= p_field @price,:amount %>
@@ -47,9 +44,6 @@ description:  @desc,
  
 </div>
 <div class="r">
-  <div>
-  <%= button_to '我也这价在这买了一件！',place_carts_path(@price.locatable_id,price_id: @price.id) if @price.locatable %>
-  </div>
   <div>
   <%= render 'reviews/links',reviewable: @price %>
   </div> 

@@ -8,9 +8,6 @@ Zhekou::Application.routes.draw do
       post '/reg' => "registrations#create"
       resources :bills,except: [:edit,:update,:new]
       resources :costs,except: [:edit,:update,:new]
-      resources :places,except: [:edit,:update,:new,:destroy] do
-        match :search,on: :collection
-      end
       resources :goods,except: [:edit,:update,:new,:destroy] do
         match :search,on: :collection
       end
@@ -57,36 +54,6 @@ Zhekou::Application.routes.draw do
 
   resources :carts, only: [:index]
   
-  resources :places, except: [:destroy] do
-    resources :carts, only: [:update,:create,:destroy,:index]
-    resources :bills, only:  [:index,:new,:create]
-    resources :costs, only:  :index
-    resources :menus
-    resources :prices,only: [:index,:create]
-
-
-    #get 'near(/:page)' => 'places#near', constraints: {
-      #page: /[23456789]|\d{2,}/
-    #},
-    #defaults: {page: 1},as: :near,on: :collection
-
-    @pos_regexp = /\d+(\.\d+)?/
-    get 'near(/:swlat,:swlon,:nelat,:nelon)(/page/:page)' => 'places#near', constraints: {
-      page: /[2-9]|\d{2,}/,
-      swlat: @pos_regexp,
-      swlon: @pos_regexp,
-      nelat: @pos_regexp,
-      nelon: @pos_regexp
-    },
-    page: 1,as: :near,on: :collection
-
-
-    get 'search' ,on:  :collection
-    get 'local',on: :collection
-    get 'admin',on: :member
-    #match '/search/:q/page/:page' => 'places#search', on:  :collection,as:  :search
-  end
-
   #resources :products
 
   resources :bills, except: [:create,:edit,:update] do
@@ -127,7 +94,6 @@ Zhekou::Application.routes.draw do
     #match 'costs' => 'homes#costs'
     match 'integrals' => 'homes#integrals'
     #resources :shops,only: [:index,:edit,:update] do
-      #get :places_search,on: :collection
     #end
   end
 
@@ -159,7 +125,6 @@ Zhekou::Application.routes.draw do
     resources :inventories
     resources :bills, except: [:edit,:update]
     resources :orders, except: [:edit,:update]
-    get :places_search,on: :collection
     #@page.call 'shops#show'
     #resources :shop_carts, only: [:index,:update,:create,:destroy]
   end
@@ -184,11 +149,7 @@ Zhekou::Application.routes.draw do
     @prices.call
     #get 'inventories/tuijian' => 'inventories#tuijian'
     resources :shops
-    resources :places,only: :index#,page: 1
     #resources :prices,only: :index#,page: 1
-    #match 'places/page/:page' => 'places#index', constraints: {
-      #page: /[2-9]|\d{2,}/
-    #}
     get :search, on:  :collection    
   end
 

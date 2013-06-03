@@ -2,9 +2,6 @@
   <div class="l">
     <%=link_to  bill,bill,target: '_blank', title: bill %><br />
     账单总额：<%= bill.total %><br />
-    <% if bill.locatable %>
-      地点：<%= link_to bill.locatable, bill.locatable %>
-    <% end %>
   </div>  
   <div class="images">
     <% bill.bill_prices.each do |bp| %>

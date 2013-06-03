@@ -1,9 +1,0 @@
-<% where_name = t('action.places.new') %>
-<% set_meta_tags keywords:  "#{where_name},地点", 
-  description: where_name,
-  title: where_name
-%>
-<%= render 'form' %>
-<% content_for :plus do -%>
-  <%= render 'map_form', resouce: @place %>
-<% end -%>

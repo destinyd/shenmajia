@@ -19,5 +19,4 @@
   <%= section title: '联系方式' do %>
     <%= render 'contacts',shop: @shop %>
   <% end unless @shop.shop_contacts.blank? %>
-  <%= render 'map', resource: @shop.locatable unless @shop.locatable.blank? or @shop.locatable.no_locate? %>
 <% end -%>

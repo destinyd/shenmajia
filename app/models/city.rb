@@ -2,7 +2,6 @@ class City < ActiveRecord::Base
   belongs_to  :province
   has_many    :areas
   has_many    :ips
-  has_many    :places
   has_many    :prices
   has_many    :shops
   has_many    :contacts

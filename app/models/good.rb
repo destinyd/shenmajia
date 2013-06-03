@@ -27,9 +27,6 @@ class Good < ActiveRecord::Base
   has_many :shop_goods,dependent:  :destroy
   has_many :shops,through:  :shop_goods
 
-  has_many :place_goods,dependent:  :destroy
-  has_many :places,through:  :place_goods, :uniq => true
-
   has_many :inventories
 
   #has_many :good_costs,dependent:  :destroy

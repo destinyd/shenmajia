@@ -8,10 +8,3 @@
   <% # , hint:  "半角逗号(,)分割。填写商店类别，让客户更容易找到你。" %>
   <%= f.submit %>
 <% end -%>
-<%= content_for :plus do -%>
-  <%= section title:'搜索店铺地点',section_id:'div_places_search' do %>
-    <%= render 'places_search',form_path: places_search_shops_path,id:'form_shop_search_places' %>
-    <div id="new_shop_places_search">
-    </div>
-  <% end %>
-<% end -%>

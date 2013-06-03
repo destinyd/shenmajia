@@ -3,7 +3,7 @@
 <p><%= link_to '继续记账', new_bill_path %></p>
 <h2>分享你的账单。</h2>
 <!-- Baidu Button BEGIN -->
-<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare" data="{'text':'<%= j @bill.costs.first.desc %>,地点：<%= place_url(@bill.locatable) %>,账单：','url':'<%= bill_url(@bill) %>'}">
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare" data="{'text':'<%= j @bill.costs.first.desc %>,账单：','url':'<%= bill_url(@bill) %>'}">
         <a class="bds_qzone"></a>
         <a class="bds_tsina"></a>
         <a class="bds_tqq"></a>

@@ -1,4 +1,4 @@
-<% @where_name = "#{@cost.user.username if @cost.user}于#{@cost.created_at}在#{@cost.locatable}的消费记录" %>
+<% @where_name = "#{@cost.user.username if @cost.user}于#{@cost.created_at}的消费记录" %>
 <% @where = @cost %>
 <% set_meta_tags keywords:  "消费,消费记录", 
   description:  "#{@cost.user}#{@cost.desc}",
@@ -21,13 +21,6 @@
 <%= @cost.money %>
 </p>
 
-<% if @cost.locatable %>
-<p>
-<b><%= label :cost,:locatable %>:</b>
-<%= link_to @cost.locatable, @cost.locatable %>
-</p>
-<% end %>
-
 <p>
 <b><%= label :cost,:created_at%>:</b>
 <%= @cost.created_at %>
@@ -48,5 +41,4 @@
 
 
 <% content_for :sidebar do -%>
-  <%= render 'map', resource: @cost.locatable if @cost.locatable and @cost.locatable.class.name == 'Place' %>
 <% end -%>
