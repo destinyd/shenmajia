@@ -21,6 +21,6 @@ class AttrsController < ApplicationController
     @attr.save
   end
 
-  def review
-  end
+  #def review
+  #end
 end

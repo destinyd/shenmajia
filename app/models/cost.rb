@@ -1,7 +1,14 @@
 # coding: utf-8
-class Cost < ActiveRecord::Base
-  acts_as_paranoid
-  acts_as_commentable
+class Cost
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :amount,              :type => Float
+  field :money,              :type => Float
+  field :deleted_at,              :type => Date
+  field :desc,              :type => String
+  #acts_as_paranoid
+  #acts_as_commentable
+  has_many :comments, as: :commentable
   attr_accessor :name, :address, :unit, :unit_price, :norm#, :shop
   attr_accessible :name, :good_id, :price_id, :money, :shop_id, :costs_attributes, :desc, :unit, :amount, :unit_price, :norm, :bill_id#:price_attributes#, :price
   attr_accessible :user_id, on: :bill
@@ -26,7 +33,7 @@ class Cost < ActiveRecord::Base
   #has_many :prices,through: :price_costs
 
 
-  scope :recent,order("costs.created_at desc")
+  scope :recent,desc(:created_at)
   #scope :with_price,includes(:price)
   #scope :with_good,includes(:good)
 

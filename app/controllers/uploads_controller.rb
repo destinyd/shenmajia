@@ -3,8 +3,8 @@ class UploadsController < InheritedResources::Base
   actions :all,except: [:edit,:update,:destroy]
   belongs_to :good, optional: true
 
-  caches_page :index,:show
-  cache_sweeper :upload_sweeper
+  #caches_page :index,:show
+  #cache_sweeper :upload_sweeper
 
   def create
     create!{@upload.uploadable ? @upload.uploadable : @upload}

@@ -29,11 +29,11 @@ class GoodsController < InheritedResources::Base
 
   def tag
     @tagname = params[:id]
-    @taggables  = Good.tagged_with(params[:id]).paginate(page: params[:page])
+    @taggables  = Good.tagged_with(params[:id]).page(params[:page])
   end
 
   protected
   def collection
-    @goods ||= end_of_association_chain.list.paginate(page: params[:page])
+    @goods ||= end_of_association_chain.page(params[:page])
   end
 end

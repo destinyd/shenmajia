@@ -1,12 +1,49 @@
-class User < ActiveRecord::Base
+class User
+  include Mongoid::Document
+  include Mongoid::Timestamps
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,:username
+  ## Database authenticatable
+  field :email,              :type => String, :default => ""
+  field :encrypted_password, :type => String, :default => ""
+  validates_presence_of :email
+  validates_presence_of :encrypted_password
   
+  ## Recoverable
+  field :reset_password_token,   :type => String
+  field :reset_password_sent_at, :type => Time
+
+  ## Rememberable
+  field :remember_created_at, :type => Time
+
+  ## Trackable
+  field :sign_in_count,      :type => Integer, :default => 0
+  field :current_sign_in_at, :type => Time
+  field :last_sign_in_at,    :type => Time
+  field :current_sign_in_ip, :type => String
+  field :last_sign_in_ip,    :type => String
+
+  ## Confirmable
+  # field :confirmation_token,   :type => String
+  # field :confirmed_at,         :type => Time
+  # field :confirmation_sent_at, :type => Time
+  # field :unconfirmed_email,    :type => String # Only if using reconfirmable
+
+  ## Lockable
+  # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
+  # field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
+  # field :locked_at,       :type => Time
+
+  ## Token authenticatable
+  # field :authentication_token, :type => String
+  field :username, :type => String
+  validates :username, presence: true, length: 2..10, uniqueness: true
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :is_trader, :trader_attributes, :login, :phone
+
   has_many :prices
   has_many :comments
   has_many :goods
@@ -19,7 +56,6 @@ class User < ActiveRecord::Base
   has_many :outlinks
   has_many :records
   has_many :user_tasks
-  has_many :tasks,through: :user_tasks
   has_many :shops
   #has_many :user_costs
   has_many :costs#,through: :user_costs
@@ -32,44 +68,9 @@ class User < ActiveRecord::Base
   has_many :units
   has_many :contacts
 
-  has_many :user_vips
-
-  has_many :authentications
-
-  has_many :oauth_applications, class_name: 'Doorkeeper::Application', as: :owner
-
-  validates :username, presence: true,uniqueness: true, length: {in: 2..12 }
-
-
-  scope :recent ,limit(10).order('id desc')#.select('email,created_at')
-
-  def default_contact
-    contacts.default.first
-  end
+  has_many :user_vips 
 
   def to_s
-    self.username || self.email
-  end
-  def get_point(point,integralable,type_id = 0,desc = nil)
-    integral = self.integrals.new point: point,desc: desc,type_id: type_id
-    integral.integralable = integralable
-    integral.save!
-  end
-
-  def points type_id = 0
-    self.integrals.sum(:point).where(type_id: type_id)
-  end
-
-  def renewals_vip month=1
-    @up = self.user_vips.first
-    if @up.blank? or DateTime.now > @up.finish_at
-      self.user_vips.create started_at:DateTime.now,finish_at:DateTime.now + month.months
-    else
-      self.user_vips.create started_at:@up.finish_at,finish_at:@up.finish_at + month.months
-    end
-  end
-
-  def is_vip?
-    user_vips.now.first
+    username.to_s
   end
 end

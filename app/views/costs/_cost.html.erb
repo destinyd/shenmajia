@@ -17,7 +17,7 @@
     消费：<%= cost.money %><br />
     <% if cost.bill and cost.bill.locatable %>
       地点：<%= link_to cost.bill.locatable, cost.bill.locatable %>
-    <% end %>
+    <% end if nil %>
   </div>
 </div>
 

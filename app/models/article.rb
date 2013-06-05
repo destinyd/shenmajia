@@ -7,24 +7,16 @@ class Article < ActiveRecord::Base
 
   default_scope order('articles.is_top desc,articles.id desc')
   scope :recent,order('id desc')
-  scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
-  scope :review_low, Filter.new(self).extend(ReviewFilter)
-  scope :truth,review_low(Review.truth_point)
+  #scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
+  #scope :review_low, Filter.new(self).extend(ReviewFilter)
+  #scope :truth,review_low(Review.truth_point)
 
   belongs_to :user
   has_many :integrals, as: :integralable
-  has_many :reviews, as: :reviewable
 
 
   def to_s
-    return self.title if self.is_valid
-    @status = self.reviews.sum(:status)
-    if @status < STATUS_LOW
-      self.title + '(待审)'
-    else
-      self.title
-    end
-
+    self.title
   end
 
   def valid

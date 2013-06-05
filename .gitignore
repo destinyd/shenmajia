@@ -18,3 +18,4 @@ public/assets/*
 *.bak
 public/images/uploads
 public/p
+config/mongoid.yml

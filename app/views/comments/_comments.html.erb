@@ -1,4 +1,4 @@
-<% comments = commentable.comments.paginate(per_page: 10, page: params[:comments_page]) %>
+<% comments = commentable.comments.page(params[:comments_page]) %>
 <section>
 <header>
 <nav>

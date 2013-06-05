@@ -1,5 +1,4 @@
-      <div class="comment" data-time="<%= comment.created_at.to_i %>">  
-        <strong><%= comment.title %></strong>  
-        <em><%= comment.user.username %>于 <%= comment.created_at.strftime('%Y at %I:%M %p') %></em>  
-        <%= simple_format comment.comment %>  
-      </div>  
+<div class="comment" data-time="<%= comment.created_at.to_i %>">  
+  <em><%= comment.user.username %>于 <%= comment.created_at.strftime('%Y at %I:%M %p') %></em>  
+  <%= simple_format comment.comment %>  
+</div>  

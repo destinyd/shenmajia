@@ -182,7 +182,7 @@ zh-CN:
       update: "更新%{model}"
       submit: "储存%{model}"
 
-  activerecord:
+  mongoid:
     models:
       price: "价格"
       user: "用户"
@@ -417,3 +417,12 @@ zh-CN:
 
   model:
     menu: '%{place_name}的%{tag}菜单'
+
+  views:
+    pagination:
+      first: "&laquo; 首页"
+      last: "末页 &raquo;"
+      previous: "&lsaquo; 前页"
+      next: "下一页 &rsaquo;"
+      truncate: "..."
+

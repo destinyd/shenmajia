@@ -1,10 +1,14 @@
-class Comment < ActiveRecord::Base
+class Comment
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :comment
+  field :role, default: 'comments'
 
-  include ActsAsCommentable::Comment
+  #include ActsAsCommentable::Comment
 
   belongs_to :commentable, polymorphic: true
 
-  default_scope order('id desc')
+  #default_scope desc(:created_at)
 
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.
@@ -12,5 +16,5 @@ class Comment < ActiveRecord::Base
 
   # NOTE: Comments belong to a user
   belongs_to :user
-  scope :recent,where(commentable_type: 'Good').limit(10)
+  scope :recent,desc(:created_at)
 end

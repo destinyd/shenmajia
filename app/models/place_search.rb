@@ -1,4 +1,13 @@
-class PlaceSearch < ActiveRecord::Base
+class PlaceSearch
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :q
+  field :city
+  field :coordinates, :type => Array
+
+  #include Geocoder::Model::Mongoid
+  #geocoded_by :address, latitude: :lat, longitude: :lon
+
   attr_accessor :page
   attr_accessible :city, :q, :lat, :lon,:page
   validates :q, presence: true

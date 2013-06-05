@@ -1,12 +1,15 @@
-class Attr < ActiveRecord::Base
+class Attr
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :name,              :type => String
+  field :value,              :type => String
+  field :supported,              :type => Boolean
   belongs_to :attrable, polymorphic: true
   validates :name,presence: true
   validates :value,presence: true
-  validates :attrable_id,presence: true
-  validates :attrable_type,presence: true
+  #validates :attrable_id,presence: true
+  #validates :attrable_type,presence: true
   scope :supported,where(supported: true)
-
-  has_many :reviews, as: :reviewable
 
   before_create  :supported_first
   private

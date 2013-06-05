@@ -36,11 +36,11 @@
 
 
 <%= content_tag 'p' do %>
-  <b>标签:</b>
-  <% good.tags.each do |tag| %>
-    <%= link_to tag,tag_good_path(tag.name) -%>
+  <%#<b>标签:</b>%>
+  <%# good.tags.each do |tag| %>
+    <%#= link_to tag,tag_good_path(tag.name) -%>
   <% end -%>
-<% end if good.tags.any? %>
+<%# end if good.tags.any? %>
 
 <% unless good.image.blank? %>
   <div class="tc">
@@ -68,6 +68,6 @@
 
 <p>
 <%= button_to '关注',good_focus_path(good),remote: true %>
-<%= render 'reviews/links',reviewable: good %>
+<%#= render 'reviews/links',reviewable: good %>
 </p>
 

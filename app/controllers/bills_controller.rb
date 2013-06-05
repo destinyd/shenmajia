@@ -8,8 +8,8 @@ class BillsController < InheritedResources::Base
 
   respond_to :js, only: [:index, :new]
 
-  caches_page :index,:show
-  cache_sweeper :bill_sweeper
+  #caches_page :index,:show
+  #cache_sweeper :bill_sweeper
 
   def create
     @bill = current_user.bills.new params[:bill]
@@ -62,7 +62,8 @@ class BillsController < InheritedResources::Base
     #end
   end
 
+  protected
   def collection
-    @bills = collection ||= end_of_association_chain.recent.list.paginate(page: params[:page])
+    @bills ||= end_of_association_chain.recent.page(params[:page])
   end
 end

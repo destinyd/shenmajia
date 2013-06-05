@@ -1,4 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
+  respond_to :js
   # GET /resource/sign_out
   def destroy
     signed_in = signed_in?(resource_name)

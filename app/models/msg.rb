@@ -1,4 +1,9 @@
-class Msg < ActiveRecord::Base
+class Msg
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :title,              :type => String, :default => ""
+  field :body,              :type => String, :default => ""
+  field :is_read,              :type => Boolean
   #belongs_to :user
   belongs_to :sender,foreign_key:  "user_id", class_name:  "User"
   belongs_to :to_user,foreign_key:  "to", class_name:  "User"
@@ -9,7 +14,7 @@ class Msg < ActiveRecord::Base
   validates :to_name, presence: true, length: {in: 2..12 }
   validates :title,:body,:to, presence: true
 
-  default_scope order('created_at desc').includes(:sender).includes(:to_user)
+  default_scope desc(:created_at).includes(:sender).includes(:to_user)
   scope :unread,where(is_read: nil)
 
   def read

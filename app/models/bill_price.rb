@@ -1,4 +1,13 @@
-class BillPrice < ActiveRecord::Base
+class BillPrice
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :amount,              :type => Float
+  field :image,              :type => String
+  field :address,              :type => String
+  #field :coordinates, :type => Array
+
+  #include Geocoder::Model::Mongoid
+  #geocoded_by :address
   mount_uploader :image, ImageUploader
   attr_accessible :bill_id, :price_id, :amount,:image
   belongs_to :bill

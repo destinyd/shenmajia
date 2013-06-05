@@ -1,6 +1,21 @@
 # coding: utf-8
-class Price < ActiveRecord::Base
-  acts_as_paranoid
+require "geocoder/models/mongoid" if defined?(::Mongoid)
+class Price
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :price,              :type => Float
+  field :amount,              :type => Float
+  field :lat,              :type => Float
+  field :lon,              :type => Float
+  field :finish_at,              :type => Date
+  field :started_at,              :type => Date
+  field :deleted_at,              :type => Date
+  field :type_id,              :type => Integer
+  field :is_valid,              :type => Boolean
+  field :address,              :type => String
+  field :image,              :type => String
+  field :coordinates, :type => Array
+  #acts_as_paranoid
   STATUS_LOW = 5
   mount_uploader :image, ImageUploader
   attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title
@@ -17,7 +32,7 @@ class Price < ActiveRecord::Base
 
   has_many :outlinks, as: :outlinkable, dependent: :destroy
   has_many :integrals, as: :integralable#, dependent: :destroy
-  has_many :reviews, as: :reviewable#, dependent: :destroy
+  #has_many :reviews, as: :reviewable#, dependent: :destroy
   #has_many :uploads, as: :uploadable#, dependent: :destroy
   has_many :inventories
   #has_many :price_costs,dependent: :destroy
@@ -25,28 +40,30 @@ class Price < ActiveRecord::Base
   #has_many :costs
 
   has_many :bill_prices#, dependent: :destroy
-  has_many :bills,through: :bill_prices
+  #has_many :bills,through: :bill_prices
+  has_and_belongs_to_many :bills
 
   has_many :order_prices
-  has_many :orders,through: :order_prices
+  #has_many :orders,through: :order_prices
 
-  acts_as_commentable
+  #acts_as_commentable
+  include Geocoder::Model::Mongoid
   geocoded_by :address, latitude: :lat, longitude: :lon
 
-  scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
-  scope :review_low, Filter.new(self).extend(ReviewFilter)
-  scope :truth,review_low(Review.truth_point)
+  #scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
+  #scope :review_low, Filter.new(self).extend(ReviewFilter)
+  #scope :truth,review_low(Review.truth_point)
 
-  scope :running,where("finish_at > ? OR finish_at is null",Time.now)
-  scope :cheapest,running.order("price")
-  scope :recent,running.order("id desc")
+  scope :running,where(:finish_at => nil)
+  scope :cheapest,running.asc("price")
+  scope :recent,running.desc(:created_at)
   scope :groupbuy,recent.where(type_id: [21,22])
-  scope :not_finish,where("finish_at > ?",Time.now)
+  scope :not_finish,where(:finish_at.gt => Time.now)
   # scope :costs,recent.where(type_id: [0,1])  
   scope :with_good,includes(:good)
-  scope :you_like,running.order('rand()')
+  scope :you_like,running#.order('rand()')
   scope :shop_type, where(type_id: 101..103)
-  scope :with_pic,where('prices.image is not null')
+  scope :with_pic,where(:image.exists => true)
   scope :in_city,with_pic.includes(:good)
   scope :in_action,lambda{|action_name|
     if %w{cheapest groupbuy}.include? action_name
@@ -55,10 +72,10 @@ class Price < ActiveRecord::Base
       scoped
     end
   }
-  scope :list,with_good.recent
+  scope :list,with_good#.recent
   scope :just_ten,limit(10)
 
-  scope :tuijian,recent.with_pic.list.limit(6).group(:good_id)
+  scope :tuijian,recent.with_pic.list.limit(6)#.group(:good_id)
 
 
   accepts_nested_attributes_for :good,reject_if: lambda { |good| good[:name].blank? }
@@ -152,9 +169,9 @@ class Price < ActiveRecord::Base
   # end
 
   def near_prices long = 20
-    return city.prices.where("id != ?",self.id) if city_id
+    return city.prices.not_in(:id => self.id) if city_id
     @nears ||= nearbys(long)
-    @nears ||= @nears.running.limit(10) unless @nears == []
+    @nears ||= @nears.running.limit(10) unless @nears.blank?
     @nears
   end
 

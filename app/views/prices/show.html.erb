@@ -43,11 +43,11 @@ description:  @desc,
 <% end -%>
  
 </div>
-<div class="r">
-  <div>
-  <%= render 'reviews/links',reviewable: @price %>
-  </div> 
-</div>
+<%#<div class="r">%>
+  <%#<div>%>
+  <%#= render 'reviews/links',reviewable: @price %>
+  <%#</div> %>
+<%#</div>%>
 <div class="c"></div>
 
 
@@ -63,7 +63,7 @@ description:  @desc,
 
 <% content_for :plus do -%>
   <%= render 'map', resource: @price unless @price.no_locate? %>
-  <%= render 'comments/comments',commentable: @price %>
+  <%#= render 'comments/comments',commentable: @price %>
 <% end -%>
 
 <% content_for :sidebar do -%>

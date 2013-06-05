@@ -1,22 +1,12 @@
-# coding: utf-8
-class Outlink < ActiveRecord::Base
+class Outlink
+  include Mongoid::Document
+  include Mongoid::Timestamps
   STATUS_LOW = 5
+  field :url,              :type => String, :default => ""
+  field :verified,              :type => Boolean
   belongs_to :outlinkable, polymorphic: true
   belongs_to :user
-  has_many :reviews, as: :reviewable
-  #validates :outlinkable_type, presence: true
-  #validates :outlinkable_id, presence: true
-
-  #validates :url, presence: true,uniqueness: {scope: [:outlinkable_id, :outlinkable_type]} #to urls 再去验证
   def human_link
-    #@status = self.reviews.sum(:status)
-    #if @status < STATUS_LOW
-      #read_attribute(:url) + '(待审)'
-    #else
-      read_attribute(:url)
-    #end
+    read_attribute(:url)
   end
-#  include Filter::ReviewPending
-#  Filter.new(self).extend(ReviewPending)
-
 end

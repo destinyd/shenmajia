@@ -1,20 +1,18 @@
-class Flash < ActiveRecord::Base
-  acts_as_commentable
-  acts_as_taggable
+class Flash
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :image_file_name,              :type => String, :default => ""
+  field :image_content_type,              :type => String, :default => ""
+  field :image_file_size,              :type => Integer
+  field :image_updated_at,              :type => Date
+  field :url,              :type => String, :default => ""
+  #acts_as_commentable
+  #acts_as_taggable
   mount_uploader :image, FlashUploader, :mount_on => :image_file_name
-  #validates_attachment_size :image, less_than:  1.megabytes
-  #validates_attachment_content_type :image, content_type:  ['image/jpeg', 'image/png', 'image/gif']
-  
- 
-  #has_attached_file :image, 
-                     #styles:  { flash_pic:  '600x300>' }, 
-                     #path:  ":rails_root/public/images/flashes/:style_:id_:updated_at.:extension", 
-                     #url:  "/images/flashes/:style_:id_:updated_at.:extension" 
 
-  #default_scope order('id desc')
-  scope :recent,order('id desc').limit(5)
-  scope :list,recent.includes(:outlink)
   has_one :outlink, as:  :outlinkable
+  scope :recent,desc(:id).limit(5)
+  scope :list,recent.includes(:outlink)
   accepts_nested_attributes_for :outlink
 
 end

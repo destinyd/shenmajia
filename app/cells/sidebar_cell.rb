@@ -7,7 +7,7 @@ class SidebarCell < Cell::Rails
   end
 
   def tuijian(args)
-    @city   = City.find_by_name args[:city]
+    @city   = City.where(name: args[:city]).first
     @prices = @city.prices.tuijian
     @prices = Price.tuijian if @price.blank?
     render
@@ -15,13 +15,13 @@ class SidebarCell < Cell::Rails
 
   def near(args)
     @price = args[:price]
-    @prices = @price.near_prices.where(good_id: @price.good_id).cheapest.includes(:good).limit(10)
+    @prices = @price.near_prices.blank? ? [] : @price.near_prices.where(good_id: @price.good_id).cheapest.includes(:good).limit(10)
     render
   end
 
   def cheap(args)
     @price = args[:price]
-    @prices = @price.good.prices.cheapest.where("id != ?",@price.id).includes(:good).limit(10)
+    @prices = @price.good.prices.cheapest.not_in(:id => @price.id).includes(:good).limit(10)
     render
   end
 

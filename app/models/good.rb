@@ -1,5 +1,19 @@
 # coding: utf-8
-class Good < ActiveRecord::Base
+class Good# < ActiveRecord::Base
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :name,              :type => String
+  field :desc,              :type => String
+  field :norm,              :type => String
+  field :unit,              :type => String
+  field :barcode,              :type => String
+  field :origin,              :type => String
+  field :image,              :type => String
+
+  field :is_valid,              :type => Boolean
+  field :deleted_at,              :type => Date
+  field :picture_count,              :type => Integer, default: 0
+
   mount_uploader :image, ImageUploader
   attr_accessible :product_name,:brand_name,:norm_name,:name,:desc,:norm,:unit,:barcode,:origin,:tag_list
   attr_accessor :brand_name,:product_name,:norm_name#,:brand_name,
@@ -8,45 +22,46 @@ class Good < ActiveRecord::Base
   belongs_to :brand
   belongs_to :product
   has_many :brand_goods,dependent:  :destroy
-  has_many :brands,through:  :brand_goods
+  #has_many :brands,through:  :brand_goods
 
   has_many :prices
-  has_many :bills,through:  :prices#,foreign_key:  :package_id
+  #has_many :bills,through:  :prices#,foreign_key:  :package_id
   has_many :outlinks, as:  :outlinkable
   has_many :records, as:  :recordable
   has_many :uploads, as:  :uploadable, dependent: :destroy
   has_many :focuss, as:  :focusable
   has_many :attrs, as:  :attrable
-  has_many :reviews, as:  :reviewable
+  #has_many :reviews, as:  :reviewable
   has_many :integrals, as:  :integralable
   has_many :package_goods, dependent:  :destroy
   has_many :good_packages,foreign_key:  :package_id,class_name:  'PackageGood', dependent:  :destroy
-  has_many :goods,through:  :package_goods,source: :package#,foreign_key:  :package_id
-  has_many :packages,through:  :good_packages,source: :good,foreign_key:  :package_id
+  #has_many :goods,through:  :package_goods,source: :package#,foreign_key:  :package_id
+  #has_many :packages,through:  :good_packages,source: :good,foreign_key:  :package_id
 
   has_many :shop_goods,dependent:  :destroy
-  has_many :shops,through:  :shop_goods
+  #has_many :shops,through:  :shop_goods
 
   has_many :inventories
 
   #has_many :good_costs,dependent:  :destroy
   #has_many :costs , through:  :good_costs
   #has_many :costs
+  has_many :comments, as: :commentable
 
   accepts_nested_attributes_for :outlinks
   accepts_nested_attributes_for :uploads
 
-  scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
-  scope :recent,order('id desc')#.includes(:reviews).limit(10)
+  #scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
+  scope :recent,desc(:created_at)#.includes(:reviews).limit(10)
   scope :running,where(deleted_at:  DateTime.new(0))
-  scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at,goods.image')
-  scope :with_pic,where('goods.image is not null')
+  #scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at,goods.image')
+  scope :with_pic,where(:image.exists => true)
 
   validates :name, presence:  true,uniqueness:  {scope:  [:unit,:norm]}
   validates :unit, presence:  true
   
-  acts_as_commentable
-  acts_as_taggable
+  #acts_as_commentable
+  #acts_as_taggable
 
   #default_scope includes(:uploads) #
 

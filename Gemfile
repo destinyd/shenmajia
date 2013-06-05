@@ -3,7 +3,7 @@ HOST_OS = RbConfig::CONFIG['host_os']
 #source 'https://rubygems.org'
 source 'http://ruby.taobao.org/'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -21,9 +21,10 @@ end
 #for Tuan
 #gem 'libxml-ruby'
 #for Tuan
-gem 'geocoder'
+gem 'geocoder', :github => "alexreisner/geocoder"
 gem 'mime-types', :require => 'mime/types'
-gem "will_paginate", ">= 3.0.3"
+gem 'kaminari'
+#gem 'kaminari-bootstrap'
 gem 'jquery-rails'
 
 gem 'acts-as-taggable-on'#, '~>2.1.0'
@@ -33,7 +34,7 @@ group :development do
   #gem "nifty-generators"
   gem "rspec-rails", "~> 2.0"
   gem 'guard-rspec'#, '0.5.5'
-  #gem 'debugger', git: 'git://github.com/cldwalker/debugger.git'
+  gem 'debugger', git: 'git://github.com/cldwalker/debugger.git'
 end
 
 case HOST_OS
@@ -79,11 +80,13 @@ gem 'guid'
 
 gem 'meta-tags', :require => 'meta_tags',git: 'git://github.com/destinyd/meta-tags.git'
 gem 'rails_kindeditor', '~> 0.3.0'
-gem 'delayed_job_active_record'
+#gem 'delayed_job_active_record'
 gem 'daemons'
-gem 'paranoia'
-gem 'carrierwave', '~>0.7'
+#gem 'paranoia'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'mini_magick','~>3.4'
 gem 'routes_for_page'
 gem 'cells'
 gem 'rspec-cells'
+gem "mongoid", ">= 3.1.2"
+gem "mongoid-rspec", ">= 1.7.0", :group => :test

@@ -1,28 +1,26 @@
-class CommentsController < ApplicationController
-  before_filter :find_commentable
+class CommentsController < InheritedResources::Base
+  actions :index, :create
+  respond_to :js
+  #before_filter :find_commentable
+  belongs_to :good, optional: true
+  belongs_to :cost, optional: true
   before_filter :authenticate_user!,except: [:index]
 
-  def index
-    @comments = @commentable.comments
-  end
-  
   def create
-    @comment = current_user.comments.new(params[:comment])
-    @comment.commentable = @commentable
-    @comment.save
-
-    @comments = @commentable.comments.paginate(per_page: 10, page: params[:comments_page])
+    create! do |format|
+      @comment.user = current_user
+      @comment.save
+      @commentable = parent
+      @comments = parent.comments.recent.page(params[:comments_page])
+    end
   end
 
-private
-
-  def find_commentable
-    params.each do |name, value|
-        if name =~ /(.+)_id$/
-            return @commentable = $1.classify.constantize.find(value)  
-        end  
-    end  
-    nil  
+  protected
+  def begin_of_association_chain
+    current_user
   end
 
+  def collection
+    @comments ||= end_of_association_chain.recent.page params[:page]
+  end
 end

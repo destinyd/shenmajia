@@ -1,4 +1,13 @@
-class City < ActiveRecord::Base
+require "geocoder/models/mongoid" if defined?(::Mongoid)
+class City
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :name,              :type => String
+  field :sort,              :type => Integer
+  field :lat,              :type => Float
+  field :lon,              :type => Float
+  field :coordinates, :type => Array
   belongs_to  :province
   has_many    :areas
   has_many    :ips
@@ -6,7 +15,8 @@ class City < ActiveRecord::Base
   has_many    :shops
   has_many    :contacts
 
-  geocoded_by :name, latitude: :lat, longitude: :lon
+  #include Geocoder::Model::Mongoid
+  #geocoded_by :name, latitude: :lat, longitude: :lon
   #after_validation :geocode
   # def shops
   #   Shop.near(self,20)
