@@ -4,7 +4,7 @@ module Api::V1
     doorkeeper_for :all
 
     def index
-      @places = respond_with Place.list.paginate page: params[:page]
+      @places = respond_with Place.list.page params[:page]
     end
 
     def show
@@ -23,7 +23,7 @@ module Api::V1
       else
         args = {q: params[:q],page: @page.to_s,lat: params[:lat],lon: params[:lon]}
         args.merge!({city: params[:city]}) if !params[:city].blank? and params[:city].scan(/自治/).blank?
-        @places = Place.search(args).list.paginate(page: params[:page])
+        @places = Place.search(args).list.page(params[:page])
         render json: @places
       end
     end

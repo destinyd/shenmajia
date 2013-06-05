@@ -3,6 +3,6 @@ class ArticlesController < InheritedResources::Base
 
   protected
   def collection
-    @articles ||= end_of_association_chain.recent.paginate(page: params[:page])
+    @articles ||= end_of_association_chain.recent.page(params[:page])
   end
 end

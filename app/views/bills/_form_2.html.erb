@@ -6,7 +6,7 @@
   <%= section title: '搜索、添加商品到账单' do %>
     <%= render 'goods_search' %>
     <div id="new_bill_goods_search" class="ajax_paginate">
-    <%= render 'goods',goods:Good.search(params[:q]).recent.paginate(page: params[:page]),place:@place unless params[:q].blank? %>
+    <%= render 'goods',goods:Good.search(params[:q]).recent.page(params[:page]),place:@place unless params[:q].blank? %>
     </div>
   <% end %>
 <% end -%>

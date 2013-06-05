@@ -4,9 +4,9 @@ module Api::V1
 
     def index
       if !params[:place_id].blank?
-        @goods = Place.find(params[:place_id]).goods.list.paginate(page: params[:page])
+        @goods = Place.find(params[:place_id]).goods.list.page(params[:page])
       else
-        @goods = Good.list.paginate(page: params[:page])
+        @goods = Good.list.page(params[:page])
       end
       respond_with @goods
     end
@@ -22,7 +22,7 @@ module Api::V1
     end
 
     def search
-      @goods = Good.search(params[:q]).list.paginate(page: params[:page])
+      @goods = Good.search(params[:q]).list.page(params[:page])
       render json: @goods
     end
   end

@@ -6,7 +6,7 @@ if params[:q].blank?
   <p>请输入您要搜索的地点名称！</p>
   <%
   else
-  @places = Place.search(args).recent.paginate(:page => params[:page])
+  @places = Place.search(args).recent.page(params[:page])
 %>
 <table>
   <tr>

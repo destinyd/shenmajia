@@ -12,6 +12,6 @@ class UploadsController < InheritedResources::Base
   
   protected
   def collection
-    @uploads ||= end_of_association_chain.paginate(page: params[:page])
+    @uploads ||= end_of_association_chain.page(params[:page])
   end
 end

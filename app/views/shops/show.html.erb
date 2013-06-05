@@ -11,7 +11,7 @@
 
 <% content_for :plus do -%>
   <%= section title: '本店商品',plus_path:shop_inventories_path(@shop) do %>
-    <%= render 'inventories/index', inventories: @shop.inventories.recent.paginate(page: params[:page]) %>
+    <%= render 'inventories/index', inventories: @shop.inventories.recent.page(params[:page]) %>
   <% end %>
 <% end -%>
 

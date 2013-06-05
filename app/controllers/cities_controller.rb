@@ -11,7 +11,7 @@ class CitiesController < ApplicationController
   def show
     @name = params[:id]
     @city = City.find_by_name @name 
-    @prices= @city.prices.recent.in_city.paginate( page: params[:page]).limit(50)
+    @prices= @city.prices.recent.in_city.page(params[:page]).per(50)
     #@value = @city.lat,@city.lon
     #@cheapest = Price.cheapest.near(@value,20).limit(10)
     #@recent_prices =     Price.recent.near(@value,20).limit(10)

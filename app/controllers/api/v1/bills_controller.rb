@@ -3,7 +3,7 @@ module Api::V1
     doorkeeper_for :all
 
     def index
-      @bills = respond_with current_resource_owner.bills.paginate page: params[:page]
+      @bills = respond_with current_resource_owner.bills.page params[:page]
     end
 
     def show

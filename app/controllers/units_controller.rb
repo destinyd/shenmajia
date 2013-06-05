@@ -10,7 +10,7 @@ class UnitsController < InheritedResources::Base
   end
   protected
   def collection
-    @units ||= end_of_association_chain.paginate(page: params[:page])
+    @units ||= end_of_association_chain.page(params[:page])
   end
 end
 

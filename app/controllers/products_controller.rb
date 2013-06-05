@@ -16,6 +16,6 @@ class ProductsController < InheritedResources::Base
 
   protected
   def collection
-    @products ||= end_of_association_chain.paginate(page: params[:page])
+    @products ||= end_of_association_chain.page(params[:page])
   end
 end

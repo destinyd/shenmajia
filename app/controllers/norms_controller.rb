@@ -10,6 +10,6 @@ class NormsController < InheritedResources::Base
   end
   protected
   def collection
-    @norms ||= end_of_association_chain.paginate(page: params[:page])
+    @norms ||= end_of_association_chain.page(params[:page])
   end
 end

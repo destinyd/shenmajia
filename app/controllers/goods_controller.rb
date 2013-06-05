@@ -16,7 +16,7 @@ class GoodsController < InheritedResources::Base
   end
 
   #def search
-    #@goods = Good.where('name like ?' , '%' + params[:name_q] + '%').list.paginate(page: params[:page])
+    #@goods = Good.where('name like ?' , '%' + params[:name_q] + '%').list.page(params[:page])
     #respond_to do |f|
       ##f.json{render json: @goods.to_json}
       #f.html{render :index}

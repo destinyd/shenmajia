@@ -26,6 +26,6 @@ class ShopsController < InheritedResources::Base
   end
   protected
   def collection
-    @shops ||= end_of_association_chain.paginate(page: params[:page])
+    @shops ||= end_of_association_chain.page(params[:page])
   end
 end

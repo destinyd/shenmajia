@@ -3,6 +3,6 @@ class FlashesController < InheritedResources::Base
 
   protected
   def collection
-    @flashes ||= end_of_association_chain.recent.paginate(page: params[:page])
+    @flashes ||= end_of_association_chain.recent.page(params[:page])
   end
 end

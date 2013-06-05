@@ -1,4 +1,4 @@
-<% @goods = Good.search(params[:q]).paginate(page: params[:page]) unless params[:q].blank? %>
+<% @goods = Good.search(params[:q]).page(params[:page]) unless params[:q].blank? %>
 <div id="form_goods_search">
   <ul class="table pretty">  
     <li class="name">名称</li>  

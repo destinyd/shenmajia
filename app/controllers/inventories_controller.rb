@@ -27,7 +27,7 @@ class InventoriesController < InheritedResources::Base
 
   protected
   def collection
-    @inventories ||= end_of_association_chain.paginate(page: params[:page])
+    @inventories ||= end_of_association_chain.page(params[:page])
   end
 
   def could_modify?

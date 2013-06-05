@@ -52,10 +52,10 @@ class PricesController < InheritedResources::Base
 
   protected
   def collection
-    @prices ||= end_of_association_chain.in_action(action_name).list.paginate(page: params[:page])
+    @prices ||= end_of_association_chain.in_action(action_name).list.page(params[:page])
     #@prices = @prices.send action_name if %w{cheapest groupbuy}.include? action_name
-    #@prices = @prices.recent.paginate(page: params[:page])
-    #@prices ||=  end_of_association_chain.recent.paginate(page: params[:page])
+    #@prices = @prices.recent.page(params[:page])
+    #@prices ||=  end_of_association_chain.recent.page(params[:page])
   end
   #private
   #def find_able_and_prices

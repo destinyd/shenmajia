@@ -3,7 +3,7 @@ module Api::V1
     doorkeeper_for :all
 
     def index
-      @costs = respond_with current_resource_owner.costs.recent.paginate page: params[:page]
+      @costs = respond_with current_resource_owner.costs.recent.page params[:page]
     end
 
     def show

@@ -8,6 +8,6 @@ class UserhomeController < InheritedResources::Base
     current_user
   end
   def collection
-    collection ||= end_of_association_chain.order('id desc').paginate(page: params[:page])
+    collection ||= end_of_association_chain.order('id desc').page(params[:page])
   end
 end

@@ -31,6 +31,6 @@ class MsgsController < InheritedResources::Base
   end
 
   def collection
-    @msgs ||= end_of_association_chain.paginate(page: params[:page])
+    @msgs ||= end_of_association_chain.page(params[:page])
   end
 end

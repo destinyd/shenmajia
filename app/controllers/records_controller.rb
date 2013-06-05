@@ -3,6 +3,6 @@ class RecordsController < InheritedResources::Base
 
   protected
   def collection
-    @records ||= end_of_association_chain.recent.paginate(page: params[:page])
+    @records ||= end_of_association_chain.recent.page(params[:page])
   end
 end

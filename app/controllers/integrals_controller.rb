@@ -3,6 +3,6 @@
 
   #protected
   #def collection
-    #@integrals ||= end_of_association_chain.recent.paginate(page: params[:page])
+    #@integrals ||= end_of_association_chain.recent.page(params[:page])
   #end
 #end

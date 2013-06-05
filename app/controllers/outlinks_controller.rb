@@ -8,6 +8,6 @@ class OutlinksController < InheritedResources::Base
 
   protected
   def collection
-    @outlinks ||= end_of_association_chain.recent.paginate(page: params[:page])
+    @outlinks ||= end_of_association_chain.recent.page(params[:page])
   end
 end

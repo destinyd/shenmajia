@@ -17,7 +17,7 @@ class BrandsController < InheritedResources::Base
   #respond_to :js, only: :create
   protected
   def collection
-    @brands ||= end_of_association_chain.paginate(page: params[:page])
+    @brands ||= end_of_association_chain.page(params[:page])
   end
 end
 
