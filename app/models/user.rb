@@ -42,7 +42,7 @@ class User
   # field :authentication_token, :type => String
   field :username, :type => String
   validates :username, presence: true, length: 2..10, uniqueness: true
-  attr_accessible :username, :email, :password, :password_confirmation, :remember_me, :is_trader, :trader_attributes, :login, :phone
+  attr_accessible :username, :email, :password, :password_confirmation, :remember_me
 
   has_many :prices
   has_many :comments
@@ -54,21 +54,9 @@ class User
   has_many :uploads
   has_many :focuss
   has_many :outlinks
-  has_many :records
-  has_many :user_tasks
-  has_many :shops
   #has_many :user_costs
   has_many :costs#,through: :user_costs
   has_many :bills
-  has_many :orders
-  has_many :companies
-  has_many :brands
-  has_many :products
-  has_many :norms
-  has_many :units
-  has_many :contacts
-
-  has_many :user_vips 
 
   def to_s
     username.to_s

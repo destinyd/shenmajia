@@ -10,7 +10,7 @@ class Bill
   field :picture_count,              :type => Integer, default: 0
   #acts_as_paranoid
   attr_accessor :cost, :desc
-  attr_accessible :ordered_at, :total, :bill_prices_attributes, :cost, :desc, :contact_id#,:uploads_attributes
+  attr_accessible :ordered_at, :total, :bill_prices_attributes, :cost, :desc
   has_many :bill_prices#, dependent: :destroy
   #has_many :prices,through: :bill_prices
   has_and_belongs_to_many :prices
@@ -18,8 +18,6 @@ class Bill
   has_many :costs, dependent: :destroy
   has_many :uploads, as: :uploadable
   belongs_to :user
-  belongs_to :shop
-  belongs_to :contact
 
   accepts_nested_attributes_for :bill_prices, allow_destroy: true
   #accepts_nested_attributes_for :uploads

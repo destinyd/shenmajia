@@ -1,7 +1,12 @@
-class Integral < ActiveRecord::Base
+class Integral
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :point,              :type => Integer
+  field :desc
+  field :type_id,              :type => Integer
   belongs_to :user
   belongs_to :integralable,polymorphic: true
-  scope :recent, select('integrals.*,sum(point) as points').order('points desc').group(:user_id).limit(10)
+  scope :recent, desc(:created_at)
   scope :exp,where(type_id: 0)
   scope :integral,where(type_id: 1)
   scope :gold,where(type_id: 2)

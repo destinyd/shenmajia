@@ -1,5 +1,5 @@
 # coding: utf-8
-class Good# < ActiveRecord::Base
+class Good
   include Mongoid::Document
   include Mongoid::Timestamps
   field :name,              :type => String
@@ -21,13 +21,10 @@ class Good# < ActiveRecord::Base
   belongs_to :user
   belongs_to :brand
   belongs_to :product
-  has_many :brand_goods,dependent:  :destroy
-  #has_many :brands,through:  :brand_goods
 
   has_many :prices
   #has_many :bills,through:  :prices#,foreign_key:  :package_id
   has_many :outlinks, as:  :outlinkable
-  has_many :records, as:  :recordable
   has_many :uploads, as:  :uploadable, dependent: :destroy
   has_many :focuss, as:  :focusable
   has_many :attrs, as:  :attrable
@@ -37,11 +34,6 @@ class Good# < ActiveRecord::Base
   has_many :good_packages,foreign_key:  :package_id,class_name:  'PackageGood', dependent:  :destroy
   #has_many :goods,through:  :package_goods,source: :package#,foreign_key:  :package_id
   #has_many :packages,through:  :good_packages,source: :good,foreign_key:  :package_id
-
-  has_many :shop_goods,dependent:  :destroy
-  #has_many :shops,through:  :shop_goods
-
-  has_many :inventories
 
   #has_many :good_costs,dependent:  :destroy
   #has_many :costs , through:  :good_costs
@@ -120,12 +112,5 @@ class Good# < ActiveRecord::Base
 
   def exp
     self.user.get_point(1,self) if self.user_id
-  end
-
-  def shop_price shop
-    if @shop_price.nil?
-      @shop_price = prices.shop_price(shop).first.try(:price) || false
-    end
-    @shop_price
   end
 end

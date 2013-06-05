@@ -12,8 +12,6 @@ class City
   has_many    :areas
   has_many    :ips
   has_many    :prices
-  has_many    :shops
-  has_many    :contacts
 
   #include Geocoder::Model::Mongoid
   #geocoded_by :name, latitude: :lat, longitude: :lon

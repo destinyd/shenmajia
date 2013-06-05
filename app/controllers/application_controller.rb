@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :get_cache_id,:log_user_agent
-  helper_method :city_info_of_ip,:get_city_name,:current_shop
+  helper_method :city_info_of_ip,:get_city_name
 
   #def sort_direction  
     #%w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"  
@@ -37,10 +37,6 @@ class ApplicationController < ActionController::Base
       get_city_name @ip.city.nil? ? City.first : @ip.city
     end
     ip_infos
-  end
-
-  def current_shop
-    @current_shop ||= current_user.shops.first
   end
 
   def not_found

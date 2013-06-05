@@ -1,8 +1,8 @@
-class Focus < ActiveRecord::Base
-  attr_accessible :focusable_id, :focusable_type,:user_id
+class Focus
+  include Mongoid::Document
+  include Mongoid::Timestamps
   belongs_to :focusable, polymorphic: true
-  validates :focusable_id, presence: true
-  validates :focusable_type, presence: true
+  belongs_to :user
   validates :user_id, presence: true,uniqueness: {scope: [:focusable_id,:focusable_type]}
   
   scope :most, select: 'focusable_id,focusable_type,count(*) as count',group: 'focusable_id,focusable_type'

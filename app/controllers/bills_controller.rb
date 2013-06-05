@@ -14,21 +14,6 @@ class BillsController < InheritedResources::Base
   def create
     @bill = current_user.bills.new params[:bill]
     return redirect_to(new_bill_path,error:t('error.fault')) if params[:place_id].blank? or session[:b].blank? or session[:b][params[:place_id]].blank?
-    #if params[:shop_id]
-      #@shop = Shop.find params[:shop_id]
-      #@bill.locatable = @shop
-      #@bill.shop_id = @shop.id
-      #items = session[:shop][:items]
-      #inventories = Inventory.find(items.keys)
-      #inventories.each do |inventory|
-        #bp = @bill.bill_prices.new amount: items[inventory.id.to_s][:amount]
-        #bp.price_id = inventory.price_id
-      #end
-      #if create!{|success,failure| success.html}
-        #session[:shop] = {}
-        #Msg.delay.create({to:@shop.user_id,title:t('msg.bill.new.title'),body: t('msg.bill.new.body',bill:@bill),to_name: @shop.user.username},on: :admin)
-      #end
-    #else
       @bill.locatable = @place = Place.find(params[:place_id])
       session[:b][@place.id.to_s].each do |key,item|
         bp = @bill.bill_prices.new

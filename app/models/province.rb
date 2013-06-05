@@ -9,7 +9,6 @@ class Province
   #include Geocoder::Model::Mongoid
   #geocoded_by :name, latitude: :lat, longitude: :lon
   has_many :cities
-  has_many :contacts
   
   geocoded_by :name, latitude: :lat, longitude: :lon
   #after_validation :geocode

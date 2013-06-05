@@ -5,7 +5,6 @@ class GoodsController < InheritedResources::Base
   #respond_to :json,only: :search
   actions :all,except: [:edit,:update,:destroy]
   #belongs_to :breads, optional: true
-  belongs_to :shop, optional: true
 
   caches_page :index,:show
   cache_sweeper :good_sweeper

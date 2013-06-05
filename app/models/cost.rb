@@ -9,8 +9,8 @@ class Cost
   #acts_as_paranoid
   #acts_as_commentable
   has_many :comments, as: :commentable
-  attr_accessor :name, :address, :unit, :unit_price, :norm#, :shop
-  attr_accessible :name, :good_id, :price_id, :money, :shop_id, :costs_attributes, :desc, :unit, :amount, :unit_price, :norm, :bill_id#:price_attributes#, :price
+  attr_accessor :name, :address, :unit, :unit_price, :norm
+  attr_accessible :name, :good_id, :price_id, :money, :costs_attributes, :desc, :unit, :amount, :unit_price, :norm, :bill_id#:price_attributes#, :price
   attr_accessible :user_id, on: :bill
   validates :money, presence: true
   belongs_to :user

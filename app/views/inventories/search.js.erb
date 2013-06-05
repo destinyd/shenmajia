@@ -1,5 +1,0 @@
-<% unless params[:q].blank? %>
-  $('#goods_search').html('<%= j render 'goods' %>');
-  $('.ajax_form').form_ready();
-  $('.ajax_paginate').ajax_paginate();
-<% end %>

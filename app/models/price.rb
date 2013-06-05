@@ -28,13 +28,11 @@ class Price
   belongs_to :user
   belongs_to :good
   belongs_to :city
-  #belongs_to :shop
 
   has_many :outlinks, as: :outlinkable, dependent: :destroy
   has_many :integrals, as: :integralable#, dependent: :destroy
   #has_many :reviews, as: :reviewable#, dependent: :destroy
   #has_many :uploads, as: :uploadable#, dependent: :destroy
-  has_many :inventories
   #has_many :price_costs,dependent: :destroy
   #has_many :costs,through: :price_costs
   #has_many :costs
@@ -43,10 +41,6 @@ class Price
   #has_many :bills,through: :bill_prices
   has_and_belongs_to_many :bills
 
-  has_many :order_prices
-  #has_many :orders,through: :order_prices
-
-  #acts_as_commentable
   include Geocoder::Model::Mongoid
   geocoded_by :address, latitude: :lat, longitude: :lon
 
