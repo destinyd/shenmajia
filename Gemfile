@@ -78,3 +78,4 @@ gem 'cells'
 gem 'rspec-cells'
 gem "mongoid", ">= 3.1.2"
 gem "mongoid-rspec", ">= 1.7.0", :group => :test
+gem "crummy", "~> 1.7.1"
