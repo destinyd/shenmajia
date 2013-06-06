@@ -4,33 +4,26 @@
   description:  "#{@cost.user}#{@cost.desc}",
   title: @where_name
 %>
-<p>
-<b>消费记录:</b>
-<%= link_to @cost,@cost %>
-</p>
 
-<% if @cost.bill %>
-<p>
-<b>所属账单:</b>
-<%= link_to @cost.bill,@cost.bill %>
-</p>
-<% end %>
+<dl class="dl-horizontal">
+  <dt>消费记录</dt>
+  <dd><%= link_to @cost,@cost %>
+  </dd>
 
-<p>
-<b><%= label :cost,:money %>:</b>
-<%= @cost.money %>
-</p>
+  <% if @cost.bill %>
+    <dt>所属账单</dt>
+    <dd><%= link_to @cost.bill,@cost.bill %></dd>
+  <% end %>
 
-<p>
-<b><%= label :cost,:created_at%>:</b>
-<%= @cost.created_at %>
-</p>
+  <dt>总额</dt>
+  <dd><%= @cost.money %></dd>
 
-<p>
-<b><%= label :cost,:desc %>:</b>
-<%= @cost.desc %>
-</p>
-<div class="c"></div>
+  <dt>消费时间</dt>
+  <dd><%= @cost.created_at %></dd>
+
+  <dt>描述</dt>
+  <dd><%= @cost.desc %></dd>
+</dl>
 
 <% content_for :plus do -%>
     <%= section title:  "账单详情" do %>

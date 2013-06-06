@@ -1,11 +1,25 @@
 <%= render 'application/before_layout' %>
-<div id="wrap">
-  <div class="product_l">
-    <%= render 'content' %>
-  </div>
-  <aside>
-    <%= render "application/sidebar" %>
-  </aside>
-  <div class="c"></div>
-</div>
-<%= render 'application/after_layout' %>
+<div id="main" role="main">
+  <div class="container">
+    <div class="content">
+      <div class="row">
+        <div class="span12">
+          <% unless controller_name == 'home' %>
+            <div class="breadcrumb">
+              <%= render_crumbs separator: ' > ' %>
+            </div>
+
+          <% end %>
+          <%= render 'layouts/messages' %>
+          <%= yield %>
+        </div>
+      </div>
+      <div id="footer">
+        <%= render_cell :layouts, :footer %>
+      </div>
+    </div>
+  </div> <!--! end of .container -->
+</div> <!--! end of #main -->
+</body>
+</html>
+

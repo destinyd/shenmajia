@@ -1,5 +1,5 @@
-<div class="cost c" data-time="<%= cost.created_at.to_i %>" id="cost_<%= cost.id %>">  
-  <div class="l">
+<div class="row-fluid">
+  <div class="span2">
     <%= link_to cost do %>
       <% if cost.bill %>
         <%= upload_image_tag cost.bill.bill_prices.first.image,:bill,:list %>
@@ -9,7 +9,7 @@
       <% end %>
     <% end %>
   </div>
-  <div class="detail">
+  <div class="span10">
     <%=link_to  cost,cost,target: '_blank', title: cost.name %><br />
     <%= content_tag :div do %>
       所属账单：<%= link_to cost.bill, cost.bill %>

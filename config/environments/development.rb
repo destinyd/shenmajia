@@ -32,11 +32,9 @@ Zhekou::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   #config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Only use best-standards-support built into browsers
-  config.action_dispatch.best_standards_support = :builtin
-
   # Do not compress assets
   config.assets.compress = false
+  config.assets.debug = true
 end
 #Paperclip.options[:command_path] = "/usr/bin"
 

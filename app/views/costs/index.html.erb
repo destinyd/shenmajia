@@ -5,8 +5,10 @@
   description:  "消费记录列表，第#{params[:page] || 1}页",
   title: @where_name
 %>
-<%= render @costs %>
-<div class="c"></div>
-<div class="r">
-  <%= paginate @costs %> 
+<div class="smj-section smj-recent-bills">
+  <%= render @costs %>
+  <div class="pull-right">
+    <%= paginate @costs %> 
+  </div>
+  <div class="clearfix"></div>
 </div>

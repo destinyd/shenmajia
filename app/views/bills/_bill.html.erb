@@ -1,10 +1,10 @@
-<div class="bill" data-time="<%= bill.created_at.to_i %>" id="bill_<%= bill.id %>">  
-  <div class="l">
+<div class="row-fluid">
+  <div class="span3">
     <%=link_to  bill,bill,target: '_blank', title: bill %><br />
     账单总额：<%= bill.total %><br />
-  </div>  
-  <div class="images">
-    <% bill.bill_prices.each do |bp| %>
+  </div>
+  <div class="span9">
+    <% bill.bill_prices.limit(6).each do |bp| %>
       <%= link_to bp.price,title: bp.price.try(:human_name) do %>
         <%= upload_image_tag bp.image,bp.price.try(:human_name),:list %>
       <% end %>

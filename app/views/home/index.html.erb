@@ -2,49 +2,25 @@
   set_meta_tags keywords:  "商品,价格,价格信息,记账,记消费,神马价", 
     description:  "神马价是一个专业的，以商品价格信息为主要内容的网站。网站提供专业的记账工具给用户，并且让用户能找到自己需要的商品价格信息。"
   %>
-<div class="section">
-  <div class="l flashAD">
+<div class="page-header">
+  <h1>神马甲<small>随时随地记消费、查价格</small></h1>
+</div>
+<div class="row-fluid">
+  <div class="span7">
     <div id="slider">
       <%= render 'flashes/flashes',flashes: Flash.list %>
     </div>
   </div>
-  <section class="articles">
-  <header><nav><h2 id="记账使用说明"><a href=#记账使用说明>记账使用说明</a></h2></nav></header>
-  <div class="article">
+  <div class="span5">
     <%= render 'home/help' %>
   </div>
-  </section>
-  <div class="c"></div>
 </div>
 
-<%= section title:'最新账单' do  %>
+<div class="smj-section smj-recent-bills">
   <% Bill.recent.with_pic.with_bl.limit(10).each do |bill| %>
     <%= render bill %>
   <% end -%>
-<% end -%>
-
-<%#= render 'section',plus: {things: Price.cheapest.limit(10),title:  "最低价格",section_path: cheapest_prices_path} %>
-<%#= render 'section',plus: {things: Price.recent.limit(10),title:  "最新价格",section_path: prices_path} %>
-<%#= render 'section',plus: {things: Price.groupbuy.limit(10),title:  "最新团购",section_path: groupbuy_prices_path} %>
-<%#= render 'section',plus: {things: Good.recent.limit(10),title:  "最新产品",section_path: goods_path} %>
-<%#= render 'section',plus: {things: Good.tag_counts.order('count desc').limit(10),title:  "商品Tags",section_path: tags_goods_path,try_path: 'name',link_path: 'tag_good_path'} %>
-<%#<div class="mt">%>
-  <%#= render 'liner',plus: {things: Price.nearly_finish.with_uploads.limit(6),title:  "即将结束",section_path: nearly_finish_prices_path} %>
-  <%#</div>%>
-<%#= render 'section',plus: {things: Focus.most,title:  "最多关注",plusable: 'focusable'} %>
-<!-- <div class="section"><nav><h2 id="经验排行榜"><a href=#经验排行榜>经验排行榜</a></h2></nav>
-  <ul>
-    <% Integral.recent.each do |exp| %>
-      <li><%=  exp.user %>  (<%=exp.points.to_i%>) </li>
-    <% end if nil %>
-  </ul>
-</div> -->
-<!--
-<div class="l section">
-  <nav><h2 id="最新图片"><a href=#最新图片>最新图片</a></h2></nav>
-  <%#= render 'uploads/li' %>
 </div>
--->
 <div class="clearer"></div>
 <script>
   //  $(document).ready(function(){

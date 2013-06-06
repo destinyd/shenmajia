@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   before_filter :get_cache_id,:log_user_agent
   helper_method :city_info_of_ip,:get_city_name
 
+  add_crumb I18n.t("title"), '/'
+
   #def sort_direction  
     #%w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"  
   #end  

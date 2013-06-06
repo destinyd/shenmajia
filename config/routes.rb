@@ -13,8 +13,8 @@ Zhekou::Application.routes.draw do
       end
     end
   end
+  devise_for :users
 
-  resources :menus,except: :index
   @prices = lambda{
     resources :prices,only: [:index,:show,:new,:create] do
       collection do
@@ -221,7 +221,7 @@ Zhekou::Application.routes.draw do
 
   resources :uploads#,only: [:show]
 
-  devise_for :users     , controllers: { sessions:  "users/sessions" }
+  #devise_for :users#     , controllers: { sessions:  "users/sessions" }
   #  devise_scope :user do
   #    get "sign_out", to:  "users/sessions#destroy"
   #  end

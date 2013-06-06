@@ -1,34 +1,7 @@
-<div id="head">
-  <div class='head_left'>
-    <ul>
-      <li><a href='/' title='神马价'><div>神马价</div></a></li>
-      <li><%= link_to bills_path,title: '账单秀' do %><div>账单秀</div><% end %></li>    
-      <%#<li>%>
-        <%#= link_to '/',title: '本市地点' do %>
-          <%#<div>本市地点</div>%>
-        <%# end %>
-      <%#</li>    %>
-      <%#<li>%>
-        <%#= link_to new_bill_path, title: '记账' do %>
-          <%#<div>记账</div>%>
-        <%# end %>
-      <%#</li>%>
-      <li class='where' id='where'>
-        <%= render_cell :users,:where,user: current_user,city: city_info_of_ip[:city] %>
-      </li>
-      <li class='search'>
-      <%#= form_tag search_places_path,method:  :get do |f| -%>
-        <%#= text_field_tag :q,params[:q] %>
-        <%#= submit_tag '搜索附近',name: nil %>
-      <%# end -%>
-      <%#= text_field_tag :locate_id %>
-      <%#<button onclick="if($('#locate_id').val()!='')window.location.href='/locates/'+$('#locate_id').val();return false;">搜索附近</button>%>
-      </li>
-    </ul>
-  </div>
-  <div class='head_login'>
-    <%= render_cell :users,:login,user: current_user %>
-  </div>
-  <div class="c"></div>
+<div class="navbar navbar-fixed-top">
+  <nav class="navbar-inner">
+    <div class="container">
+      <%= render "layouts/navigation" %>
+    </div>
+  </nav>
 </div>
-<div class="c"></div>
