@@ -4,10 +4,7 @@ HOST_OS = RbConfig::CONFIG['host_os']
 source 'http://ruby.taobao.org/'
 
 gem 'rails', '3.2.13'
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-#gem 'mysql2'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -18,16 +15,14 @@ group :assets do
 end
 
 
-#for Tuan
-#gem 'libxml-ruby'
-#for Tuan
 gem 'geocoder', :github => "alexreisner/geocoder"
-gem 'mime-types', :require => 'mime/types'
+gem "bootstrap-sass", ">= 2.3.0.0"
 gem 'kaminari'
-#gem 'kaminari-bootstrap'
+gem 'kaminari-bootstrap'
 gem 'jquery-rails'
 
-gem 'acts-as-taggable-on'#, '~>2.1.0'
+#gem 'acts-as-taggable-on'#, '~>2.1.0'
+gem 'mongoid_taggable_on'
 gem 'dynamic_sitemaps'
 
 group :development do
@@ -47,16 +42,16 @@ case HOST_OS
     gem 'libnotify', :group => :development
     gem 'rb-inotify', :group => :development
     gem 'unicorn'
-	group :test do
-	  gem "rspec-rails", "~> 2.0"
-	  gem 'capybara'#, '1.1.2'
-	  gem 'guard-spork'#, '0.3.2'
-	  gem 'spork'#, '0.9.0'
-	end
+    group :test do
+      gem "rspec-rails", "~> 2.0"
+      gem 'capybara'#, '1.1.2'
+      gem 'guard-spork'#, '0.3.2'
+      gem 'spork'#, '0.9.0'
+    end
   when /mswin|windows/i
-	gem 'rb-fchange', :group => :development
-	gem 'win32console', :group => :development
-	gem 'rb-notifu', :group => :development
+      gem 'rb-fchange', :group => :development
+      gem 'win32console', :group => :development
+      gem 'rb-notifu', :group => :development
 end
 
 #gem 'redis-store','~> 1.0.0.1'
@@ -66,11 +61,8 @@ end
 #dev
 gem 'inherited_resources'
 gem 'simple_form'
-gem 'nested_form'
-#gem 'simple_nested_form'
-gem 'ajax_nested_form'
 
-#gem 'quiet_assets', :group => :development
+gem 'quiet_assets', :group => :development
 gem "devise"#, ">= 2.1.0.rc"
 gem 'oauth2', :group => [:development,:test]
 gem 'doorkeeper', '~> 0.6.2'
@@ -79,10 +71,6 @@ gem 'doorkeeper', '~> 0.6.2'
 gem 'guid'
 
 gem 'meta-tags', :require => 'meta_tags',git: 'git://github.com/destinyd/meta-tags.git'
-gem 'rails_kindeditor', '~> 0.3.0'
-#gem 'delayed_job_active_record'
-gem 'daemons'
-#gem 'paranoia'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 gem 'mini_magick','~>3.4'
 gem 'routes_for_page'
