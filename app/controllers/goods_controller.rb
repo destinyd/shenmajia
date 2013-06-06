@@ -6,8 +6,8 @@ class GoodsController < InheritedResources::Base
   actions :all,except: [:edit,:update,:destroy]
   #belongs_to :breads, optional: true
 
-  caches_page :index,:show
-  cache_sweeper :good_sweeper
+  #caches_page :index,:show
+  #cache_sweeper :good_sweeper
   
   def create
      @good = current_user.goods.new(params[:good])
