@@ -23,7 +23,8 @@ gem 'jquery-rails'
 
 #gem 'acts-as-taggable-on'#, '~>2.1.0'
 gem 'mongoid_taggable_on'
-gem 'dynamic_sitemaps'
+# sitemap
+gem 'sitemap_generator'
 
 group :development do
   #gem "nifty-generators"

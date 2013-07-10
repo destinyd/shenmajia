@@ -140,7 +140,7 @@ Zhekou::Application.routes.draw do
   end
   match "/inventories/search/page/:page" => "inventories#search"
 
-  match 'sitemap.xml' => 'sitemaps#sitemap'
+  #match 'sitemap.xml' => 'sitemaps#sitemap'
 
   resources :locates,only: [:create,:new] do
   end
