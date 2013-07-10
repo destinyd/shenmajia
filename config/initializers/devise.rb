@@ -35,6 +35,7 @@ Devise.setup do |config|
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
   config.case_insensitive_keys = [ :email ]
+  config.strip_whitespace_keys = [ :email ]
 
   # Tell if authentication through request.params is enabled. True by default.
   # config.params_authenticatable = true
@@ -51,7 +52,7 @@ Devise.setup do |config|
   # ==> Configuration for :database_authenticatable
   # For bcrypt, this is the cost for hashing the password and defaults to 10. If
   # using other encryptors, it sets how many times you want the password re-encrypted.
-  config.stretches = 10
+  config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
   # config.pepper = "e277446245518699f311503f471a12656e353bdb5e8db313881be7d3fc2ed824185a3e463abc7105f40e83172c332eb8c8a23c6bd71bd35b79f2e365475ec508"
@@ -187,8 +188,11 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
+  config.skip_session_storage = [:http_auth]
+  config.reconfirmable = true
+
   config.warden do |manager|
     manager.failure_app = CustomFailure
-     manager.intercept_401 = false
+     #manager.intercept_401 = false
   end
 end

@@ -1,73 +1,56 @@
-<nav class="none"><a href='javascript:' onclick="show_and_hide('#product_detail_<%= good.id %>','.goods_div_<%=good.id%>')">详细</a>
-<a href='javascript:' onclick="show_and_hide('#product_images_<%= good.id %>','.goods_div_<%=good.id%>')">图片</a>
-<a id="a_attrs" href='javascript:' onclick="get_attrs(<%=good.id%>);show_and_hide('#product_attrs_<%= good.id %>','.goods_div_<%=good.id%>')">属性</a>
-<a href='javascript:' onclick="show_and_hide('#product_links_<%= good.id %>','.goods_div_<%=good.id%>')">外链</a></nav>
-
-<div class="goods_div_<%=good.id%>" id="product_detail_<%= good.id -%>">
-<p>
-<b>名称:</b>
-<%= good.name %>
-</p>
-
-<%= content_tag 'p' do %>
-  <b>规格:</b>
-  <%= good.norm  %>
-<% end unless good.norm.blank? %>
-
-<%= content_tag 'p' do %>
-  <b>单位:</b>
-  <%= good.unit  %>
-<% end %>
-
-<%= content_tag 'p' do %>
-  <b>条形码:</b>
-  <%= good.barcode  %>
-<% end unless good.barcode.blank? %>
-
-<%= content_tag 'p' do %>
-  <b>原产地:</b>
-  <%= good.origin  %>
-<% end unless good.origin.blank? %>
-
-<%= content_tag 'p' do %>
-  <%= raw good.desc if (good.user_id? and  good.is_valid) or !good.user_id? %>
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">商品信息</a></li>
+    <li><a href="#tab2" data-toggle="tab">图片</a></li>
+    <li><a href="#tab3" data-toggle="tab">属性</a></li>
+    <li><a href="#tab4" data-toggle="tab">外链</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+    <dl class="dl-horizontal">
+      <%= d good, :name %>
+      <%= d good, :norm %>
+      <%= d good, :unit %>
+      <%= d good, :barcode %>
+      <%= d good, :origin %>
+      <dt>描述</dt>
+        <%= raw good.desc if (good.user_id? and  good.is_valid) or !good.user_id? %>
   <%= good.desc if good.user_id and !good.is_valid %>
-<% end unless good.desc.blank? %>
+<dd>
+      </dd>
+    </dl>
+    <% unless good.image.blank? %>
+      <div class="tc">
+        <%= image_tag good.image.url :large %>
+      </div>
+    <% end -%>
 
 
-<%= content_tag 'p' do %>
-  <%#<b>标签:</b>%>
-  <%# good.tags.each do |tag| %>
-    <%#= link_to tag,tag_good_path(tag.name) -%>
-  <% end -%>
-<%# end if good.tags.any? %>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <%= render  'uploads/uploads',uploadable: good,uploads: good.uploads.recent.limit(10) %>
+    </div>
 
-<% unless good.image.blank? %>
-  <div class="tc">
-    <%= image_tag good.image.url :large %>
+    <div class="tab-pane" id="tab3">
+      <div id='attrs'>
+        <ul id='unstyled'%>
+          <%= render good.attrs %>
+        </ul>
+      </div>
+      <%= button_to '新建参数',new_good_attr_path(good),method: :get,remote: true %>
+
+    </div>
+
+    <div class="tab-pane" id="tab4">
+      <ul id='unstyled'%>
+        <%= render good.outlinks %>
+      </ul>
+      <%= button_to '新建外链',new_good_outlink_path(good),method: :get,remote: true %>
+    </div>
   </div>
-<% end -%>
 </div>
 
-<div class="goods_div_<%=good.id%> h" id="product_images_<%= good.id -%>">
-  <%= render  'uploads/uploads',uploadable: good,uploads: good.uploads.recent %>
-  </div>
-
-  <div class="goods_div_<%=good.id%> h" id="product_attrs_<%= good.id -%>">
-  <div id='attrs'>
-  </div>
-  <%= button_to '新建参数',new_good_attr_path(good),method: :get,remote: true %>
-  </div>
-
-  <div class="product_links goods_div_<%=good.id%> h" id="product_links_<%= good.id -%>">
-  <ul id='links'%>
-    <%= render good.outlinks %>
-  </ul>
-  <%= button_to '新建外链',new_good_outlink_path(good),method: :get,remote: true %>
-  </div>
-
-<p>
-<%= button_to '关注',good_focus_path(good),remote: true %>
+<div>
+<%= button_to '关注',good_focus_path(good),remote: true, class: 'btn-primary' %>
 <%#= render 'reviews/links',reviewable: good %>
-</p>
-
+</div>

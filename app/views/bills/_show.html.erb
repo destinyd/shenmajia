@@ -26,6 +26,7 @@
       <% if @total != bill.total %>
         <td class="name">&nbsp;</td>
         <td>&nbsp;</td>
+        <td>&nbsp;</td>
         <td>原价总额</td>
         <td><%= "%.02f" % @total %></td>
       <% end %>
@@ -35,8 +36,9 @@
     <tr class="total">
       <td class="name">&nbsp;</td>
       <td>&nbsp;</td>
+      <td>&nbsp;</td>
       <td>最终总额</td>
-      <td><%= bill.total %></td>
+      <td><%= "%.02f" % bill.total %></td>
     </tr>
   </tfoot>
 </table>

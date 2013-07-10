@@ -4,7 +4,7 @@
   description:  "账单列表，第#{params[:page] || 1}页",
   title: @where_name
 %>
-<div class="smj-section smj-recent-bills">
+<div>
   <%= render @bills %>
   <div class="pull-right">
     <%= paginate @bills %> 

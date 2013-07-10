@@ -1,5 +1,5 @@
-<div class="row-fluid">
-  <div class="span2">
+<div class="list-div">
+  <div class="pull-left">
     <%= link_to cost do %>
       <% if cost.bill %>
         <%= upload_image_tag cost.bill.bill_prices.first.image,:bill,:list %>
@@ -9,7 +9,7 @@
       <% end %>
     <% end %>
   </div>
-  <div class="span10">
+  <div class="list-detail pull-left">
     <%=link_to  cost,cost,target: '_blank', title: cost.name %><br />
     <%= content_tag :div do %>
       所属账单：<%= link_to cost.bill, cost.bill %>
@@ -19,5 +19,6 @@
       地点：<%= link_to cost.bill.locatable, cost.bill.locatable %>
     <% end if nil %>
   </div>
+  <div class="clearfix"></div>
 </div>
 

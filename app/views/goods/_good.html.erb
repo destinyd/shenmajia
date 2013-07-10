@@ -1,10 +1,10 @@
-<div class="good c" data-time="<%= good.created_at.to_i %>" id="good_<%= good.id %>">  
-  <div class="l">
+<div class="list-div" data-time="<%= good.created_at.to_i %>" id="good_<%= good.id %>">  
+  <div class="pull-left">
     <%= link_to good do %>
       <%= image_tag good.image.url(:list) %>
     <% end %>
   </div>
-  <div class="detail">
+  <div class="list-detail pull-left">
   <%= content_tag 'p' do -%>
     <%=link_to  good.name.try(:block,150),good,target: '_blank', title: good.name %>
   <% end %>
@@ -18,4 +18,5 @@
     参考产地：<%= good.origin %>
   <% end unless good.origin.blank?%>
   </div>
+  <div class="clearfix"></div>
 </div>

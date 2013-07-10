@@ -2,10 +2,6 @@ class SidebarCell < Cell::Rails
   helper_method :section
   append_view_path "app/views"
 
-  cache :login do |cell, options|
-    options[:prices].md5
-  end
-
   def tuijian(args)
     @city   = City.where(name: args[:city]).first
     @prices = @city.prices.tuijian
@@ -19,9 +15,17 @@ class SidebarCell < Cell::Rails
     render
   end
 
-  def cheap(args)
+  def cheapest(args)
     @price = args[:price]
-    @prices = @price.good.prices.cheapest.not_in(:id => @price.id).includes(:good).limit(10)
+    @good = args[:good]
+    @prices = @price ? @price.good.prices.cheapest.includes(:good).limit(10) : @good.prices.cheapest.includes(:good).limit(10)
+    render
+  end
+
+  def recent(args)
+    @price = args[:price]
+    @good = args[:good]
+    @prices = @price ? @price.good.prices.recent.includes(:good).limit(10) : @good.prices.recent.includes(:good).limit(10)
     render
   end
 

@@ -5,7 +5,7 @@ class Focus
   belongs_to :user
   validates :user_id, presence: true,uniqueness: {scope: [:focusable_id,:focusable_type]}
   
-  scope :most, select: 'focusable_id,focusable_type,count(*) as count',group: 'focusable_id,focusable_type'
+  #scope :most, select: 'focusable_id,focusable_type,count(*) as count',group: 'focusable_id,focusable_type'
   
   def to_s
     focus.focusable.to_s

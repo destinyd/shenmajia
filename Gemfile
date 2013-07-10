@@ -79,3 +79,7 @@ gem 'rspec-cells'
 gem "mongoid", ">= 3.1.2"
 gem "mongoid-rspec", ">= 1.7.0", :group => :test
 gem "crummy", "~> 1.7.1"
+gem "figaro", ">= 0.6.3"
+gem "better_errors", ">= 0.7.2", :group => :development
+gem "binding_of_caller", ">= 0.7.1", :group => :development#, :platforms => [:mri_19, :rbx]
+gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]

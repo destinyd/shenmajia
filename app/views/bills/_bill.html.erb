@@ -1,13 +1,14 @@
-<div class="row-fluid">
-  <div class="span3">
+<div class="list-div">
+  <div class="pull-left">
     <%=link_to  bill,bill,target: '_blank', title: bill %><br />
     账单总额：<%= bill.total %><br />
   </div>
-  <div class="span9">
+  <div class="list-detail pull-left">
     <% bill.bill_prices.limit(6).each do |bp| %>
       <%= link_to bp.price,title: bp.price.try(:human_name) do %>
         <%= upload_image_tag bp.image,bp.price.try(:human_name),:list %>
       <% end %>
     <% end -%>
   </div>
+  <div class="clearfix"></div>
 </div>

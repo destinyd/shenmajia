@@ -25,7 +25,7 @@
   <% end %>
   <div class="clearer"></div>
 <% end %>
-<div class="r">从<%= collection.first.created_at  %>至现在，总共<%= collection.length %>笔消费，总共花费<span style="color:red"><%= @count %></span>元</div>
+<div class="pull-right">从<%= collection.first.created_at  %>至现在，总共<%= collection.length %>笔消费，总共花费<span style="color:red"><%= @count %></span>元</div>
 <% else %>
   <div>暂无消费数据</div>
 <% end unless collection.blank? %>

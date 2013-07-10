@@ -62,4 +62,13 @@ module ApplicationHelper
       raw content
     end
   end
+
+  def d(model,attr)
+    if model.respond_to? attr and !model.send(attr).blank?
+      tmp = content_tag(:dt,model.class.human_attribute_name(attr))
+      tmp += content_tag(:dd,model.send(attr))
+    else
+      ''
+    end
+  end
 end

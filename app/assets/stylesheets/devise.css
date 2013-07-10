@@ -28,3 +28,33 @@
   margin-bottom: 15px;
   padding: 7px 9px;
 }
+
+.reg_right{
+  border-left:solid 1px #ddd;
+  height: 620px;
+  padding: 280px 0 0 20px;
+}
+
+a#login_more {
+  background:#e5e5e5;
+  padding:7px 7px 6px;
+  text-decoration:none;
+  border-bottom:1px solid #d9d9d9;
+  display:inline-block;
+  margin:0 0 5px;
+  z-index:1000;
+}
+a#login_more span {
+  color:#a0a0a0;
+}
+#login_popup .remember {
+  padding:4px 0 0;
+}
+
+hr.d {
+	border:none;
+	border-top:1px dashed #e5e5e5;
+	clear:both;
+	height:0;
+	margin:15px 0;
+}

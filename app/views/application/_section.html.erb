@@ -2,14 +2,15 @@
   <section class="<%="#{plus[:plusclass]}" if plus[:plusclass]  -%>" <%= "id='#{plus[:plusid]}'" if plus[:plusid] %>>
     <header>
       <nav>
-        <ul>
-          <li class="title"><h2 id="<%= plus[:title] %>"><%= link_to plus[:title],'#' + plus[:title] -%></h2></li>
-        <% if plus[:section_path]  -%><li class="more"><%= link_to "更多",plus[:section_path],title: '更多' -%> </li><% end -%>
+        <ul class="unstyled">
+          <li class="title pull-left"><h2 id="<%= plus[:title] %>"><%= link_to plus[:title],'#' + plus[:title] -%></h2></li>
+        <% if plus[:section_path]  -%><li class="more pull-right"><%= link_to "更多",plus[:section_path],title: '更多' -%> </li><% end -%>
         </ul>
+        <div class="clearfix"></div>
       </nav>
     </header>
     <div class="article">
-      <ul>
+      <ul class="unstyled">
         <% plus[:things].each do |thing| -%>
           <% thing =  eval("thing.#{plus[:plusable]}") if plus[:plusable] -%>
           <% diy_path =  eval("#{plus[:link_path]}(thing.#{plus[:try_path]})") if plus[:try_path] -%>

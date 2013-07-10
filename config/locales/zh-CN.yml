@@ -211,6 +211,7 @@ zh-CN:
         price: 单价
         total: 总价
         locatable: 消费地点
+        created_at: 记录于
       cost:
         money: 总额
         good: 商品

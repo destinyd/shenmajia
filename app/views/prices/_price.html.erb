@@ -1,17 +1,18 @@
-<div class="price c" data-time="<%= price.created_at.to_i %>">  
-  <div class="l">
+<div class="list-div" data-time="<%= price.updated_at.to_i %>">
+  <div class="pull-left">
     <%= link_to price do %>
       <%= image_tag price.image.url(:list) %>
     <% end %>
   </div>
-  <div class="detail">[<%= price.type_id %>] <%=link_to  price.name.try(:block,150),price,target: '_blank' %>
+  <div class="pull-left list-detail">[<%= price.type_id %>] <%=link_to  price.name.try(:block,150),price,target: '_blank' %>
     <br />
     <p><b>价格</b>：<%= link_to price,price %></p>
     <% if price.locatable %>
       <p><b>地点</b>:<%= link_to price.locatable,price.locatable %></p>
-    <% end %>
-    <% if price.address %>
+    <% end if nil %>
+    <% unless price.address.blank? %>
       <p><b>地址</b>：<%= price.address %></p>
     <% end %>
   </div>
+  <div class="clearfix"></div>
 </div>

@@ -1,3 +1,6 @@
+<% content_for :head do -%>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=<%= ENV['BD_LBS_KEY'] %>"></script>
+<% end -%>
 <% @where_name = "[#{@price.type_id}]#{@price.good},单价#{@price.price}元" %>
 <% @where = @price %>
 <% @desc = "#{@price.good}在#{@price.address}的#{@price.type_id}信息、所在位置信息" %>
@@ -22,64 +25,63 @@ description:  @desc,
     }
   }
 %>
-<div class="l">
- <p>
-<b><%= label :price,:name %>:</b>
-<%= link_to @price.name,@price.good %>
-</p>
-<p>
-<b><%= label :price,:price%>:</b>
-<span class="big_price"><%= @price.human_price %></span>
-</p>
-<%= p_field @price,:type_id %>
-<%= p_field @price,:address %>
-<%= p_field @price,:amount %>
-<%= p_field @price,:finish_at %>
+<div class="row-fluid">
+  <div class="span8">
+    <%= content_tag :dl,class: 'dl-horizontal' do %>
+    <dt>名称</dt>
+    <dd><%= link_to @price.name,@price.good %></dd>
+    <dt>单价</dt>
+    <dd class="big_price"><%= @price.human_price %></dd>
+    <%= d @price,:type_id %>
+    <%= d @price,:address %>
+    <%= d @price,:amount %>
+    <%= d @price,:created_at %>
+    <%= d @price,:finish_at %>
 
-<%  unless @price.outlinks.blank? %>
-  <p>
-  <b>链接：</b>
-  <%= link_to @price.outlinks.first.url,@price.outlinks.first.url ,rel: "nofollow",target: '_blank'%>
-<% end -%>
- 
-</div>
-<%#<div class="r">%>
-  <%#<div>%>
-  <%#= render 'reviews/links',reviewable: @price %>
-  <%#</div> %>
-<%#</div>%>
-<div class="c"></div>
+    <% unless @price.outlinks.blank? %>
+      <dt>链接</dt>
+      <dd><%= link_to @price.outlinks.first.url,@price.outlinks.first.url ,rel: "nofollow",target: '_blank'%></dd>
+    <% end -%>
+  <% end -%>
 
-
-
-<% unless @price.image.blank? %>
-  <div class="tc">
+  <% unless @price.image.blank? %>
     <%= image_tag @price.image.large %>
-  </div>
-<% end %>
+  <% end %>
 
-<div class="c"></div>
-
-
-<% content_for :plus do -%>
-  <%= render 'map', resource: @price unless @price.no_locate? %>
-  <%#= render 'comments/comments',commentable: @price %>
-<% end -%>
-
-<% content_for :sidebar do -%>
-  <div id="near_cheapest">
-    <%= section title: '本商品附近最低价' do %>
-      <div id='near_cheapest_article'>
-        <%= render_cell :sidebar,:near,price: @price %>
-      </div>
+  <%# content_for :plus do -%>
+    <%#= render 'map', resource: @price unless @price.no_locate? %>
+    <% unless @price.no_locate? %>
+      <div data-lname="a" data-lat="<%= @price.lat %>" data-lon="<%= @price.lon %>" style="background-image:url(http://api.map.baidu.com/staticimage?zoom=14&width=318&height=160&markers=<%= @price.lon %>,<%= @price.lat %>)" title="点击查看大地图" class="bmap"></div>
     <% end %>
-  </div>
 
-  <div id="cheap">
-    <%= section title: '本商品全国最低价' do %>
-      <div id='cheap_article'>
-        <%= render_cell :sidebar,:cheap,price: @price %>
-      </div>
-    <% end %>
+    <%#= render 'comments/comments',commentable: @price %>
+    <%# end -%>
   </div>
-<% end -%>
+  <div class="span4">
+
+    <%# content_for :sidebar do -%>
+      <div id="recent">
+        <%= section title: '本商品最新价格' do %>
+          <div id='recent_article'>
+            <%= render_cell :sidebar,:recent,price: @price %>
+          </div>
+        <% end %>
+      </div>
+      <div id="near_cheapest">
+        <%= section title: '本商品附近最低价' do %>
+          <div id='near_cheapest_article'>
+            <%= render_cell :sidebar,:near,price: @price %>
+          </div>
+        <% end %>
+      </div>
+
+      <div id="cheapest">
+        <%= section title: '本商品全国最低价' do %>
+          <div id='cheapest_article'>
+            <%= render_cell :sidebar,:cheapest,price: @price %>
+          </div>
+        <% end %>
+      </div>
+    <%# end -%>
+  </div>
+</div>
