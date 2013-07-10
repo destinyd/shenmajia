@@ -348,6 +348,7 @@ zh-CN:
       home: 店铺信息
     home: '主页'
     sessions: 登录
+    registrations: 用户中心
   action:
     prices:
       new: 记账
