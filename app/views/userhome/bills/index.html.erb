@@ -3,8 +3,10 @@
   description:  "账单列表，第#{params[:page] || 1}页",
   title: @where_name
 %>
-<%= render collection %>
-<div class="c"></div>
-<div class="pull-right">
-  <%= paginate collection %> 
+<div>
+  <%= render collection %>
+  <div class="pull-right">
+    <%= paginate collection %> 
+  </div>
+  <div class="clearfix"></div>
 </div>

@@ -1,11 +1,22 @@
 <%= render 'before_layout' %>
-<div id="wrap">
-  <aside class="userhome">
-    <%=render 'userhome_left' %>
-  </aside>
-  <div class="product_l">
-    <%= render "content" %>
+<div class="container">
+  <div class="row">
+    <div class="span12">
+      <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+          <%=render 'userhome_left' %>
+        </ul>
+        <div class="tab-content">
+          <%= render 'layouts/messages' %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="c"></div>
 </div>
-<%= render 'after_layout' %>
+
+<div id="footer">
+  <%= render_cell :layouts, :footer %>
+</div>
+</body>
+</html>

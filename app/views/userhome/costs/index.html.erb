@@ -1,33 +1,37 @@
+<%= button_to '记录消费',new_cost_path, method:  :get, class: 'btn-primary' %>
 <% @count = 0 %>
 <%  if @cost_months = collection.group_by{|a| a.created_at.beginning_of_month} %>
 <% @cost_months.sort.each do |month,costs| %>
   <% month_count = 0 %>
   <%= content_tag :div,class: 'month' do %>
-    <%= month.strftime('%Y-%m') %>
+    <h3>
+      <%= month.strftime('%Y-%m') %>
+    </h3>
   <% end %>
   <% costs.each do |cost| %>
-    <%= content_tag :div,class: 'price_cost' do %>
+    <%= content_tag :div,class: 'list-div' do %>
       <% @count = @count + cost.money; month_count = month_count + cost.money %>
-      <%= content_tag :div,class: 'time' do %>
+      <%= content_tag :div,class: 'pull-left' do %>
         <%=cost.created_at.strftime('%d日%H:%M') %>
       <% end %>
-      <%= content_tag :div,class: 'title' do %>
+      <%= content_tag :div,class: 'pull-left uh-list-cost' do %>
         <%=link_to cost,cost %>
       <% end %>
-      <%= content_tag :div,class: 'price_cost_price' do %>
+      <%= content_tag :div,class: 'pull-right' do %>
         <span style="color:red"><%= cost.money %></span>元
       <% end %>
-      <div class='clearer'></div>
+      <div class="clearfix"></div>
     <% end %>
   <% end %>
-  <%= content_tag :div,class: 'r' do %>
-    <%= month.strftime('%Y年%m月')  %> <%= costs.length %>笔消费，总共花费<span style="color:red"><%= month_count %></span>元
+  <%= content_tag :div,class: 'pull-right' do %>
+    <%= month.strftime('%Y年%m月')  %> <%= costs.length %>笔消费，总共花费<span style="color:red"><%= "%.02f" % month_count %></span>元
   <% end %>
-  <div class="clearer"></div>
+  <div class="clearfix"></div>  
 <% end %>
-<div class="pull-right">从<%= collection.first.created_at  %>至现在，总共<%= collection.length %>笔消费，总共花费<span style="color:red"><%= @count %></span>元</div>
+<div class="pull-right">从<%= collection.first.created_at  %>至现在，总共<%= collection.length %>笔消费，总共花费<span style="color:red"><%= "%.02f" % @count %></span>元</div>
 <% else %>
   <div>暂无消费数据</div>
 <% end unless collection.blank? %>
-<%= button_to '记录消费',new_cost_path, method:  :get %>
+<div class="clearfix"></div>
+<%= button_to '记录消费',new_cost_path, method:  :get, class: 'btn-primary' %>
 

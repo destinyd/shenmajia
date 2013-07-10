@@ -1,8 +1,9 @@
-<%= section title:'用户面板' do %>
-<div class="content">
-  <p><%= link_to t('controller.homes'), userhome_root_path %></p>
-  <p><%= link_to t('controller.costs'), userhome_costs_path %></p>
-  <p><%= link_to t('controller.bills'), userhome_bills_path %></p>
-  <!--  <p><%= link_to t('activerecord.models.integral'),userhome_integrals_path%></p>-->
-</div>
+<%= content_tag 'li', class: controller_name == 'homes' ? 'active' : nil do -%>
+  <%= link_to t('controller.homes'), userhome_root_path %>
+<% end -%>
+<%= content_tag 'li', class: controller_name == 'costs' ? 'active' : nil do -%>
+  <%= link_to t('controller.costs'), userhome_costs_path %>
+<% end -%>
+<%= content_tag 'li', class: controller_name == 'bills' ? 'active' : nil do -%>
+  <%= link_to t('controller.bills'), userhome_bills_path %>
 <% end -%>
