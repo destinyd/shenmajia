@@ -22,7 +22,7 @@ class Bill
   accepts_nested_attributes_for :bill_prices, allow_destroy: true
   #accepts_nested_attributes_for :uploads
 
-  scope :recent,desc(:created_at)
+  scope :recent,desc(:updated_at)
   scope :with_pic,where(:picture_count.gt => 0)
   scope :with_bill_prices,includes(:bill_prices)
   #scope :with_goods,includes(:goods)

@@ -43,7 +43,7 @@ class PricesController < InheritedResources::Base
   #end
 
   def cheapest
-    @prices = collection
+    @prices = collection.cheapest
     add_crumb(I18n.t("action.prices.cheapest"), cheapest_prices_path)
     render action: "index"
   end

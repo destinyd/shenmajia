@@ -33,7 +33,7 @@ class Cost
   #has_many :prices,through: :price_costs
 
 
-  scope :recent,desc(:created_at)
+  scope :recent,desc(:updated_at)
   #scope :with_price,includes(:price)
   #scope :with_good,includes(:good)
 

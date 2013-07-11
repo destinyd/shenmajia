@@ -50,7 +50,7 @@ class Price
 
   scope :running,where(:finish_at => nil)
   scope :cheapest,running.asc("price")
-  scope :recent,running.desc(:created_at)
+  scope :recent,running.desc(:updated_at)
   scope :groupbuy,recent.where(type_id: [21,22])
   scope :not_finish,where(:finish_at.gt => Time.now)
   # scope :costs,recent.where(type_id: [0,1])  
@@ -66,7 +66,7 @@ class Price
       scoped
     end
   }
-  scope :list,with_good#.recent
+  scope :list,recent.with_good
   scope :just_ten,limit(10)
 
   scope :tuijian,recent.with_pic.list.limit(6)#.group(:good_id)

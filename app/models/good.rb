@@ -44,7 +44,7 @@ class Good
   accepts_nested_attributes_for :uploads
 
   #scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
-  scope :recent,desc(:created_at)#.includes(:reviews).limit(10)
+  scope :recent,desc(:updated_at)#.includes(:reviews).limit(10)
   scope :running,where(deleted_at:  DateTime.new(0))
   #scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at,goods.image')
   scope :with_pic,where(:image.exists => true)
