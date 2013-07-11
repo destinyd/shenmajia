@@ -5,33 +5,46 @@
   title: @where_name
 %>
 
-<dl class="dl-horizontal">
-  <dt>消费记录</dt>
-  <dd><%= link_to @cost,@cost %>
-  </dd>
+<div class="row-fluid">
+  <div class="span8">
+    <dl class="dl-horizontal">
+      <dt>消费记录</dt>
+      <dd><%= link_to @cost,@cost %>
+      </dd>
 
-  <% if @cost.bill %>
-    <dt>所属账单</dt>
-    <dd><%= link_to @cost.bill,@cost.bill %></dd>
-  <% end %>
+      <% if @cost.bill %>
+        <dt>所属账单</dt>
+        <dd><%= link_to @cost.bill,@cost.bill %></dd>
+      <% end %>
 
-  <dt>总额</dt>
-  <dd><%= @cost.money %></dd>
+      <dt>总额</dt>
+      <dd><%= @cost.money %></dd>
 
-  <dt>消费时间</dt>
-  <dd><%= @cost.created_at %></dd>
+      <dt>消费时间</dt>
+      <dd><%= @cost.created_at %></dd>
 
-  <dt>描述</dt>
-  <dd><%= @cost.desc %></dd>
-</dl>
+      <dt>描述</dt>
+      <dd><%= @cost.desc %></dd>
+    </dl>
 
-<% content_for :plus do -%>
-    <%= section title:  "账单详情" do %>
-      <%= render 'bills/show', bill: @cost.bill %>
-    <% end if @cost.bill %>
-  <%= render 'comments/comments',commentable: @cost %>
-<% end -%>
+    <% content_for :plus do -%>
+      <%= section title:  "账单详情" do %>
+        <%= render 'bills/show', bill: @cost.bill %>
+        <% end if @cost.bill %>
+        <%= render 'comments/comments',commentable: @cost %>
+      <% end -%>
 
 
-<% content_for :sidebar do -%>
-<% end -%>
+      <% content_for :sidebar do -%>
+      <% end -%>
+    </div>
+    <div class="span4">
+      <div id="cheapest">
+        <%= section title: "#{@cost.user}的最近消费记录" do %>
+          <div id='cheapest_article'>
+            <%= render_cell :sidebar,:recent_costs, user: @cost.user %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>

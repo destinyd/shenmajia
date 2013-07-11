@@ -1,0 +1,11 @@
+<% if @costs.blank? %>
+  暂无数据
+<% else %>
+  <ul class="nowrap unstyled">
+    <% @costs.each do |cost| %>
+      <li>
+        <%=link_to cost,cost, title: cost %><%= " 在 #{cost.address}" unless cost.address.blank? %>
+      </li>
+    <% end %>
+  </ul>
+<% end -%>

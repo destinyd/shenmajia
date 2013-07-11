@@ -13,6 +13,13 @@ class CostsController < InheritedResources::Base
   #caches_page :index,:show
   #cache_sweeper :cost_sweeper
 
+  def show
+    show! do
+      add_crumb(I18n.t("controller.costs"), costs_path)
+      add_crumb(@cost, cost_path(@cost))
+    end
+  end
+
   def create
     @cost = resource = current_user.costs.new params[:cost]
     create! do |format|
@@ -22,6 +29,12 @@ class CostsController < InheritedResources::Base
 
   protected
   def collection
+    if parent?
+      add_crumb(I18n.t("controller.#{parent.class.name.downcase.pluralize}"), polymorphic_path(parent.class))
+      add_crumb(parent.name, polymorphic_path(parent))
+    end
+    add_crumb(I18n.t("controller.costs"), costs_path)
+
     @costs ||= end_of_association_chain.recent.page(params[:page])
   end
 end

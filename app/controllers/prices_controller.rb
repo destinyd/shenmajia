@@ -6,6 +6,14 @@ class PricesController < InheritedResources::Base
   belongs_to :good, optional: true
   belongs_to :place, optional: true
 
+  def show
+    show! do
+      add_crumb(I18n.t("controller.prices"), prices_path)
+      add_crumb(@price.human_name, price_path(@price))
+    end
+  end
+
+
   #caches_page :index, :show#, :groupbuy, :cheapest#, :near_cheapest, :near_groupbuy, :cheap
   #cache_sweeper :price_sweeper
 
@@ -36,6 +44,7 @@ class PricesController < InheritedResources::Base
 
   def cheapest
     @prices = collection
+    add_crumb(I18n.t("action.prices.cheapest"), cheapest_prices_path)
     render action: "index"
   end
 
@@ -52,7 +61,14 @@ class PricesController < InheritedResources::Base
 
   protected
   def collection
+    if parent?
+      add_crumb(I18n.t("controller.#{parent.class.name.downcase.pluralize}"), polymorphic_path(parent.class))
+      add_crumb(parent.name, polymorphic_path(parent))
+    end
+    add_crumb(I18n.t("controller.prices"), prices_path)
+
     @prices ||= end_of_association_chain.in_action(action_name).list.page(params[:page])
+
     #@prices = @prices.send action_name if %w{cheapest groupbuy}.include? action_name
     #@prices = @prices.recent.page(params[:page])
     #@prices ||=  end_of_association_chain.recent.page(params[:page])
