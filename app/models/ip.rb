@@ -1,4 +1,10 @@
-class Ip < ActiveRecord::Base
+class Ip
+  include Mongoid::Document
+  include Mongoid::Timestamps
+  field :ip,              :type => String
+  field :lat,              :type => Float
+  field :lon,              :type => Float
+
   belongs_to :city
   validates :ip, presence: true,uniqueness: true
   before_create :get_ip
