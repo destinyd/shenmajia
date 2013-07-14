@@ -4,6 +4,7 @@
 description:  "#{strip_tags(@article.content).block 250}",
   title: @where_name %>
 <div>
+  <h1 class="text-center"><%= @article.title %></h1>
   <div class="under_title" style="text-align:center;">
     <% if @article.user %>
       作者:<%= @article.user %>
