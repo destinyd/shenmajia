@@ -12,7 +12,7 @@ group :assets do
   if HOST_OS =~ /linux/i
     gem 'therubyracer', '>= 0.8.2'
   end
-  gem "yuicompressor", :group => [:production]
+  gem "yui-compressor"
 end
 
 
