@@ -18,6 +18,11 @@ SitemapGenerator::Sitemap.create do
     add good_path(c), lastmod: (c.updated_at || c.created_at), :priority => 0.7
   end
 
+  add bills_path, :changefreq => 'daily', :priority => 0.6
+  add prices_path, :changefreq => 'daily', :priority => 0.6
+  add costs_path, :changefreq => 'daily', :priority => 0.6
+  add uploads_path, :changefreq => 'daily', :priority => 0.5
+  add goods_path, :changefreq => 'weekly', :priority => 0.5
 
   # Put links creation logic here.
   #

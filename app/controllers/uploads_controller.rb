@@ -24,6 +24,6 @@ class UploadsController < InheritedResources::Base
       add_crumb(parent.name, polymorphic_path(parent))
     end
     add_crumb(I18n.t("controller.uploads"), uploads_path)
-    @uploads ||= end_of_association_chain.page(params[:page])
+    @uploads ||= end_of_association_chain.recent.page(params[:page])
   end
 end

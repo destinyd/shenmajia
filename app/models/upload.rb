@@ -41,7 +41,6 @@ class Upload
   end
 
   after_create do
-    debugger
     if self.uploadable and self.uploadable.methods.include? :image and self.uploadable.image.blank?
       #self.uploadable.write_uploader(:image, read_attribute(:image_file_name))
       self.uploadable.image = self.image
