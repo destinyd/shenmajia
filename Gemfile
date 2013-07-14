@@ -39,11 +39,11 @@ case HOST_OS
     gem 'rb-fsevent', :group => :development
     gem 'growl', :group => :development
     gem 'guard-pow', :group => :development
-    gem 'unicorn'
+    gem 'thin'
   when /linux/i
     gem 'libnotify', :group => :development
     gem 'rb-inotify', :group => :development
-    gem 'unicorn'
+    gem 'thin'
     group :test do
       gem "rspec-rails", "~> 2.0"
       gem 'capybara'#, '1.1.2'
