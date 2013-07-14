@@ -216,6 +216,7 @@ zh-CN:
         money: 总额
         good: 商品
         locatable: 消费地点
+        created_at: 消费时间
       place:
         name: 地点名称
       shop:

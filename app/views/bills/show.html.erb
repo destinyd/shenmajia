@@ -4,5 +4,7 @@
   description:  "#{@where_name} 购买商品：#{@bill.prices.map(&:name).join}",
   title: @where_name
 %>
+<h1><%= @bill %></h1>
 <%= render 'bills/show', bill: @bill %>
 <%= render 'costs', bill: @bill %>
+<%= render "application/share" %>

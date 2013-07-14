@@ -19,4 +19,5 @@ description:  "#{strip_tags(@article.content).block 250}",
   <p style="margin-top:20px;">
   <%= @article.content %>
   </p>
+  <%= render "application/share" %>
 </div>

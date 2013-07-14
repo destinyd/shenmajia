@@ -27,11 +27,12 @@ description:  @desc,
 %>
 <div class="row-fluid">
   <div class="span8">
+    <h1><%= @price %></h1>
     <%= content_tag :dl,class: 'dl-horizontal' do %>
-    <dt>名称</dt>
-    <dd><%= link_to @price.name,@price.good, title: @price.name %></dd>
+    <dt>商品名称</dt>
+    <dd><%= link_to @price.good,@price.good, title: @price.good %></dd>
     <dt>单价</dt>
-    <dd class="big_price"><%= @price.human_price %></dd>
+    <dd class="big_price"><strong class="red"><%= @price.human_price %></strong></dd>
     <%= d @price,:type_id %>
     <%= d @price,:address %>
     <%= d @price,:amount %>
@@ -48,6 +49,9 @@ description:  @desc,
       <dt>链接</dt>
       <dd><%= link_to @price.outlinks.first.url,@price.outlinks.first.url ,rel: "nofollow",target: '_blank'%></dd>
     <% end -%>
+
+    <%= render "application/share_in_dl" %>
+
   <% end -%>
 
 

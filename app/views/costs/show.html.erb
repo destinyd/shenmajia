@@ -7,36 +7,27 @@
 
 <div class="row-fluid">
   <div class="span8">
+    <h1><%= @cost %></h1>
     <dl class="dl-horizontal">
-      <dt>消费记录</dt>
-      <dd><%= link_to @cost,@cost %>
-      </dd>
-
       <% if @cost.bill %>
         <dt>所属账单</dt>
         <dd><%= link_to @cost.bill,@cost.bill %></dd>
       <% end %>
 
-      <dt>总额</dt>
-      <dd><%= @cost.money %></dd>
+      <%= d @cost, :money %>
+      <%= d @cost, :created_at %>
+      <%= d @cost, :desc %>
 
-      <dt>消费时间</dt>
-      <dd><%= @cost.created_at %></dd>
+      <%= render "application/share_in_dl" %>
 
-      <dt>描述</dt>
-      <dd><%= @cost.desc %></dd>
     </dl>
 
-    <% content_for :plus do -%>
+    <%# content_for :plus do -%>
       <%= section title:  "账单详情" do %>
         <%= render 'bills/show', bill: @cost.bill %>
-        <% end if @cost.bill %>
-        <%= render 'comments/comments',commentable: @cost %>
-      <% end -%>
-
-
-      <% content_for :sidebar do -%>
-      <% end -%>
+      <% end if @cost.bill %>
+      <%#= render 'comments/comments',commentable: @cost %>
+    <%# end -%>
     </div>
     <div class="span4">
       <div id="cheapest">

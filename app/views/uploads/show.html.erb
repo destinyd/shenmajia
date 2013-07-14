@@ -7,7 +7,7 @@
   title: @where_name,
   og:{
     url: upload_url(@upload),
-    title: @upload.locatable,
+    title: @upload.uploadable,
     type: 'image',
     image: ENV['DOMAIN'] + @upload.image.medium.url,
     description: @desc.block(200)
@@ -33,3 +33,6 @@
     <% end %>
   </p>
 </div>
+
+<%= render "application/share" %>
+
