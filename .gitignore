@@ -19,3 +19,4 @@ public/assets/*
 public/images/uploads
 public/p
 config/mongoid.yml
+public/sitemap*
