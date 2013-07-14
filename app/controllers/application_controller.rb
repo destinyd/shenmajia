@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :get_cache_id,:log_user_agent
+  before_filter :log_user_agent
   helper_method :city_info_of_ip,:get_city_name
 
   add_crumb I18n.t("title"), '/'
@@ -51,9 +51,9 @@ class ApplicationController < ActionController::Base
 
 
   private
-  def get_cache_id
-    @cache_id = Time.now.strftime "%Y%m_%d"
-  end
+  #def get_cache_id
+    #@cache_id = Time.now.strftime "%Y%m_%d"
+  #end
 
   def ip_infos
     @ip_infos = {
