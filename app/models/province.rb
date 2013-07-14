@@ -1,6 +1,7 @@
 class Province
   include Mongoid::Document
   include Mongoid::Timestamps
+  #include Geocoder::Model::Mongoid
   field :name
   field :remark
   field :sort, :type => Integer
@@ -10,6 +11,6 @@ class Province
   #geocoded_by :name, latitude: :lat, longitude: :lon
   has_many :cities
   
-  geocoded_by :name, latitude: :lat, longitude: :lon
+  #geocoded_by :name, latitude: :lat, longitude: :lon
   #after_validation :geocode
 end
