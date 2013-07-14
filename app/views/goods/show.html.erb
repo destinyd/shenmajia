@@ -7,7 +7,7 @@
   url: good_url(@good),
   title: @good.name,
   type: 'product',
-  image: @good.image.medium,
+  image: ENV['DOMAIN'] + @good.image.medium.url,
   description: @good.desc.blank? ? @desc : "#{strip_tags(@good.desc).gsub(/\s|\n|\r|\t|&nbsp;/,'').block 200}",
   }
 %>
