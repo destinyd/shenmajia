@@ -6,7 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require bootstrap
 //= require jquery.purr
 //= require jquery.lightbox-0.5.min
