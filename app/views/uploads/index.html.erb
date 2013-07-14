@@ -3,17 +3,17 @@
   description:  "图片列表，第#{params[:page] || 1}页",
   title: @where_name
 %>
-<div class="images">
+<div class="list-div">
   <% @uploads.each do |upload| %>
-    <div class="l margin-r10">
+    <div class="list-upload pull-left">
       <%= link_to upload,title: upload.uploadable do %>
-        <%= image_tag upload.image.medium,alt: upload.uploadable %>
+        <%= image_tag upload.image.medium,alt: upload.uploadable, class: 'list-upload-img', title: upload, alt: upload %>
       <% end -%>
-      <p class="list_title"> <%= link_to upload.uploadable,upload %> </p>
+      <p class="list-upload-title"> <%= link_to upload,upload, title: upload, class: 'nowrap' %> </p>
     </div>
   <% end %>
+  <div class="clearfix"></div>
 </div>
-<div class="c"></div>
 <div class="pull-right">
   <%= paginate @uploads %>
 </div>

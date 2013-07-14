@@ -32,6 +32,14 @@ class Upload
     self.save
   end
 
+  def to_s
+    if uploadable
+      uploadable.to_s
+    else
+      image_file_name
+    end
+  end
+
   after_create do
     debugger
     if self.uploadable and self.uploadable.methods.include? :image and self.uploadable.image.blank?

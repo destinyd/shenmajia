@@ -1,21 +1,35 @@
 <% if @upload.uploadable %>
   <% @where_name = @upload.uploadable.to_s %>
   <% @where = @upload.uploadable %>
-  <% set_meta_tags keywords:  "#{@upload.uploadable}图片,#{@upload.uploadable}上传文件", 
-  description:  "#{@upload.uploadable}图片,#{@upload.uploadable}上传文件",
-    title: @where_name %>
+  <% @desc = "#{@upload.uploadable}图片,#{@upload.uploadable}上传文件" %>
+  <% set_meta_tags keywords:  "#{@upload.uploadable}图片,#{@upload.uploadable}上传文件",
+  description: @desc,
+  title: @where_name,
+  og:{
+    url: upload_url(@upload),
+    title: @upload.locatable,
+    type: 'image',
+    image: ENV['DOMAIN'] + @upload.image.medium.url,
+    description: @desc.block(200)
+  } %>
 <% else %>
-  <% set_meta_tags keywords:  "图片,上传文件", 
-  description:  "图片,上传文件" %>
+  <% set_meta_tags keywords:  "图片,上传文件",
+  description:  "图片,上传文件",
+  og:{
+    url: upload_url(@upload),
+    title: @upload.image_file_name,
+    type: 'image',
+    image: ENV['DOMAIN'] + @upload.image.medium.url
+  } %>
 
 <% end -%>
-<div  class="m">
+<div class="text-center">
   <%= image_tag @upload.image.url(:large) %>
   <p>
     <% if @upload.uploadable %>
-      <%= link_to @upload.uploadable,@upload.uploadable %>
+      <%= link_to @upload.uploadable,@upload.uploadable, title: @upload.uploadable %>
     <% else %>
-      图片
+      <h1><%= @upload.image_file_name %></h1>
     <% end %>
   </p>
 </div>
