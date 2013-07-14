@@ -4,7 +4,7 @@
   <ul class="nowrap unstyled">
     <% @prices.each do |price| %>
       <li>
-        <%=link_to price.human_name,price, title: price.human_name %><%= " 在 #{price.address}" unless price.address.blank? %>
+        <%=link_to price.human_name,price, title: price.try(:human_name) %><%= " 在 #{price.address}" unless price.address.blank? %>
       </li>
     <% end %>
   </ul>

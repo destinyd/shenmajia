@@ -11,13 +11,13 @@
     <% bill.bill_prices.each do |bp| %>
       <tr>
         <td>
-          <%= link_to bp.price.good do %>
-            <%= image_tag bp.image.url(:list) %>
+          <%= link_to bp.price.good, title: bp.price.good do %>
+            <%= upload_image_tag bp.image, bp.price.good, :list %>
           <% end -%>
         </td>
         <% price = bp.price; total = bp.amount * price.price; @total += total %>
-        <td class="name"><%= link_to price.good,price.good %></td>
-        <td><%= link_to price.price,price %></td>
+        <td class="name"><%= link_to price.good,price.good, title: bp.price.good %></td>
+        <td><%= link_to price.price, price, title: price.human_name %></td>
         <td><%= bp.amount %></td>
         <td><%= "%.02f" % total %></td>
       </tr>

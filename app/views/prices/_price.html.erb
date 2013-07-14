@@ -1,14 +1,14 @@
 <div class="list-div" data-time="<%= price.updated_at.to_i %>">
   <div class="pull-left">
-    <%= link_to price do %>
-      <%= image_tag price.image.url(:list) %>
+    <%= link_to price, title: price.name do %>
+      <%= upload_image_tag price.image, price.try(:human_name), :list %>
     <% end %>
   </div>
-  <div class="pull-left list-detail">[<%= price.type_id %>] <%=link_to  price.name.try(:block,150),price,target: '_blank' %>
+  <div class="pull-left list-detail">[<%= price.type_id %>] <%=link_to  price.name.try(:block,150),price,target: '_blank', title: price.name %>
     <br />
-    <p><b>价格</b>：<%= link_to price,price %></p>
+    <p><b>价格</b>：<%= link_to price,price, title: price.try(:human_name) %></p>
     <% if price.locatable %>
-      <p><b>地点</b>:<%= link_to price.locatable,price.locatable %></p>
+      <p><b>地点</b>:<%= link_to price.locatable,price.locatable, title: price.locatable %></p>
     <% end if nil %>
     <% unless price.address.blank? %>
       <p><b>地址</b>：<%= price.address %></p>

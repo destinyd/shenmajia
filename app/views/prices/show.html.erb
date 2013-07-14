@@ -29,7 +29,7 @@ description:  @desc,
   <div class="span8">
     <%= content_tag :dl,class: 'dl-horizontal' do %>
     <dt>名称</dt>
-    <dd><%= link_to @price.name,@price.good %></dd>
+    <dd><%= link_to @price.name,@price.good, title: @price.name %></dd>
     <dt>单价</dt>
     <dd class="big_price"><%= @price.human_price %></dd>
     <%= d @price,:type_id %>
@@ -37,6 +37,12 @@ description:  @desc,
     <%= d @price,:amount %>
     <%= d @price,:created_at %>
     <%= d @price,:finish_at %>
+    <% unless @price.image.blank? %>
+      <dt>图片</dt>
+      <dd>
+        <%= upload_image_tag @price.image, @price.try(:human_name), :large %>
+      </dd>
+    <% end %>
 
     <% unless @price.outlinks.blank? %>
       <dt>链接</dt>
@@ -44,9 +50,6 @@ description:  @desc,
     <% end -%>
   <% end -%>
 
-  <% unless @price.image.blank? %>
-    <%= image_tag @price.image.large %>
-  <% end %>
 
   <%# content_for :plus do -%>
     <%#= render 'map', resource: @price unless @price.no_locate? %>

@@ -1,7 +1,7 @@
 <div class="list-div" data-time="<%= good.created_at.to_i %>" id="good_<%= good.id %>">  
   <div class="pull-left">
-    <%= link_to good do %>
-      <%= image_tag good.image.url(:list) %>
+    <%= link_to good, title: good do %>
+      <%= upload_image_tag good.image, good, :list %>
     <% end %>
   </div>
   <div class="list-detail pull-left">

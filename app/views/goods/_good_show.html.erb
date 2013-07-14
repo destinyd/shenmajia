@@ -13,17 +13,20 @@
       <%= d good, :unit %>
       <%= d good, :barcode %>
       <%= d good, :origin %>
-      <dt>描述</dt>
+      <% unless good.desc.blank? %>
+        <dt>描述</dt>
+        <dd>
         <%= raw good.desc if (good.user_id? and  good.is_valid) or !good.user_id? %>
-  <%= good.desc if good.user_id and !good.is_valid %>
-<dd>
+        <%= good.desc if good.user_id and !good.is_valid %>
+        </dd>
+      <% end %>
+      <% unless good.image.blank? %>
+      <dt>图片</dt>
+      <dd>
+        <%= upload_image_tag good.image, good.name, :large %>
       </dd>
+      <% end -%>
     </dl>
-    <% unless good.image.blank? %>
-      <div class="tc">
-        <%= image_tag good.image.url :large %>
-      </div>
-    <% end -%>
 
 
     </div>

@@ -2,20 +2,23 @@
 <div class="pin">
   <div class="good" style="height:auto;">
       <div class="img">
-        <%= link_to price.good,target: '_blank' do %>
+        <%= link_to price.good,target: '_blank', title: price.good do %>
           <%= image_tag price.image.pin,
             width:price.image.pin.width,
-            height: price.image.pin.height %>
+            height: price.image.pin.height,
+            title: price.try(:human_name),
+            alt: price.try(:human_name)
+          %>
         <% end %>
       </div>
     <div class="title">
-      <h4><%= link_to price.good.name,price.good,target: '_blank' %></h4>
+      <h4><%= link_to price.good.name,price.good,target: '_blank', title: price.good %></h4>
     </div>
   </div>
   <div class="prices">
     <% prices_group.each do |price| %>
       <div class="per_price">
-        <div class="type_id">[<%= price.type_id %>]</div><div class="price"> <%= link_to price.price,price,target: '_blank' %></div>
+        <div class="type_id">[<%= price.type_id %>]</div><div class="price"> <%= link_to price.price,price,target: '_blank', title: price.try(:human_name) %></div>
       </div>
     <% end -%>
     <%# <div class="more_price">
