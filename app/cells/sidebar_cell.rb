@@ -29,7 +29,7 @@ class SidebarCell < Cell::Rails
 
   def recent_costs(args)
     @user = args[:user]
-    @costs = @user.costs.recent.limit(10)
+    @costs = @user ? @user.costs.recent.limit(10) : []
     render
   end
 
