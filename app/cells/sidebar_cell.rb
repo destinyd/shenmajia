@@ -16,9 +16,8 @@ class SidebarCell < Cell::Rails
   end
 
   def cheapest(args)
-    @price = args[:price]
     @good = args[:good]
-    @prices = @price ? @price.good.prices.cheapest.includes(:good).limit(10) : @good.prices.cheapest.includes(:good).limit(10)
+    @prices = @good ?  @good.prices.cheapest.includes(:good).limit(10) : []
     render
   end
 

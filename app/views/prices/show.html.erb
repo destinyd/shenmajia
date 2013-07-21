@@ -85,7 +85,7 @@ description:  @desc,
       <div id="cheapest">
         <%= section title: '本商品全国最低价' do %>
           <div id='cheapest_article'>
-            <%= render_cell :sidebar,:cheapest,price: @price %>
+            <%= render_cell :sidebar,:cheapest,good: @price.good %>
           </div>
         <% end %>
       </div>
