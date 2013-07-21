@@ -163,7 +163,7 @@ class Price
   # end
 
   def near_prices long = 20
-    return city.prices.not_in(:id => self.id) if city_id
+    return city.prices.not_in(:id => self.id) if city
     @nears ||= nearbys(long)
     @nears ||= @nears.running.limit(10) unless @nears.blank?
     @nears
