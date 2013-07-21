@@ -23,9 +23,8 @@ class SidebarCell < Cell::Rails
   end
 
   def recent(args)
-    @price = args[:price]
     @good = args[:good]
-    @prices = @price ? @price.good.prices.recent.includes(:good).limit(10) : @good.prices.recent.includes(:good).limit(10)
+    @prices = @good ? @good.prices.recent.includes(:good).limit(10) : []
     render
   end
 

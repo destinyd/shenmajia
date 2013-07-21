@@ -70,7 +70,7 @@ description:  @desc,
       <div id="recent">
         <%= section title: '本商品最新价格' do %>
           <div id='recent_article'>
-            <%= render_cell :sidebar,:recent,price: @price %>
+            <%= render_cell :sidebar,:recent,good: @price.good %>
           </div>
         <% end %>
       </div>
