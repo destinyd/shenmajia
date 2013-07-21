@@ -5,15 +5,4 @@
 # Disallow: /
 User-agent: *
 Allow: /
-Disallow: /userhomes
-Disallow: /users/
-Disallow: /users
-Disallow: /*/new$
-Disallow: /*/edit$
-Disallow: /*/buy_one$
-Disallow: /locates*
-Disallow: /*locates
-Disallow: /*just_started
-Disallow: /*nearly_finish
-Disallow: /*prices/costs
-Sitemap:http://shenmajia/sitemap.xml
+Sitemap:http://shenmajia/sitemap.xml.gz
