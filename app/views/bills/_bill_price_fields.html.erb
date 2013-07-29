@@ -1,0 +1,12 @@
+<tr id="good_<%#= key %>" class="nested-fields">
+  <td class="image"><%= f.file_field :image %></td>
+  <td class="name"><%= f.text_field :name %><%= f.hidden_field :good_id %></td>
+  <td class="price">
+    <%= f.text_field :price_value %>
+  </td>
+  <td class="amount">
+    <%= f.text_field :amount %>
+  </td>
+  <td class="total"><%#= "%.2f" % total    %></td>
+  <td><%= link_to_remove_association "X", f %></td>
+</tr>

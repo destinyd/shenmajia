@@ -1,5 +1,5 @@
 # coding: utf-8
-require "geocoder/models/mongoid" if defined?(::Mongoid)
+#require "geocoder/models/mongoid" if defined?(::Mongoid)
 class Price
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -19,7 +19,7 @@ class Price
   STATUS_LOW = 5
   mount_uploader :image, ImageUploader
   attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title
-  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:city_id,:image
+  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:city_id,:image, :good, :good_id
   attr_accessible :user_id, on: :bill
   attr_accessible :image_path, on: :admin
   #validates :type_id, presence: true
@@ -41,8 +41,8 @@ class Price
   #has_many :bills,through: :bill_prices
   has_and_belongs_to_many :bills
 
-  include Geocoder::Model::Mongoid
-  geocoded_by :address, latitude: :lat, longitude: :lon
+  #include Geocoder::Model::Mongoid
+  #geocoded_by :address, latitude: :lat, longitude: :lon
 
   #scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   #scope :review_low, Filter.new(self).extend(ReviewFilter)
@@ -131,10 +131,6 @@ class Price
     return if is_valid
     update_attribute(:is_valid, true)
     user.get_point(1,self,1) if user_id
-  end
-
-  def exp
-    user.get_point(1,self) if user_id
   end
 
   # def deal_cheap_price
@@ -238,7 +234,7 @@ class Price
   # before_create :geocode, if: [:no_locate?,:address_changed?]#,on: :create
   #before_update :geocode, if: :address_changed?
   before_create :outlink_user
-  after_create :exp,:deal_good,:deal_image
+  after_create :deal_good,:deal_image
   # after_create :deal_cheap_price,:deal_original_price
 
   def no_locate?
@@ -270,7 +266,7 @@ class Price
 
   def deal_image
     return if image.blank?
-    u = good.uploads.new
+    u = self.good.uploads.new
     u.image_file_name =  self.read_attribute(:image)
     u.save
     #self.good_id = tmp.id  unless self.good_id

@@ -8,19 +8,27 @@ class Bill
   field :ordered_at,              :type => Date
   field :deleted_at,              :type => Date
   field :picture_count,              :type => Integer, default: 0
+  field :desc,              :type => String
+  field :address,              :type => String
+  field :lat, :type => Float
+  field :lon, :type => Float
+
   #acts_as_paranoid
   attr_accessor :cost, :desc
-  attr_accessible :ordered_at, :total, :bill_prices_attributes, :cost, :desc
+  attr_accessible :ordered_at, :total, :bill_prices_attributes, :cost, :desc, :address, :lat, :lon
   has_many :bill_prices#, dependent: :destroy
   #has_many :prices,through: :bill_prices
-  has_and_belongs_to_many :prices
+  #has_and_belongs_to_many :prices
   #has_many :goods,through: :prices
   has_many :costs, dependent: :destroy
   has_many :uploads, as: :uploadable
   belongs_to :user
 
-  accepts_nested_attributes_for :bill_prices, allow_destroy: true
+  validates :total, presence: true
+
+  #accepts_nested_attributes_for :bill_prices, allow_destroy: true
   #accepts_nested_attributes_for :uploads
+  accepts_nested_attributes_for :bill_prices, :allow_destroy => true, :reject_if => proc { |attributes| attributes['price_value'].blank? || attributes['amount'].blank? }
 
   scope :recent,desc(:updated_at)
   scope :with_pic,where(:picture_count.gt => 0)
@@ -34,7 +42,6 @@ class Bill
   after_initialize do
     total = 0 unless total.blank?
     fully_paid = false if fully_paid.nil?
-    picture_count = 0 if picture_count.nil?
   end
 
   def pay
@@ -62,13 +69,26 @@ class Bill
       }, on: :bill
       )
   end
+
+  def prices
+    Price.in(id: bill_prices.map(&:id))
+  end
   
   before_create do
     ordered_at = DateTime.now if ordered_at.blank?
     unless cost.blank?
-      self.fully_paid = true if cost.to_d == total.to_d
+      self.fully_paid = true if cost.to_f == total.to_f
       build_cost_desc
       create_cost
     end
+  end
+
+  after_create :calc_pic_count
+
+  def calc_pic_count
+    bill_prices.each do |bp|
+      self.picture_count += 1 if !bp.image.blank?
+    end
+    save if changed?
   end
 end

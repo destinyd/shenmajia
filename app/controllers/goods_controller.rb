@@ -1,5 +1,5 @@
 class GoodsController < InheritedResources::Base
-  before_filter :authenticate_user!, only: [:new,:create,:edit,:update,:destroy]
+  before_filter :authenticate_user!, except: [:index, :show, :search]
   respond_to :html#, :json
   respond_to :js, only: [:new,:create]
   #respond_to :json,only: :search
@@ -21,13 +21,13 @@ class GoodsController < InheritedResources::Base
      create!
   end
 
-  #def search
-    #@goods = Good.where('name like ?' , '%' + params[:name_q] + '%').list.page(params[:page])
-    #respond_to do |f|
-      ##f.json{render json: @goods.to_json}
-      #f.html{render :index}
-    #end
-  #end
+  def search
+    @goods = Good.search(params[:q]).page(params[:page])
+    respond_to do |f|
+      f.json{render json: @goods}
+      f.html{render :index}
+    end
+  end
 
   def tags
     @tags = Good.tag_counts.includes(:taggings)

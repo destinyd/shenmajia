@@ -1,13 +1,7 @@
-<% @where_name = "#{t('action.bills.new')}-第#{params[:step] || 1}步" %>
+<% @where_name = "#{t('action.bills.new')}" %>
 <% set_meta_tags keywords:  "消费,消费记录", 
   description: @where_name,
   title: @where_name
 %>
-<% if @place %>
-  <%= render "form_2" %>
-<% else %>
-  <%= render "form_1" %>
-  <% content_for :plus do -%>
-    <%= render "bills/map_select" %>
-  <% end -%>
-<% end %>
+<h1><%= t('action.bills.new') %></h1>
+<%= render "form" %>

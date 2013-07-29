@@ -2,7 +2,7 @@
 module DescBuilder
   def build_cost_desc
     if self.desc.blank?
-      self.desc = "我在#{self.locatable}：购买"
+      self.desc = "我在#{self.address}：购买"
       arr_desc = []
       bill_prices.each do |bp|
         arr_desc.push "#{bp.price.good}*#{bp.amount}#{bp.price.good.unit}=#{'%.2f' % (bp.price.price * bp.amount)}元"

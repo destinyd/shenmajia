@@ -138,7 +138,7 @@ zh-CN:
     select:
       prompt: "请选择"
 
-  activemodel:
+  mongoid:
     errors:
       template:
         header:
@@ -232,6 +232,9 @@ zh-CN:
       order:
         shop: 店铺
         total: 账单总额
+      bill:
+        total: 实际总额
+        cost: 实际花费
 
   attributes:
     created_at: '创建于'
@@ -279,6 +282,7 @@ zh-CN:
     body: 内容
     page: 页数
     current_password: 当前密码
+    total: 总额
 
 
 

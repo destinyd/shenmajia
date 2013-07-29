@@ -1,0 +1,8 @@
+zh-CN:
+  mongoid:
+    errors:
+      models:
+        bill:
+          attributes:
+            total:
+              presence: 实际总额必填

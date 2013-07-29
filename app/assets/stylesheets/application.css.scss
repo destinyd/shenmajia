@@ -4,6 +4,7 @@
 */
 //= require easyslide
 //= require jquery.lightbox-0.5
+//= require jquery.ui.all
 //= require_tree .
 .content {
   /*background-color: #eee;*/
@@ -71,4 +72,8 @@
 
 .red{
   color: red;
+}
+
+.h400{
+  height: 400px;
 }
