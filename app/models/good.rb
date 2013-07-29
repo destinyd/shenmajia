@@ -15,8 +15,8 @@ class Good
   field :picture_count,              :type => Integer, default: 0
 
   mount_uploader :image, ImageUploader
-  attr_accessible :product_name,:brand_name,:norm_name,:name,:desc,:norm,:unit,:barcode,:origin,:tag_list
-  attr_accessor :brand_name,:product_name,:norm_name#,:brand_name,
+  attr_accessible :product_name,:brand_name,:norm_name,:name,:desc,:norm,:unit,:barcode,:origin,:tag_list, :xhr
+  attr_accessor :brand_name,:product_name,:norm_name, :xhr#,:brand_name,
   STATUS_LOW = 2
   belongs_to :user
   belongs_to :brand
@@ -96,7 +96,7 @@ class Good
   end
 
   before_create :uniq_barcode_or_nil
-  after_create :exp,:valid_if_user_is_vip
+  #after_create :exp,:valid_if_user_is_vip
 
   def uniq_barcode_or_nil
     barcode = nil if barcode == ''

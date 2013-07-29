@@ -6,7 +6,7 @@ var search_timeout = null;
 function good_query_onkeyup(){
   $('#results').html('读取中...');
   clear_search();
-  search_timeout = setTimeout(function(){search_goods()},2000);
+  search_timeout = setTimeout(function(){search_goods()},1000);
 }
 
 function search_goods(){
@@ -47,4 +47,10 @@ function add_good(id,name){
   else{
     alter('你已添加此商品。');
   }
+}
+
+function bind_new_good (btn_selector) {
+  $(btn_selector).click(function(){
+    $('#modalNewGood').modal('show');
+  })
 }
