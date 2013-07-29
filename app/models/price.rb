@@ -1,5 +1,5 @@
 # coding: utf-8
-#require "geocoder/models/mongoid" if defined?(::Mongoid)
+require "geocoder/models/mongoid" if defined?(::Mongoid)
 class Price
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -41,8 +41,8 @@ class Price
   #has_many :bills,through: :bill_prices
   has_and_belongs_to_many :bills
 
-  #include Geocoder::Model::Mongoid
-  #geocoded_by :address, latitude: :lat, longitude: :lon
+  include Geocoder::Model::Mongoid
+  geocoded_by :address, latitude: :lat, longitude: :lon
 
   #scope :review_type, Filter.new(self).extend(ReviewTypeFilter)
   #scope :review_low, Filter.new(self).extend(ReviewFilter)
@@ -161,8 +161,6 @@ class Price
   def near_prices long = 20
     return city.prices.not_in(:id => self.id) if city_id
     @nears ||= nearbys(long)
-    @nears ||= @nears.running.limit(10) unless @nears.blank?
-    @nears
   end
 
   def self.near_prices coordinates,long = 20

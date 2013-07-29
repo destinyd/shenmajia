@@ -11,7 +11,7 @@ class SidebarCell < Cell::Rails
 
   def near(args)
     @price = args[:price]
-    @prices = @price.near_prices.blank? ? [] : @price.near_prices.where(good_id: @price.good_id).cheapest.includes(:good).limit(10)
+    @prices = @price.near_prices.blank? ? [] : @price.near_prices.where(good_id: @price.good_id).not_in(id: @price.id).cheapest.includes(:good).limit(10)
     render
   end
 
