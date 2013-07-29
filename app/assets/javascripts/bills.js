@@ -37,7 +37,7 @@ function clear_search(){
 
 function add_good(id,name){
   var t = Number(new Date());
-  var html = '<tr id="' + id + '" class="goods_selected"><td class="image"><input id="bill_bill_prices_attributes_' + t + '_image" name="bill[bill_prices_attributes][' + t + '][image]" type="file" /></td>  <td class="name"><input id="bill_bill_prices_attributes_' + t + '_name" name="bill[bill_prices_attributes][' + t + '][name]" value="' + name + '" disabled="disabled" size="30" type="text" /><input id="bill_bill_prices_attributes_' + t + '_good_id" name="bill[bill_prices_attributes][' + t + '][good_id]" type="hidden" value="' + id + '" /></td><td class="price"><input id="bill_bill_prices_attributes_' + t + '_price_value" name="bill[bill_prices_attributes][' + t + '][price_value]" size="30" type="text" /></td><td class="amount"> <input id="bill_bill_prices_attributes_' + t + '_amount" name="bill[bill_prices_attributes][' + t + '][amount]" size="30" type="text" value="1.0" /></td><td class="total"></td><td><input id="bill_bill_prices_attributes_' + t + '__destroy" name="bill[bill_prices_attributes][' + t + '][_destroy]" type="hidden" /><a href="#" class="remove_fields dynamic">X</a></td></tr>';
+  var html = '<tr id="' + id + '" class="goods_selected"><td class="image"><input id="bill_bill_prices_attributes_' + t + '_image" name="bill[bill_prices_attributes][' + t + '][image]" type="file" /></td>  <td class="name"><input id="bill_bill_prices_attributes_' + t + '_name" name="bill[bill_prices_attributes][' + t + '][name]" value="' + name + '" disabled="disabled" size="30" type="text" /><input id="bill_bill_prices_attributes_' + t + '_good_id" name="bill[bill_prices_attributes][' + t + '][good_id]" type="hidden" value="' + id + '" /></td><td class="price"><input id="bill_bill_prices_attributes_' + t + '_price_value" name="bill[bill_prices_attributes][' + t + '][price_value]" size="30" type="text" /></td><td class="amount"> <input id="bill_bill_prices_attributes_' + t + '_amount" name="bill[bill_prices_attributes][' + t + '][amount]" size="30" type="text" value="1.0" /></td><td class="total"></td><td><input id="bill_bill_prices_attributes_' + t + '__destroy" name="bill[bill_prices_attributes][' + t + '][_destroy]" type="hidden" /><a href="#'+ id + '" onclick="remove_good(\'' + id + '\')">X</a></td></tr>';
   if($('#tbody ' + id).length == 0){
     $('#tbody').prepend(html);
     $('#good_query').val('');
@@ -47,6 +47,12 @@ function add_good(id,name){
   else{
     alter('你已添加此商品。');
   }
+}
+
+function remove_good (id) {
+  $('#' + id).remove();
+  delete goods[id];
+  goods_total(goods);
 }
 
 function bind_new_good (btn_selector) {
