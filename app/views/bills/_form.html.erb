@@ -43,7 +43,7 @@
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td class="total">原价总额</td>
-                <td><%= "%.2f" % @total %></td>
+                <td id="origin_total"><%= "%.2f" % @total %></td>
                 <td>&nbsp;</td>
               <% end %>
             </tr>
@@ -98,7 +98,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true" id="btnNewGood" data-toggle="modal" data-target="#modalNewGood">新建商品</button>
+    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true" id="btnNewGood" data-target="#modalNewGood">新建商品</button>
   </div>
 </div>
 
@@ -117,7 +117,7 @@
 </div>
 
 <script type="text/javascript">
-  var geolocation, myGeo, map;
+  var geolocation, myGeo, map, goods={}, all_total = 0.0;
   $(document).ready(function(){
     map = new BMap.Map('bmap');
     map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
@@ -126,5 +126,15 @@
     locate(map, geolocation, '#bill_lat', '#bill_lon');
     <%#geo_bind_selector(myGeo, '#bill_address', '#bill_lat', '#bill_lon');%>
     suggestion_bind_selector(map, 'bill_address', '#bill_lat', '#bill_lon', '#btn-next', '#a-tab2');
+    $('#tbody').on('blur','.goods_selected input:text:enabled', function(){
+      var tr= $(this).parent().parent();
+      var price =tr.find('.price input').val();
+      var amount =tr.find('.amount input').val();
+      var total = Number(price) * Number(amount);
+      var str_total = format_number(total,2);
+      tr.find('.total').html(str_total);
+      goods[tr.prop('id')] = total
+      goods_total(goods);
+    });
   });
 </script>
