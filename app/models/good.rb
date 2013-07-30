@@ -5,7 +5,7 @@ class Good
   field :name,              :type => String
   field :desc,              :type => String
   field :norm,              :type => String
-  field :unit,              :type => String
+  field :unit,              :type => String, default: '份'
   field :barcode,              :type => String
   field :origin,              :type => String
   field :image,              :type => String
@@ -15,8 +15,8 @@ class Good
   field :picture_count,              :type => Integer, default: 0
 
   mount_uploader :image, ImageUploader
-  attr_accessible :product_name,:brand_name,:norm_name,:name,:desc,:norm,:unit,:barcode,:origin,:tag_list
-  attr_accessor :brand_name,:product_name,:norm_name#,:brand_name,
+  attr_accessible :product_name,:brand_name,:norm_name,:name,:desc,:norm,:unit,:barcode,:origin,:tag_list, :xhr
+  attr_accessor :brand_name,:product_name,:norm_name, :xhr#,:brand_name,
   STATUS_LOW = 2
   belongs_to :user
   belongs_to :brand
@@ -30,8 +30,8 @@ class Good
   has_many :attrs, as:  :attrable
   #has_many :reviews, as:  :reviewable
   has_many :integrals, as:  :integralable
-  has_many :package_goods, dependent:  :destroy
-  has_many :good_packages,foreign_key:  :package_id,class_name:  'PackageGood', dependent:  :destroy
+  #has_many :package_goods, dependent:  :destroy
+  #has_many :good_packages,foreign_key:  :package_id,class_name:  'PackageGood', dependent:  :destroy
   #has_many :goods,through:  :package_goods,source: :package#,foreign_key:  :package_id
   #has_many :packages,through:  :good_packages,source: :good,foreign_key:  :package_id
 
@@ -58,20 +58,13 @@ class Good
   #default_scope includes(:uploads) #
 
   after_initialize do
-    self.unit = '份' if self.unit.blank?
     self.deleted_at = DateTime.new(0) if self.deleted_at? and self.deleted_at.nil?
     self.picture_count = 0 if self.picture_count? and self.picture_count.nil?
   end
 
   def self.search(q)
-    r = nil
-    unless q.blank?
-      r = running.where(barcode:q) if q.to_i.to_s.length > 1 and q.to_i.to_s.length == q.length
-      r = running.where('name LIKE ?', "%#{q}%") if r.nil?
-      r
-    else
-      running
-    end
+    q = '你应该不知道搜索什么把' if q.blank?
+    any_of({barcode: q},{name: Regexp.new(q)})
   end
 
   # def build_name
@@ -103,7 +96,7 @@ class Good
   end
 
   before_create :uniq_barcode_or_nil
-  after_create :exp,:valid_if_user_is_vip
+  #after_create :exp,:valid_if_user_is_vip
 
   def uniq_barcode_or_nil
     barcode = nil if barcode == ''

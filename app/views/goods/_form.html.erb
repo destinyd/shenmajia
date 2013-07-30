@@ -1,5 +1,7 @@
-<%= simple_form_for(good,remote: request.xhr?) do |f| %>
-  <%= f.error_messages %>
-  <%= render "form_fields",f:f %>
-  <%= f.submit %>
+<%= simple_form_for(good,remote: good.xhr || request.xhr?) do |f| %>
+    <%= render "goods/form_fields",f:f %>
+
+  <div class="form-actions">
+    <%= f.button :submit, class:'btn btn-primary' %>
+  </div>
 <% end %>

@@ -6,9 +6,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require bootstrap
 //= require jquery.purr
 //= require jquery.lightbox-0.5.min
+//= require cocoon
+//= require rails.validations
+//= require rails.validations.simple_form
+//= require jquery.autocomplete
+//= require jquery.smart_autocomplete
 //= require_tree .
 function show_and_hide(show,hide){
   $(hide).hide();

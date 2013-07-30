@@ -1,0 +1,140 @@
+<% content_for :head do -%>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=<%= ENV['BD_LBS_KEY'] %>"></script>
+<% end -%>
+<% @total = @bill.bill_prices.sum{|bp| bp.price * bp.amount || 0} %>
+<div class="content">
+  <%= form_for @bill, :validate => true, html: { multipart: true} do |f| -%>
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tab1" data-toggle="tab">选择地点</a>
+      </li>
+      <li class="disabled"><a href="#" id="a-tab2">选择商品</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+
+        <%= f.label :address, class: 'pull-left' %>
+        <%= f.text_field :address, class: 'pull-left' %>
+        <div class="clearfix"></div>
+        <%= f.hidden_field :lat %>
+        <%= f.hidden_field :lon %>
+        <div id="bmap" class="h400">
+        </div>
+        <button class="btn btn-info" disabled="disabled" id="btn-next">请选择一个地点,才能执行下一步操作</button>
+      </div>
+      <div class="tab-pane" id="tab2">
+        <button class="btn btn-primary" onclick="$('#modalGoodSearch').modal('show');return false;">添加商品</button>
+        <table class="table table-bordered table-hover" id="bill_form">
+          <thead>
+            <th class="image">图片</th>
+            <th class="name">商品(*)</th>
+            <th>价格(*)</th>
+            <th>数量(*)</th>
+            <th>总额</th>
+            <th>操作</th>
+          </thead>
+          <tbody id="tbody">
+            <%= f.fields_for :bill_prices do |bill_price| %>
+              <%= render "bill_price_fields", f: bill_price %>
+            <% end -%>
+            <tr class="total">
+              <% if @total != @bill.total %>
+                <td class="name">&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="total">原价总额</td>
+                <td id="origin_total"><%= "%.2f" % @total %></td>
+                <td>&nbsp;</td>
+              <% end %>
+            </tr>
+            <tr class="total">
+              <td class="name">&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>最终总额</td>
+              <td><%= f.text_field :total,value:  "%.2f" % @total %></td>
+              <td>&nbsp;</td>
+            </tr>      
+          </tbody>
+          <tfoot>
+            <tr class="total">
+              <td class="name">&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>你支付了多少</td>
+              <td><%= f.text_field :cost,value:  "%.2f" % @total %></td>
+              <td>&nbsp;</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <%#= f.label :desc %>
+        <%#= f.text_area :desc %>
+        <br />
+        <%= f.submit '提交',name: nil, class:'btn btn-primary' %>
+
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- Modal -->
+<div id="modalGoodSearch" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">选择商品</h3>
+  </div>
+  <div class="modal-body">
+    <%= form_tag '/goods/search' do %>
+      <div class="control-group">
+        <label class="control-label" for="q">商品名称/条形码:</label>
+        <div class="controls">
+          <input type="text" name="q" id="good_query" class="input-large search-query" placeholder="请输入商品名称/条形码"  texttype="text" autocomplete="off" onkeyup="good_query_onkeyup()" />
+        </div>
+      </div>
+    <% end -%>
+    <div id="results">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true" id="btnNewGood" data-target="#modalNewGood">新建商品</button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modalNewGood" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">新建商品</h3>
+  </div>
+  <div class="modal-body" id="modal_new_good">
+    <%= render 'goods/form',good: current_user.goods.new(xhr: true) %>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var geolocation, myGeo, map, goods={}, all_total = 0.0;
+  $(document).ready(function(){
+    map = new BMap.Map('bmap');
+    map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
+    geolocation = new BMap.Geolocation();
+    myGeo = new BMap.Geocoder();
+    locate(map, geolocation, '#bill_lat', '#bill_lon');
+    <%#geo_bind_selector(myGeo, '#bill_address', '#bill_lat', '#bill_lon');%>
+    suggestion_bind_selector(map, 'bill_address', '#bill_lat', '#bill_lon', '#btn-next', '#a-tab2');
+    $('#tbody').on('blur','.goods_selected input:text:enabled', function(){
+      var tr= $(this).parent().parent();
+      var price =tr.find('.price input').val();
+      var amount =tr.find('.amount input').val();
+      var total = Number(price) * Number(amount);
+      var str_total = format_number(total,2);
+      tr.find('.total').html(str_total);
+      goods[tr.prop('id')] = total
+      goods_total(goods);
+    });
+  });
+</script>

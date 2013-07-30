@@ -19,7 +19,7 @@ class Price
   STATUS_LOW = 5
   mount_uploader :image, ImageUploader
   attr_accessor :good_name,:good_user_id,:original_price,:is_cheap_price,:is_360,:name,:title
-  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:city_id,:image
+  attr_accessible :price,:type_id,:address,:amount,:good_name,:finish_at,:started_at,:name,:good_attributes,:outlinks_attributes,:lon, :lat,:original_price,:is_cheap_price,:is_360,:title,:image,:good_id,:city_id,:image, :good, :good_id
   attr_accessible :user_id, on: :bill
   attr_accessible :image_path, on: :admin
   #validates :type_id, presence: true
@@ -133,10 +133,6 @@ class Price
     user.get_point(1,self,1) if user_id
   end
 
-  def exp
-    user.get_point(1,self) if user_id
-  end
-
   # def deal_cheap_price
   #   create_alias_price 6,price if !is_cheap_price.blank? and is_cheap_price != "0"
   # end
@@ -165,8 +161,6 @@ class Price
   def near_prices long = 20
     return city.prices.not_in(:id => self.id) if city
     @nears ||= nearbys(long)
-    @nears ||= @nears.running.limit(10) unless @nears.blank?
-    @nears
   end
 
   def self.near_prices coordinates,long = 20
@@ -238,7 +232,7 @@ class Price
   # before_create :geocode, if: [:no_locate?,:address_changed?]#,on: :create
   #before_update :geocode, if: :address_changed?
   before_create :outlink_user
-  after_create :exp,:deal_good,:deal_image
+  after_create :deal_good,:deal_image
   # after_create :deal_cheap_price,:deal_original_price
 
   def no_locate?
@@ -270,7 +264,7 @@ class Price
 
   def deal_image
     return if image.blank?
-    u = good.uploads.new
+    u = self.good.uploads.new
     u.image_file_name =  self.read_attribute(:image)
     u.save
     #self.good_id = tmp.id  unless self.good_id
