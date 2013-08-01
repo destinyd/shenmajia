@@ -4,7 +4,7 @@
     <h3>账单支付情况</h3>
     
     <% if bill.fully_paid %>
-      本账单由<%= bill.user %>独自支付，<%= link_to '消费记录连接',bill.costs.first, title:'消费记录连接' %>
+      <p><%= link_to "本账单由#{bill.user}独自支付", bill.costs.first, title: "本账单由#{bill.user}独自支付" %>
     <% else %>
       <ul>
         <% bill.costs.each do |cost| %>
@@ -14,7 +14,7 @@
         <% end %>
       </ul>
       <p style="margin:5px 0;">
-        <%= link_to '您也为此买单了？',new_bill_path(cost: {bill_id: bill.id,money: bill.total - bill.costs.sum(&:money)}),rel: 'nofollow',class: 'button' %>
+        <%= link_to '您也为此买单了!',new_cost_path(cost:{ money: bill.total - bill.costs.sum(&:money), bill_id: bill.id}), rel: 'nofollow', class: 'btn btn-primary' %>
       </p>
     <% end %>
   <% end %>

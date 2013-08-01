@@ -3,6 +3,7 @@
   <%= simple_form_for @cost do |f| -%>
     <%= f.input :money %>
     <%= f.input :desc, as: :text %>
+    <%= f.input :bill_id,as: :hidden %>
     <%= f.submit '提交',name: nil %>
   <% end %>
 </div>
