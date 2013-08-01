@@ -1,12 +1,12 @@
 class BillsController < InheritedResources::Base
   #layout 'no_sidebar',only: [:new,:create]
   before_filter :authenticate_user!,only: [:new,:create]
-  actions :all, except: [:edit,:update,:destroy]
+  actions :all, except: [:edit,:destroy]
   belongs_to :place, optional: true
   # belongs_to :shop, optional: true
   respond_to :html
 
-  respond_to :js, only: [:index, :new]
+  respond_to :js, only: [:index, :new, :update]
 
   #caches_page :index,:show
   #cache_sweeper :bill_sweeper
@@ -21,6 +21,14 @@ class BillsController < InheritedResources::Base
     @bill = current_user.bills.new params[:bill]
     create! do |success, failure|
       failure.html{ render :new}
+    end
+  end
+
+  def update
+    @bill = current_user.bills.find(params[:id])
+    debugger
+    update! do |s,f|
+      f.js{render 'fault'}
     end
   end
 

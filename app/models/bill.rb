@@ -14,7 +14,7 @@ class Bill
   field :lon, :type => Float
 
   #acts_as_paranoid
-  attr_accessor :cost, :desc
+  attr_accessor :cost
   attr_accessible :ordered_at, :total, :bill_prices_attributes, :cost, :desc, :address, :lat, :lon
   has_many :bill_prices#, dependent: :destroy
   #has_many :prices,through: :bill_prices

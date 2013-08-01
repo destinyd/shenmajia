@@ -1,0 +1,5 @@
+<%= simple_form_for bill, remote: true, id: 'edit_bill' do |f| %>
+  <%= f.input :desc, as: :text %>
+  <%= f.button :submit, val: '更新描述', class: 'btn btn-primary' %>
+<% end -%>
+

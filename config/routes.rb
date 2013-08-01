@@ -56,7 +56,7 @@ Zhekou::Application.routes.draw do
   
   #resources :products
 
-  resources :bills, except: [:edit,:update] do
+  resources :bills, except: [:edit] do
     resources :comments
     resources :costs, only: :index
   end
