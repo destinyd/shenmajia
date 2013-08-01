@@ -5,8 +5,6 @@ class Bill
   field :total,              :type => Float
   field :ordered_at,              :type => Date
   field :fully_paid,              :type => Boolean
-  field :ordered_at,              :type => Date
-  field :deleted_at,              :type => Date
   field :picture_count,              :type => Integer, default: 0
   field :desc,              :type => String
   field :address,              :type => String
@@ -61,34 +59,34 @@ class Bill
   include DescBuilder
 
   def create_cost
-    costs.new(
+    costs.create(
       {
         money: cost,
         user_id: user_id,
         desc: self.desc
       }, on: :bill
-      )
+    )
+    ordered_at = DateTime.now if ordered_at.blank? and costs.first.valid?
   end
 
   def prices
     Price.in(id: bill_prices.map(&:id))
   end
-  
-  before_create do
-    ordered_at = DateTime.now if ordered_at.blank?
-    unless cost.blank?
-      self.fully_paid = true if cost.to_f == total.to_f
-      build_cost_desc
-      create_cost
-    end
-  end
 
-  after_create :calc_pic_count
+  after_create :bill_order, :calc_pic_count
 
   def calc_pic_count
     bill_prices.each do |bp|
       self.picture_count += 1 if !bp.image.blank?
     end
     save if changed?
+  end
+
+  def bill_order
+    unless cost.blank?
+      self.fully_paid = true if cost.to_f == total.to_f
+      build_cost_desc
+      create_cost
+    end   
   end
 end
