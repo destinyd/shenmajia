@@ -87,7 +87,7 @@ gem "better_errors", ">= 0.7.2", :group => :development
 gem "binding_of_caller", ">= 0.7.1", :group => :development#, :platforms => [:mri_19, :rbx]
 gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]
 #nested form
-gem "cocoon"
+#gem "cocoon"
 
-gem 'client_side_validations'
-gem 'client_side_validations-simple_form'
+#gem 'client_side_validations'
+#gem 'client_side_validations-simple_form'

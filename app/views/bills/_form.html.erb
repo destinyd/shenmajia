@@ -3,7 +3,7 @@
 <% end -%>
 <% @total = @bill.bill_prices.sum{|bp| bp.price * bp.amount || 0} %>
 <div class="content">
-  <%= form_for @bill, :validate => true, html: { multipart: true} do |f| -%>
+  <%= form_for @bill, html: { multipart: true} do |f| -%>
     <ul class="nav nav-tabs">
       <li class="active">
         <a href="#tab1" data-toggle="tab">选择地点</a>
