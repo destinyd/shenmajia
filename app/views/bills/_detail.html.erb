@@ -1,6 +1,10 @@
 <h3>账单属性：</h3>
-<dl class="dl-horizontal">
-  <%= d bill, :desc %>
-  <%= d bill, :address %>
-</dl>
+<% if bill.desc.blank? and bill.address.blank? %>
+  <p> 暂无 </p>
+<% else %>
+  <dl class="dl-horizontal">
+    <%= d bill, :desc %>
+    <%= d bill, :address %>
+  </dl>
+<% end %>
 
