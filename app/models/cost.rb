@@ -59,6 +59,14 @@ class Cost
     "#{user}消费#{money}元"
   end
 
+  after_create :fully_pay_bill
+
+  def fully_pay_bill
+    if self.bill and self.bill.costs.sum(&:money) >= self.bill.total
+      self.bill.update_attribute :fully_paid, true
+    end
+  end
+
   # include UnitInitHelper
   # before_create :create_good,:create_price
 

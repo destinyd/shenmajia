@@ -6,5 +6,6 @@
 %>
 <h1><%= @bill %></h1>
 <%= render 'bills/show', bill: @bill %>
+<%= render 'detail', bill: @bill %>
 <%= render 'costs', bill: @bill %>
 <%= render "application/share" %>

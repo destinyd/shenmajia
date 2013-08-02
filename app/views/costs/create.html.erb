@@ -1,5 +1,8 @@
 <h1>提交成功</h1>
-<p><%= link_to '查看您的消费单',@cost %></p>
+<% if @cost.bill %>
+<p><%= link_to '查看您的账单',@cost.bill %></p>
+<% end %>
+<p><%= link_to '查看您的消费记录',@cost %></p>
 <p><%= link_to '继续记消费', new_cost_path %></p>
 <h2>分享你的消费单。</h2>
 <!-- Baidu Button BEGIN -->
