@@ -123,7 +123,7 @@
     map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
     geolocation = new BMap.Geolocation();
     myGeo = new BMap.Geocoder();
-    locate(map, geolocation, '#bill_lat', '#bill_lon');
+    locate(map, geolocation, '#bill_lat', '#bill_lon', '#btn-next', '#a-tab2');
     <%#geo_bind_selector(myGeo, '#bill_address', '#bill_lat', '#bill_lon');%>
     suggestion_bind_selector(map, 'bill_address', '#bill_lat', '#bill_lon', '#btn-next', '#a-tab2');
     $('#tbody').on('blur','.goods_selected input:text:enabled', function(){
