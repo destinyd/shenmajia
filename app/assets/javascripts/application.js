@@ -8,7 +8,8 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require bootstrap
-//= require jquery.purr
+// require jquery.purr
+//= require humane
 //= require jquery.lightbox-0.5.min
 // require cocoon
 // require rails.validations
@@ -16,6 +17,11 @@
 // require jquery.autocomplete
 // require jquery.smart_autocomplete
 //= require_tree .
+humane.timeout = 5000;
+humane.alter = humane.spawn({ addnCls: 'humane-libnotify-info', clickToClose: true, waitForMove: true})
+humane.success = humane.spawn({ addnCls: 'humane-boldlight-success'})
+humane.error = humane.spawn({ addnCls: 'humane-boldlight-error'})
+
 function show_and_hide(show,hide){
   $(hide).hide();
   $(show).show();

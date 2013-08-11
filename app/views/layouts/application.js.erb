@@ -1,6 +1,8 @@
 <%= yield %>
 <% flash.each do |name, msg| %>
-  $('body').append('<%= j content_tag :div, msg, class:  "flash_#{name} flash" %>');
+  <% if msg.is_a?(String) %>
+    humane.<%= name == :notice ? "success" : "error" %>('<%= j msg %>');
+  <% end %>
 <% end %>
-$('.flash').purr();
 <% flash.discard %>;
+
