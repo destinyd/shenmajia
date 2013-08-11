@@ -39,6 +39,7 @@ class Good
   #has_many :costs , through:  :good_costs
   #has_many :costs
   has_many :comments, as: :commentable
+  has_many :infos
 
   accepts_nested_attributes_for :outlinks
   accepts_nested_attributes_for :uploads
@@ -48,6 +49,7 @@ class Good
   scope :running,where(deleted_at:  DateTime.new(0))
   #scope :list,select('goods.id,goods.name,goods.norm,goods.unit,goods.origin,goods.created_at,goods.image')
   scope :with_pic,where(:image.exists => true)
+  scope :with_barcode,where(:barcode.nin => ["",nil], :barcode.exists => true)
 
   validates :name, presence:  true,uniqueness:  {scope:  [:unit,:norm]}
   validates :unit, presence:  true

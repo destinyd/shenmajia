@@ -91,3 +91,5 @@ gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]
 
 #gem 'client_side_validations'
 #gem 'client_side_validations-simple_form'
+
+gem 'rest-client'
