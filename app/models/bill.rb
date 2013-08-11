@@ -20,6 +20,7 @@ class Bill
   #has_many :goods,through: :prices
   has_many :costs, dependent: :destroy
   has_many :uploads, as: :uploadable
+  has_many :comments, as: :commentable
   belongs_to :user
 
   validates :total, presence: true

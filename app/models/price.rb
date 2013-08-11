@@ -40,6 +40,7 @@ class Price
   has_many :bill_prices#, dependent: :destroy
   #has_many :bills,through: :bill_prices
   has_and_belongs_to_many :bills
+  has_many :comments, as: :commentable
 
   include Geocoder::Model::Mongoid
   geocoded_by :address, latitude: :lat, longitude: :lon

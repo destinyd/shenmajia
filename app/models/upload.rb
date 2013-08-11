@@ -18,6 +18,7 @@ class Upload
   #validates :image_file_name, presence: true#,uniqueness: {scope: [:uploadable_id, :uploadable_type]}
   #validates :uploadable_type, presence: true
   
+  has_many :comments, as: :commentable
   default_scope where(deleted_at: nil)
   scope :recent,desc(:created_at)#.limit(9)
   #scope :review_type, Filter.new(self).extend(ReviewTypeFilter)

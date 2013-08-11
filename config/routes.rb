@@ -219,7 +219,9 @@ Zhekou::Application.routes.draw do
 
   get "home/index"
 
-  resources :uploads#,only: [:show]
+  resources :uploads do#,only: [:show]
+    resources :comments
+  end
 
   #devise_for :users#     , controllers: { sessions:  "users/sessions" }
   #  devise_scope :user do

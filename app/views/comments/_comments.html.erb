@@ -1,29 +1,17 @@
-<% comments = commentable.comments.page(params[:comments_page]) %>
-<section>
-<header>
-<nav>
-<h2 id="comments_size"><a href="#评论"><%= "#{commentable.comments.size}条评论" %></a></h2>
-</nav>
-<header>
-<div class="article">
-<div id="comments">  
-  <% unless comments.empty? %>  
-    <%= render 'comments/livecomments',comments: comments %>
-  <% end %> 
-</div> 
+<ul class="unstyled ul-comments" id="comments">
+  <%= render comments %>
+</ul>
+<div class="clearfix"></div>
+<div class="pull-right">
+  <% if parent %>
+    <%= paginate comments,param_name: :cpage, :params => {controller: :comments, action: :index, :"#{parent.class.name.downcase}_id" => parent.id, id: nil}, remote: true %>
+  <% else %>
+    <%= paginate comments,param_name: :cpage %>
+  <% end %>
 </div>
-</section>
-
-<section>
-<header>
-<nav><h2><a href="#写评论">写评论</a></h2></nav>
-</header>
-<div class="article">
-<%#<div class="user_show"> %>
-  <%= render 'comments/form',commentable: commentable %>
-<%#</div>%>
-<%#<div class="user_hide">%>
-  <%#登录之后你也写几句？%>
-<%#</div>%>
-</div>
-</section>
+<div class="clearfix"></div>
+<% unless comments.any? %>
+  <div id="no_comment">
+    暂时还没评论，还不快来抢沙发。
+  </div>
+<% end %>

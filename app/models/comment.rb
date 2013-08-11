@@ -1,20 +1,15 @@
 class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
-  field :comment
-  field :role, default: 'comments'
-
-  #include ActsAsCommentable::Comment
-
-  belongs_to :commentable, polymorphic: true
-
-  #default_scope desc(:created_at)
-
-  # NOTE: install the acts_as_votable plugin if you
-  # want user to vote on the quality of comments.
-  #acts_as_voteable
-
-  # NOTE: Comments belong to a user
+  field :content, type: String
   belongs_to :user
-  scope :recent,desc(:created_at)
+  belongs_to :commentable, polymorphic: true
+  attr_accessible :content
+
+  scope :recent, desc(:created_at)
+  scope :system, where(commentable: nil)
+  scope :with_commentable, not_in(commentable: nil)
+  scope :sidebar_comments, with_commentable.recent.limit(10)
+
+  validates :content, length: 1..300
 end

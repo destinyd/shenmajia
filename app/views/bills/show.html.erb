@@ -9,3 +9,5 @@
 <%= render 'detail', bill: @bill %>
 <%= render 'costs', bill: @bill %>
 <%= render "application/share" %>
+<div class="clearfix"></div>
+<%= render "comments/all", parent: @bill %>
