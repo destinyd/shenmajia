@@ -32,7 +32,7 @@ group :development do
   #gem "nifty-generators"
   gem "rspec-rails", "~> 2.0"
   gem 'guard-rspec'#, '0.5.5'
-  gem 'debugger', git: 'git://github.com/cldwalker/debugger.git'
+  gem 'debugger'#, git: 'git://github.com/cldwalker/debugger.git'
 end
 
 case HOST_OS
