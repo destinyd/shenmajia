@@ -5,8 +5,9 @@
 
       <%= f.button :submit, '发表评论', class: 'btn-primary ml10' %>
     <% end %>
-
   <% else %>
-    <%= render "application/login" %>
+    <div class="well">
+      <%= render "application/login" %>
+    </div>
   <% end %>
 </div>
