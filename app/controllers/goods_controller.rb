@@ -22,10 +22,11 @@ class GoodsController < InheritedResources::Base
   end
 
   def search
-    @goods = Good.search(params[:q]).page(params[:page])
+    s = Good.full_search(params[:q], params[:page])
+    @goods = s.results
     respond_to do |f|
-      f.json{render json: @goods}
-      f.html{render :index}
+      f.json{render json: {results: @goods, has_next: !@goods.last_page?}}
+      f.html
     end
   end
 

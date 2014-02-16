@@ -1,0 +1,9 @@
+<% @where_name = "搜索商品 " + params[:q] + " ，第#{params[:page] || 1}页" %>
+<% set_meta_tags keywords:  "商品,单位," + params[:q] , 
+  description:  @where_name,
+  title: @where_name
+%>
+<%= render @goods %>
+<div class="pull-right">
+  <%= paginate @goods %>
+</div>

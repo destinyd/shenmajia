@@ -2,29 +2,44 @@ $(function(){
   $('.ajax_paginate').ajax_paginate();
 })
 
+var search_page = 1;
 var search_timeout = null;
 function good_query_onkeyup(){
-  $('#results').html('读取中...');
   clear_search();
-  search_timeout = setTimeout(function(){search_goods()},1000);
+  init_search_page();
+  search_timeout = setTimeout(function(){search_goods(1)},1000);
 }
 
-function search_goods(){
+function start_search_goods(){
+  init_search_page();
+  search_goods(1);
+  return false;
+}
+
+function search_goods(page){
+  $('#results').html('读取中...');
   var query = $('#good_query').val();
   var children = '';
   var child = '';
-  $.getJSON('/goods/search.json?q='+query, function(data){
-    if(data.length > 0){
-      $.each(data,function(key,hash){
-        h = hash;
-        child = '<div class="good"><h4><a href="javascript:void(0)" onclick="add_good(\''+ hash._id +'\',\'' + hash.name + '\')">' + hash.name + '(' + hash.unit + ')</a></h4>';
-      children += child;
-      });
-    }
-    else{
-      children = '找不到相关商品。';
+  var has_next = false;
+  $.getJSON('/goods/search.json?q='+query + '&page=' + page.toString(), function(data){
+    try{
+      has_next = data['has_next'];
+      if(data['results'].length > 0){
+        $.each(data['results'],function(key,hash){
+          h = hash;
+          child = '<div class="good"><a href="javascript:void(0)" onclick="add_good(\''+ hash._id +'\',\'' + hash.name + '\')">' + hash.name + '(' + hash.norm + '/' + hash.unit + ') ' + hash.barcode + '</a><div class="pull-right"><button class="btn btn-primary" onclick="add_good(\''+ hash._id +'\',\'' + hash.name + '\')">选择</button></div></div><div class="clearfix"></div>';
+        children += child;
+        });
+      }
+      else{
+        children = '找不到相关商品。';
+      }
+    }catch(ex){
+        children = '找不到相关商品。';
     }
     $('#results').html(children);
+    render_search_paginate(search_page, has_next);
   });
 }
 
@@ -100,4 +115,35 @@ function goods_total (goods) {
   var str_all_total = format_number(all_total, 2);
   $('#origin_total').html(str_all_total);
   $('#bill_total,#bill_cost').val(str_all_total);
+}
+
+function render_search_paginate(page, has_next){
+  var paginate = $('#results_paginate');
+  var prev = paginate.find('.previous');
+  var next = paginate.find('.next');
+  console.log(page > 1);
+  (page > 1) ? prev.show() : prev.hide();
+  has_next ? next.show() : next.hide();
+  $('#results_paginate').show();
+}
+
+function  render_search_prev_page(){
+  clear_search();
+  if(search_page < 1)
+    search_page = 1
+  else
+    search_page -= 1;
+  search_goods(search_page);
+}
+
+function  render_search_next_page(){
+  clear_search();
+  if(search_page < 1)
+    search_page = 1;
+  search_page += 1;
+  search_goods(search_page);
+}
+
+function init_search_page(){
+  search_page = 1;
 }

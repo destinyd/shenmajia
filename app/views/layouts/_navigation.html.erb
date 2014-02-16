@@ -1,13 +1,35 @@
 <%= link_to t('title'), root_url, :class => 'brand' %>
 <div class="nav-collapse collapse">
-  <ul class="nav pull-right">
+  <ul class="nav navbar-nav">
+    <li>
+      <%= link_to '账单秀', bills_url %>
+    </li>
+    <li>
+      <%= link_to '最新价格', prices_url %>
+    </li>
+    <li>
+      <%= link_to '最新消费记录', costs_url %>
+    </li>
+    <li>
+      <%= link_to '商品库', goods_url %>
+    </li>
+    <li class="divider-vertical"></li>
+    <form class="navbar-search form-search pull-left" role="search" action="/goods/search">
+      <div class="input-append">
+        <input type="text" class="span2 search-query" name="q" placeholder="商品名/条形码">
+        <button type="submit" class="btn"><i class="icon-search"></i></button>
+      </div>
+    </form>
+  </ul>
+
+  <ul class="nav navbar-nav pull-right">
     <% if user_signed_in? %>
       <li>
         <%= link_to current_user, userhome_root_path %>
       </li>
       <%#<li>%>
         <%#= link_to current_user.msgs.unread.count, msgs_path, title:'未读消息', id: 'unread_messages_count' %>
-      <%#</li>%>
+        <%#</li>%>
       <li>
         <%= link_to "记账", new_bill_url %>
       </li>
@@ -25,20 +47,5 @@
         <%= link_to '注册', new_user_registration_url(subdomain: ENV['SUBDOMAIN']) %>
       </li>
     <% end %>
-  </ul>
-
-  <ul class="nav">
-    <li>
-      <%= link_to '账单秀', bills_url %>
-    </li>
-    <li>
-      <%= link_to '最新价格', prices_url %>
-    </li>
-    <li>
-      <%= link_to '最新消费记录', costs_url %>
-    </li>
-    <li>
-      <%= link_to '商品库', goods_url %>
-    </li>
   </ul>
 </div>

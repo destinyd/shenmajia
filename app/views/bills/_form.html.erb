@@ -89,11 +89,22 @@
       <div class="control-group">
         <label class="control-label" for="q">商品名称/条形码:</label>
         <div class="controls">
-          <input type="text" name="q" id="good_query" class="input-large search-query" placeholder="请输入商品名称/条形码"  texttype="text" autocomplete="off" onkeyup="good_query_onkeyup()" />
+          <input type="text" name="q" id="good_query" class="input-large search-query" placeholder="请输入商品名称/条形码"  texttype="text" autocomplete="off" /><!-- onkeyup="good_query_onkeyup()" />-->
+          <button class="btn btn-primary" onclick="return start_search_goods();">搜索</button>
         </div>
       </div>
     <% end -%>
     <div id="results">
+    </div>
+    <div id="results_paginate">
+      <ul class="pager">
+        <li class="previous">
+          <a href="javascript:void(0);" onclick="render_search_prev_page()">上一页</a>
+        </li>
+        <li class="next">
+          <a href="javascript:void(0);" onclick="render_search_next_page()">下一页</a>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="modal-footer">

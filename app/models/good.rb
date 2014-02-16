@@ -2,6 +2,7 @@
 class Good
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Sunspot::Mongoid2
   field :name,              :type => String
   field :desc,              :type => String
   field :norm,              :type => String
@@ -13,6 +14,12 @@ class Good
   field :is_valid,              :type => Boolean
   field :deleted_at,              :type => Date
   field :picture_count,              :type => Integer, default: 0
+  searchable do
+    text :name
+    text :barcode
+    text :desc
+    time :created_at
+  end
 
   mount_uploader :image, ImageUploader
   attr_accessible :product_name,:brand_name,:norm_name,:name,:desc,:norm,:unit,:barcode,:origin,:tag_list, :xhr
@@ -64,10 +71,18 @@ class Good
     self.picture_count = 0 if self.picture_count? and self.picture_count.nil?
   end
 
-  def self.search(q)
-    q = '你应该不知道搜索什么把' if q.blank?
-    any_of({barcode: q},{name: Regexp.new(q)})
-  end
+  #def self.search(q)
+    #q = '你应该不知道搜索什么把' if q.blank?
+    ##any_of({barcode: q},{name: Regexp.new(q)})
+    ##exact_q = "\"" + q + "\""
+    #search = Sunspot.search(Good) do
+      #fulltext q do
+        #boost(100.0) { with(:barcode, exact_q) }
+        #boost(10.0) { with(:created_at).greater_than(1.day.ago)}
+        #boost_fields :name => 3.0
+      #end
+    #end
+  #end
 
   # def build_name
   #   brand.try(:name) + product.try(:name) + norm.try(:name)
@@ -107,5 +122,20 @@ class Good
 
   def exp
     self.user.get_point(1,self) if self.user_id
+  end
+
+  def self.full_search q, page = 1
+    if q.blank?
+      q = '请输入搜索内容'
+    else
+      q = q.gsub('"', '"\\')
+    end
+    s = Good.search do
+      fulltext q do
+        boost(10.0) { with(:created_at).greater_than(1.day.ago)}
+        boost_fields :name => 3.0
+      end
+      paginate per_page: 10, page: page
+    end
   end
 end

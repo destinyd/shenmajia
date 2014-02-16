@@ -3,7 +3,7 @@ HOST_OS = RbConfig::CONFIG['host_os']
 #source 'https://rubygems.org'
 source 'http://ruby.taobao.org/'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.16'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -32,7 +32,7 @@ group :development do
   #gem "nifty-generators"
   gem "rspec-rails", "~> 2.0"
   gem 'guard-rspec'#, '0.5.5'
-  gem 'debugger'#, git: 'git://github.com/cldwalker/debugger.git'
+  gem 'debugger', git: 'git://github.com/cldwalker/debugger.git'
 end
 
 case HOST_OS
@@ -93,3 +93,6 @@ gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]
 #gem 'client_side_validations-simple_form'
 
 gem 'rest-client'
+gem 'sunspot_mongoid2'
+gem 'sunspot_rails'
+gem 'sunspot_solr'

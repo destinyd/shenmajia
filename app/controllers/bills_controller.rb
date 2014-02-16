@@ -26,7 +26,6 @@ class BillsController < InheritedResources::Base
 
   def update
     @bill = current_user.bills.find(params[:id])
-    debugger
     update! do |s,f|
       f.js{render 'fault'}
     end

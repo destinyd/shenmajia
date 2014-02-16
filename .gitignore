@@ -1,6 +1,6 @@
 .bundle
 db/*.sqlite3
-log/*.log
+log/*
 tmp/
 config/database.yml
 config/unicorn.rb
@@ -21,3 +21,5 @@ public/p
 config/mongoid.yml
 public/sitemap*
 config/thin.yml
+sunspot-solr.pid
+solr/*
