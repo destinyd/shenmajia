@@ -19,7 +19,7 @@ end
 gem 'geocoder', :github => "alexreisner/geocoder"
 gem "bootstrap-sass", ">= 2.3.0.0"
 gem 'kaminari'
-gem 'kaminari-bootstrap'
+gem 'kaminari-bootstrap', '~> 0.1.3'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
