@@ -16,7 +16,7 @@ group :assets do
 end
 
 
-gem 'geocoder', :github => "alexreisner/geocoder"
+gem 'geocoder'#, :github => "alexreisner/geocoder"
 gem "bootstrap-sass", ">= 2.3.0.0"
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 0.1.3'
@@ -86,6 +86,7 @@ gem "figaro", ">= 0.6.3"
 gem "better_errors", ">= 0.7.2", :group => :development
 gem "binding_of_caller", ">= 0.7.1", :group => :development#, :platforms => [:mri_19, :rbx]
 gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]
+gem "test-unit", :group => [:development, :test]
 #nested form
 #gem "cocoon"
 
